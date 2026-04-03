@@ -1,9 +1,23 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import '../app/(main)/landing.css'
+import { HeroIntro } from './HeroIntro'
 
 export function LandingPage() {
+  const [introComplete, setIntroComplete] = useState(false)
+  const heroRef = useRef<HTMLElement>(null)
+
+  const handleIntroComplete = useCallback(() => {
+    setIntroComplete(true)
+    // Kick off hero reveal animations after the intro
+    const heroEl = heroRef.current
+    if (!heroEl) return
+    heroEl.querySelectorAll('#hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 100 + i * 150)
+    })
+  }, [])
+
   useEffect(() => {
     /* ---------- CUSTOM CURSOR ---------- */
     const dot = document.getElementById('cursorDot')
@@ -55,10 +69,7 @@ export function LandingPage() {
     )
     reveals.forEach((el) => observer.observe(el))
 
-    /* Trigger hero reveals immediately */
-    document.querySelectorAll('#hero .reveal').forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), 200 + i * 150)
-    })
+    /* Hero reveals are triggered by HeroIntro.onComplete, not here */
 
     /* ---------- FORM SUBMIT ---------- */
     const quoteForm = document.getElementById('quoteForm') as HTMLFormElement | null
@@ -113,6 +124,9 @@ export function LandingPage() {
 
   return (
     <>
+      {/* HERO INTRO ANIMATION */}
+      {!introComplete && <HeroIntro onComplete={handleIntroComplete} />}
+
       {/* CUSTOM CURSOR */}
       <div className="cursor-dot" id="cursorDot"></div>
 
@@ -164,7 +178,7 @@ export function LandingPage() {
       </nav>
 
       {/* SECTION 1: HERO */}
-      <section id="hero" aria-label="Hero">
+      <section id="hero" aria-label="Hero" ref={heroRef}>
         <div className="geo-overlay geo-pattern"></div>
         <div className="hero-photo" aria-hidden="true"></div>
 
