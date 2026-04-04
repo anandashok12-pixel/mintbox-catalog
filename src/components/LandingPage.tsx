@@ -257,7 +257,7 @@ export function LandingPage() {
 
         <div className="occasions-grid">
           <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=600&q=75')", opacity: 0.7 }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.png')" }}></div>
             <div className="occasion-card-overlay">
               <h3 className="occasion-name">Employee Onboarding</h3>
               <p className="occasion-desc">Make Day 1 unforgettable</p>
@@ -265,7 +265,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=600&q=75')", opacity: 0.7 }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.png')" }}></div>
             <div className="occasion-card-overlay">
               <h3 className="occasion-name">Diwali &amp; Festive</h3>
               <p className="occasion-desc">The gift they actually keep</p>
@@ -273,7 +273,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=75')", opacity: 0.7 }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.png')" }}></div>
             <div className="occasion-card-overlay">
               <h3 className="occasion-name">Client Appreciation</h3>
               <p className="occasion-desc">Strengthen every relationship</p>
@@ -281,7 +281,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75')", opacity: 0.7 }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.png')" }}></div>
             <div className="occasion-card-overlay">
               <h3 className="occasion-name">Work Anniversary</h3>
               <p className="occasion-desc">Celebrate the ones who stayed</p>
@@ -289,7 +289,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=75')", opacity: 0.7 }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.png')" }}></div>
             <div className="occasion-card-overlay">
               <h3 className="occasion-name">Team &amp; Events</h3>
               <p className="occasion-desc">Brand that travels with them</p>
@@ -297,7 +297,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=600&q=75')", opacity: 0.7 }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.png')" }}></div>
             <div className="occasion-card-overlay">
               <h3 className="occasion-name">New Year</h3>
               <p className="occasion-desc">Start the year with intention</p>
