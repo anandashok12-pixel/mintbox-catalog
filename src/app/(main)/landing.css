@@ -598,9 +598,8 @@
     .occasion-card-overlay {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 32%;
       background: var(--forest-deep);
-      padding: 18px 20px 16px;
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -621,9 +620,10 @@
     }
     .occasion-arrow {
       position: absolute;
-      bottom: 18px; right: 20px;
+      bottom: 16px; right: 18px;
       color: var(--gold);
-      font-size: 14px;
+      display: flex;
+      align-items: center;
       transition: transform 0.25s ease;
     }
     .occasion-card:hover .occasion-arrow { transform: translateX(4px); }
