@@ -150,7 +150,7 @@
       text-decoration: none;
     }
     .nav-logo-img {
-      height: 38px;
+      height: 52px;
       width: auto;
       display: block;
     }
@@ -187,7 +187,7 @@
 
     .btn-primary {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 500;
       background: var(--cream);
       color: var(--forest-green);
@@ -322,7 +322,7 @@
     }
     .hero-btn-primary {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 500;
       background: var(--near-black);
       color: var(--cream);
@@ -337,7 +337,7 @@
     .hero-btn-primary:hover { background: var(--forest-green); }
     .hero-btn-secondary {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 400;
       background: transparent;
       color: var(--ink-muted);
