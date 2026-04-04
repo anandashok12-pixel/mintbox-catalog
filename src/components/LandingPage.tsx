@@ -172,19 +172,19 @@ export function LandingPage() {
       <div className="hamper-strip" aria-label="Gift hamper gallery">
           <div className="hamper-track">
             {/* Cards × 2 for seamless loop */}
-            {[
-              { src: '/hampers/hamper1.png', label: 'Araku Coffee Kit' },
-              { src: '/hampers/hamper2.png', label: 'Work From Home Essentials' },
-              { src: '/hampers/hamper3.png', label: 'Employee Onboarding Kit' },
-              { src: '/hampers/hamper4.png', label: 'Desk Starter Pack' },
-              { src: '/hampers/hamper5.png', label: 'Premium Gift Hamper' },
-              // duplicate for seamless loop
-              { src: '/hampers/hamper1.png', label: 'Araku Coffee Kit' },
-              { src: '/hampers/hamper2.png', label: 'Work From Home Essentials' },
-              { src: '/hampers/hamper3.png', label: 'Employee Onboarding Kit' },
-              { src: '/hampers/hamper4.png', label: 'Desk Starter Pack' },
-              { src: '/hampers/hamper5.png', label: 'Premium Gift Hamper' },
-            ].map((card, i) => (
+            {(() => {
+              const items = [
+                { src: '/hampers/hamper7.png',  label: 'Festive Hamper' },
+                { src: '/hampers/hamper8.png',  label: 'Artisan Gift Box' },
+                { src: '/hampers/hamper9.png',  label: 'Luxury Corporate Kit' },
+                { src: '/hampers/hamper10.png', label: 'Premium Gift Box' },
+                { src: '/hampers/hamper11.png', label: 'Branded Corporate Box' },
+                { src: '/hampers/hamper12.png', label: 'Wellness Hamper' },
+                { src: '/hampers/hamper6.png',  label: 'Bamboo Office Kit' },
+                { src: '/hampers/hamper1.png',  label: 'Araku Coffee Kit' },
+              ];
+              return [...items, ...items];
+            })().map((card, i) => (
               <div className="hamper-card" key={i}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={card.src} alt={card.label} loading={i < 7 ? 'eager' : 'lazy'} />

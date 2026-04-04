@@ -261,7 +261,6 @@
        HERO SECTION — Centered
     =========================== */
     #hero {
-      min-height: 100vh;
       background-color: var(--cream);
       display: flex;
       flex-direction: column;
@@ -273,7 +272,7 @@
     #hero .geo-overlay { display: none; }
 
     #hero .hero-content {
-      padding: 160px 40px 80px;
+      padding: 108px 40px 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
