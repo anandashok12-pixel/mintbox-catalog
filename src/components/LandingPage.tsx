@@ -208,6 +208,12 @@ export function LandingPage() {
           <img src="/clients/open.png" alt="Open" className="client-logo" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/clients/mana.png" alt="MANA" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/excitel.png" alt="Excitel" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/practo.png" alt="Practo" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/plivo.png" alt="Plivo" className="client-logo" />
         </div>
       </div>
 
