@@ -196,39 +196,53 @@ export function LandingPage() {
 
       {/* SECTION 2: TRUST BAR */}
       <div id="trust-bar" aria-label="Client trust bar">
-        <p className="trust-logos-label">Trusted by teams at</p>
-        <div className="client-logos">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/icici.png" alt="ICICI Bank" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/quixta.png" alt="Quixta" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/tedx.png" alt="TEDx" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/open.png" alt="Open" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/mana.png" alt="MANA" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/excitel.png" alt="Excitel" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/practo.png" alt="Practo" className="client-logo" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/plivo.png" alt="Plivo" className="client-logo" />
-        </div>
-        <div className="trust-stats">
-          <div className="trust-stat">
-            <span className="trust-stat-num">500+</span>
-            <span className="trust-stat-label">Curated Products</span>
+        <div className="trust-bar-inner">
+          {/* Left: scrolling logos */}
+          <div className="trust-logos">
+            <p className="trust-logos-label">Trusted by teams at</p>
+            <div className="marquee-wrap">
+              <div className="marquee-track" aria-hidden="true">
+                {/* set × 2 for seamless loop */}
+                {[
+                  { src: '/clients/icici.png', alt: 'ICICI Bank' },
+                  { src: '/clients/quixta.png', alt: 'Quixta' },
+                  { src: '/clients/tedx.png', alt: 'TEDx' },
+                  { src: '/clients/open.png', alt: 'Open' },
+                  { src: '/clients/mana.png', alt: 'MANA' },
+                  { src: '/clients/excitel.png', alt: 'Excitel' },
+                  { src: '/clients/practo.png', alt: 'Practo' },
+                  { src: '/clients/plivo.png', alt: 'Plivo' },
+                  { src: '/clients/icici.png', alt: 'ICICI Bank' },
+                  { src: '/clients/quixta.png', alt: 'Quixta' },
+                  { src: '/clients/tedx.png', alt: 'TEDx' },
+                  { src: '/clients/open.png', alt: 'Open' },
+                  { src: '/clients/mana.png', alt: 'MANA' },
+                  { src: '/clients/excitel.png', alt: 'Excitel' },
+                  { src: '/clients/practo.png', alt: 'Practo' },
+                  { src: '/clients/plivo.png', alt: 'Plivo' },
+                ].map((logo, i) => (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img key={i} src={logo.src} alt={logo.alt} className="client-logo" />
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="trust-stat-divider" />
-          <div className="trust-stat">
-            <span className="trust-stat-num">10 Units</span>
-            <span className="trust-stat-label">Minimum Order Quantity</span>
-          </div>
-          <div className="trust-stat-divider" />
-          <div className="trust-stat">
-            <span className="trust-stat-num">Pan India</span>
-            <span className="trust-stat-label">Delivery</span>
+          {/* Right: stats */}
+          <div className="trust-stats">
+            <div className="trust-stat">
+              <span className="trust-stat-num">500+</span>
+              <span className="trust-stat-label">Curated Products</span>
+            </div>
+            <div className="trust-stat-divider" />
+            <div className="trust-stat">
+              <span className="trust-stat-num">10 Units</span>
+              <span className="trust-stat-label">Min. Order Qty</span>
+            </div>
+            <div className="trust-stat-divider" />
+            <div className="trust-stat">
+              <span className="trust-stat-num">Pan India</span>
+              <span className="trust-stat-label">Delivery</span>
+            </div>
           </div>
         </div>
       </div>
