@@ -201,7 +201,7 @@ export function LandingPage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/clients/icici.png" alt="ICICI Bank" className="client-logo" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/clients/quixta.webp" alt="Quixta" className="client-logo" />
+          <img src="/clients/quixta.png" alt="Quixta" className="client-logo" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/clients/tedx.png" alt="TEDx" className="client-logo" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
