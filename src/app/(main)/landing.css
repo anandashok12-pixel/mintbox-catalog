@@ -645,84 +645,99 @@
     /* ===========================
        HOW IT WORKS
     =========================== */
-    #how-it-works {
-      background: var(--forest-deep);
-      padding: 100px 60px;
-    }
-    .how-header { margin-bottom: 64px; }
-    .how-headline {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 44px;
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1.2;
-      margin-top: 12px;
-    }
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      max-width: 1100px;
-    }
-    .step {
-      padding: 0 48px 0 0;
+    /* HOW IT WORKS — CINEMATIC WITH PARALLAX */
+    .hiw-cinematic {
+      display: flex;
+      min-height: 100vh;
       position: relative;
     }
-    .step + .step {
-      padding-left: 48px;
-      border-left: 0.5px solid rgba(184,151,46,0.3);
+    .hiw-cin-panels {
+      width: 50%;
+      flex-shrink: 0;
     }
-    .step-number {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 80px;
-      font-weight: 300;
-      color: rgba(184,151,46,0.15);
-      line-height: 1;
+    .hiw-cin-panel {
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(27,77,62,0.08);
+    }
+    .hiw-panel-1 { background: #fff; }
+    .hiw-panel-2 { background: var(--forest-green); }
+    .hiw-panel-3 { background: var(--cream); }
+    .hiw-cin-ghost {
       position: absolute;
-      top: -16px; left: -8px;
-      user-select: none;
-      pointer-events: none;
-    }
-    .step + .step .step-number { left: 40px; }
-    .step-icon {
-      width: 32px; height: 32px;
-      stroke: var(--gold);
-      fill: none;
-      stroke-width: 1.2;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
-      margin-top: 40px;
-    }
-    .step-title {
+      right: -0.04em;
+      top: 50%;
+      transform: translateY(-50%);
       font-family: 'Libre Baskerville', serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--cream);
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
+      font-size: 240px;
+      font-weight: 700;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(27,77,62,0.07);
+      pointer-events: none;
+      user-select: none;
     }
-    .step-desc {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      color: rgba(245,240,230,0.65);
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
+    .hiw-panel-2 .hiw-cin-ghost {
+      -webkit-text-stroke: 1px rgba(245,240,230,0.09);
     }
-    .how-cta {
-      margin-top: 56px;
-      font-family: 'Satoshi', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
+    .hiw-cin-body { position: relative; z-index: 2; max-width: 480px; }
+    .hiw-cin-step-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
-      text-decoration: none;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
-    .how-cta:hover { opacity: 0.75; }
+    .hiw-cin-step-tag::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 52px;
+      background: var(--gold);
+    }
+    .hiw-cin-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--forest-deep);
+    }
+    .hiw-panel-2 .hiw-cin-title { color: var(--cream); }
+    .hiw-cin-desc {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 18px;
+      line-height: 1.75;
+      color: rgba(26,26,24,0.55);
+      max-width: 400px;
+    }
+    .hiw-panel-2 .hiw-cin-desc { color: rgba(245,240,230,0.6); }
+    .hiw-cin-right {
+      width: 50%;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .hiw-cin-img {
+      position: absolute;
+      top: -60px;
+      left: 0;
+      right: 0;
+      bottom: -60px;
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+    }
 
     /* ===========================
        FEATURED COLLECTIONS
@@ -1476,6 +1491,10 @@
     }
 
     @media (max-width: 768px) {
+      .hiw-cinematic { flex-direction: column; }
+      .hiw-cin-panels { width: 100%; }
+      .hiw-cin-panel { min-height: auto; padding: 60px 28px; }
+      .hiw-cin-right { display: none; }
       #navbar { width: calc(100% - 24px); padding: 0 20px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }

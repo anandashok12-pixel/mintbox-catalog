@@ -61,6 +61,19 @@ export function LandingPage() {
       setTimeout(() => el.classList.add('visible'), 200 + i * 150)
     })
 
+    /* ---------- HOW IT WORKS PARALLAX ---------- */
+    const hiwSection = document.getElementById('how-it-works')
+    const hiwImg = document.getElementById('hiwParallaxImg')
+    const onHiwScroll = () => {
+      if (!hiwSection || !hiwImg) return
+      const rect = hiwSection.getBoundingClientRect()
+      const totalH = hiwSection.offsetHeight - window.innerHeight
+      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(totalH, 1)))
+      hiwImg.style.transform = `translateY(${60 - progress * 120}px)`
+    }
+    window.addEventListener('scroll', onHiwScroll, { passive: true })
+    onHiwScroll()
+
     /* ---------- FORM SUBMIT ---------- */
     const quoteForm = document.getElementById('quoteForm') as HTMLFormElement | null
     const onQuoteSubmit = function (this: HTMLFormElement, e: Event) {
@@ -104,6 +117,7 @@ export function LandingPage() {
       document.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('scroll', onNavScroll)
+      window.removeEventListener('scroll', onHiwScroll)
       hamburger?.removeEventListener('click', openNav)
       mobileNavClose?.removeEventListener('click', closeNav)
       observer.disconnect()
@@ -309,46 +323,37 @@ export function LandingPage() {
         <a href="#" className="view-all-link reveal">View all occasions →</a>
       </section>
 
-      {/* SECTION 4: HOW IT WORKS */}
-      <section id="how-it-works" aria-label="How MintBox works">
-        <div className="how-header reveal">
-          <span className="section-label">The MintBox Process</span>
-          <h2 className="how-headline">Premium gifting,<br/>without the chaos.</h2>
-        </div>
-
-        <div className="steps-grid">
-          <div className="step reveal reveal-delay-1">
-            <span className="step-number" aria-hidden="true">01</span>
-            <svg className="step-icon" viewBox="0 0 32 32" aria-hidden="true">
-              <rect x="4" y="6" width="24" height="20" rx="2"/>
-              <line x1="10" y1="12" x2="22" y2="12"/>
-              <line x1="10" y1="17" x2="18" y2="17"/>
-            </svg>
-            <h3 className="step-title">Share your requirements</h3>
-            <p className="step-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.</p>
+      {/* SECTION 4: HOW IT WORKS — Cinematic with Parallax */}
+      <section id="how-it-works" className="hiw-cinematic" aria-label="How MintBox works">
+        <div className="hiw-cin-panels">
+          <div className="hiw-cin-panel hiw-panel-1 reveal">
+            <div className="hiw-cin-ghost" aria-hidden="true">01</div>
+            <div className="hiw-cin-body">
+              <div className="hiw-cin-step-tag">Step 01</div>
+              <h3 className="hiw-cin-title">Share your requirements</h3>
+              <p className="hiw-cin-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.</p>
+            </div>
           </div>
-          <div className="step reveal reveal-delay-2">
-            <span className="step-number" aria-hidden="true">02</span>
-            <svg className="step-icon" viewBox="0 0 32 32" aria-hidden="true">
-              <path d="M16 4 L28 10 L28 22 L16 28 L4 22 L4 10 Z"/>
-              <circle cx="16" cy="16" r="4"/>
-            </svg>
-            <h3 className="step-title">We curate &amp; brand</h3>
-            <p className="step-desc">We select products, apply your branding, and share samples for approval. No surprises on the final invoice.</p>
+          <div className="hiw-cin-panel hiw-panel-2 reveal">
+            <div className="hiw-cin-ghost" aria-hidden="true">02</div>
+            <div className="hiw-cin-body">
+              <div className="hiw-cin-step-tag">Step 02</div>
+              <h3 className="hiw-cin-title">We curate &amp; brand</h3>
+              <p className="hiw-cin-desc">We select products, apply your branding, and share samples for approval. No surprises on the final invoice.</p>
+            </div>
           </div>
-          <div className="step reveal reveal-delay-3">
-            <span className="step-number" aria-hidden="true">03</span>
-            <svg className="step-icon" viewBox="0 0 32 32" aria-hidden="true">
-              <path d="M4 10 L16 4 L28 10 L28 22 L16 28 L4 22 Z"/>
-              <path d="M4 10 L16 16 L28 10"/>
-              <line x1="16" y1="16" x2="16" y2="28"/>
-            </svg>
-            <h3 className="step-title">Delivered to your team</h3>
-            <p className="step-desc">Individual addresses or a single office delivery — tracked, on time, beautifully packaged.</p>
+          <div className="hiw-cin-panel hiw-panel-3 reveal">
+            <div className="hiw-cin-ghost" aria-hidden="true">03</div>
+            <div className="hiw-cin-body">
+              <div className="hiw-cin-step-tag">Step 03</div>
+              <h3 className="hiw-cin-title">Delivered to your team</h3>
+              <p className="hiw-cin-desc">Individual addresses or single office delivery — tracked, on time, beautifully packaged.</p>
+            </div>
           </div>
         </div>
-
-        <a href="#" className="how-cta reveal">See how it works in detail →</a>
+        <div className="hiw-cin-right">
+          <div className="hiw-cin-img" id="hiwParallaxImg" style={{ backgroundImage: "url('/hampers/hamper7.png')" }}></div>
+        </div>
       </section>
 
       {/* SECTION 5: COLLECTIONS */}
