@@ -575,7 +575,7 @@
       margin: 0 auto;
     }
     .occasion-card {
-      aspect-ratio: 4/5;
+      aspect-ratio: 1/1;
       background: var(--forest-green);
       border-radius: 8px;
       overflow: hidden;
