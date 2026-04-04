@@ -132,7 +132,7 @@ export function LandingPage() {
       <nav id="navbar" role="navigation" aria-label="Main navigation">
         <a href="#" className="nav-logo" aria-label="MintBox Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo.png" alt="MintBox" className="nav-logo-img" />
+          <img src="/mintbox-logo-white.png" alt="MintBox" className="nav-logo-img" />
         </a>
 
         <ul className="nav-links" role="list">
@@ -151,13 +151,12 @@ export function LandingPage() {
         </div>
       </nav>
 
-      {/* SECTION 1: HERO — Variation A split */}
+      {/* SECTION 1: HERO — Centered */}
       <section id="hero" aria-label="Hero">
-        {/* Left: content */}
         <div className="hero-content">
           <span className="hero-eyebrow reveal">Bengaluru&apos;s Premium Corporate Gifting Studio</span>
           <h1 className="hero-headline reveal reveal-delay-1">
-            Gifting that<br/>says <em>what<br/>words can&apos;t.</em>
+            Gifting that says<br/><em>what words can&apos;t.</em>
           </h1>
           <p className="hero-sub reveal reveal-delay-2">
             Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers — delivered with the precision your brand deserves.
@@ -166,30 +165,6 @@ export function LandingPage() {
             <a href="#quote-cta" className="hero-btn-primary">Request a Quote</a>
             <a href="#occasions" className="hero-btn-secondary">Browse Catalogue</a>
           </div>
-          <div className="hero-stats reveal reveal-delay-4">
-            <div>
-              <span className="hero-stat-num">200+</span>
-              <span className="hero-stat-label">Curated Products</span>
-            </div>
-            <div>
-              <span className="hero-stat-num">40+</span>
-              <span className="hero-stat-label">Brands Served</span>
-            </div>
-            <div>
-              <span className="hero-stat-num">MOQ 10</span>
-              <span className="hero-stat-label">Min. Order</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right: full-bleed image */}
-        <div className="hero-photo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1000&q=85"
-            alt="Gift hampers"
-          />
-          <span className="hero-img-caption">Festive Hamper Collection</span>
         </div>
       </section>
 
@@ -198,21 +173,17 @@ export function LandingPage() {
           <div className="hamper-track">
             {/* Cards × 2 for seamless loop */}
             {[
-              { src: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=700&q=80', label: 'Employee Onboarding Kit' },
-              { src: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=700&q=80', label: 'Diwali Festive Hamper' },
-              { src: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=700&q=80', label: 'Client Appreciation Box' },
-              { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80', label: 'Work Anniversary Set' },
-              { src: 'https://images.unsplash.com/photo-1498049860654-af1a5c566876?w=700&q=80', label: 'WFH Essentials Kit' },
-              { src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=700&q=80', label: 'Team Event Pack' },
-              { src: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=700&q=80', label: 'New Year Hamper' },
-              // duplicate for loop
-              { src: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=700&q=80', label: 'Employee Onboarding Kit' },
-              { src: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=700&q=80', label: 'Diwali Festive Hamper' },
-              { src: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=700&q=80', label: 'Client Appreciation Box' },
-              { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80', label: 'Work Anniversary Set' },
-              { src: 'https://images.unsplash.com/photo-1498049860654-af1a5c566876?w=700&q=80', label: 'WFH Essentials Kit' },
-              { src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=700&q=80', label: 'Team Event Pack' },
-              { src: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=700&q=80', label: 'New Year Hamper' },
+              { src: '/hampers/hamper1.png', label: 'Araku Coffee Kit' },
+              { src: '/hampers/hamper2.png', label: 'Work From Home Essentials' },
+              { src: '/hampers/hamper3.png', label: 'Employee Onboarding Kit' },
+              { src: '/hampers/hamper4.png', label: 'Desk Starter Pack' },
+              { src: '/hampers/hamper5.png', label: 'Premium Gift Hamper' },
+              // duplicate for seamless loop
+              { src: '/hampers/hamper1.png', label: 'Araku Coffee Kit' },
+              { src: '/hampers/hamper2.png', label: 'Work From Home Essentials' },
+              { src: '/hampers/hamper3.png', label: 'Employee Onboarding Kit' },
+              { src: '/hampers/hamper4.png', label: 'Desk Starter Pack' },
+              { src: '/hampers/hamper5.png', label: 'Premium Gift Hamper' },
             ].map((card, i) => (
               <div className="hamper-card" key={i}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
