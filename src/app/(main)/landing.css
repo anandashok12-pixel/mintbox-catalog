@@ -506,6 +506,41 @@
     .trust-stats {
       display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 0.5px solid rgba(27,77,62,0.12);
+    }
+    .trust-stat {
+      text-align: center;
+      padding: 0 48px;
+    }
+    .trust-stat-num {
+      display: block;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--near-black);
+    }
+    .trust-stat-label {
+      display: block;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: 4px;
+    }
+    .trust-stat-divider {
+      width: 0.5px;
+      height: 36px;
+      background: rgba(27,77,62,0.15);
+    }
+    .trust-stats {
+      display: flex;
+      align-items: center;
     }
     .trust-stat {
       padding: 0 36px;

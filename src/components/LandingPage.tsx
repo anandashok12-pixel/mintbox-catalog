@@ -215,6 +215,22 @@ export function LandingPage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/clients/plivo.png" alt="Plivo" className="client-logo" />
         </div>
+        <div className="trust-stats">
+          <div className="trust-stat">
+            <span className="trust-stat-num">500+</span>
+            <span className="trust-stat-label">Curated Products</span>
+          </div>
+          <div className="trust-stat-divider" />
+          <div className="trust-stat">
+            <span className="trust-stat-num">10 Units</span>
+            <span className="trust-stat-label">Minimum Order Quantity</span>
+          </div>
+          <div className="trust-stat-divider" />
+          <div className="trust-stat">
+            <span className="trust-stat-num">Pan India</span>
+            <span className="trust-stat-label">Delivery</span>
+          </div>
+        </div>
       </div>
 
       {/* SECTION 3: OCCASIONS */}
