@@ -509,15 +509,11 @@
     }
     .marquee-track:hover { animation-play-state: paused; }
     .client-logo {
-      height: 28px;
+      height: 34px;
       width: auto;
       object-fit: contain;
-      opacity: 0.65;
-      filter: grayscale(20%);
       flex-shrink: 0;
-      transition: opacity 0.2s ease;
     }
-    .client-logo:hover { opacity: 1; filter: grayscale(0%); }
     @keyframes marquee {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -1561,5 +1557,5 @@
       .trust-logos { border-right: none; border-bottom: 0.5px solid rgba(184,151,46,0.25); padding: 16px 20px; }
       .trust-stats { padding: 16px 20px; gap: 0; }
       .trust-stat { padding: 0 20px; }
-      .client-logo { height: 22px; }
+      .client-logo { height: 26px; }
     }
