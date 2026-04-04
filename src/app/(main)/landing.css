@@ -52,8 +52,8 @@
       --cream: #f2f2f2;
       --cream-dark: #e8e8e8;
       --near-black: #1A1A18;
-      --ink-muted: #4A4A46;
-      --ink-faint: #8A8A84;
+      --ink-muted: #1A1A18;
+      --ink-faint: #1A1A18;
     }
 
     /* ===========================
@@ -108,16 +108,9 @@
     /* ===========================
        LABEL STYLE
     =========================== */
-    .section-label {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: block;
-      margin-bottom: 16px;
-    }
+    .section-label { display: none; }
+    .hero-eyebrow { display: none; }
+    .trust-logos-label { display: none; }
 
     /* ===========================
        NAVIGATION
@@ -281,16 +274,6 @@
       margin: 0 auto;
       position: relative;
       z-index: 2;
-    }
-    .hero-eyebrow {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      display: block;
-      margin-bottom: 28px;
     }
     .hero-headline {
       font-family: 'Libre Baskerville', serif;
@@ -490,15 +473,6 @@
       overflow: hidden;
       min-width: 0;
     }
-    .trust-logos-label {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 10px;
-      white-space: nowrap;
-    }
     .marquee-wrap { overflow: hidden; }
     .marquee-track {
       display: flex;
@@ -537,12 +511,10 @@
     .trust-stat-label {
       display: block;
       font-family: 'Satoshi', sans-serif;
-      font-size: 10px;
+      font-size: 18px;
       font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
       color: var(--ink-faint);
-      margin-top: 3px;
+      margin-top: 4px;
     }
     .trust-stat-divider {
       width: 0.5px;
@@ -650,7 +622,7 @@
     }
     .occasion-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 11px;
+      font-size: 18px;
       font-weight: 300;
       color: rgba(245,240,230,0.6);
       margin-top: 4px;
@@ -741,7 +713,7 @@
     }
     .step-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 300;
       color: rgba(245,240,230,0.65);
       line-height: 1.7;
@@ -839,7 +811,7 @@
     }
     .product-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 12px;
+      font-size: 18px;
       font-weight: 300;
       color: var(--ink-muted);
       line-height: 1.6;
@@ -851,7 +823,7 @@
     }
     .product-price {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 400;
       color: var(--forest-deep);
     }
@@ -972,7 +944,7 @@
     }
     .pillar-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 300;
       color: var(--ink-muted);
       line-height: 1.7;
@@ -1282,7 +1254,7 @@
     }
     .article-excerpt {
       font-family: 'Satoshi', sans-serif;
-      font-size: 12px;
+      font-size: 18px;
       font-weight: 300;
       color: var(--ink-muted);
       line-height: 1.6;
@@ -1320,7 +1292,7 @@
     }
     .footer-col-label {
       font-family: 'Satoshi', sans-serif;
-      font-size: 10px;
+      font-size: 16px;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -1350,7 +1322,7 @@
     .footer-socials a:hover { color: var(--gold); }
     .footer-url {
       font-family: 'Satoshi', sans-serif;
-      font-size: 12px;
+      font-size: 16px;
       color: rgba(245,240,230,0.4);
       text-decoration: none;
     }
@@ -1362,7 +1334,7 @@
     }
     .footer-nav-links a {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.7);
       text-decoration: none;
@@ -1371,7 +1343,7 @@
     .footer-nav-links a:hover { color: var(--gold); }
     .footer-contact-item {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.65);
       line-height: 1.6;
@@ -1384,7 +1356,7 @@
     .footer-contact-item a:hover { color: var(--gold); }
     .footer-newsletter-copy {
       font-family: 'Satoshi', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.65);
       line-height: 1.6;
@@ -1433,7 +1405,7 @@
     }
     .footer-bottom-text {
       font-family: 'Satoshi', sans-serif;
-      font-size: 11px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.35);
     }
@@ -1443,7 +1415,7 @@
     }
     .footer-bottom-links a {
       font-family: 'Satoshi', sans-serif;
-      font-size: 11px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.35);
       text-decoration: none;
