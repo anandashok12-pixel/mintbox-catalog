@@ -196,32 +196,18 @@ export function LandingPage() {
 
       {/* SECTION 2: TRUST BAR */}
       <div id="trust-bar" aria-label="Client trust bar">
-        <div className="trust-bar-inner">
-          <div className="trust-logos">
-            <p className="trust-logos-label">Trusted by teams at</p>
-            <div className="marquee-wrap">
-              <div className="marquee-track" aria-hidden="true">
-                <span>Zepto</span><span>Razorpay</span><span>Cred</span><span>Meesho</span>
-                <span>Groww</span><span>Dunzo</span><span>Navi</span><span>BrowserStack</span>
-                <span>Zepto</span><span>Razorpay</span><span>Cred</span><span>Meesho</span>
-                <span>Groww</span><span>Dunzo</span><span>Navi</span><span>BrowserStack</span>
-              </div>
-            </div>
-          </div>
-          <div className="trust-stats">
-            <div className="trust-stat">
-              <span className="trust-stat-num">200+</span>
-              <span className="trust-stat-label">Curated Products</span>
-            </div>
-            <div className="trust-stat">
-              <span className="trust-stat-num">Same-city</span>
-              <span className="trust-stat-label">Bengaluru &amp; Pan-India</span>
-            </div>
-            <div className="trust-stat">
-              <span className="trust-stat-num">No hidden</span>
-              <span className="trust-stat-label">Radical Transparency</span>
-            </div>
-          </div>
+        <p className="trust-logos-label">Trusted by teams at</p>
+        <div className="client-logos">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/icici.png" alt="ICICI Bank" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/quixta.webp" alt="Quixta" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/tedx.png" alt="TEDx" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/open.png" alt="Open" className="client-logo" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/clients/mana.png" alt="MANA" className="client-logo" />
         </div>
       </div>
 

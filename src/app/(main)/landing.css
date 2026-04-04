@@ -472,54 +472,36 @@
     =========================== */
     #trust-bar {
       background: var(--cream-dark);
-      height: 80px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
+      padding: 32px 40px;
       border-bottom: 0.5px solid rgba(27,77,62,0.1);
-    }
-    .trust-bar-inner {
-      width: 100%;
-      display: flex;
-      align-items: stretch;
-    }
-    .trust-logos {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 40px;
-      border-right: 1px solid rgba(184,151,46,0.25);
-      overflow: hidden;
+      text-align: center;
     }
     .trust-logos-label {
       font-family: 'Satoshi', sans-serif;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-faint);
-      margin-bottom: 8px;
+      margin-bottom: 24px;
     }
-    .marquee-wrap { overflow: hidden; }
-    .marquee-track {
+    .client-logos {
       display: flex;
-      gap: 48px;
-      animation: marquee 22s linear infinite;
-      width: max-content;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+      flex-wrap: wrap;
     }
-    .marquee-track span {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      color: var(--forest-green);
-      opacity: 0.65;
-      white-space: nowrap;
-      text-transform: uppercase;
+    .client-logo {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.75;
+      filter: grayscale(30%);
+      transition: opacity 0.2s ease, filter 0.2s ease;
     }
-    @keyframes marquee {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    .client-logo:hover {
+      opacity: 1;
+      filter: grayscale(0%);
     }
     .trust-stats {
       display: flex;
@@ -1524,7 +1506,7 @@
       .section-headline { font-size: 36px; }
       .why-headline { font-size: 32px; }
       .quote-cta-headline { font-size: 34px; }
-      #trust-bar { height: auto; padding: 20px 0; }
-      .trust-bar-inner { flex-direction: column; gap: 16px; }
-      .trust-logos { border-right: none; border-bottom: 1px solid rgba(184,151,46,0.25); padding-bottom: 16px; }
+      #trust-bar { padding: 24px 20px; }
+      .client-logos { gap: 28px; }
+      .client-logo { height: 28px; }
     }
