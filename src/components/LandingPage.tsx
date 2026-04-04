@@ -273,49 +273,61 @@ export function LandingPage() {
           <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.png')" }}></div>
             <div className="occasion-card-overlay">
-              <h3 className="occasion-name">Employee Onboarding</h3>
-              <p className="occasion-desc">Make Day 1 unforgettable</p>
-              <span className="occasion-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Employee Onboarding</h3>
+                <p className="occasion-desc">Make Day 1 unforgettable</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.png')" }}></div>
             <div className="occasion-card-overlay">
-              <h3 className="occasion-name">Diwali &amp; Festive</h3>
-              <p className="occasion-desc">The gift they actually keep</p>
-              <span className="occasion-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Diwali &amp; Festive</h3>
+                <p className="occasion-desc">The gift they actually keep</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.png')" }}></div>
             <div className="occasion-card-overlay">
-              <h3 className="occasion-name">Client Appreciation</h3>
-              <p className="occasion-desc">Strengthen every relationship</p>
-              <span className="occasion-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Client Appreciation</h3>
+                <p className="occasion-desc">Strengthen every relationship</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.png')" }}></div>
             <div className="occasion-card-overlay">
-              <h3 className="occasion-name">Work Anniversary</h3>
-              <p className="occasion-desc">Celebrate the ones who stayed</p>
-              <span className="occasion-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Work Anniversary</h3>
+                <p className="occasion-desc">Celebrate the ones who stayed</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.png')" }}></div>
             <div className="occasion-card-overlay">
-              <h3 className="occasion-name">Team &amp; Events</h3>
-              <p className="occasion-desc">Brand that travels with them</p>
-              <span className="occasion-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Team &amp; Events</h3>
+                <p className="occasion-desc">Brand that travels with them</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.png')" }}></div>
             <div className="occasion-card-overlay">
-              <h3 className="occasion-name">New Year</h3>
-              <p className="occasion-desc">Start the year with intention</p>
-              <span className="occasion-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">New Year</h3>
+                <p className="occasion-desc">Start the year with intention</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </article>
         </div>
