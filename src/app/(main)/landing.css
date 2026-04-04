@@ -614,7 +614,7 @@
     }
     .occasion-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.6);
       margin-top: 4px;
@@ -705,7 +705,7 @@
     }
     .step-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       color: rgba(245,240,230,0.65);
       line-height: 1.7;
@@ -803,7 +803,7 @@
     }
     .product-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       color: var(--ink-muted);
       line-height: 1.6;
@@ -815,7 +815,7 @@
     }
     .product-price {
       font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       color: var(--forest-deep);
     }
@@ -936,7 +936,7 @@
     }
     .pillar-desc {
       font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       color: var(--ink-muted);
       line-height: 1.7;
@@ -1246,7 +1246,7 @@
     }
     .article-excerpt {
       font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       color: var(--ink-muted);
       line-height: 1.6;
