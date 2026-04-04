@@ -548,14 +548,6 @@
       color: var(--forest-deep);
       line-height: 1;
     }
-    .trust-stat-label {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-top: 4px;
-    }
 
     /* ===========================
        OCCASIONS
