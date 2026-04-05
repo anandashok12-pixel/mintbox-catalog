@@ -6,24 +6,6 @@ import '../app/(main)/landing.css'
 export function LandingPage() {
 
   useEffect(() => {
-    /* ---------- CUSTOM CURSOR ---------- */
-    const dot = document.getElementById('cursorDot')
-    if (!dot) return
-    const onMouseMove = (e: MouseEvent) => {
-      dot.style.left = e.clientX + 'px'
-      dot.style.top = e.clientY + 'px'
-    }
-    document.addEventListener('mousemove', onMouseMove)
-    const hoverEls = document.querySelectorAll(
-      'a, button, .occasion-card, .product-card, .pillar-card, .testi-card, .article-card',
-    )
-    const addExpanded = () => dot.classList.add('expanded')
-    const removeExpanded = () => dot.classList.remove('expanded')
-    hoverEls.forEach((el) => {
-      el.addEventListener('mouseenter', addExpanded)
-      el.addEventListener('mouseleave', removeExpanded)
-    })
-
     /* ---------- STICKY NAV ---------- */
     const navbar = document.getElementById('navbar')
     const onScroll = () => {
@@ -61,29 +43,57 @@ export function LandingPage() {
       setTimeout(() => el.classList.add('visible'), 200 + i * 150)
     })
 
-    /* ---------- HOW IT WORKS PARALLAX ---------- */
-    const hiwSection = document.getElementById('how-it-works')
-    const hiwImg = document.getElementById('hiwParallaxImg')
-    const onHiwScroll = () => {
-      if (!hiwSection || !hiwImg) return
-      const rect = hiwSection.getBoundingClientRect()
-      const totalH = hiwSection.offsetHeight - window.innerHeight
-      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(totalH, 1)))
-      hiwImg.style.transform = `translateY(${60 - progress * 120}px)`
-    }
-    window.addEventListener('scroll', onHiwScroll, { passive: true })
-    onHiwScroll()
-
     /* ---------- FORM SUBMIT ---------- */
     const quoteForm = document.getElementById('quoteForm') as HTMLFormElement | null
     const onQuoteSubmit = function (this: HTMLFormElement, e: Event) {
       e.preventDefault()
+      // Clear previous errors
+      this.querySelectorAll('.form-error').forEach(el => (el as HTMLElement).style.display = 'none')
+      this.querySelectorAll('.form-input-error').forEach(el => el.classList.remove('form-input-error'))
+
+      // Validate required fields
+      let valid = true
+      const fields = [
+        { id: 'form-name', errorId: 'form-name-error' },
+        { id: 'form-email', errorId: 'form-email-error' },
+        { id: 'form-company', errorId: 'form-company-error' },
+      ]
+      fields.forEach(({ id, errorId }) => {
+        const input = document.getElementById(id) as HTMLInputElement
+        const error = document.getElementById(errorId)
+        if (input && !input.value.trim()) {
+          input.classList.add('form-input-error')
+          if (error) error.style.display = 'block'
+          valid = false
+        }
+        if (id === 'form-email' && input?.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+          input.classList.add('form-input-error')
+          if (error) error.style.display = 'block'
+          valid = false
+        }
+      })
+
+      if (!valid) return
+
+      // Show loading state
       const btn = this.querySelector('.form-submit') as HTMLButtonElement | null
-      if (btn) {
-        btn.textContent = "Sent! We'll be in touch soon ✦"
-        btn.style.background = 'rgba(184,151,46,0.5)'
+      const btnText = this.querySelector('.form-submit-text') as HTMLElement | null
+      const btnLoading = this.querySelector('.form-submit-loading') as HTMLElement | null
+      if (btn && btnText && btnLoading) {
         btn.disabled = true
+        btnText.style.display = 'none'
+        btnLoading.style.display = 'inline'
       }
+
+      // Simulate submission
+      setTimeout(() => {
+        if (btn && btnText && btnLoading) {
+          btnLoading.style.display = 'none'
+          btnText.textContent = "Sent! We'll be in touch soon ✦"
+          btnText.style.display = 'inline'
+          btn.style.background = 'rgba(184,151,46,0.5)'
+        }
+      }, 1200)
     }
     quoteForm?.addEventListener('submit', onQuoteSubmit)
 
@@ -98,26 +108,31 @@ export function LandingPage() {
     }
     newsletterForm?.addEventListener('submit', onNewsletterSubmit)
 
-    /* ---------- NAV LINK HIGHLIGHT ON SCROLL ---------- */
-    const sections = document.querySelectorAll('section[id], div[id]')
-    const navLinks = document.querySelectorAll('.nav-links a')
+    /* ---------- ACTIVE NAV LINK ---------- */
+    const sectionIds = ['occasions', 'how-it-works', 'collections', 'why-mintbox', 'catalog', 'testimonials', 'quote-cta', 'journal', 'footer']
+    const navLinks = document.querySelectorAll('.nav-link')
     const onNavScroll = () => {
       let current = ''
-      sections.forEach((sec) => {
-        if (window.scrollY >= (sec as HTMLElement).offsetTop - 120) current = sec.id
+      sectionIds.forEach(id => {
+        const section = document.getElementById(id)
+        if (section && window.scrollY >= section.offsetTop - 200) {
+          current = id
+        }
       })
-      navLinks.forEach((link) => {
-        ;(link as HTMLElement).style.color =
-          link.getAttribute('href') === '#' + current ? 'var(--gold)' : ''
+      navLinks.forEach(link => {
+        link.classList.remove('nav-active')
+        const href = link.getAttribute('href')
+        if (href && href === '#' + current) {
+          link.classList.add('nav-active')
+        }
       })
     }
     window.addEventListener('scroll', onNavScroll, { passive: true })
 
     return () => {
-      document.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('scroll', onNavScroll)
-      window.removeEventListener('scroll', onHiwScroll)
+
       hamburger?.removeEventListener('click', openNav)
       mobileNavClose?.removeEventListener('click', closeNav)
       observer.disconnect()
@@ -128,9 +143,6 @@ export function LandingPage() {
 
   return (
     <>
-      {/* CUSTOM CURSOR */}
-      <div className="cursor-dot" id="cursorDot"></div>
-
       {/* MOBILE NAV OVERLAY */}
       <div className="mobile-nav" id="mobileNav">
         <button className="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">✕</button>
@@ -150,11 +162,11 @@ export function LandingPage() {
         </a>
 
         <ul className="nav-links" role="list">
-          <li><a href="#occasions">Catalogue</a></li>
-          <li><a href="#occasions">Occasions</a></li>
-          <li><a href="#how-it-works">How it works</a></li>
-          <li><a href="#footer">About</a></li>
-          <li><a href="#journal">Journal</a></li>
+          <li><a href="#occasions" className="nav-link">Catalogue</a></li>
+          <li><a href="#occasions" className="nav-link">Occasions</a></li>
+          <li><a href="#how-it-works" className="nav-link">How it works</a></li>
+          <li><a href="#footer" className="nav-link">About</a></li>
+          <li><a href="#journal" className="nav-link">Journal</a></li>
         </ul>
 
         <div className="nav-actions">
@@ -167,8 +179,8 @@ export function LandingPage() {
 
       {/* SECTION 1: HERO — Centered */}
       <section id="hero" aria-label="Hero">
+        <div className="geo-overlay" aria-hidden="true"></div>
         <div className="hero-content">
-          <span className="hero-eyebrow reveal">Bengaluru&apos;s Premium Corporate Gifting Studio</span>
           <h1 className="hero-headline reveal reveal-delay-1">
             Gifting that says<br/><em>what words can&apos;t.</em>
           </h1>
@@ -334,36 +346,66 @@ export function LandingPage() {
         <a href="#" className="view-all-link reveal">View all occasions →</a>
       </section>
 
-      {/* SECTION 4: HOW IT WORKS — Cinematic with Parallax */}
-      <section id="how-it-works" className="hiw-cinematic" aria-label="How MintBox works">
-        <div className="hiw-cin-panels">
-          <div className="hiw-cin-panel hiw-panel-1 reveal">
-            <div className="hiw-cin-ghost" aria-hidden="true">01</div>
-            <div className="hiw-cin-body">
-              <div className="hiw-cin-step-tag">Step 01</div>
-              <h3 className="hiw-cin-title">Share your requirements</h3>
-              <p className="hiw-cin-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.</p>
+      {/* SECTION 4: HOW IT WORKS — Split layout with step indicators */}
+      <section id="how-it-works" className="hiw-split" aria-label="How MintBox works">
+        {[
+          { num: '01', title: 'Share your requirements', desc: 'Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.', img: '/hampers/hamper7.png' },
+          { num: '02', title: 'We curate & brand', desc: 'We select products, apply your branding, and share samples for approval. No surprises on the final invoice.', img: '/hampers/hamper3.png' },
+          { num: '03', title: 'Delivered to your team', desc: 'Individual addresses or single office delivery — tracked, on time, beautifully packaged.', img: '/hampers/hamper5.png' },
+        ].map((step, i) => (
+          <div key={i} className={`hiw-step reveal ${i % 2 === 1 ? 'hiw-step-reverse' : ''}`}>
+            <div className="hiw-step-text">
+              <div className="hiw-step-tag">Step {step.num}</div>
+              <h3 className="hiw-step-title">{step.title}</h3>
+              <p className="hiw-step-desc">{step.desc}</p>
+              <div className="hiw-step-dots" aria-hidden="true">
+                {[0, 1, 2].map(d => (
+                  <span key={d} className={`hiw-dot ${d === i ? 'hiw-dot-active' : ''}`}></span>
+                ))}
+              </div>
+            </div>
+            <div className="hiw-step-img">
+              <div className="hiw-step-img-inner" style={{ backgroundImage: `url('${step.img}')` }}></div>
             </div>
           </div>
-          <div className="hiw-cin-panel hiw-panel-2 reveal">
-            <div className="hiw-cin-ghost" aria-hidden="true">02</div>
-            <div className="hiw-cin-body">
-              <div className="hiw-cin-step-tag">Step 02</div>
-              <h3 className="hiw-cin-title">We curate &amp; brand</h3>
-              <p className="hiw-cin-desc">We select products, apply your branding, and share samples for approval. No surprises on the final invoice.</p>
-            </div>
-          </div>
-          <div className="hiw-cin-panel hiw-panel-3 reveal">
-            <div className="hiw-cin-ghost" aria-hidden="true">03</div>
-            <div className="hiw-cin-body">
-              <div className="hiw-cin-step-tag">Step 03</div>
-              <h3 className="hiw-cin-title">Delivered to your team</h3>
-              <p className="hiw-cin-desc">Individual addresses or single office delivery — tracked, on time, beautifully packaged.</p>
-            </div>
-          </div>
+        ))}
+      </section>
+
+      {/* SECTION: SCORECARD */}
+      <section id="scorecard" aria-label="Why MintBox">
+        <div className="section-header-center reveal">
+          <span className="section-label">Why MintBox</span>
+          <h2 className="section-headline">The honest comparison <em>nobody else makes.</em></h2>
         </div>
-        <div className="hiw-cin-right">
-          <div className="hiw-cin-img" id="hiwParallaxImg" style={{ backgroundImage: "url('/hampers/hamper7.png')" }}></div>
+
+        <div className="scorecard-table reveal">
+          <div className="scorecard-header">
+            <div className="scorecard-feature-col"></div>
+            <div className="scorecard-mintbox-col">MintBox</div>
+            <div className="scorecard-vendor-col">Typical Vendor</div>
+          </div>
+          {[
+            { feature: 'In-house branding', mintbox: 'Always', vendor: 'Outsourced' },
+            { feature: 'Transparent pricing', mintbox: 'Fixed quote', vendor: 'Hidden fees' },
+            { feature: 'Minimum order', mintbox: '10 units', vendor: '100+ units' },
+            { feature: 'Pan India delivery', mintbox: 'Included', vendor: 'Extra charge' },
+            { feature: 'HRMS integration', mintbox: 'Available', vendor: 'Manual only' },
+            { feature: 'Sample approval', mintbox: 'Before order', vendor: 'Post-payment' },
+            { feature: 'ESG documentation', mintbox: 'On request', vendor: 'Not available' },
+            { feature: 'Quote turnaround', mintbox: '48 hours', vendor: '5–7 days' },
+          ].map((row, i) => (
+            <div key={i} className="scorecard-row">
+              <div className="scorecard-feature-col">{row.feature}</div>
+              <div className="scorecard-mintbox-col">
+                <svg className="scorecard-check" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#1B4D3E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {row.mintbox}
+              </div>
+              <div className="scorecard-vendor-col">
+                <svg className="scorecard-x" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="rgba(26,26,24,0.3)" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                {row.vendor}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -379,7 +421,7 @@ export function LandingPage() {
         <div className="products-grid">
           <article className="product-card reveal reveal-delay-1">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=500&q=80') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper1.png') center/cover" }}></div>
               <span className="product-category">Onboarding</span>
             </div>
             <div className="product-body">
@@ -395,7 +437,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-2">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=500&q=80') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper2.png') center/cover" }}></div>
               <span className="product-category">Festive</span>
             </div>
             <div className="product-body">
@@ -411,7 +453,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-3">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('https://images.unsplash.com/photo-1498049860654-af1a5c566876?w=500&q=80') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper3.png') center/cover" }}></div>
               <span className="product-category">WFH</span>
             </div>
             <div className="product-body">
@@ -427,7 +469,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-4">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper5.png') center/cover" }}></div>
               <span className="product-category">Executive</span>
             </div>
             <div className="product-body">
@@ -448,10 +490,15 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION 6: WHY MINTBOX */}
-      <section id="why-mintbox" aria-label="Why choose MintBox">
+      {/* SECTION: OUR STANDARDS */}
+      <section id="why-mintbox" aria-label="Our standards">
         <div className="geo-overlay-light" aria-hidden="true"></div>
-        <h2 className="why-headline reveal">Four things we never compromise on.</h2>
+        <div className="section-header-center reveal">
+          <span className="section-label">Our standards</span>
+          <h2 className="section-headline">Four things we <em>never</em> compromise on.</h2>
+          <p className="standards-sub">Non-negotiables that shape every kit we ship — from the first quote to the last mile.</p>
+          <span className="gold-rule"></span>
+        </div>
 
         <div className="pillars-grid">
           <div className="pillar-card reveal reveal-delay-1">
@@ -488,50 +535,69 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION 7: TESTIMONIALS */}
-      <section id="testimonials" aria-label="Client testimonials">
-        <div className="geo-overlay-dark" aria-hidden="true"></div>
-        <div className="testi-header">
-          <span className="section-label reveal">From the teams we&apos;ve gifted</span>
-          <h2 className="testi-headline reveal reveal-delay-1">&ldquo;Words from the people who matter most.&rdquo;</h2>
+      {/* SECTION: CATALOG CATEGORIES */}
+      <section id="catalog" aria-label="Product categories">
+        <div className="section-header-center reveal">
+          <span className="section-label">What We Gift</span>
+          <h2 className="section-headline">The MintBox Edit.</h2>
+          <p className="catalog-sub">Four categories. Hundreds of products. All brandable, all deliverable.</p>
+          <span className="gold-rule"></span>
         </div>
 
-        <div className="testimonials-grid">
-          <div className="testi-card reveal reveal-delay-1">
-            <div className="testi-quote-mark" aria-hidden="true">&ldquo;</div>
-            <p className="testi-text">Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.</p>
-            <div className="testi-divider"></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div>
-                <p className="testi-name">Priya S.</p>
-                <p className="testi-role">Head of People, Series B Startup</p>
-              </div>
-              <div className="testi-avatar">PS</div>
+        <div className="catalog-grid">
+          <article className="catalog-card reveal reveal-delay-1">
+            <div className="catalog-card-img" style={{ backgroundImage: "url('/hampers/hamper4.png')" }}></div>
+            <div className="catalog-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 8h1a4 4 0 010 8h-1M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
+            <h3 className="catalog-card-title">Drinkware</h3>
+            <p className="catalog-card-desc">Mugs, tumblers, and flasks — the gifts that earn a permanent spot on their desk.</p>
+            <a href="/catalog" className="catalog-card-link">Browse category →</a>
+          </article>
+          <article className="catalog-card reveal reveal-delay-2">
+            <div className="catalog-card-img" style={{ backgroundImage: "url('/hampers/hamper6.png')" }}></div>
+            <div className="catalog-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 014 17V5a2 2 0 012-2h13a1 1 0 011 1v13M4 19.5v.5A2.5 2.5 0 006.5 22H18a2 2 0 002-2v-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+            <h3 className="catalog-card-title">Stationery</h3>
+            <p className="catalog-card-desc">Notebooks, planners, and pens they&apos;ll actually reach for — every single day.</p>
+            <a href="/catalog" className="catalog-card-link">Browse category →</a>
+          </article>
+          <article className="catalog-card reveal reveal-delay-3">
+            <div className="catalog-card-img" style={{ backgroundImage: "url('/hampers/hamper8.png')" }}></div>
+            <div className="catalog-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2" stroke="currentColor" strokeWidth="1.5"/><line x1="12" y1="18" x2="12.01" y2="18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            </div>
+            <h3 className="catalog-card-title">Gadgets</h3>
+            <p className="catalog-card-desc">Earbuds, chargers, and desk tech that make a genuinely useful impression.</p>
+            <a href="/catalog" className="catalog-card-link">Browse category →</a>
+          </article>
+          <article className="catalog-card reveal reveal-delay-4">
+            <div className="catalog-card-img" style={{ backgroundImage: "url('/hampers/hamper2.png')" }}></div>
+            <div className="catalog-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M6 1v3M10 1v3M14 1v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            </div>
+            <h3 className="catalog-card-title">Gourmet Food</h3>
+            <p className="catalog-card-desc">Artisan teas, gourmet snacks, and curated hampers that delight every palate.</p>
+            <a href="/catalog" className="catalog-card-link">Browse category →</a>
+          </article>
+        </div>
+      </section>
+
+      {/* SECTION 7: TESTIMONIAL — Split image + quote */}
+      <section id="testimonials" aria-label="Client testimonial">
+        <div className="testi-split">
+          <div className="testi-photo">
+            <img src="/testimonials/priya.jpg" alt="Priya S." />
           </div>
-          <div className="testi-card reveal reveal-delay-2">
-            <div className="testi-quote-mark" aria-hidden="true">&ldquo;</div>
-            <p className="testi-text">Finally a gifting vendor that doesn&apos;t send a different invoice than the quote. MintBox has our Diwali budget locked in for the next three years.</p>
+          <div className="testi-content reveal">
+            <div className="testi-quote-mark" aria-hidden="true">&ldquo;&rdquo;</div>
+            <blockquote className="testi-text">
+              Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.
+            </blockquote>
             <div className="testi-divider"></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div>
-                <p className="testi-name">Karan M.</p>
-                <p className="testi-role">Founder, Bengaluru</p>
-              </div>
-              <div className="testi-avatar">KM</div>
-            </div>
-          </div>
-          <div className="testi-card reveal reveal-delay-3">
-            <div className="testi-quote-mark" aria-hidden="true">&ldquo;</div>
-            <p className="testi-text">The branding quality is the closest I&apos;ve seen to what we get from international vendors — but delivered locally and on time.</p>
-            <div className="testi-divider"></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div>
-                <p className="testi-name">Vikram N.</p>
-                <p className="testi-role">Procurement Lead, GCC</p>
-              </div>
-              <div className="testi-avatar">VN</div>
-            </div>
+            <p className="testi-name">Priya S.</p>
+            <p className="testi-role">Head of People, Series B Startup</p>
           </div>
         </div>
       </section>
@@ -548,16 +614,23 @@ export function LandingPage() {
           <div className="quote-form-card reveal reveal-delay-2">
             <form id="quoteForm" noValidate>
               <div className="form-group">
-                <label htmlFor="form-name">Your name</label>
-                <input type="text" id="form-name" name="name" placeholder="Priya Sharma" autoComplete="name" />
+                <label htmlFor="form-name">Your name <span className="form-required">*</span></label>
+                <input type="text" id="form-name" name="name" placeholder="e.g. Priya Sharma" autoComplete="name" required />
+                <span className="form-error" id="form-name-error">Please enter your name</span>
               </div>
               <div className="form-group">
-                <label htmlFor="form-company">Company name</label>
-                <input type="text" id="form-company" name="company" placeholder="Razorpay" autoComplete="organization" />
+                <label htmlFor="form-email">Email address <span className="form-required">*</span></label>
+                <input type="email" id="form-email" name="email" placeholder="e.g. priya@company.com" autoComplete="email" required />
+                <span className="form-error" id="form-email-error">Please enter a valid email</span>
+              </div>
+              <div className="form-group">
+                <label htmlFor="form-company">Company name <span className="form-required">*</span></label>
+                <input type="text" id="form-company" name="company" placeholder="e.g. Acme Technologies" autoComplete="organization" required />
+                <span className="form-error" id="form-company-error">Please enter your company name</span>
               </div>
               <div className="form-group">
                 <label htmlFor="form-size">Team size</label>
-                <select id="form-size" name="teamSize">
+                <select id="form-size" name="teamSize" defaultValue="">
                   <option value="" disabled>Select team size</option>
                   <option value="under25">Under 25</option>
                   <option value="25-100">25 – 100</option>
@@ -567,7 +640,7 @@ export function LandingPage() {
               </div>
               <div className="form-group">
                 <label htmlFor="form-occasion">Occasion</label>
-                <select id="form-occasion" name="occasion">
+                <select id="form-occasion" name="occasion" defaultValue="">
                   <option value="" disabled>Select occasion</option>
                   <option value="onboarding">Onboarding</option>
                   <option value="diwali">Diwali</option>
@@ -576,8 +649,11 @@ export function LandingPage() {
                   <option value="other">Other</option>
                 </select>
               </div>
-              <button type="submit" className="form-submit">Send enquiry →</button>
-              <a href="https://wa.me/919916996642" className="form-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
+              <button type="submit" className="form-submit" id="quoteSubmitBtn">
+                <span className="form-submit-text">Send enquiry →</span>
+                <span className="form-submit-loading" style={{ display: 'none' }}>Sending...</span>
+              </button>
+              <a href="https://wa.me/918618237189" className="form-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
             </form>
           </div>
         </div>
@@ -596,7 +672,7 @@ export function LandingPage() {
         <div className="journal-grid">
           <article className="article-card reveal reveal-delay-1">
             <div className="article-img">
-              <div className="article-img-inner" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=800&q=80')" }}></div>
+              <div className="article-img-inner" style={{ backgroundImage: "url('/hampers/hamper7.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             </div>
             <div className="article-body">
               <span className="article-cat-pill cat-guide">Gifting Guide</span>
@@ -608,7 +684,7 @@ export function LandingPage() {
           </article>
           <article className="article-card reveal reveal-delay-2">
             <div className="article-img">
-              <div className="article-img-inner" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80')" }}></div>
+              <div className="article-img-inner" style={{ backgroundImage: "url('/hampers/hamper3.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             </div>
             <div className="article-body">
               <span className="article-cat-pill cat-occasion">Occasion Edit</span>
@@ -689,7 +765,7 @@ export function LandingPage() {
       </footer>
 
       {/* FLOATING WHATSAPP */}
-      <a id="wa-float" href="https://wa.me/919916996642" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <a id="wa-float" href="https://wa.me/918618237189" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
