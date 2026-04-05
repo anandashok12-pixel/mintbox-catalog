@@ -1130,7 +1130,7 @@
     .testi-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 520px;
+      min-height: 420px;
     }
     .testi-photo {
       position: relative;
@@ -1142,11 +1142,18 @@
       object-fit: cover;
       display: block;
     }
+    .testi-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 40%, var(--forest-deep) 100%);
+      pointer-events: none;
+    }
     .testi-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 80px 80px 72px;
+      padding: 60px 80px 60px 72px;
     }
     .testi-quote-mark {
       font-family: 'Libre Baskerville', serif;
@@ -1158,7 +1165,7 @@
     }
     .testi-text {
       font-family: 'Libre Baskerville', serif;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 400;
       font-style: italic;
       color: var(--cream);
