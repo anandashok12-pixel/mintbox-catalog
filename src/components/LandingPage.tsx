@@ -584,20 +584,50 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION 7: TESTIMONIAL — Split image + quote */}
-      <section id="testimonials" aria-label="Client testimonial">
-        <div className="testi-split">
-          <div className="testi-photo">
-            <img src="/testimonials/priya.jpg" alt="Priya S." />
-          </div>
-          <div className="testi-content reveal">
-            <div className="testi-quote-mark" aria-hidden="true">&ldquo;&rdquo;</div>
-            <blockquote className="testi-text">
-              Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.
-            </blockquote>
+      {/* SECTION 7: TESTIMONIALS */}
+      <section id="testimonials" aria-label="Client testimonials">
+        <div className="geo-overlay-dark" aria-hidden="true"></div>
+        <div className="testi-header">
+          <span className="section-label reveal">From the teams we&apos;ve gifted</span>
+          <h2 className="testi-headline reveal reveal-delay-1">&ldquo;Words from the people who matter most.&rdquo;</h2>
+        </div>
+
+        <div className="testimonials-grid">
+          <div className="testi-card reveal reveal-delay-1">
+            <div className="testi-quote-mark" aria-hidden="true">&ldquo;</div>
+            <p className="testi-text">Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.</p>
             <div className="testi-divider"></div>
-            <p className="testi-name">Priya S.</p>
-            <p className="testi-role">Head of People, Series B Startup</p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <p className="testi-name">Priya S.</p>
+                <p className="testi-role">Head of People, Series B Startup</p>
+              </div>
+              <div className="testi-avatar">PS</div>
+            </div>
+          </div>
+          <div className="testi-card reveal reveal-delay-2">
+            <div className="testi-quote-mark" aria-hidden="true">&ldquo;</div>
+            <p className="testi-text">Finally a gifting vendor that doesn&apos;t send a different invoice than the quote. MintBox has our Diwali budget locked in for the next three years.</p>
+            <div className="testi-divider"></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <p className="testi-name">Karan M.</p>
+                <p className="testi-role">Founder, Bengaluru</p>
+              </div>
+              <div className="testi-avatar">KM</div>
+            </div>
+          </div>
+          <div className="testi-card reveal reveal-delay-3">
+            <div className="testi-quote-mark" aria-hidden="true">&ldquo;</div>
+            <p className="testi-text">The branding quality is the closest I&apos;ve seen to what we get from international vendors — but delivered locally and on time.</p>
+            <div className="testi-divider"></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <p className="testi-name">Vikram N.</p>
+                <p className="testi-role">Procurement Lead, GCC</p>
+              </div>
+              <div className="testi-avatar">VN</div>
+            </div>
           </div>
         </div>
       </section>
