@@ -73,6 +73,7 @@
   font-weight: 400;
   color: var(--ab-cream);
   line-height: 1.05;
+  margin-top: 75px;
   margin-bottom: 1.5rem;
   letter-spacing: -0.01em;
 }
