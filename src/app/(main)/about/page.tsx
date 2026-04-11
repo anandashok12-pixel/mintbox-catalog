@@ -153,7 +153,6 @@ export default function AboutPage() {
             <div className="ab-story-img">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/about-story.jpg" alt="MintBox founder" />
-              <div className="ab-story-img-cap">Anand Ashok &middot; Director, MintBox</div>
             </div>
           </div>
           <div className="ab-story-right">
