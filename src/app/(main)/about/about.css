@@ -3,8 +3,6 @@
    Fonts: Cormorant Garamond (display), Jost (body)
    All class names prefixed with "ab-"
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
-
 :root {
   --ab-forest: #1B4D3E;
   --ab-forest-deep: #122E25;
@@ -23,7 +21,7 @@
 }
 
 .ab-page {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   background: var(--ab-cream);
   color: var(--ab-ink);
 }
@@ -70,9 +68,9 @@
   margin: 0 auto 0.75rem;
 }
 .ab-hero-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 72px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-cream);
   line-height: 1.05;
   margin-bottom: 1.5rem;
@@ -90,7 +88,7 @@
   opacity: 0.6;
 }
 .ab-hero-manifesto {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 20px;
   font-weight: 300;
   color: rgba(245, 240, 230, 0.92);
@@ -141,9 +139,9 @@
   margin-bottom: 0.6rem;
 }
 .ab-img-banner-text {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 28px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-cream);
   line-height: 1.3;
   max-width: 600px;
@@ -178,7 +176,7 @@
   margin-bottom: 1rem;
 }
 .ab-story-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 38px;
   font-weight: 400;
   color: var(--ab-forest-deep);
@@ -230,7 +228,7 @@
   color: var(--ab-ink);
 }
 .ab-story-pull {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 24px;
   font-weight: 400;
   color: var(--ab-forest-deep);
@@ -270,9 +268,9 @@
   margin-bottom: 0.75rem;
 }
 .ab-broke-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 44px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-cream);
   line-height: 1.15;
 }
@@ -333,15 +331,15 @@
   transform: translateX(0);
 }
 .ab-broke-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 44px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(184, 151, 46, 0.2);
   line-height: 1;
   margin-bottom: 1rem;
 }
 .ab-broke-card-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 20px;
   font-weight: 500;
   color: var(--ab-cream);
@@ -428,9 +426,9 @@
   margin-bottom: 1rem;
 }
 .ab-values-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 52px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-cream);
   line-height: 1.05;
 }
@@ -491,7 +489,7 @@
   padding-bottom: 1.25rem;
 }
 .ab-val-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.25em;
@@ -503,7 +501,7 @@
   color: var(--ab-gold);
 }
 .ab-val-head-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 34px;
   font-weight: 400;
   color: rgba(245, 240, 230, 0.5);
@@ -515,7 +513,7 @@
   color: var(--ab-cream);
 }
 .ab-val-tag {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -578,9 +576,9 @@
   line-height: 1.9;
 }
 .ab-val-example {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 17px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(184, 151, 46, 0.7);
   line-height: 1.75;
   font-style: italic;
@@ -614,7 +612,7 @@
   margin-bottom: 0.75rem;
 }
 .ab-founder-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 40px;
   font-weight: 400;
   color: var(--ab-forest-deep);
@@ -706,9 +704,9 @@
   justify-content: center;
 }
 .ab-fc-portrait-initials {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 72px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(184, 151, 46, 0.25);
 }
 .ab-fc-content {
@@ -717,7 +715,7 @@
   z-index: 2;
 }
 .ab-fc-name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 30px;
   font-weight: 400;
   color: var(--ab-cream);
@@ -758,9 +756,9 @@
   margin: 0 auto 0.75rem;
 }
 .ab-cta-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: 46px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-cream);
   line-height: 1.15;
   margin-bottom: 1rem;
@@ -784,7 +782,7 @@
 .ab-cta-btn-primary {
   background: var(--ab-gold);
   color: var(--ab-forest-deep);
-  font-family: 'Jost', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -802,7 +800,7 @@
 .ab-cta-btn-secondary {
   background: transparent;
   color: var(--ab-cream);
-  font-family: 'Jost', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.1em;
