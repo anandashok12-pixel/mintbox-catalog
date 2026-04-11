@@ -123,7 +123,7 @@
 .ab-img-banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(18,46,37,0.93) 0%, rgba(18,46,37,0.45) 60%, rgba(18,46,37,0.2) 100%);
+  background: linear-gradient(to top, rgba(18,46,37,0.96) 0%, rgba(18,46,37,0.58) 60%, rgba(18,46,37,0.32) 100%);
 }
 .ab-img-banner-caption {
   position: relative;
