@@ -5,6 +5,7 @@ export const ContactPage: GlobalConfig = {
   label: 'Contact Page',
   access: {
     read: () => true,
+    update: () => true,
   },
   fields: [
     // ── HERO ──

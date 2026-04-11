@@ -5,6 +5,7 @@ export const FAQPage: GlobalConfig = {
   label: 'FAQ Page',
   access: {
     read: () => true,
+    update: () => true,
   },
   fields: [
     // ── HERO ──

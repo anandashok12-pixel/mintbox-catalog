@@ -5,6 +5,7 @@ export const AboutPage: GlobalConfig = {
   label: 'About Page',
   access: {
     read: () => true,
+    update: () => true,
   },
   fields: [
     // ── HERO ──
