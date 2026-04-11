@@ -11,7 +11,12 @@ export const metadata: Metadata = {
 }
 
 export default async function AboutPage() {
-  const payload = await getPayload({ config: configPromise })
-  const data = await payload.findGlobal({ slug: 'about-page' })
-  return <AboutPageClient data={data as any} />
+  let data: any = {}
+  try {
+    const payload = await getPayload({ config: configPromise })
+    data = await payload.findGlobal({ slug: 'about-page' })
+  } catch {
+    // Global table may not exist yet during first build
+  }
+  return <AboutPageClient data={data} />
 }

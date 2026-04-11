@@ -51,7 +51,18 @@ function BowSvg({ width = 88, className }: { width?: number; className?: string 
   )
 }
 
-export function AboutPageClient({ data }: { data: AboutPageData }) {
+const EMPTY: AboutPageData = {
+  hero: { titleLine1: 'We exist because', titleLine2: 'gifting deserved better.', manifesto: '' },
+  imageBanner: { bannerImage: null, caption: '' },
+  foundingStory: { label: 'The founding story', title: 'Born from a box that disappointed.', storyImage: null, paragraph1: '', paragraph2: '', pullQuote: '', paragraph3: '', paragraph4: '', paragraph5: '' },
+  whatBroke: { label: '', title: '', cards: [], closingCard: { title: '', desc: '' } },
+  values: { label: '', titleLine1: '', titleLine2: '', subtitle: '', items: [] },
+  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@getmintbox.com', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
+  cta: { title: '', subtitle: '', primaryButtonLabel: 'Request a quote →', primaryButtonUrl: '/contact', secondaryButtonLabel: 'Browse catalogue', secondaryButtonUrl: '/catalog' },
+}
+
+export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
+  const data = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, imageBanner: { ...EMPTY.imageBanner, ...raw?.imageBanner }, foundingStory: { ...EMPTY.foundingStory, ...raw?.foundingStory }, whatBroke: { ...EMPTY.whatBroke, ...raw?.whatBroke }, values: { ...EMPTY.values, ...raw?.values }, founder: { ...EMPTY.founder, ...raw?.founder }, cta: { ...EMPTY.cta, ...raw?.cta } }
   const brokeTrackRef = useRef<HTMLDivElement>(null)
   const bannerRef = useRef<HTMLDivElement>(null)
   const [activeDot, setActiveDot] = useState(0)

@@ -11,7 +11,12 @@ export const metadata: Metadata = {
 }
 
 export default async function FAQRoute() {
-  const payload = await getPayload({ config: configPromise })
-  const data = await payload.findGlobal({ slug: 'faq-page' })
-  return <FAQPage data={data as any} />
+  let data: any = {}
+  try {
+    const payload = await getPayload({ config: configPromise })
+    data = await payload.findGlobal({ slug: 'faq-page' })
+  } catch {
+    // Global table may not exist yet during first build
+  }
+  return <FAQPage data={data} />
 }

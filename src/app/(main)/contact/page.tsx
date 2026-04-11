@@ -11,7 +11,12 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactPage() {
-  const payload = await getPayload({ config: configPromise })
-  const data = await payload.findGlobal({ slug: 'contact-page' })
-  return <ContactPageClient data={data as any} />
+  let data: any = {}
+  try {
+    const payload = await getPayload({ config: configPromise })
+    data = await payload.findGlobal({ slug: 'contact-page' })
+  } catch {
+    // Global table may not exist yet during first build
+  }
+  return <ContactPageClient data={data} />
 }

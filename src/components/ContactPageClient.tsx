@@ -26,7 +26,15 @@ interface ContactPageData {
   }
 }
 
-export function ContactPageClient({ data }: { data: ContactPageData }) {
+const EMPTY: ContactPageData = {
+  hero: { label: 'Get in touch', titleLine1: "Let's talk", titleLine2: 'about your team.', subtitle: '' },
+  formInfo: { eyebrow: 'Send us a message', title: "We'd love to hear from you.", subtitle: '', promises: [] },
+  formConfig: { occasionOptions: [], teamSizeOptions: [], budgetOptions: [], successTitle: 'Message sent!', successMessage: '' },
+  contactDetails: { phone: '+91 86182 37189', email: 'anand@getmintbox.com', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/918618237189' },
+}
+
+export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
+  const data = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, formInfo: { ...EMPTY.formInfo, ...raw?.formInfo }, formConfig: { ...EMPTY.formConfig, ...raw?.formConfig }, contactDetails: { ...EMPTY.contactDetails, ...raw?.contactDetails } }
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')

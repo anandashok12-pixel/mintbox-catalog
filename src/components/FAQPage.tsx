@@ -32,8 +32,15 @@ interface FAQPageData {
   }
 }
 
-export function FAQPage({ data }: { data: FAQPageData }) {
-  const faqData = data.categories.map((cat) => ({
+const EMPTY: FAQPageData = {
+  hero: { eyebrow: 'Frequently asked questions', titleLine1: 'Everything you', titleLine2: 'need to know.', subtitle: '' },
+  categories: [],
+  stillQuestions: { title: '', subtitle: '', contactCards: [] },
+}
+
+export function FAQPage({ data: raw }: { data: FAQPageData }) {
+  const data = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, stillQuestions: { ...EMPTY.stillQuestions, ...raw?.stillQuestions } }
+  const faqData = (data.categories || []).map((cat) => ({
     id: cat.categoryId,
     title: cat.title,
     desc: cat.desc,
