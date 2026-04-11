@@ -119,8 +119,6 @@ export default function AboutPage() {
       <section className="ab-hero">
         <div className="ab-hero-pat" />
         <div className="ab-hero-inner">
-          <div className="ab-hero-label">About MintBox</div>
-          <BowSvg className="ab-hero-bow" />
           <h1 className="ab-hero-title">
             We exist because<br />
             <em>gifting deserved better.</em>
