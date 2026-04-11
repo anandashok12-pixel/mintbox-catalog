@@ -6,7 +6,7 @@
  * Or expose as a temp API route.
  */
 import { getPayload } from 'payload'
-import config from '../payload.config'
+import config from '@payload-config'
 
 async function seed() {
   const payload = await getPayload({ config })
