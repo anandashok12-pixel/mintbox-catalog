@@ -3,7 +3,7 @@ import configPromise from '@payload-config'
 import { FAQPage } from '@/components/FAQPage'
 import type { Metadata } from 'next'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'FAQ — MintBox',

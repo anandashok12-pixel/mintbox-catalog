@@ -3,7 +3,7 @@ import configPromise from '@payload-config'
 import { ContactPageClient } from '@/components/ContactPageClient'
 import type { Metadata } from 'next'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Contact — MintBox',
