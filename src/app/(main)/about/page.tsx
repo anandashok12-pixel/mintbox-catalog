@@ -21,10 +21,26 @@ function BowSvg({ width = 88, className }: { width?: number; className?: string 
 
 export default function AboutPage() {
   const brokeTrackRef = useRef<HTMLDivElement>(null)
+  const bannerRef = useRef<HTMLDivElement>(null)
   const [activeDot, setActiveDot] = useState(0)
   const [openValue, setOpenValue] = useState<number | null>(null)
 
   useEffect(() => {
+    /* ── Banner parallax ── */
+    const banner = bannerRef.current
+    const bannerImg = banner?.querySelector('img') as HTMLImageElement | null
+    const onParallax = () => {
+      if (!banner || !bannerImg) return
+      const rect = banner.getBoundingClientRect()
+      const viewH = window.innerHeight
+      if (rect.bottom < 0 || rect.top > viewH) return
+      const progress = (viewH - rect.top) / (viewH + rect.height)
+      const offset = (progress - 0.5) * 80
+      bannerImg.style.transform = `translateY(${offset}px) scale(1.15)`
+    }
+    window.addEventListener('scroll', onParallax, { passive: true })
+    onParallax()
+
     const track = brokeTrackRef.current
     if (!track) return
 
@@ -81,6 +97,7 @@ export default function AboutPage() {
     valRows.forEach((r) => rowIO.observe(r))
 
     return () => {
+      window.removeEventListener('scroll', onParallax)
       io.disconnect()
       rowIO.disconnect()
       track.removeEventListener('mousedown', onMouseDown)
@@ -115,7 +132,7 @@ export default function AboutPage() {
       </section>
 
       {/* FULL-WIDTH IMAGE BANNER */}
-      <div className="ab-img-banner">
+      <div className="ab-img-banner" ref={bannerRef}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/about-banner.jpg" alt="MintBox curated gifts" />
         <div className="ab-img-banner-overlay" />
