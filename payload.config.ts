@@ -7,6 +7,9 @@ import { Products } from './src/collections/Products'
 import { Leads } from './src/collections/Leads'
 import { Media } from './src/collections/Media'
 import { Users } from './src/collections/Users'
+import { AboutPage } from './src/globals/AboutPage'
+import { ContactPage } from './src/globals/ContactPage'
+import { FAQPage } from './src/globals/FAQPage'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -31,6 +34,7 @@ export default buildConfig({
     },
   },
   collections: [Categories, Products, Leads, Media, Users],
+  globals: [AboutPage, ContactPage, FAQPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
