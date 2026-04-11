@@ -1,5 +1,6 @@
 'use client'
 
+/* Admin Dashboard — updated 2026-04-11 */
 import React from 'react'
 import Link from 'next/link'
 
