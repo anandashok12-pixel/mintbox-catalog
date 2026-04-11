@@ -3,6 +3,9 @@
 import React, { useState } from 'react'
 import '../landing.css'
 import './contact.css'
+import { Navbar } from '@/components/Navbar'
+import { Footer } from '@/components/Footer'
+import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -64,31 +67,11 @@ export default function ContactPage() {
   return (
     <div className="ct-page">
 
-      {/* HERO with floating nav */}
+      <Navbar />
+
+      {/* HERO */}
       <div className="ct-hero">
         <div className="ct-hero-pattern" />
-
-        <div className="ct-nav-wrap">
-          <nav className="ct-nav">
-            <a href="/" className="ct-nav-brand">
-              <div className="ct-nav-bow">
-                <svg width="32" height="18" viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M40 18C34 12,18 5,5 9C-3 12,1 19,12 17C24 15,36 20,40 18" stroke="#B8972E" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-                  <path d="M40 18C46 12,62 5,75 9C83 12,79 19,68 17C56 15,44 20,40 18" stroke="#B8972E" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-                  <path d="M35 15C37 12,39 11,40 11C41 11,43 12,45 15C43 16.5,41 18,40 18C39 18,37 16.5,35 15Z" stroke="#B8972E" strokeWidth="1.2" fill="none"/>
-                  <path d="M40 18L38 26M40 18L42 26" stroke="#B8972E" strokeWidth="1" strokeLinecap="round"/>
-                </svg>
-              </div>
-              MintBox
-            </a>
-            <div className="ct-nav-links">
-              <a href="/catalog" className="ct-nav-link">Catalogue</a>
-              <a href="/solutions" className="ct-nav-link">Occasions</a>
-              <a href="/about" className="ct-nav-link">About</a>
-            </div>
-            <a href="/contact" className="ct-nav-cta">Request a Quote</a>
-          </nav>
-        </div>
 
         <div className="ct-hero-content">
           <div className="ct-hero-label">Get in touch</div>
@@ -348,98 +331,8 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* FOOTER */}
-      <footer className="ct-footer">
-        <div className="ct-footer-main">
-
-          {/* Col 1: Brand */}
-          <div className="ct-footer-col">
-            <a href="/" className="ct-footer-logo">
-              <svg width="32" height="18" viewBox="0 0 80 36" fill="none">
-                <path d="M40 18C34 12,18 5,5 9C-3 12,1 19,12 17C24 15,36 20,40 18" stroke="#B8972E" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-                <path d="M40 18C46 12,62 5,75 9C83 12,79 19,68 17C56 15,44 20,40 18" stroke="#B8972E" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-                <path d="M35 15C37 12,39 11,40 11C41 11,43 12,45 15C43 16.5,41 18,40 18C39 18,37 16.5,35 15Z" stroke="#B8972E" strokeWidth="1.2" fill="none"/>
-                <path d="M40 18L38 26M40 18L42 26" stroke="#B8972E" strokeWidth="1" strokeLinecap="round"/>
-              </svg>
-              <span className="ct-footer-brand">MintBox</span>
-            </a>
-            <div className="ct-footer-tagline">&ldquo;Gifting that says what words can&apos;t.&rdquo;</div>
-            <div className="ct-footer-socials">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="ct-footer-social" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,230,0.6)" strokeWidth="1.5" strokeLinecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(245,240,230,0.6)"/></svg>
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="ct-footer-social" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="rgba(245,240,230,0.6)"><path d="M6.94 5a2 2 0 11-4-.002 2 2 0 014 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.16-7.06-5.94-8.72-2.91l.04-1.68z"/></svg>
-              </a>
-            </div>
-            <div className="ct-footer-url">getmintbox.com</div>
-          </div>
-
-          {/* Col 2: Navigate */}
-          <div className="ct-footer-col">
-            <div className="ct-footer-col-label">Navigate</div>
-            <a href="/" className="ct-footer-nav-link">Home</a>
-            <a href="/solutions" className="ct-footer-nav-link">Solutions</a>
-            <a href="/catalog" className="ct-footer-nav-link">Catalog</a>
-            <a href="/faq" className="ct-footer-nav-link">FAQ</a>
-            <a href="/about" className="ct-footer-nav-link">About Us</a>
-            <a href="/contact" className="ct-footer-nav-link">Request A Quote</a>
-            <a href="/contact" className="ct-footer-nav-link">Contact</a>
-          </div>
-
-          {/* Col 3: Reach Us */}
-          <div className="ct-footer-col">
-            <div className="ct-footer-col-label">Reach Us</div>
-            <div className="ct-footer-contact-val"><a href="tel:+918618237189">+91 86182 37189</a></div>
-            <div className="ct-footer-contact-val"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></div>
-            <div className="ct-footer-contact-val">2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</div>
-            <a
-              href="https://wa.me/918618237189"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ct-footer-wa"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              Chat on WhatsApp &rarr;
-            </a>
-          </div>
-
-          {/* Col 4: The Journal */}
-          <div className="ct-footer-col">
-            <div className="ct-footer-col-label">The Journal</div>
-            <div className="ct-footer-journal-desc">Gifting guides, occasion edits, and MintBox news &mdash; monthly.</div>
-            <form
-              className="ct-footer-subscribe"
-              noValidate
-              onSubmit={(e) => {
-                e.preventDefault()
-                const btn = (e.target as HTMLFormElement).querySelector('button')
-                if (btn) { btn.textContent = '✓'; (btn as HTMLButtonElement).disabled = true }
-              }}
-            >
-              <input className="ct-footer-sub-input" type="email" placeholder="your@email.com" />
-              <button className="ct-footer-sub-btn" type="submit">Subscribe</button>
-            </form>
-          </div>
-
-        </div>
-
-        <div className="ct-footer-bottom">
-          <div className="ct-footer-copy">&copy; 2026 MintBox. All rights reserved.</div>
-          <div className="ct-footer-legal">
-            <a href="#" className="ct-footer-legal-link">Privacy Policy</a>
-            <a href="#" className="ct-footer-legal-link">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
-
-      {/* FLOATING WHATSAPP */}
-      <a id="wa-float" href="https://wa.me/918618237189" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-        <span className="wa-tooltip">Chat with Anand &rarr;</span>
-      </a>
+      <Footer />
+      <WhatsAppFloat />
     </div>
   )
 }

@@ -1,7 +1,10 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
-import { Footer, WhatsAppFloat } from './ContactPage'
+import React, { useState } from 'react'
+import { Navbar } from './Navbar'
+import { Footer } from './Footer'
+import { WhatsAppFloat } from './WhatsAppFloat'
+import '../app/(main)/landing.css'
 import '../app/(main)/pages.css'
 
 interface FAQItem {
@@ -132,7 +135,6 @@ export function FAQPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({ 'ordering-0': true })
   const [activeCategory, setActiveCategory] = useState('ordering')
-  const mobileNavRef = useRef<HTMLDivElement>(null)
 
   const toggleItem = (key: string) => {
     setOpenItems(prev => ({ ...prev, [key]: !prev[key] }))
@@ -157,34 +159,7 @@ export function FAQPage() {
 
   return (
     <div className="page-wrapper">
-      {/* MOBILE NAV */}
-      <div className="page-mobile-nav" ref={mobileNavRef}>
-        <button className="page-mobile-nav-close" onClick={() => mobileNavRef.current?.classList.remove('open')} aria-label="Close menu">&times;</button>
-        <a href="/">Home</a>
-        <a href="/catalog">Catalogue</a>
-        <a href="/faq" style={{ color: 'var(--gold)' }}>FAQ</a>
-        <a href="/journal">Journal</a>
-        <a href="/contact">Contact</a>
-      </div>
-
-      {/* NAVBAR */}
-      <nav className="page-nav">
-        <a href="/" className="page-nav-logo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo-white.png" alt="MintBox" />
-        </a>
-        <ul className="page-nav-links">
-          <li><a href="/catalog">Catalogue</a></li>
-          <li><a href="/#occasions">Occasions</a></li>
-          <li><a href="/#how-it-works">How it works</a></li>
-          <li><a href="/faq" className="active">FAQ</a></li>
-          <li><a href="/journal">Journal</a></li>
-          <li><a href="/contact" className="page-nav-cta">Get in Touch</a></li>
-        </ul>
-        <button className="page-nav-hamburger" onClick={() => mobileNavRef.current?.classList.add('open')} aria-label="Open menu">
-          <span /><span /><span />
-        </button>
-      </nav>
+      <Navbar />
 
       {/* HERO */}
       <div className="page-hero">
