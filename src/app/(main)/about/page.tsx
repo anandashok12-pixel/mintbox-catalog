@@ -80,24 +80,9 @@ export default function AboutPage() {
     }, { threshold: 0.15 })
     valRows.forEach((r) => rowIO.observe(r))
 
-    /* ── Bengaluru stats reveal ── */
-    const bStats = document.getElementById('abBStats')
-    const statsIO = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.ab-b-stat').forEach((s, i) => {
-            setTimeout(() => s.classList.add('vis'), i * 100)
-          })
-          statsIO.unobserve(e.target)
-        }
-      })
-    }, { threshold: 0.2 })
-    if (bStats) statsIO.observe(bStats)
-
     return () => {
       io.disconnect()
       rowIO.disconnect()
-      statsIO.disconnect()
       track.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mouseup', onMouseUp)
       track.removeEventListener('mousemove', onMouseMove)
@@ -388,34 +373,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-
-      {/* BENGALURU — stats */}
-      <section className="ab-bengaluru">
-        <div className="ab-b-inner">
-          <div className="ab-b-left">
-            <div className="ab-b-label">MintBox in numbers</div>
-            <h2 className="ab-b-title">Built for scale.<br />Starting with quality.</h2>
-          </div>
-          <div className="ab-b-right" id="abBStats">
-            <div className="ab-b-stat">
-              <div className="ab-b-stat-num">200+</div>
-              <div className="ab-b-stat-label">SKUs curated and ready to brand</div>
-            </div>
-            <div className="ab-b-stat">
-              <div className="ab-b-stat-num">25</div>
-              <div className="ab-b-stat-label">Unit minimum &mdash; no massive commitments</div>
-            </div>
-            <div className="ab-b-stat">
-              <div className="ab-b-stat-num">3&ndash;4</div>
-              <div className="ab-b-stat-label">Weeks from enquiry to doorstep</div>
-            </div>
-            <div className="ab-b-stat">
-              <div className="ab-b-stat-num">4 hrs</div>
-              <div className="ab-b-stat-label">Maximum response time on any business day</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CLOSING CTA */}
       <section className="ab-cta">
