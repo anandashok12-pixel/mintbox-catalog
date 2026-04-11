@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import '../landing.css'
 import './about.css'
@@ -8,9 +8,6 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 
-/* ───────────────────────────────────
-   Bow SVG (reusable)
-   ─────────────────────────────────── */
 function BowSvg({ width = 88, className }: { width?: number; className?: string }) {
   return (
     <svg className={className} width={width} height={32} viewBox="0 0 80 28" fill="none">
@@ -22,15 +19,97 @@ function BowSvg({ width = 88, className }: { width?: number; className?: string 
   )
 }
 
-/* ───────────────────────────────────
-   About Page
-   ─────────────────────────────────── */
 export default function AboutPage() {
+  const brokeTrackRef = useRef<HTMLDivElement>(null)
+  const [activeDot, setActiveDot] = useState(0)
+  const [openValue, setOpenValue] = useState<number | null>(null)
+
+  useEffect(() => {
+    const track = brokeTrackRef.current
+    if (!track) return
+
+    /* ── Card reveal on scroll ── */
+    const cards = track.querySelectorAll('.ab-broke-card, .ab-broke-card-last')
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          cards.forEach((c) => c.classList.add('visible'))
+          io.unobserve(e.target)
+        }
+      })
+    }, { threshold: 0.2 })
+    io.observe(track)
+
+    /* ── Drag to scroll ── */
+    let drag = false
+    let startX = 0
+    let scrollLeft = 0
+
+    const onMouseDown = (e: MouseEvent) => {
+      drag = true
+      startX = e.pageX - track.offsetLeft
+      scrollLeft = track.scrollLeft
+      track.style.cursor = 'grabbing'
+    }
+    const onMouseUp = () => { drag = false; track.style.cursor = 'grab' }
+    const onMouseMove = (e: MouseEvent) => {
+      if (!drag) return
+      e.preventDefault()
+      const x = e.pageX - track.offsetLeft
+      track.scrollLeft = scrollLeft - (x - startX)
+    }
+
+    track.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mouseup', onMouseUp)
+    track.addEventListener('mousemove', onMouseMove)
+
+    /* ── Progress dots ── */
+    const onScroll = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth
+      const ratio = maxScroll > 0 ? track.scrollLeft / maxScroll : 0
+      setActiveDot(Math.round(ratio * 5))
+    }
+    track.addEventListener('scroll', onScroll)
+
+    /* ── Value rows reveal ── */
+    const valRows = document.querySelectorAll('.ab-val-row')
+    const rowIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { (e.target as HTMLElement).classList.add('vis'); rowIO.unobserve(e.target) }
+      })
+    }, { threshold: 0.15 })
+    valRows.forEach((r) => rowIO.observe(r))
+
+    /* ── Bengaluru stats reveal ── */
+    const bStats = document.getElementById('abBStats')
+    const statsIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.ab-b-stat').forEach((s, i) => {
+            setTimeout(() => s.classList.add('vis'), i * 100)
+          })
+          statsIO.unobserve(e.target)
+        }
+      })
+    }, { threshold: 0.2 })
+    if (bStats) statsIO.observe(bStats)
+
+    return () => {
+      io.disconnect()
+      rowIO.disconnect()
+      statsIO.disconnect()
+      track.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mouseup', onMouseUp)
+      track.removeEventListener('mousemove', onMouseMove)
+      track.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
   return (
     <div className="ab-page">
       <Navbar />
 
-      {/* HERO — MANIFESTO */}
+      {/* HERO */}
       <section className="ab-hero">
         <div className="ab-hero-pat" />
         <div className="ab-hero-inner">
@@ -38,17 +117,30 @@ export default function AboutPage() {
           <BowSvg className="ab-hero-bow" />
           <h1 className="ab-hero-title">
             We exist because<br />
-            <em>gifting deserved<br />better.</em>
+            <em>gifting deserved better.</em>
           </h1>
           <div className="ab-hero-rule-gold" />
           <p className="ab-hero-manifesto">
-            &ldquo;The corporate gifting market doesn&rsquo;t have a product problem. It has a meaning
-            problem. Every box that arrives late, every logo that peels, every invoice that
-            doesn&rsquo;t match the quote &mdash; these aren&rsquo;t vendor failures. They&rsquo;re
-            failures of care. MintBox exists to give every gift its meaning back.&rdquo;
+            The corporate gifting market doesn&rsquo;t have a product problem. It has a meaning problem.
+            Every box that arrives late, every logo that peels, every invoice that doesn&rsquo;t match
+            the quote &mdash; these aren&rsquo;t vendor failures. They&rsquo;re failures of care.
+            MintBox exists to give every gift its meaning back.
           </p>
         </div>
       </section>
+
+      {/* FULL-WIDTH IMAGE BANNER */}
+      <div className="ab-img-banner">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/about-banner.jpg" alt="MintBox curated gifts" />
+        <div className="ab-img-banner-overlay" />
+        <div className="ab-img-banner-caption">
+          <div className="ab-img-banner-label">Curated with intention</div>
+          <div className="ab-img-banner-text">
+            Every product is sourced, sampled, and physically evaluated before it earns a place in a MintBox.
+          </div>
+        </div>
+      </div>
 
       {/* FOUNDING STORY */}
       <section className="ab-story">
@@ -57,6 +149,11 @@ export default function AboutPage() {
             <div className="ab-story-label">The founding story</div>
             <h2 className="ab-story-title">Born from a box that disappointed.</h2>
             <div className="ab-story-rule" />
+            <div className="ab-story-img">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/about-story.jpg" alt="MintBox founder" />
+              <div className="ab-story-img-cap">Anand Ashok &middot; Director, MintBox</div>
+            </div>
           </div>
           <div className="ab-story-right">
             <p className="ab-story-p">
@@ -82,10 +179,8 @@ export default function AboutPage() {
 
             <p className="ab-story-p">
               We started MintBox with a simple conviction:{' '}
-              <strong>
-                a premium corporate gift should work like a premium product
-              </strong>
-              . It should arrive on time. The logo should look exactly like the mockup. The invoice
+              <strong>a premium corporate gift should work like a premium product</strong>.
+              It should arrive on time. The logo should look exactly like the mockup. The invoice
               should match the quote. The person who opens it should feel &mdash; genuinely &mdash;
               that someone thought about them specifically.
             </p>
@@ -108,155 +203,123 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* WHAT WAS BROKEN */}
-      <section className="ab-broke">
+      {/* WHAT WAS BROKEN — horizontal scroll cards */}
+      <div className="ab-broke">
         <div className="ab-broke-pat" />
-        <div className="ab-broke-inner">
+        <div className="ab-broke-header">
           <div className="ab-broke-label">What we set out to fix</div>
-          <h2 className="ab-broke-title">
+          <div className="ab-broke-title">
             The five things that were broken<br />before MintBox existed.
-          </h2>
-          <div className="ab-broke-grid">
-            <div className="ab-broke-item">
-              <div className="ab-broke-num">01</div>
-              <div className="ab-broke-item-title">The invoice surprise</div>
-              <div className="ab-broke-item-desc">
-                Vendors quote one number, invoice another. Logistics surcharges, &ldquo;admin
-                fees,&rdquo; and branding corrections appeared after approval &mdash; sometimes adding
-                20&ndash;30% to the cost. We quote everything upfront. What you approve is what you
-                pay.
+          </div>
+        </div>
+        <div className="ab-broke-track-wrap">
+          <div className="ab-broke-track" ref={brokeTrackRef}>
+            {[
+              { num: '01', title: 'The invoice surprise', desc: 'Vendors quote one number, invoice another. Logistics surcharges, admin fees, and branding corrections appeared after approval \u2014 sometimes adding 20\u201330% to the cost. We quote everything upfront. What you approve is what you pay.' },
+              { num: '02', title: 'The peeling logo', desc: 'Most vendors outsource branding to whoever is cheapest. Logos that shift, colours that drift, prints that peel after one wash. We keep artwork in-house, match every mockup, and physically inspect every batch before dispatch.' },
+              { num: '03', title: 'The Diwali chaos', desc: 'Every October, HR teams across India chase vendors, follow up on missing shipments, and apologise to employees whose gifts arrived broken or not at all. We plan lead times honestly and track every delivery individually.' },
+              { num: '04', title: 'The creativity plateau', desc: 'Same mug. Same diary. Same power bank. Every vendor, every year, pulls from the same catalogue. We curate with intention \u2014 matching products to brand personality, not just what\u2019s in stock.' },
+              { num: '05', title: 'The remote gifting failure', desc: 'Post-2020, teams are everywhere. Collecting 200 individual addresses, managing missed deliveries, tracking each shipment \u2014 an administrative nightmare. We built the tools to make it effortless.' },
+            ].map((item) => (
+              <div key={item.num} className="ab-broke-card">
+                <div className="ab-broke-num">{item.num}</div>
+                <div className="ab-broke-card-title">{item.title}</div>
+                <div className="ab-broke-card-desc">{item.desc}</div>
               </div>
-            </div>
-            <div className="ab-broke-item">
-              <div className="ab-broke-num">02</div>
-              <div className="ab-broke-item-title">The peeling logo</div>
-              <div className="ab-broke-item-desc">
-                Most vendors outsource branding to whoever is cheapest. Logos that shift, colours that
-                drift, prints that peel after one wash. We keep artwork in-house, match every mockup,
-                and physically inspect every batch before dispatch.
-              </div>
-            </div>
-            <div className="ab-broke-item">
-              <div className="ab-broke-num">03</div>
-              <div className="ab-broke-item-title">The Diwali chaos</div>
-              <div className="ab-broke-item-desc">
-                Every October, HR teams across India chase vendors, follow up on missing shipments, and
-                apologise to employees whose gifts arrived broken or not at all. We plan lead times
-                honestly, communicate proactively, and track every delivery individually.
-              </div>
-            </div>
-            <div className="ab-broke-item">
-              <div className="ab-broke-num">04</div>
-              <div className="ab-broke-item-title">The creativity plateau</div>
-              <div className="ab-broke-item-desc">
-                Same mug. Same diary. Same power bank. Every vendor, every year, pulls from the same
-                Alibaba catalogue. We curate with intention &mdash; matching products to brand
-                personality, not just what&rsquo;s in stock.
-              </div>
-            </div>
-            <div className="ab-broke-item">
-              <div className="ab-broke-num">05</div>
-              <div className="ab-broke-item-title">The remote gifting failure</div>
-              <div className="ab-broke-item-desc">
-                Post-2020, teams are everywhere. Delivering to one office is the exception. Collecting
-                200 individual addresses, managing missed deliveries, tracking each shipment &mdash;
-                this was an administrative nightmare. We built the tools to make it effortless.
-              </div>
-            </div>
-            <div className="ab-broke-item ab-broke-highlight">
-              <div className="ab-broke-num">&rarr;</div>
-              <div className="ab-broke-item-title">MintBox is the answer to all five.</div>
-              <div className="ab-broke-item-desc">
-                Every process we&rsquo;ve built &mdash; from branding in-house to transparent quoting
-                to individual address delivery &mdash; exists to fix one of these five failures. Not as
-                a feature. As a founding principle.
+            ))}
+            <div className="ab-broke-card-last">
+              <div className="ab-broke-num" style={{ color: 'rgba(184,151,46,0.45)' }}>&rarr;</div>
+              <div className="ab-broke-card-title" style={{ color: 'var(--gold)' }}>MintBox is the answer to all five.</div>
+              <div className="ab-broke-card-desc" style={{ color: 'rgba(245,240,230,0.92)' }}>
+                Every process we have built &mdash; from branding in-house to transparent quoting to
+                individual address delivery &mdash; exists to fix one of these five failures. Not as a
+                feature. As a founding principle.
               </div>
             </div>
           </div>
         </div>
-      </section>
+        <div className="ab-broke-hint">drag to explore &rarr;</div>
+        <div className="ab-broke-progress">
+          {[0,1,2,3,4,5].map((i) => (
+            <div key={i} className={`ab-broke-dot${activeDot === i ? ' active' : ''}`} />
+          ))}
+        </div>
+      </div>
 
-      {/* VALUES */}
-      <section className="ab-values">
+      {/* VALUES — dark accordion */}
+      <div className="ab-values">
+        <div className="ab-values-pat" />
         <div className="ab-values-inner">
           <div className="ab-values-header">
-            <h2 className="ab-values-title">
-              Four things we<br />never compromise on.
-            </h2>
+            <div>
+              <div className="ab-values-label">Our commitments</div>
+              <div className="ab-values-title">
+                Four things we<br /><em>never compromise on.</em>
+              </div>
+            </div>
             <div className="ab-values-sub">
-              These aren&rsquo;t marketing values &mdash; they&rsquo;re operational commitments. Every
-              process, partnership, and product decision runs through all four of them. If something
-              fails any one of these tests, we don&rsquo;t do it.
+              These aren&rsquo;t values we put on a wall. They&rsquo;re the criteria every product,
+              vendor, and process has to pass before it becomes part of MintBox. If something fails
+              even one of these tests, we don&rsquo;t do it &mdash; no matter how convenient or
+              profitable it might be.
             </div>
           </div>
-          <div className="ab-values-grid">
-            <div className="ab-val-card">
-              <div className="ab-val-num">01</div>
-              <div className="ab-val-title">Craftsmanship</div>
-              <div className="ab-val-desc">
-                Every product in our catalogue has been sourced, sampled, and evaluated. Every branding
-                technique is matched to the material. Every batch is physically inspected. We
-                don&rsquo;t ship what we wouldn&rsquo;t receive ourselves.
+
+          <div className="ab-val-list">
+            {[
+              {
+                num: '01', title: 'Craftsmanship', tag: 'Quality first',
+                desc: "Every product in our catalogue has been sourced, sampled, and physically evaluated \u2014 not just browsed from a supplier PDF. We match every branding technique to the material it goes on, inspect every batch before dispatch, and maintain a standard we set ourselves rather than inherit from whoever is cheapest. The result is a gift that looks exactly like the mockup, every single time.",
+                example: "\u201CWe rejected three notebook suppliers before finding one whose debossing held to our spec. That decision never appears on a quote \u2014 but it\u2019s exactly what you feel the moment you open the box.\u201D",
+              },
+              {
+                num: '02', title: 'Transparency', tag: 'No surprises',
+                desc: "What you see on the quote is what appears on the invoice \u2014 line for line. Products, branding, packaging, logistics, and GST are all itemised from the start. We don\u2019t bury costs, round up quietly, or introduce new charges at billing. If anything changes during an order, we tell you before it affects the price, not after. Trust in this industry is rare because honesty is rare. We\u2019re changing that.",
+                example: "\u201CIf a product goes out of stock after quoting and the alternative costs more, we absorb the difference or present options clearly. We have never billed a rupee that wasn\u2019t discussed upfront.\u201D",
+              },
+              {
+                num: '03', title: 'Reliability', tag: 'On time, always',
+                desc: "A Diwali gift that arrives on December 3rd is not a Diwali gift. We set honest lead times at the start \u2014 never the optimistic ones \u2014 and we track every individual shipment rather than treating an order as done once it leaves our hands. If something goes wrong in transit, you hear from us before you have to ask. Reliability means the experience of working with us is never a source of stress, even during festive season.",
+                example: "\u201CWe plan every festive order with a minimum three-week buffer. We would rather confirm a later date and deliver early than promise a date we can\u2019t keep.\u201D",
+              },
+              {
+                num: '04', title: 'Human connection', tag: 'People, not portals',
+                desc: "A gift is a human act \u2014 it says that someone thought of you specifically. We never let that get lost in a process. Every new client speaks to a person. Every enquiry gets a response from Anand personally. Every order has someone accountable for it by name, not a ticket number. As we grow, technology will help us scale \u2014 but the human at the centre of every relationship stays. That is not a promise we\u2019ll revisit when it becomes inconvenient.",
+                example: "\u201CAnand picks up every WhatsApp. That won\u2019t change when we\u2019re at ten times the order volume. The moment it does, we\u2019ll have stopped being MintBox.\u201D",
+              },
+            ].map((val, i) => (
+              <div key={val.num} className={`ab-val-row${openValue === i ? ' open' : ''}`}>
+                <div className="ab-val-row-head" onClick={() => setOpenValue(openValue === i ? null : i)}>
+                  <span className="ab-val-num">{val.num}</span>
+                  <div className="ab-val-head-title">{val.title}</div>
+                  <div className="ab-val-tag">{val.tag}</div>
+                  <div className="ab-val-arrow">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="rgba(184,151,46,0.6)" strokeWidth="1.2" strokeLinecap="round">
+                      <line x1="6" y1="1" x2="6" y2="11" /><line x1="1" y1="6" x2="11" y2="6" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="ab-val-body">
+                  <div className="ab-val-body-inner">
+                    <div className="ab-val-body-spacer" />
+                    <div className="ab-val-desc">{val.desc}</div>
+                    <div className="ab-val-example">{val.example}</div>
+                  </div>
+                </div>
               </div>
-              <div className="ab-val-example">
-                In practice: We rejected three notebook manufacturers before finding one whose
-                debossing met our standard. That&rsquo;s the kind of thing we don&rsquo;t talk about
-                in sales &mdash; but it&rsquo;s what makes the difference when you open the box.
-              </div>
-            </div>
-            <div className="ab-val-card">
-              <div className="ab-val-num">02</div>
-              <div className="ab-val-title">Transparency</div>
-              <div className="ab-val-desc">
-                What you see on the quote is what appears on the invoice. No exceptions. Logistics,
-                branding, packaging, and GST are all itemised upfront. If something changes, we tell
-                you before it affects the invoice &mdash; not after.
-              </div>
-              <div className="ab-val-example">
-                In practice: If a product we quoted goes out of stock and the alternative costs more,
-                we absorb the difference or present options. We never quietly substitute and bill
-                later.
-              </div>
-            </div>
-            <div className="ab-val-card">
-              <div className="ab-val-num">03</div>
-              <div className="ab-val-title">Sustainability</div>
-              <div className="ab-val-desc">
-                We don&rsquo;t use sustainability as a marketing badge. We source responsibly, offer a
-                dedicated eco range, and are building toward full carbon-footprint documentation for
-                every order. We&rsquo;re honest about where we are on this journey.
-              </div>
-              <div className="ab-val-example">
-                In practice: Our eco range uses cork, bamboo, and recycled materials &mdash; every item
-                comes with material sourcing documentation. We don&rsquo;t call something
-                &ldquo;eco&rdquo; unless we can prove it.
-              </div>
-            </div>
-            <div className="ab-val-card">
-              <div className="ab-val-num">04</div>
-              <div className="ab-val-title">Human connection</div>
-              <div className="ab-val-desc">
-                Behind every order is a relationship &mdash; between a company and its people, between
-                a vendor and its clients. We never lose sight of that. The goal isn&rsquo;t to ship a
-                box. It&rsquo;s to make someone feel genuinely valued.
-              </div>
-              <div className="ab-val-example">
-                In practice: Anand picks up every WhatsApp. Every new client speaks to a person, not a
-                ticketing system. For us this is non-negotiable &mdash; scale will never change it.
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* FOUNDER */}
-      <section className="ab-founder">
+      <div className="ab-founder">
         <div className="ab-founder-inner">
           <div className="ab-founder-left">
             <div className="ab-founder-label">The person behind MintBox</div>
-            <h2 className="ab-founder-title">Built by someone who felt the problem firsthand.</h2>
+            <div className="ab-founder-title">Built by someone who felt the problem firsthand.</div>
             <div className="ab-founder-bio">
-              <p>
+              <p style={{ marginBottom: '1rem' }}>
                 <strong>Anand Ashok</strong> is the Director of MintBox and the driving force behind
                 its founding. With a background spanning brand-building, web development, and product
                 strategy, Anand has spent years working with early-stage startups and established
@@ -291,16 +354,11 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <div className="ab-fc-label">Phone</div>
-                  <div className="ab-fc-val">+91 9916996642</div>
+                  <div className="ab-fc-val">+91 86182 37189</div>
                 </div>
               </div>
               <div className="ab-fc-item">
-                <a
-                  href="https://wa.me/919916996642"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: 'contents' }}
-                >
+                <a href="https://wa.me/918618237189" target="_blank" rel="noopener noreferrer" style={{ display: 'contents' }}>
                   <div className="ab-fc-icon">
                     <svg viewBox="0 0 14 14" fill="none">
                       <path d="M7 1.5C4.4 1.5 1.5 4.4 1.5 7C1.5 8.2 1.8 9.3 2.4 10.3L1.5 13.5L4.8 12.6C5.8 13.2 6.9 13.5 8 13.5C11.6 13.5 13.5 10.6 13.5 7C13.5 4.4 10.6 1.5 7 1.5Z" stroke="#1B4D3E" strokeWidth="0.8" fill="none" />
@@ -317,95 +375,43 @@ export default function AboutPage() {
           <div className="ab-founder-right">
             <div className="ab-founder-card">
               <div className="ab-fc-pat" />
-              <div className="ab-fc-avatar">
-                <div className="ab-fc-initials">AA</div>
+              <div className="ab-fc-portrait-placeholder">
+                <div className="ab-fc-portrait-initials">AA</div>
               </div>
-              <div className="ab-fc-name">Anand Ashok</div>
-              <div className="ab-fc-role">Director, MintBox &middot; Bengaluru, India</div>
-              <div className="ab-fc-divider" />
-              <div className="ab-fc-quote">
-                &ldquo;I built MintBox because I got tired of explaining to my own team why the Diwali
-                gifts were late again. If I was experiencing this with five people, imagine what HR
-                teams at 500 people were going through. The product problem was straightforward. The
-                will to actually fix it &mdash; that took time.&rdquo;
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="ab-fc-portrait" src="/about-founder.jpg" alt="Anand Ashok" />
+              <div className="ab-fc-content">
+                <div className="ab-fc-name">Anand Ashok</div>
+                <div className="ab-fc-role">Director, MintBox</div>
               </div>
-              <a
-                href="https://wa.me/919916996642"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ab-fc-wa"
-              >
-                <svg viewBox="0 0 16 16" fill="none" style={{ width: 18, height: 18, flexShrink: 0 }}>
-                  <path d="M8 1.5C4.4 1.5 1.5 4.4 1.5 8C1.5 9.2 1.8 10.3 2.4 11.3L1.5 14.5L4.8 13.6C5.8 14.2 6.9 14.5 8 14.5C11.6 14.5 14.5 11.6 14.5 8C14.5 4.4 11.6 1.5 8 1.5Z" stroke="#B8972E" strokeWidth="0.9" fill="none" />
-                  <path d="M6.2 5.8L5.9 8.2L8.2 10.2L10.2 9.9L9.2 8.7L7.8 9C7.8 9 6.8 7.8 6.8 6.8L8 6.5L7 5.8H6.2Z" fill="#B8972E" opacity="0.7" />
-                </svg>
-                <div>
-                  <div className="ab-fc-wa-text">WhatsApp Anand directly</div>
-                  <div className="ab-fc-wa-sub">+91 9916996642 &middot; replies within 30 min</div>
-                </div>
-              </a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* BENGALURU */}
+      {/* BENGALURU — stats */}
       <section className="ab-bengaluru">
         <div className="ab-b-inner">
           <div className="ab-b-left">
-            <div className="ab-b-label">Where we are</div>
-            <h2 className="ab-b-title">
-              Built in Bengaluru.<br />For Bengaluru&rsquo;s best teams.
-            </h2>
-            <p className="ab-b-text">
-              We chose Bengaluru deliberately. This city has the highest density of ambitious,
-              quality-conscious companies in India &mdash; the kind of teams that understand what brand
-              quality means because they live it every day. We started here to earn the trust of the
-              most demanding buyers first, and build outward from that foundation.
-            </p>
-            <div className="ab-b-addr">
-              <div className="ab-b-addr-icon">
-                <svg viewBox="0 0 16 16" fill="none">
-                  <path d="M8 2C5.2 2 3 4.2 3 7C3 9.8 8 14 8 14C8 14 13 9.8 13 7C13 4.2 10.8 2 8 2Z" stroke="#1B4D3E" strokeWidth="1" fill="none" />
-                  <circle cx="8" cy="7" r="1.5" stroke="#1B4D3E" strokeWidth="0.9" fill="none" />
-                </svg>
-              </div>
-              <div>
-                <div className="ab-b-addr-label">Our office</div>
-                <div className="ab-b-addr-text">
-                  2nd Floor, Building 16/2, Sobha Alexander Plaza<br />
-                  Commissariat Road, Ashok Nagar<br />
-                  Bengaluru, Karnataka 560025
-                </div>
-                <a
-                  className="ab-b-addr-link"
-                  href="https://maps.google.com/?q=Sobha+Alexander+Plaza+Commissariat+Road+Ashok+Nagar+Bengaluru"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open in Google Maps &rarr;
-                </a>
-              </div>
-            </div>
+            <div className="ab-b-label">MintBox in numbers</div>
+            <h2 className="ab-b-title">Built for scale.<br />Starting with quality.</h2>
           </div>
-          <div className="ab-b-right">
-            <div className="ab-b-stats">
-              <div className="ab-b-stat">
-                <div className="ab-b-stat-num">200+</div>
-                <div className="ab-b-stat-label">SKUs curated and ready to brand</div>
-              </div>
-              <div className="ab-b-stat">
-                <div className="ab-b-stat-num">25</div>
-                <div className="ab-b-stat-label">Unit minimum &mdash; no massive commitments to get started</div>
-              </div>
-              <div className="ab-b-stat">
-                <div className="ab-b-stat-num">3&ndash;4</div>
-                <div className="ab-b-stat-label">Weeks from enquiry to your team&rsquo;s doorstep</div>
-              </div>
-              <div className="ab-b-stat">
-                <div className="ab-b-stat-num">4 hrs</div>
-                <div className="ab-b-stat-label">Maximum response time on any business day</div>
-              </div>
+          <div className="ab-b-right" id="abBStats">
+            <div className="ab-b-stat">
+              <div className="ab-b-stat-num">200+</div>
+              <div className="ab-b-stat-label">SKUs curated and ready to brand</div>
+            </div>
+            <div className="ab-b-stat">
+              <div className="ab-b-stat-num">25</div>
+              <div className="ab-b-stat-label">Unit minimum &mdash; no massive commitments</div>
+            </div>
+            <div className="ab-b-stat">
+              <div className="ab-b-stat-num">3&ndash;4</div>
+              <div className="ab-b-stat-label">Weeks from enquiry to doorstep</div>
+            </div>
+            <div className="ab-b-stat">
+              <div className="ab-b-stat-num">4 hrs</div>
+              <div className="ab-b-stat-label">Maximum response time on any business day</div>
             </div>
           </div>
         </div>
@@ -417,12 +423,11 @@ export default function AboutPage() {
         <div className="ab-cta-inner">
           <BowSvg className="ab-cta-bow" />
           <h2 className="ab-cta-title">
-            Work with a team that<br />takes gifting seriously.
+            Work with a team that takes gifting seriously.
           </h2>
           <p className="ab-cta-sub">
             Tell us about your occasion, your team size, and your budget. We&rsquo;ll come back with
-            a curated proposal &mdash; products, branding, and pricing &mdash; within one business
-            day.
+            a curated proposal &mdash; products, branding, and pricing &mdash; within one business day.
           </p>
           <div className="ab-cta-btns">
             <Link href="/contact" className="ab-cta-btn-primary">
