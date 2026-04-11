@@ -87,13 +87,17 @@ export default function AboutPage() {
     }
     track.addEventListener('scroll', onScroll)
 
-    /* ── Value rows reveal ── */
+    /* ── Value rows reveal + auto-open on scroll ── */
     const valRows = document.querySelectorAll('.ab-val-row')
     const rowIO = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) { (e.target as HTMLElement).classList.add('vis'); rowIO.unobserve(e.target) }
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).classList.add('vis')
+          const idx = Array.from(valRows).indexOf(e.target)
+          if (idx !== -1) setOpenValue(idx)
+        }
       })
-    }, { threshold: 0.15 })
+    }, { threshold: 0.5, rootMargin: '-10% 0px -30% 0px' })
     valRows.forEach((r) => rowIO.observe(r))
 
     return () => {
