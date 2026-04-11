@@ -120,7 +120,6 @@ export default function AboutPage() {
         <img src="/about-banner.jpg" alt="MintBox curated gifts" />
         <div className="ab-img-banner-overlay" />
         <div className="ab-img-banner-caption">
-          <div className="ab-img-banner-label">Curated with intention</div>
           <div className="ab-img-banner-text">
             Every product is sourced, sampled, and physically evaluated before it earns a place in a MintBox.
           </div>
