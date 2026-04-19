@@ -34,7 +34,18 @@ const EMPTY: ContactPageData = {
 }
 
 export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
-  const data = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, formInfo: { ...EMPTY.formInfo, ...raw?.formInfo }, formConfig: { ...EMPTY.formConfig, ...raw?.formConfig }, contactDetails: { ...EMPTY.contactDetails, ...raw?.contactDetails } }
+  const merged = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, formInfo: { ...EMPTY.formInfo, ...raw?.formInfo }, formConfig: { ...EMPTY.formConfig, ...raw?.formConfig }, contactDetails: { ...EMPTY.contactDetails, ...raw?.contactDetails } }
+  const data: ContactPageData = {
+    ...merged,
+    formInfo: { ...merged.formInfo, promises: merged.formInfo.promises ?? [] },
+    formConfig: {
+      ...merged.formConfig,
+      occasionOptions: merged.formConfig.occasionOptions ?? [],
+      teamSizeOptions: merged.formConfig.teamSizeOptions ?? [],
+      budgetOptions: merged.formConfig.budgetOptions ?? [],
+    },
+    contactDetails: { ...merged.contactDetails, officeAddress: merged.contactDetails.officeAddress ?? '' },
+  }
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
