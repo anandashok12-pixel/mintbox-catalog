@@ -44,7 +44,16 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
       teamSizeOptions: merged.formConfig.teamSizeOptions ?? [],
       budgetOptions: merged.formConfig.budgetOptions ?? [],
     },
-    contactDetails: { ...merged.contactDetails, officeAddress: merged.contactDetails.officeAddress ?? '' },
+    contactDetails: {
+      ...merged.contactDetails,
+      phone: merged.contactDetails.phone ?? '+91 86182 37189',
+      email: merged.contactDetails.email ?? 'anand@getmintbox.com',
+      emailSubNote: merged.contactDetails.emailSubNote ?? '',
+      officeAddress: merged.contactDetails.officeAddress ?? '',
+      mapLabel: merged.contactDetails.mapLabel ?? '',
+      mapSublabel: merged.contactDetails.mapSublabel ?? '',
+      whatsappUrl: merged.contactDetails.whatsappUrl ?? 'https://wa.me/918618237189',
+    },
   }
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
