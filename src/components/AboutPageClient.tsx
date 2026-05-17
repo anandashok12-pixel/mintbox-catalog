@@ -103,7 +103,10 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
     hero: mergeNonNull(EMPTY.hero, raw?.hero),
     imageBanner: mergeNonNull(EMPTY.imageBanner, raw?.imageBanner),
     foundingStory: mergeNonNull(EMPTY.foundingStory, raw?.foundingStory),
-    whatBroke: mergeNonNull(EMPTY.whatBroke, raw?.whatBroke),
+    whatBroke: {
+      ...mergeNonNull(EMPTY.whatBroke, raw?.whatBroke),
+      closingCard: mergeNonNull(EMPTY.whatBroke.closingCard, raw?.whatBroke?.closingCard),
+    },
     values: mergeNonNull(EMPTY.values, raw?.values),
     founder: mergeNonNull(EMPTY.founder, raw?.founder),
     cta: mergeNonNull(EMPTY.cta, raw?.cta),
