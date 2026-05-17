@@ -1,7 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 export interface CartItem {
   id: string
@@ -64,6 +64,7 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'mintbox-cart',
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 )

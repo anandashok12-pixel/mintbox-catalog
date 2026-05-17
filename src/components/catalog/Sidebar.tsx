@@ -34,7 +34,6 @@ export default function Sidebar({ categories, selectedCat, onSelectCat }: Sideba
               className={`sidebar-item${!selectedCat ? ' active' : ''}`}
               onClick={() => handleClick(null)}
             >
-              <span className="sidebar-emoji">✨</span>
               <span>All Products</span>
             </button>
           </li>
@@ -44,7 +43,6 @@ export default function Sidebar({ categories, selectedCat, onSelectCat }: Sideba
                 className={`sidebar-item${selectedCat === cat.slug ? ' active' : ''}`}
                 onClick={() => handleClick(cat.slug, cat.name)}
               >
-                {cat.emoji && <span className="sidebar-emoji">{cat.emoji}</span>}
                 <span>{cat.name}</span>
               </button>
             </li>

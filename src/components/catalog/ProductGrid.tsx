@@ -100,7 +100,7 @@ export default function ProductGrid({
           <div className="cat-section-header">
             {cat.emoji && <span className="cat-emoji">{cat.emoji}</span>}
             <h2 className="cat-title">{cat.name}</h2>
-            <span className="cat-count">{items.length} items</span>
+            <span className="cat-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
           </div>
           <div className="product-grid">
             {items.map((product) => {

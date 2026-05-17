@@ -7,6 +7,8 @@ import CartPanel from '../cart/CartPanel'
 import ProductModal from '../modals/ProductModal'
 import LeadModal from '../modals/LeadModal'
 import { useCartStore } from '@/lib/cartStore'
+import { Navbar } from '@/components/Navbar'
+import { Footer } from '@/components/Footer'
 
 interface Feature {
   feature: string
@@ -54,17 +56,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
 
   return (
     <>
-      <header className="site-header">
-        <div className="site-header-inner">
-          <a href="/catalog" className="site-logo">
-            Mint<span>Box</span>
-          </a>
-          <p className="site-tagline">Premium Corporate Gifting</p>
-          <div className="header-cart-badge" onClick={() => {}}>
-            {count > 0 && <span className="cart-count-badge">{count}</span>}
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <div className="app-body">
         <Sidebar
@@ -127,6 +119,8 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
       )}
 
       {leadOpen && <LeadModal onClose={() => setLeadOpen(false)} />}
+
+      <Footer />
     </>
   )
 }

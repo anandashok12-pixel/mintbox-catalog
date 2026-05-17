@@ -141,8 +141,8 @@ img {
    ============================================================ */
 .app-body {
   display: flex;
-  margin-top: 60px;
-  min-height: calc(100vh - 60px);
+  margin-top: 96px;
+  min-height: calc(100vh - 96px);
 }
 
 /* ============================================================
@@ -154,8 +154,8 @@ img {
   background: var(--white);
   border-right: 1px solid var(--border);
   position: sticky;
-  top: 60px;
-  height: calc(100vh - 60px);
+  top: 96px;
+  height: calc(100vh - 96px);
   overflow-y: auto;
 }
 

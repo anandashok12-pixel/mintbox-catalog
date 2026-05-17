@@ -148,7 +148,7 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
           ))}
           <div className="faq-sidebar-divider" />
           <a href="/contact" className="faq-sidebar-btn" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
-            <span>Ask a question &nearr;</span>
+            <span>Ask a question ↗</span>
           </a>
         </div>
 

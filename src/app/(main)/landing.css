@@ -1223,7 +1223,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center top;
+      transform: translateY(-30%);
+      height: 160%;
     }
     .why-overlay {
       position: absolute;
@@ -1705,10 +1707,10 @@
       border-radius: 12px;
       padding: 28px;
     }
-    .form-group {
+    .quote-form-card .form-group {
       margin-bottom: 18px;
     }
-    .form-group label {
+    .quote-form-card .form-group label {
       display: block;
       font-family: 'Satoshi', sans-serif;
       font-size: 10px;
@@ -1718,8 +1720,8 @@
       color: rgba(245,240,230,0.5);
       margin-bottom: 6px;
     }
-    .form-group input,
-    .form-group select {
+    .quote-form-card .form-group input,
+    .quote-form-card .form-group select {
       width: 100%;
       background: transparent;
       border: none;
@@ -1733,24 +1735,24 @@
       transition: border-color 0.2s ease;
       -webkit-appearance: none;
     }
-    .form-group input::placeholder { color: rgba(245,240,230,0.25); font-style: italic; }
+    .quote-form-card .form-group input::placeholder { color: rgba(245,240,230,0.25); font-style: italic; }
     .form-required { color: var(--gold); font-weight: 500; }
     .form-optional { color: rgba(245,240,230,0.35); font-weight: 300; text-transform: none; letter-spacing: 0; }
-    .form-error {
+    .quote-form-card .form-error {
       display: none;
       font-family: 'Satoshi', sans-serif;
       font-size: 11px;
       color: #e07060;
       margin-top: 4px;
     }
-    .form-input-error {
+    .quote-form-card .form-input-error {
       border-bottom-color: #e07060 !important;
     }
-    .form-group input:focus,
-    .form-group select:focus {
+    .quote-form-card .form-group input:focus,
+    .quote-form-card .form-group select:focus {
       border-bottom-color: var(--gold);
     }
-    .form-group select option { background: var(--forest-deep); color: var(--cream); }
+    .quote-form-card .form-group select option { background: var(--forest-deep); color: var(--cream); }
     .form-submit {
       width: 100%;
       background: var(--gold);

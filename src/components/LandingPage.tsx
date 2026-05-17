@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import '../app/(main)/landing.css'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { WhatsAppFloat } from './WhatsAppFloat'
@@ -203,7 +202,7 @@ export function LandingPage() {
             Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers — delivered with the precision your brand deserves.
           </p>
           <div className="hero-ctas reveal reveal-delay-3">
-            <a href="#quote-cta" className="hero-btn-primary">Request a Quote</a>
+            <a href="/contact" className="hero-btn-primary">Request a Quote</a>
             <a href="#occasions" className="hero-btn-secondary">Browse Catalogue</a>
           </div>
         </div>
@@ -215,14 +214,11 @@ export function LandingPage() {
             {/* Cards × 2 for seamless loop */}
             {(() => {
               const items = [
-                { src: '/hampers/hamper7.png',  label: 'Festive Hamper' },
-                { src: '/hampers/hamper8.png',  label: 'Artisan Gift Box' },
-                { src: '/hampers/hamper9.png',  label: 'Luxury Corporate Kit' },
-                { src: '/hampers/hamper10.png', label: 'Premium Gift Box' },
-                { src: '/hampers/hamper11.png', label: 'Branded Corporate Box' },
-                { src: '/hampers/hamper12.png', label: 'Wellness Hamper' },
-                { src: '/hampers/hamper6.png',  label: 'Bamboo Office Kit' },
-                { src: '/hampers/hamper1.png',  label: 'Araku Coffee Kit' },
+                { src: '/hampers/hero1.png', label: 'Artisan Festive Hamper' },
+                { src: '/hampers/hero2.png', label: 'Corporate Gift Box' },
+                { src: '/hampers/hero3.png', label: 'Heritage Gift Set' },
+                { src: '/hampers/hero4.png', label: 'Elegant Gift Box' },
+                { src: '/hampers/hero5.png', label: 'Premium Nuts Collection' },
               ];
               return [...items, ...items];
             })().map((card, i) => (
@@ -467,8 +463,7 @@ export function LandingPage() {
         <div className="products-grid">
           <article className="product-card reveal reveal-delay-1">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper1.png') center/cover" }}></div>
-              <span className="product-category">Onboarding</span>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/onboarding.png') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The Onboarding Kit</h3>
@@ -479,8 +474,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-2">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper2.png') center/cover" }}></div>
-              <span className="product-category">Festive</span>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/diwali.png') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The Diwali Edit</h3>
@@ -491,8 +485,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-3">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper3.png') center/cover" }}></div>
-              <span className="product-category">WFH</span>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/wfh-essentials.png') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The WFH Essentials</h3>
@@ -503,8 +496,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-4">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/hamper5.png') center/cover" }}></div>
-              <span className="product-category">Executive</span>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/executive-gift.png') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The Executive Gift</h3>
@@ -523,7 +515,7 @@ export function LandingPage() {
       {/* SECTION: OUR STANDARDS */}
       <section id="why-mintbox" aria-label="Our standards">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/hampers/hamper1.png" alt="" className="why-bg" aria-hidden="true" />
+        <img src="/hampers/why-bg.png" alt="" className="why-bg" aria-hidden="true" />
         <div className="why-overlay" aria-hidden="true"></div>
         <div className="why-content">
           <div className="why-headline-wrap">
@@ -575,58 +567,6 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION: CATALOG — THE RUNWAY */}
-      <section id="catalog" aria-label="Product categories">
-        <div className="va-header reveal">
-          <div className="va-title-block">
-            <span className="va-eyebrow">What We Gift</span>
-            <h2 className="va-headline">The MintBox<br/><em>Edit.</em></h2>
-          </div>
-          <p className="va-sub">Four categories. Hundreds of products. All brandable, all deliverable.</p>
-        </div>
-
-        <div className="va-track-wrap" id="vaTrack">
-          <div className="va-track">
-            <div className="va-card">
-              <img src="/hampers/hamper4.png" alt="Drinkware" />
-              <div className="va-card-overlay">
-                <span className="va-card-num">01</span>
-                <h3 className="va-card-name">Drinkware</h3>
-                <p className="va-card-desc">Mugs, tumblers, and flasks — the gifts that earn a permanent spot on their desk.</p>
-                <a href="/catalog" className="va-card-pill">Browse →</a>
-              </div>
-            </div>
-            <div className="va-card">
-              <img src="/hampers/hamper6.png" alt="Stationery" />
-              <div className="va-card-overlay">
-                <span className="va-card-num">02</span>
-                <h3 className="va-card-name">Stationery</h3>
-                <p className="va-card-desc">Notebooks, planners, and pens they&apos;ll actually reach for — every single day.</p>
-                <a href="/catalog" className="va-card-pill">Browse →</a>
-              </div>
-            </div>
-            <div className="va-card">
-              <img src="/hampers/hamper8.png" alt="Gadgets" />
-              <div className="va-card-overlay">
-                <span className="va-card-num">03</span>
-                <h3 className="va-card-name">Gadgets</h3>
-                <p className="va-card-desc">Earbuds, chargers, and desk tech that make a genuinely useful impression.</p>
-                <a href="/catalog" className="va-card-pill">Browse →</a>
-              </div>
-            </div>
-            <div className="va-card">
-              <img src="/hampers/hamper2.png" alt="Gourmet Food" />
-              <div className="va-card-overlay">
-                <span className="va-card-num">04</span>
-                <h3 className="va-card-name">Gourmet Food</h3>
-                <p className="va-card-desc">Artisan teas, gourmet snacks, and curated hampers that delight every palate.</p>
-                <a href="/catalog" className="va-card-pill">Browse →</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p className="va-hint">← drag to explore →</p>
-      </section>
 
       {/* SECTION: COMBINED TESTIMONIAL + QUOTE FORM */}
       <section id="quote-cta" aria-label="Request a quote">

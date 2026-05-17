@@ -61,8 +61,28 @@ const EMPTY: AboutPageData = {
   cta: { title: '', subtitle: '', primaryButtonLabel: 'Request a quote →', primaryButtonUrl: '/contact', secondaryButtonLabel: 'Browse catalogue', secondaryButtonUrl: '/catalog' },
 }
 
+// Merge, but don't let null DB values overwrite non-null defaults
+const mergeNonNull = (base: Record<string, any>, overrides: Record<string, any> | null | undefined) => {
+  const result = { ...base }
+  if (overrides) {
+    for (const [k, v] of Object.entries(overrides)) {
+      if (v !== null && v !== undefined) result[k] = v
+    }
+  }
+  return result
+}
+
 export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
-  const data = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, imageBanner: { ...EMPTY.imageBanner, ...raw?.imageBanner }, foundingStory: { ...EMPTY.foundingStory, ...raw?.foundingStory }, whatBroke: { ...EMPTY.whatBroke, ...raw?.whatBroke }, values: { ...EMPTY.values, ...raw?.values }, founder: { ...EMPTY.founder, ...raw?.founder }, cta: { ...EMPTY.cta, ...raw?.cta } }
+  const data = {
+    ...EMPTY, ...raw,
+    hero: mergeNonNull(EMPTY.hero, raw?.hero),
+    imageBanner: mergeNonNull(EMPTY.imageBanner, raw?.imageBanner),
+    foundingStory: mergeNonNull(EMPTY.foundingStory, raw?.foundingStory),
+    whatBroke: mergeNonNull(EMPTY.whatBroke, raw?.whatBroke),
+    values: mergeNonNull(EMPTY.values, raw?.values),
+    founder: mergeNonNull(EMPTY.founder, raw?.founder),
+    cta: mergeNonNull(EMPTY.cta, raw?.cta),
+  }
   const brokeTrackRef = useRef<HTMLDivElement>(null)
   const bannerRef = useRef<HTMLDivElement>(null)
   const [activeDot, setActiveDot] = useState(0)
@@ -234,7 +254,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         </div>
         <div className="ab-broke-track-wrap">
           <div className="ab-broke-track" ref={brokeTrackRef}>
-            {data.whatBroke.cards.map((item) => (
+            {data.whatBroke.cards.map((item: any) => (
               <div key={item.id || item.num} className="ab-broke-card">
                 <div className="ab-broke-num">{item.num}</div>
                 <div className="ab-broke-card-title">{item.title}</div>
@@ -275,7 +295,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
           </div>
 
           <div className="ab-val-list">
-            {data.values.items.map((val, i) => (
+            {data.values.items.map((val: any, i: number) => (
               <div key={val.id || val.num} className={`ab-val-row${openValue === i ? ' open' : ''}`}>
                 <div className="ab-val-row-head" onClick={() => setOpenValue(openValue === i ? null : i)}>
                   <span className="ab-val-num">{val.num}</span>
@@ -382,10 +402,10 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
             {data.cta.subtitle}
           </p>
           <div className="ab-cta-btns">
-            <Link href={data.cta.primaryButtonUrl} className="ab-cta-btn-primary">
+            <Link href={data.cta.primaryButtonUrl || '/contact'} className="ab-cta-btn-primary">
               {data.cta.primaryButtonLabel}
             </Link>
-            <Link href={data.cta.secondaryButtonUrl} className="ab-cta-btn-secondary">
+            <Link href={data.cta.secondaryButtonUrl || '/catalog'} className="ab-cta-btn-secondary">
               {data.cta.secondaryButtonLabel}
             </Link>
           </div>

@@ -29,7 +29,7 @@ interface ContactPageData {
 const EMPTY: ContactPageData = {
   hero: { label: 'Get in touch', titleLine1: "Let's talk", titleLine2: 'about your team.', subtitle: '' },
   formInfo: { eyebrow: 'Send us a message', title: "We'd love to hear from you.", subtitle: '', promises: [] },
-  formConfig: { occasionOptions: [], teamSizeOptions: [], budgetOptions: [], successTitle: 'Message sent!', successMessage: '' },
+  formConfig: { occasionOptions: [], teamSizeOptions: [], budgetOptions: [], successTitle: 'Message sent!', successMessage: "Thank you! We'll be in touch within 4 hours." },
   contactDetails: { phone: '+91 86182 37189', email: 'anand@getmintbox.com', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/918618237189' },
 }
 
@@ -58,6 +58,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [nameError, setNameError] = useState('')
+  const [emailError, setEmailError] = useState('')
 
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
@@ -71,11 +73,14 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-
-    if (!name.trim() || !email.trim()) {
-      setError('Please fill in your name and email.')
-      return
-    }
+    setNameError('')
+    setEmailError('')
+    let valid = true
+    if (!name.trim()) { setNameError('Your name is required.'); valid = false }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!email.trim()) { setEmailError('Email address is required.'); valid = false }
+    else if (!emailRegex.test(email.trim())) { setEmailError('Please enter a valid email address.'); valid = false }
+    if (!valid) return
 
     setSubmitting(true)
     try {
@@ -181,6 +186,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                       onChange={(e) => setName(e.target.value)}
                       required
                     />
+                    {nameError && <div className="ct-field-error">{nameError}</div>}
                   </div>
                   <div className="ct-form-group">
                     <label className="ct-form-label">Company</label>
@@ -205,6 +211,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
+                    {emailError && <div className="ct-field-error">{emailError}</div>}
                   </div>
                   <div className="ct-form-group">
                     <label className="ct-form-label">Mobile number</label>
@@ -220,7 +227,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">I&apos;m enquiring about</label>
+                    <label className="ct-form-label">Occasion</label>
                     <select
                       className="ct-form-select"
                       value={occasion}
@@ -358,12 +365,20 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
           <div className="ct-contact-right">
             <div className="ct-cs-eyebrow">Find us</div>
             <div className="ct-map-placeholder">
-              <svg className="ct-map-pin" viewBox="0 0 24 24" fill="none" stroke="#1B4D3E" strokeWidth="1.5" strokeLinecap="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <div className="ct-map-label">{data.contactDetails.mapLabel}</div>
-              <div className="ct-map-sublabel">{data.contactDetails.mapSublabel}</div>
+              <a
+                href="https://maps.google.com/?q=Sobha+Alexander+Plaza,+Ashok+Nagar,+Bengaluru+560025"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', textDecoration: 'none', color: 'inherit' }}
+              >
+                <svg className="ct-map-pin" viewBox="0 0 24 24" fill="none" stroke="#1B4D3E" strokeWidth="1.5" strokeLinecap="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <div className="ct-map-label">{data.contactDetails.mapLabel || 'Sobha Alexander Plaza'}</div>
+                <div className="ct-map-sublabel">{data.contactDetails.mapSublabel || 'Ashok Nagar, Bengaluru 560 025'}</div>
+                <div style={{ fontSize: '13px', color: '#B8972E', marginTop: '4px' }}>Get Directions →</div>
+              </a>
             </div>
           </div>
 

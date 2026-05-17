@@ -30,11 +30,10 @@ export function Footer() {
           <span className="footer-col-label">Navigate</span>
           <ul className="footer-nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="/solutions">Solutions</a></li>
-            <li><a href="/catalog">Catalog</a></li>
+
+            <li><a href="/catalog">Catalogue</a></li>
             <li><a href="/faq">FAQ</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/journal">Journal</a></li>
             <li><a href="/contact">Request A Quote</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
