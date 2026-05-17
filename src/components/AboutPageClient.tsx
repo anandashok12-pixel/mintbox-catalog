@@ -54,8 +54,29 @@ function BowSvg({ width = 88, className }: { width?: number; className?: string 
 const EMPTY: AboutPageData = {
   hero: { titleLine1: 'We exist because', titleLine2: 'gifting deserved better.', manifesto: '' },
   imageBanner: { bannerImage: null, caption: '' },
-  foundingStory: { label: 'The founding story', title: 'Born from a box that disappointed.', storyImage: null, paragraph1: '', paragraph2: '', pullQuote: '', paragraph3: '', paragraph4: '', paragraph5: '' },
-  whatBroke: { label: '', title: '', cards: [], closingCard: { title: '', desc: '' } },
+  foundingStory: {
+    label: 'The Founding Story',
+    title: 'Born from a box that disappointed.',
+    storyImage: null,
+    paragraph1: 'It started with a bad experience. Not one bad experience — dozens of them. As a founder who had hired teams, managed vendors, and sat through more than a few uncomfortable conversations about why the Diwali gifts arrived three days late and with the wrong logo — we knew something was fundamentally broken about how corporate gifting worked in India.',
+    pullQuote: 'The industry had hundreds of vendors. It had no one who actually cared about what happened when the box was opened.',
+    paragraph2: "The problem wasn't a lack of products. India has extraordinary manufacturers, brilliant artisans, and a gifting culture that runs deep. The problem was the layer between — the opaque pricing, the outsourced branding, the “we’ll check with the courier” non-answers, and the invoices that bore no resemblance to the quote.",
+    paragraph3: 'We started MintBox with a simple conviction: a premium corporate gift should work like a premium product. It should arrive on time. The logo should look exactly like the mockup. The invoice should match the quote. The person who opens it should feel — genuinely — that someone thought about them specifically.',
+    paragraph4: 'We launched in Bengaluru because this city — with its density of tech companies, its globally minded workforce, and its founders who understand what brand quality means — is the perfect place to build a gifting brand that holds itself to a higher standard. If we can earn the trust of teams building India’s most ambitious companies, we’ve done something worth doing.',
+    paragraph5: 'MintBox is still early. We’re a small team, we’re pre-launch, and we’re building every process and every partnership from scratch with quality as the only non-negotiable. We won’t ship a gift we wouldn’t be proud to receive ourselves.',
+  },
+  whatBroke: {
+    label: 'What We Set Out To Fix',
+    title: 'The five things that were broken before MintBox existed.',
+    cards: [
+      { num: '01', title: 'The invoice surprise', desc: 'Vendors quote one number, invoice another. Logistics surcharges, admin fees, and branding corrections appeared after approval — sometimes adding 20–30% to the cost. We quote everything upfront. What you approve is what you pay.' },
+      { num: '02', title: 'The peeling logo', desc: 'Most vendors outsource branding to whoever is cheapest. Logos that shift, colours that drift, prints that peel after one wash. We keep artwork in-house, match every mockup, and physically inspect every batch before dispatch.' },
+      { num: '03', title: 'The Diwali chaos', desc: 'Every October, HR teams across India chase vendors, follow up on missing shipments, and apologise to employees whose gifts arrived broken or not at all. We plan lead times honestly and track every delivery individually.' },
+      { num: '04', title: 'The creativity plateau', desc: 'Same mug. Same diary. Same power bank. Every vendor, every year, pulls from the same catalogue. We curate with intention — matching products to brand personality, not just what’s in stock.' },
+      { num: '05', title: 'The remote gifting failure', desc: 'Post-2020, teams are everywhere. Collecting 200 individual addresses, managing missed deliveries, tracking each shipment — an administrative nightmare. We built the tools to make it effortless.' },
+    ],
+    closingCard: { title: 'MintBox is the answer to all five.', desc: 'Every process we have built — from branding in-house to transparent quoting to individual address delivery — exists to fix one of these five failures. Not as a feature. As a founding principle.' },
+  },
   values: { label: '', titleLine1: '', titleLine2: '', subtitle: '', items: [] },
   founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@getmintbox.com', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
   cta: { title: '', subtitle: '', primaryButtonLabel: 'Request a quote →', primaryButtonUrl: '/contact', secondaryButtonLabel: 'Browse catalogue', secondaryButtonUrl: '/catalog' },
@@ -66,7 +87,11 @@ const mergeNonNull = (base: Record<string, any>, overrides: Record<string, any> 
   const result = { ...base }
   if (overrides) {
     for (const [k, v] of Object.entries(overrides)) {
-      if (v !== null && v !== undefined) result[k] = v
+      // Skip null, undefined, and empty arrays — fall back to base defaults
+      if (v === null || v === undefined) continue
+      if (Array.isArray(v) && v.length === 0) continue
+      if (typeof v === 'string' && v.trim() === '') continue
+      result[k] = v
     }
   }
   return result
