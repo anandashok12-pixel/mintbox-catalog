@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
 
 interface Feature {
@@ -36,7 +37,6 @@ interface Product {
 interface ProductGridProps {
   products: Product[]
   categories: Category[]
-  selectedCat: string | null
   search: string
   maxPrice: number
   onProductClick: (product: Product) => void
@@ -45,7 +45,6 @@ interface ProductGridProps {
 export default function ProductGrid({
   products,
   categories,
-  selectedCat,
   search,
   maxPrice,
   onProductClick,
@@ -53,8 +52,6 @@ export default function ProductGrid({
   const addItem = useCartStore((s) => s.addItem)
 
   const filtered = products.filter((p) => {
-    const cat = typeof p.category === 'object' ? p.category : null
-    if (selectedCat && cat?.slug !== selectedCat) return false
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false
     if (p.price > maxPrice) return false
     return true
@@ -117,12 +114,15 @@ export default function ProductGrid({
                 >
                   <div className="product-card-image">
                     {imageUrl ? (
-                      <img src={imageUrl} alt={product.name} loading="lazy" />
+                      <Image
+                        src={imageUrl}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+                        style={{ objectFit: 'cover' }}
+                      />
                     ) : (
                       <span className="product-card-emoji">{product.emoji || '🎁'}</span>
-                    )}
-                    {product.customisable && (
-                      <span className="badge-custom">Customisable</span>
                     )}
                   </div>
                   <div className="product-card-body">

@@ -841,6 +841,12 @@
   .ab-hero-title {
     font-size: 42px;
   }
+  .ab-story-title {
+    font-size: 28px;
+  }
+  .ab-story-p {
+    font-size: 15px;
+  }
   .ab-story,
   .ab-values,
   .ab-founder,

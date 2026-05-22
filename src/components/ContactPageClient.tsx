@@ -28,13 +28,45 @@ interface ContactPageData {
 
 const EMPTY: ContactPageData = {
   hero: { label: 'Get in touch', titleLine1: "Let's talk", titleLine2: 'about your team.', subtitle: '' },
-  formInfo: { eyebrow: 'Send us a message', title: "We'd love to hear from you.", subtitle: '', promises: [] },
+  formInfo: {
+    eyebrow: 'Send us a message',
+    title: "We'd love to hear from you.",
+    subtitle: "Share a few details about your gifting need and we'll get back within four working hours with a curated proposal — no spam, no sales follow-ups, just a real reply from the team.",
+    promises: [
+      { bold: 'Reply within 4 hours. ', desc: 'Every enquiry gets a real response from a real person — never an auto-reply.' },
+      { bold: 'Transparent pricing. ', desc: 'The number we quote upfront is the number on your invoice. No surprise fees, no surcharges.' },
+      { bold: 'No pressure, no pitch. ', desc: "We'll send options that fit your budget. If we're not the right fit, we'll say so honestly." },
+    ],
+  },
   formConfig: { occasionOptions: [], teamSizeOptions: [], budgetOptions: [], successTitle: 'Message sent!', successMessage: "Thank you! We'll be in touch within 4 hours." },
   contactDetails: { phone: '+91 86182 37189', email: 'anand@getmintbox.com', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/918618237189' },
 }
 
+// Merge raw DB values onto defaults, but ignore null/undefined/empty-string
+// /empty-array values so blank fields in the CMS fall back to the defaults
+// here instead of rendering an empty section.
+const mergeNonNull = <T extends Record<string, any>>(base: T, overrides: Record<string, any> | null | undefined): T => {
+  const result: Record<string, any> = { ...base }
+  if (overrides) {
+    for (const [k, v] of Object.entries(overrides)) {
+      if (v === null || v === undefined) continue
+      if (Array.isArray(v) && v.length === 0) continue
+      if (typeof v === 'string' && v.trim() === '') continue
+      result[k] = v
+    }
+  }
+  return result as T
+}
+
 export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
-  const merged = { ...EMPTY, ...raw, hero: { ...EMPTY.hero, ...raw?.hero }, formInfo: { ...EMPTY.formInfo, ...raw?.formInfo }, formConfig: { ...EMPTY.formConfig, ...raw?.formConfig }, contactDetails: { ...EMPTY.contactDetails, ...raw?.contactDetails } }
+  const merged = {
+    ...EMPTY,
+    ...raw,
+    hero: mergeNonNull(EMPTY.hero, raw?.hero),
+    formInfo: mergeNonNull(EMPTY.formInfo, raw?.formInfo),
+    formConfig: mergeNonNull(EMPTY.formConfig, raw?.formConfig),
+    contactDetails: mergeNonNull(EMPTY.contactDetails, raw?.contactDetails),
+  }
   const data: ContactPageData = {
     ...merged,
     formInfo: { ...merged.formInfo, promises: merged.formInfo.promises ?? [] },

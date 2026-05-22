@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
 
 interface CartPanelProps {
@@ -33,7 +34,13 @@ export default function CartPanel({ onRequestPricing }: CartPanelProps) {
                 <li key={item.id} className="cart-item">
                   <div className="cart-item-image">
                     {item.imageUrl ? (
-                      <img src={item.imageUrl} alt={item.name} />
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        width={44}
+                        height={44}
+                        style={{ objectFit: 'cover' }}
+                      />
                     ) : (
                       <span>{item.emoji || '🎁'}</span>
                     )}

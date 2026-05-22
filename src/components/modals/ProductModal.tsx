@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
 
 interface Feature {
@@ -90,9 +91,15 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
       <div className="product-modal" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>×</button>
 
-        <div className="product-modal-image-pane">
+        <div className="product-modal-image-pane" style={{ position: 'relative' }}>
           {imageUrl ? (
-            <img src={imageUrl} alt={product.name} className="product-modal-img" />
+            <Image
+              src={imageUrl}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 300px"
+              style={{ objectFit: 'cover' }}
+            />
           ) : (
             <div className="product-modal-emoji-fallback">
               <span>{product.emoji || '🎁'}</span>

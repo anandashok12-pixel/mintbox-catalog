@@ -29,6 +29,7 @@ export function Navbar() {
 
         <a href="/about" onClick={() => setMobileOpen(false)}>About</a>
         <a href="/faq" onClick={() => setMobileOpen(false)}>FAQ</a>
+        <a href="/contact" onClick={() => setMobileOpen(false)}>Contact</a>
         <a href="/contact" onClick={() => setMobileOpen(false)} style={{ color: 'var(--gold)' }}>Request a Quote</a>
       </div>
 
@@ -44,6 +45,7 @@ export function Navbar() {
 
           <li><a href="/about" className="nav-link">About</a></li>
           <li><a href="/faq" className="nav-link">FAQ</a></li>
+          <li><a href="/contact" className="nav-link">Contact</a></li>
         </ul>
 
         <div className="nav-actions">

@@ -9,21 +9,23 @@ export const revalidate = 60 // Revalidate every 60 seconds (ISR)
 export default async function CatalogPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const categoriesResult = await payload.find({
-    collection: 'categories',
-    sort: 'order',
-    limit: 100,
-  })
-
-  const productsResult = await payload.find({
-    collection: 'products',
-    where: {
-      inStock: { equals: true },
-    },
-    sort: 'order',
-    limit: 500,
-    depth: 2,
-  })
+  // Run both queries in parallel — they're independent. depth:1 is enough to
+  // populate `category` and `image` relations; depth:2 was pulling nested
+  // sub-relations that nothing on the page consumes.
+  const [categoriesResult, productsResult] = await Promise.all([
+    payload.find({
+      collection: 'categories',
+      sort: 'order',
+      limit: 100,
+    }),
+    payload.find({
+      collection: 'products',
+      where: { inStock: { equals: true } },
+      sort: 'order',
+      limit: 500,
+      depth: 1,
+    }),
+  ])
 
   return (
     <CatalogClient

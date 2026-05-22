@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import Image from 'next/image'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { WhatsAppFloat } from './WhatsAppFloat'
@@ -223,8 +224,14 @@ export function LandingPage() {
               return [...items, ...items];
             })().map((card, i) => (
               <div className="hamper-card" key={i}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={card.src} alt={card.label} loading={i < 7 ? 'eager' : 'lazy'} />
+                <Image
+                  src={card.src}
+                  alt={card.label}
+                  fill
+                  sizes="(max-width: 700px) 220px, (max-width: 1024px) 260px, 320px"
+                  style={{ objectFit: 'cover' }}
+                  loading={i < 5 ? 'eager' : 'lazy'}
+                />
               </div>
             ))}
           </div>

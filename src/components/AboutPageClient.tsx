@@ -79,12 +79,19 @@ const EMPTY: AboutPageData = {
   },
   values: { label: '', titleLine1: '', titleLine2: '', subtitle: '', items: [] },
   founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@getmintbox.com', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
-  cta: { title: '', subtitle: '', primaryButtonLabel: 'Request a quote →', primaryButtonUrl: '/contact', secondaryButtonLabel: 'Browse catalogue', secondaryButtonUrl: '/catalog' },
+  cta: {
+    title: 'Work with a team that takes gifting seriously.',
+    subtitle: "Whether you're planning a 50-person Diwali pack or onboarding 500 new hires next quarter — we'd love to hear what you're building and show you what good gifting can feel like.",
+    primaryButtonLabel: 'Request a quote →',
+    primaryButtonUrl: '/contact',
+    secondaryButtonLabel: 'Browse catalogue',
+    secondaryButtonUrl: '/catalog',
+  },
 }
 
 // Merge, but don't let null DB values overwrite non-null defaults
-const mergeNonNull = (base: Record<string, any>, overrides: Record<string, any> | null | undefined) => {
-  const result = { ...base }
+const mergeNonNull = <T extends Record<string, any>>(base: T, overrides: Record<string, any> | null | undefined): T => {
+  const result: Record<string, any> = { ...base }
   if (overrides) {
     for (const [k, v] of Object.entries(overrides)) {
       // Skip null, undefined, and empty arrays — fall back to base defaults
@@ -94,11 +101,11 @@ const mergeNonNull = (base: Record<string, any>, overrides: Record<string, any> 
       result[k] = v
     }
   }
-  return result
+  return result as T
 }
 
 export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
-  const data = {
+  const data: AboutPageData = {
     ...EMPTY, ...raw,
     hero: mergeNonNull(EMPTY.hero, raw?.hero),
     imageBanner: mergeNonNull(EMPTY.imageBanner, raw?.imageBanner),
