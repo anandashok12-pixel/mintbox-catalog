@@ -218,11 +218,11 @@ export function LandingPage() {
             {/* Cards × 2 for seamless loop */}
             {(() => {
               const items = [
-                { src: '/hampers/hero1.png', label: 'Artisan Festive Hamper' },
-                { src: '/hampers/hero2.png', label: 'Corporate Gift Box' },
-                { src: '/hampers/hero3.png', label: 'Heritage Gift Set' },
-                { src: '/hampers/hero4.png', label: 'Elegant Gift Box' },
-                { src: '/hampers/hero5.png', label: 'Premium Nuts Collection' },
+                { src: '/hampers/hero1.webp', label: 'Artisan Festive Hamper' },
+                { src: '/hampers/hero2.webp', label: 'Corporate Gift Box' },
+                { src: '/hampers/hero3.webp', label: 'Heritage Gift Set' },
+                { src: '/hampers/hero4.webp', label: 'Elegant Gift Box' },
+                { src: '/hampers/hero5.webp', label: 'Premium Nuts Collection' },
               ];
               return [...items, ...items];
             })().map((card, i) => (
@@ -272,7 +272,7 @@ export function LandingPage() {
 
         <div className="occasions-grid">
           <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.png')" }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
                 <h3 className="occasion-name">Employee Onboarding</h3>
@@ -282,7 +282,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.png')" }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
                 <h3 className="occasion-name">Diwali &amp; Festive</h3>
@@ -292,7 +292,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.png')" }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
                 <h3 className="occasion-name">Client Appreciation</h3>
@@ -302,7 +302,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.png')" }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
                 <h3 className="occasion-name">Work Anniversary</h3>
@@ -312,7 +312,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.png')" }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
                 <h3 className="occasion-name">Team &amp; Events</h3>
@@ -322,7 +322,7 @@ export function LandingPage() {
             </div>
           </article>
           <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.png')" }}></div>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
                 <h3 className="occasion-name">New Year</h3>
@@ -433,7 +433,7 @@ export function LandingPage() {
           <div className="scorecard-mintbox-highlight" aria-hidden="true"></div>
           <div className="scorecard-header">
             <div className="scorecard-feature-col">Feature</div>
-            <div className="scorecard-mintbox-col"><img src="/mintbox-logo.png" alt="MintBox" className="scorecard-logo" /></div>
+            <div className="scorecard-mintbox-col"><img src="/mintbox-logo.webp" alt="MintBox" className="scorecard-logo" /></div>
             <div className="scorecard-vendor-col">Typical Vendor</div>
           </div>
           {[
@@ -473,7 +473,7 @@ export function LandingPage() {
         <div className="products-grid">
           <article className="product-card reveal reveal-delay-1">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/onboarding.png') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/onboarding.webp') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The Onboarding Kit</h3>
@@ -484,7 +484,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-2">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/diwali.png') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/diwali.webp') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The Diwali Edit</h3>
@@ -495,7 +495,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-3">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/wfh-essentials.png') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/wfh-essentials.webp') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The WFH Essentials</h3>
@@ -506,7 +506,7 @@ export function LandingPage() {
           </article>
           <article className="product-card reveal reveal-delay-4">
             <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/executive-gift.png') center/cover" }}></div>
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/executive-gift.webp') center/cover" }}></div>
             </div>
             <div className="product-body">
               <h3 className="product-name">The Executive Gift</h3>
@@ -525,7 +525,7 @@ export function LandingPage() {
       {/* SECTION: OUR STANDARDS */}
       <section id="why-mintbox" aria-label="Our standards">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/hampers/why-bg.png" alt="" className="why-bg" aria-hidden="true" />
+        <img src="/hampers/why-bg.webp" alt="" className="why-bg" aria-hidden="true" />
         <div className="why-overlay" aria-hidden="true"></div>
         <div className="why-content">
           <div className="why-headline-wrap">

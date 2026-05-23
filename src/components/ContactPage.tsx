@@ -39,7 +39,7 @@ export function ContactPage() {
       <nav className="page-nav">
         <a href="/" className="page-nav-logo" aria-label="MintBox Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo-white.png" alt="MintBox" />
+          <img src="/mintbox-logo-white.webp" alt="MintBox" />
         </a>
         <ul className="page-nav-links">
           <li><a href="/catalog">Catalogue</a></li>
