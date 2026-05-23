@@ -21,6 +21,13 @@
   padding: 0;
 }
 
+/* Keep shared navbar CTA dimensions intact inside the contact page wrapper.
+   The universal reset above zeros button/link padding otherwise. */
+.ct-page #navbar .btn-primary {
+  padding: 11px 24px;
+  display: inline-block;
+}
+
 /* ===========================
    HERO
 =========================== */
