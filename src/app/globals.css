@@ -1399,6 +1399,10 @@ img {
     background: var(--white);
     border-bottom: 1px solid var(--border);
     scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(26,26,24,0.04);
   }
   .mobile-cat-strip::-webkit-scrollbar { display: none; }
   .mobile-cat-chip {
