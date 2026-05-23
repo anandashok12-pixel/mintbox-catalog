@@ -63,7 +63,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
     onClose()
   }
 
-  // Actually, the store increments by 1 each addItem call — so for qty > 1 we use updateQty after
+  // Actually, the store increments by 1 each addItem call - so for qty > 1 we use updateQty after
   const handleAddToPack2 = () => {
     const { items, updateQty, addItem: add } = useCartStore.getState()
     const existing = items.find((i) => i.id === product.id)
@@ -101,21 +101,17 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               style={{ objectFit: 'cover' }}
             />
           ) : (
-            <div className="product-modal-emoji-fallback">
-              <span>{product.emoji || '🎁'}</span>
-            </div>
+            <div className="product-modal-emoji-fallback" aria-hidden="true" />
           )}
         </div>
 
         <div className="product-modal-detail-pane">
           <div className="product-modal-meta">
             {cat && (
-              <span className="product-cat-tag">
-                {cat.emoji && `${(cat as any).emoji} `}{cat.name}
-              </span>
+              <span className="product-cat-tag">{cat.name}</span>
             )}
             {product.customisable && (
-              <span className="badge-custom">✦ Customisable</span>
+              <span className="badge-custom">Customisable</span>
             )}
           </div>
 

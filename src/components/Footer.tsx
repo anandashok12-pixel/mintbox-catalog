@@ -23,7 +23,7 @@ export function Footer() {
               </svg>
             </a>
           </div>
-          <a href="https://getmintbox.com" className="footer-url" target="_blank" rel="noopener">getmintbox.com</a>
+          <a href="https://themintbox.in" className="footer-url" target="_blank" rel="noopener">themintbox.in</a>
         </div>
 
         <div>
@@ -42,7 +42,7 @@ export function Footer() {
         <div>
           <span className="footer-col-label">Reach Us</span>
           <p className="footer-contact-item"><a href="tel:+918618237189">+91 86182 37189</a></p>
-          <p className="footer-contact-item"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></p>
+          <p className="footer-contact-item"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
           <p className="footer-contact-item" style={{ marginTop: '8px' }}>2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</p>
           <p className="footer-contact-item" style={{ marginTop: '10px' }}>
             <a href="https://wa.me/918618237189" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>

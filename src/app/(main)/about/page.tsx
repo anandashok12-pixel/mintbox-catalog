@@ -6,8 +6,8 @@ import type { Metadata } from 'next'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'About — MintBox',
-  description: 'The story behind MintBox — why we exist, what we believe, and the team behind premium corporate gifting.',
+  title: 'About - MintBox',
+  description: 'The story behind MintBox - why we exist, what we believe, and the team behind premium corporate gifting.',
 }
 
 export default async function AboutPage() {

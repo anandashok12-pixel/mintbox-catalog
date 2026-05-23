@@ -49,7 +49,7 @@ interface CatalogClientProps {
 export default function CatalogClient({ categories, products }: CatalogClientProps) {
   const [search, setSearch] = useState('')
   // activeCat tracks which category section is currently in view (scroll-spy).
-  // The sidebar uses it for highlight only — it does NOT filter the grid.
+  // The sidebar uses it for highlight only - it does NOT filter the grid.
   const [activeCat, setActiveCat] = useState<string | null>(null)
   const [maxPrice, setMaxPrice] = useState(10000)
   const [activeProduct, setActiveProduct] = useState<Product | null>(null)
@@ -114,7 +114,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
         <Sidebar categories={categories} activeCat={activeCat} />
 
         <main className="main-content">
-          {/* Mobile-only horizontal category chip strip — sidebar is hidden
+          {/* Mobile-only horizontal category chip strip - sidebar is hidden
               at this breakpoint, so this is the primary way to jump between
               categories on a phone. */}
           <nav className="mobile-cat-strip" aria-label="Category navigation">
@@ -125,7 +125,6 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
                 className={`mobile-cat-chip${activeCat === cat.slug ? ' active' : ''}`}
                 onClick={() => scrollToCategory(cat.name)}
               >
-                {cat.emoji && <span className="mobile-cat-chip-emoji">{cat.emoji}</span>}
                 <span>{cat.name}</span>
               </button>
             ))}
@@ -133,7 +132,12 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
 
           <div className="filter-bar">
             <div className="search-wrap">
-              <span className="search-icon">🔍</span>
+              <span className="search-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="7" cy="7" r="4.5" />
+                  <line x1="10.5" y1="10.5" x2="14" y2="14" strokeLinecap="round" />
+                </svg>
+              </span>
               <input
                 type="text"
                 className="search-input"
@@ -190,7 +194,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
         </button>
       )}
 
-      {/* Mobile cart drawer — slides up from bottom on mobile only. */}
+      {/* Mobile cart drawer - slides up from bottom on mobile only. */}
       {mobileCartOpen && (
         <div
           className="mobile-cart-overlay"

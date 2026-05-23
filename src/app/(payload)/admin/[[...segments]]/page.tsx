@@ -2,7 +2,7 @@ import { RootPage, generatePageMetadata } from '@payloadcms/next/views'
 import { importMap } from '../importMap'
 import type { SanitizedConfig } from 'payload'
 
-// Always render fresh — prevents stale RSC payloads that cause React #418
+// Always render fresh - prevents stale RSC payloads that cause React #418
 // hydration mismatches on the dashboard.
 export const dynamic = 'force-dynamic'
 

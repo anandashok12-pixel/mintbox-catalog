@@ -1,5 +1,5 @@
 /* ============================================================
-   MINTBOX CATALOG — Global Styles
+   MINTBOX CATALOG - Global Styles
    ============================================================ */
 
 :root {
@@ -1293,7 +1293,7 @@ img {
 }
 
 /* ============================================================
-   MOBILE CATEGORY STRIP — replaces the hidden sidebar on phones.
+   MOBILE CATEGORY STRIP - replaces the hidden sidebar on phones.
    Horizontally scrolling chips that scroll-to a section on tap.
    ============================================================ */
 .mobile-cat-strip {
@@ -1301,7 +1301,7 @@ img {
 }
 
 /* ============================================================
-   MOBILE CART FAB + DRAWER — only visible while the side cart is hidden.
+   MOBILE CART FAB + DRAWER - only visible while the side cart is hidden.
    ============================================================ */
 .mobile-cart-fab,
 .mobile-cart-overlay {
@@ -1387,7 +1387,7 @@ img {
 }
 
 @media (max-width: 768px) {
-  /* Sidebar is hidden at ≤768px — show the chip strip instead. */
+  /* Sidebar is hidden at ≤768px - show the chip strip instead. */
   .mobile-cat-strip {
     display: flex;
     gap: 8px;

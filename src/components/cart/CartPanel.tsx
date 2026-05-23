@@ -23,7 +23,6 @@ export default function CartPanel({ onRequestPricing }: CartPanelProps) {
 
         {items.length === 0 ? (
           <div className="cart-empty">
-            <span className="cart-empty-icon">🎁</span>
             <p>Your pack is empty.</p>
             <p className="cart-empty-sub">Add products from the catalog to build your gifting pack.</p>
           </div>
@@ -42,7 +41,7 @@ export default function CartPanel({ onRequestPricing }: CartPanelProps) {
                         style={{ objectFit: 'cover' }}
                       />
                     ) : (
-                      <span>{item.emoji || '🎁'}</span>
+                      <span className="cart-item-placeholder" aria-hidden="true" />
                     )}
                   </div>
                   <div className="cart-item-info">

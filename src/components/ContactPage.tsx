@@ -71,7 +71,7 @@ export function ContactPage() {
 
       {/* MAIN GRID */}
       <div className="contact-main">
-        {/* LEFT — CONTACT INFO */}
+        {/* LEFT - CONTACT INFO */}
         <div className="contact-info-panel">
           {/* Founder card */}
           <div className="contact-founder">
@@ -112,7 +112,7 @@ export function ContactPage() {
               </div>
               <div>
                 <div className="contact-info-title">Email</div>
-                <div className="contact-info-val">anand@getmintbox.com</div>
+                <div className="contact-info-val">anand@themintbox.in</div>
                 <div className="contact-info-sub">Response within 4 hours on business days</div>
               </div>
             </div>
@@ -169,7 +169,7 @@ export function ContactPage() {
           </div>
         </div>
 
-        {/* RIGHT — FORM */}
+        {/* RIGHT - FORM */}
         <div className="contact-form-panel">
           <div className="section-eyebrow" style={{ marginBottom: 10 }}>Send us a message</div>
           <h2 className="contact-form-title">We&apos;d love to<br />hear from you.</h2>
@@ -321,7 +321,7 @@ export function Footer() {
               </svg>
             </a>
           </div>
-          <a href="https://getmintbox.com" className="page-footer-url" target="_blank" rel="noopener">getmintbox.com</a>
+          <a href="https://themintbox.in" className="page-footer-url" target="_blank" rel="noopener">themintbox.in</a>
         </div>
 
         <div>
@@ -340,7 +340,7 @@ export function Footer() {
           <span className="page-footer-col-label">Reach Us</span>
           <p className="page-footer-contact">Anand Ashok, Director</p>
           <p className="page-footer-contact"><a href="tel:+919916996642">+91 9916996642</a></p>
-          <p className="page-footer-contact"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></p>
+          <p className="page-footer-contact"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
           <p className="page-footer-contact" style={{ marginTop: 8 }}>2nd Floor, Sobha Alexander Plaza,<br />Ashok Nagar, Bengaluru 560 025</p>
           <p className="page-footer-contact" style={{ marginTop: 10 }}>
             <a href="https://wa.me/919916996642" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>

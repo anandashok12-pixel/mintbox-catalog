@@ -1,5 +1,5 @@
 /* ============================================================
-   MINTBOX — Contact, FAQ, Journal Pages
+   MINTBOX - Contact, FAQ, Journal Pages
    Follows landing.css design system:
    Fonts: Libre Baskerville (display), Satoshi (body)
    Colors: --forest-green, --forest-deep, --gold, --cream, etc.
@@ -432,7 +432,7 @@
   flex: 1;
 }
 
-/* Left panel — info */
+/* Left panel - info */
 .contact-info-panel {
   background: var(--cream, #f2f2f2);
   padding: 48px;
@@ -578,7 +578,7 @@
 }
 .contact-map-label { font-size: 14px; color: rgba(26,26,24,0.4); font-weight: 300; }
 
-/* Right panel — form */
+/* Right panel - form */
 .contact-form-panel {
   background: white;
   padding: 48px;
@@ -1065,7 +1065,7 @@
    JOURNAL PAGE
 =========================== */
 
-/* Journal hero — split */
+/* Journal hero - split */
 .journal-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;

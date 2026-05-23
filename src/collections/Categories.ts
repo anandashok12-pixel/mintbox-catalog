@@ -36,7 +36,7 @@ export const Categories: CollectionConfig = {
       type: 'text',
       unique: true,
       admin: {
-        // Read-only in the UI — auto-generated server-side from name on save.
+        // Read-only in the UI - auto-generated server-side from name on save.
         // To override, clear the field and type a custom value before saving.
         readOnly: true,
         description: 'Auto-generated from Name on save (e.g. "water-bottles"). Clear and retype to override.',

@@ -10,7 +10,7 @@ export const Products: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    // 'category' removed from defaultColumns — relationship columns load at depth:0
+    // 'category' removed from defaultColumns - relationship columns load at depth:0
     // (just an ID), then lazily re-fetch the name client-side, causing "Loading..." on
     // every list load. Keep the list snappy with flat fields only.
     defaultColumns: ['name', 'price', 'inStock', 'customisable', 'order'],
@@ -28,7 +28,7 @@ export const Products: CollectionConfig = {
       required: true,
       hasMany: false,
       admin: {
-        // 'drawer' opens a modal list with proper search — avoids the dropdown
+        // 'drawer' opens a modal list with proper search - avoids the dropdown
         // dismissal bug where keyboard events close the select while typing, and
         // re-fetches on every open so newly created categories appear immediately.
         appearance: 'drawer',
