@@ -78,7 +78,7 @@ const EMPTY: AboutPageData = {
     closingCard: { title: 'MintBox is the answer to all five.', desc: 'Every process we have built - from branding in-house to transparent quoting to individual address delivery - exists to fix one of these five failures. Not as a feature. As a founding principle.' },
   },
   values: { label: '', titleLine1: '', titleLine2: '', subtitle: '', items: [] },
-  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@themintbox.in', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
+  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'hello@themintbox.in', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
   cta: {
     title: 'Work with a team that takes gifting seriously.',
     subtitle: "Whether you're planning a 50-person Diwali pack or onboarding 500 new hires next quarter - we'd love to hear what you're building and show you what good gifting can feel like.",

@@ -61,7 +61,7 @@ export async function GET(req: Request) {
             label: 'The person behind MintBox', title: 'Built by someone who felt the problem firsthand.',
             bioParagraph1: 'Anand Ashok is the Director of MintBox and the driving force behind its founding.',
             bioParagraph2: 'The frustration that became MintBox came from lived experience - managing gifting vendors, watching quality fall short of expectations.',
-            email: 'anand@themintbox.in', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189',
+            email: 'hello@themintbox.in', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189',
             cardName: 'Anand Ashok', cardRole: 'Director, MintBox',
           },
           cta: {
@@ -117,7 +117,7 @@ export async function GET(req: Request) {
             successMessage: 'Anand will get back to you within 4 hours on business days.',
           },
           contactDetails: {
-            phone: '+91 86182 37189', email: 'anand@themintbox.in',
+            phone: '+91 86182 37189', email: 'hello@themintbox.in',
             emailSubNote: 'Reply within 4 hours on business days',
             officeAddress: "2nd Floor, Building 16/2\nSobha Alexander Plaza\nAshok Nagar, Bengaluru 560025",
             mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
@@ -161,7 +161,7 @@ export async function GET(req: Request) {
             subtitle: 'Anand picks up every WhatsApp personally. Most questions get a reply within 30 minutes.',
             contactCards: [
               { title: 'WhatsApp us directly', desc: 'Chat with Anand - real answers, not templates.', linkText: '+91 86182 37189 \u2192', linkUrl: 'https://wa.me/918618237189' },
-              { title: 'Send us a message', desc: "We'll reply within 4 hours on business days.", linkText: 'anand@themintbox.in \u2192', linkUrl: '/contact' },
+              { title: 'Send us a message', desc: "We'll reply within 4 hours on business days.", linkText: 'hello@themintbox.in \u2192', linkUrl: '/contact' },
             ],
           },
         },

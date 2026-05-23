@@ -523,7 +523,7 @@ export function LandingPage() {
         </div>
 
         <div className="catalogue-cta-wrap reveal">
-          <a href="#" className="btn-outlined">Browse the full catalogue</a>
+          <a href="/catalog" className="btn-outlined">Browse the full catalogue</a>
         </div>
       </section>
 

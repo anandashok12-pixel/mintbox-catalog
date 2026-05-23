@@ -112,7 +112,7 @@ export function ContactPage() {
               </div>
               <div>
                 <div className="contact-info-title">Email</div>
-                <div className="contact-info-val">anand@themintbox.in</div>
+                <div className="contact-info-val">hello@themintbox.in</div>
                 <div className="contact-info-sub">Response within 4 hours on business days</div>
               </div>
             </div>
@@ -306,13 +306,13 @@ export function Footer() {
           </div>
           <p className="page-footer-tagline">&ldquo;Gifting that says what words can&apos;t.&rdquo;</p>
           <div className="page-footer-socials">
-            <a href="#" aria-label="Instagram">
+            <a href="/coming-soon" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
                 <rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" />
                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
               </svg>
             </a>
-            <a href="#" aria-label="LinkedIn">
+            <a href="/coming-soon" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
                 <rect x="2" y="2" width="20" height="20" rx="3" />
                 <line x1="7" y1="11" x2="7" y2="17" />
@@ -321,7 +321,7 @@ export function Footer() {
               </svg>
             </a>
           </div>
-          <a href="https://themintbox.in" className="page-footer-url" target="_blank" rel="noopener">themintbox.in</a>
+          <a href="/" className="page-footer-url">themintbox.in</a>
         </div>
 
         <div>
@@ -340,7 +340,7 @@ export function Footer() {
           <span className="page-footer-col-label">Reach Us</span>
           <p className="page-footer-contact">Anand Ashok, Director</p>
           <p className="page-footer-contact"><a href="tel:+919916996642">+91 9916996642</a></p>
-          <p className="page-footer-contact"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
+          <p className="page-footer-contact"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
           <p className="page-footer-contact" style={{ marginTop: 8 }}>2nd Floor, Sobha Alexander Plaza,<br />Ashok Nagar, Bengaluru 560 025</p>
           <p className="page-footer-contact" style={{ marginTop: 10 }}>
             <a href="https://wa.me/919916996642" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
@@ -360,8 +360,8 @@ export function Footer() {
       <div className="page-footer-bottom">
         <span className="page-footer-bottom-text">&copy; {new Date().getFullYear()} MintBox. All rights reserved.</span>
         <div className="page-footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
         </div>
       </div>
     </footer>

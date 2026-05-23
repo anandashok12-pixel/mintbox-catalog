@@ -197,7 +197,7 @@ export async function POST(req: NextRequest) {
 
     const refCode = lead.referenceCode || 'MB-XXXXX'
 
-    const notifyEmail = process.env.NOTIFY_EMAIL || 'anand@themintbox.in'
+    const notifyEmail = process.env.NOTIFY_EMAIL || 'hello@themintbox.in'
 
     const resend = getResend()
     if (resend) {

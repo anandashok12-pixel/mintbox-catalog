@@ -68,7 +68,7 @@ async function seed() {
         title: 'Built by someone who felt the problem firsthand.',
         bioParagraph1: "Anand Ashok is the Director of MintBox and the driving force behind its founding. With a background spanning brand-building, web development, and product strategy, Anand has spent years working with early-stage startups and established companies through Quixta Ventures - his design and development firm based in Bengaluru.",
         bioParagraph2: "The frustration that became MintBox came from lived experience - managing gifting vendors, watching quality fall short of expectations, and spending hours chasing suppliers during Diwali season instead of running a business. MintBox is his attempt to build the gifting company he wished had existed.",
-        email: 'anand@themintbox.in',
+        email: 'hello@themintbox.in',
         phone: '+91 86182 37189',
         whatsappUrl: 'https://wa.me/918618237189',
         cardName: 'Anand Ashok',
@@ -137,7 +137,7 @@ async function seed() {
       },
       contactDetails: {
         phone: '+91 86182 37189',
-        email: 'anand@themintbox.in',
+        email: 'hello@themintbox.in',
         emailSubNote: 'Reply within 4 hours on business days',
         officeAddress: "2nd Floor, Building 16/2\nSobha Alexander Plaza\nAshok Nagar, Bengaluru 560025",
         mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
@@ -242,7 +242,7 @@ async function seed() {
         subtitle: "If your question isn\u2019t here, Anand picks up every WhatsApp personally. Most questions get a reply within 30 minutes during business hours.",
         contactCards: [
           { title: 'WhatsApp us directly', desc: 'Chat with Anand - Director at MintBox. Real answers, not templates.', linkText: '+91 86182 37189 \u2192', linkUrl: 'https://wa.me/918618237189' },
-          { title: 'Send us a message', desc: "Fill the contact form and we'll reply within 4 hours on business days.", linkText: 'anand@themintbox.in \u2192', linkUrl: '/contact' },
+          { title: 'Send us a message', desc: "Fill the contact form and we'll reply within 4 hours on business days.", linkText: 'hello@themintbox.in \u2192', linkUrl: '/contact' },
         ],
       },
     },

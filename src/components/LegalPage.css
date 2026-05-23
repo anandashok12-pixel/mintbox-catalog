@@ -1,0 +1,191 @@
+/* ============================================================
+   MINTBOX — Legal (Privacy / Terms) pages
+   ============================================================ */
+
+.legal-page {
+  font-family: 'Satoshi', sans-serif;
+  color: #1A1A18;
+  background: #FAFAF7;
+  min-height: 100vh;
+}
+
+.legal-page *,
+.legal-page *::before,
+.legal-page *::after {
+  box-sizing: border-box;
+}
+
+/* HERO */
+.legal-hero {
+  background: var(--forest-deep, #122E25);
+  padding: 140px 3rem 64px;
+  position: relative;
+  overflow: hidden;
+  color: #F5F0E6;
+}
+.legal-hero-pat {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5L55 20L55 40L30 55L5 40L5 20Z' fill='none' stroke='%23245E4C' stroke-width='0.8'/%3E%3C/svg%3E");
+  opacity: 0.3;
+  pointer-events: none;
+}
+.legal-hero-inner {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+}
+.legal-hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold, #B8972E);
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+}
+.legal-hero-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+}
+.legal-hero-meta {
+  font-size: 14px;
+  color: rgba(245, 240, 230, 0.7);
+  margin: 0;
+}
+
+/* BODY */
+.legal-body {
+  background: #FAFAF7;
+  padding: 5rem 3rem 6rem;
+}
+.legal-body-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.legal-intro {
+  font-size: 18px;
+  line-height: 1.75;
+  color: #444;
+  margin-bottom: 3rem;
+}
+.legal-intro p {
+  margin: 0 0 1rem;
+}
+.legal-intro p:last-child { margin-bottom: 0; }
+
+.legal-toc {
+  background: #fff;
+  border: 0.5px solid rgba(27,77,62,0.12);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 3.5rem;
+}
+.legal-toc-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26,26,24,0.5);
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+.legal-toc ol {
+  list-style: decimal-leading-zero;
+  padding-left: 1.75rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 32px;
+}
+.legal-toc li {
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(26,26,24,0.55);
+}
+.legal-toc li::marker {
+  color: var(--gold, #B8972E);
+  font-weight: 500;
+}
+.legal-toc a {
+  color: var(--forest-deep, #122E25);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.legal-toc a:hover { color: var(--gold, #B8972E); }
+
+@media (max-width: 700px) {
+  .legal-toc ol { grid-template-columns: 1fr; }
+}
+
+.legal-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 120px;
+}
+.legal-section-heading {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--forest-deep, #122E25);
+  line-height: 1.25;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.legal-section-num {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: var(--gold, #B8972E);
+  flex-shrink: 0;
+}
+.legal-section-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #2c2c28;
+}
+.legal-section-body p {
+  margin: 0 0 1rem;
+}
+.legal-section-body p:last-child { margin-bottom: 0; }
+.legal-section-body ul,
+.legal-section-body ol {
+  margin: 0 0 1.25rem 1.25rem;
+  padding-left: 1rem;
+}
+.legal-section-body li {
+  margin: 0 0 0.5rem;
+}
+.legal-section-body strong { color: var(--forest-deep, #122E25); }
+.legal-section-body a {
+  color: var(--forest-green, #1B4D3E);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.legal-section-body a:hover { color: var(--gold, #B8972E); }
+
+.legal-foot {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 0.5px solid rgba(27,77,62,0.15);
+  font-size: 14px;
+  color: rgba(26,26,24,0.6);
+  text-align: center;
+}
+.legal-foot a {
+  color: var(--forest-deep, #122E25);
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .legal-hero { padding: 110px 1.5rem 48px; }
+  .legal-body { padding: 3rem 1.5rem 4rem; }
+  .legal-section-heading { font-size: 22px; flex-direction: column; gap: 6px; }
+  .legal-section-num { font-size: 11px; }
+}

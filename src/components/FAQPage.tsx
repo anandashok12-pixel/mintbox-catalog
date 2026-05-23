@@ -195,16 +195,28 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
             <div className="section-eyebrow" style={{ marginBottom: 12 }}>{data.stillQuestions.title}</div>
             <div className="faq-still-title">{data.stillQuestions.subtitle}</div>
           </div>
-          {data.stillQuestions.contactCards.map((card, i) => (
-            <div key={i} className="faq-contact-card">
-              <div className="faq-contact-icon">
-                {contactCardIcons[i] ?? contactCardIcons[0]}
+          {data.stillQuestions.contactCards.map((card, i) => {
+            // Override stale CMS values: any anand@/getmintbox reference becomes hello@themintbox.in
+            const linkText = card.linkText.replace(/anand@(themintbox\.in|getmintbox\.com)/g, 'hello@themintbox.in')
+            const linkUrl = card.linkUrl.replace(/anand@(themintbox\.in|getmintbox\.com)/g, 'hello@themintbox.in')
+            const isExternal = /^https?:\/\//.test(linkUrl)
+            return (
+              <div key={i} className="faq-contact-card">
+                <div className="faq-contact-icon">
+                  {contactCardIcons[i] ?? contactCardIcons[0]}
+                </div>
+                <div className="faq-contact-title">{card.title}</div>
+                <div className="faq-contact-desc">{card.desc}</div>
+                <a
+                  href={linkUrl}
+                  className="faq-contact-action"
+                  {...(isExternal ? { target: '_blank', rel: 'noopener' } : {})}
+                >
+                  {linkText} &rarr;
+                </a>
               </div>
-              <div className="faq-contact-title">{card.title}</div>
-              <div className="faq-contact-desc">{card.desc}</div>
-              <a href={card.linkUrl} target="_blank" rel="noopener" className="faq-contact-action">{card.linkText} &rarr;</a>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 

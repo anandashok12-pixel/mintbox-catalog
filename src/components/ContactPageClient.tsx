@@ -39,7 +39,7 @@ const EMPTY: ContactPageData = {
     ],
   },
   formConfig: { occasionOptions: [], teamSizeOptions: [], budgetOptions: [], successTitle: 'Message sent!', successMessage: "Thank you! We'll be in touch within 4 hours." },
-  contactDetails: { phone: '+91 86182 37189', email: 'anand@themintbox.in', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/918618237189' },
+  contactDetails: { phone: '+91 86182 37189', email: 'hello@themintbox.in', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/918618237189' },
 }
 
 // Merge raw DB values onto defaults, but ignore null/undefined/empty-string
@@ -79,7 +79,10 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     contactDetails: {
       ...merged.contactDetails,
       phone: merged.contactDetails.phone ?? '+91 86182 37189',
-      email: merged.contactDetails.email ?? 'anand@themintbox.in',
+      // Override any stale DB value: production should always show hello@themintbox.in
+      email: /getmintbox|^anand@/.test(merged.contactDetails.email || '')
+        ? 'hello@themintbox.in'
+        : (merged.contactDetails.email ?? 'hello@themintbox.in'),
       emailSubNote: merged.contactDetails.emailSubNote ?? '',
       officeAddress: merged.contactDetails.officeAddress ?? '',
       mapLabel: merged.contactDetails.mapLabel ?? '',

@@ -79,7 +79,7 @@ export const ContactPage: GlobalConfig = {
       type: 'group',
       fields: [
         { name: 'phone', type: 'text', defaultValue: '+91 86182 37189' },
-        { name: 'email', type: 'text', defaultValue: 'anand@themintbox.in' },
+        { name: 'email', type: 'text', defaultValue: 'hello@themintbox.in' },
         { name: 'emailSubNote', type: 'text', defaultValue: 'Reply within 4 hours on business days' },
         { name: 'officeAddress', type: 'textarea' },
         { name: 'mapLabel', type: 'text', defaultValue: 'Sobha Alexander Plaza, Ashok Nagar' },
