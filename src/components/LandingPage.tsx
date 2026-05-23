@@ -31,55 +31,111 @@ export function LandingPage() {
 
     /* ---------- FORM SUBMIT ---------- */
     const quoteForm = document.getElementById('quoteForm') as HTMLFormElement | null
-    const onQuoteSubmit = function (this: HTMLFormElement, e: Event) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    const fieldConfigs = [
+      { id: 'form-name', errorId: 'form-name-error' },
+      { id: 'form-email', errorId: 'form-email-error' },
+      { id: 'form-company', errorId: 'form-company-error' },
+    ] as const
+
+    const isFieldValid = (id: string, value: string) => {
+      const trimmed = value.trim()
+      if (!trimmed) return false
+      if (id === 'form-email' && !emailRegex.test(trimmed)) return false
+      return true
+    }
+
+    const setFieldError = (id: string, errorId: string, hasError: boolean) => {
+      const input = document.getElementById(id) as HTMLInputElement | null
+      const error = document.getElementById(errorId)
+      if (input) input.classList.toggle('form-input-error', hasError)
+      if (error) error.style.display = hasError ? 'block' : 'none'
+    }
+
+    // BUG-001: clear field error as soon as the user types a valid value
+    const fieldInputHandlers: Array<{ el: HTMLInputElement; handler: () => void }> = []
+    fieldConfigs.forEach(({ id, errorId }) => {
+      const input = document.getElementById(id) as HTMLInputElement | null
+      if (!input) return
+      const handler = () => {
+        if (input.classList.contains('form-input-error') && isFieldValid(id, input.value)) {
+          setFieldError(id, errorId, false)
+        }
+      }
+      input.addEventListener('input', handler)
+      fieldInputHandlers.push({ el: input, handler })
+    })
+
+    const onQuoteSubmit = async function (this: HTMLFormElement, e: Event) {
       e.preventDefault()
-      // Clear previous errors
-      this.querySelectorAll('.form-error').forEach(el => (el as HTMLElement).style.display = 'none')
-      this.querySelectorAll('.form-input-error').forEach(el => el.classList.remove('form-input-error'))
 
-      // Validate required fields
+      // Re-validate everything on submit
       let valid = true
-      const fields = [
-        { id: 'form-name', errorId: 'form-name-error' },
-        { id: 'form-email', errorId: 'form-email-error' },
-        { id: 'form-company', errorId: 'form-company-error' },
-      ]
-      fields.forEach(({ id, errorId }) => {
-        const input = document.getElementById(id) as HTMLInputElement
-        const error = document.getElementById(errorId)
-        if (input && !input.value.trim()) {
-          input.classList.add('form-input-error')
-          if (error) error.style.display = 'block'
-          valid = false
-        }
-        if (id === 'form-email' && input?.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
-          input.classList.add('form-input-error')
-          if (error) error.style.display = 'block'
-          valid = false
-        }
+      fieldConfigs.forEach(({ id, errorId }) => {
+        const input = document.getElementById(id) as HTMLInputElement | null
+        if (!input) return
+        const fieldValid = isFieldValid(id, input.value)
+        setFieldError(id, errorId, !fieldValid)
+        if (!fieldValid) valid = false
       })
-
       if (!valid) return
 
-      // Show loading state
-      const btn = this.querySelector('.form-submit') as HTMLButtonElement | null
+      const btn = this.querySelector('.cta-submit') as HTMLButtonElement | null
       const btnText = this.querySelector('.form-submit-text') as HTMLElement | null
       const btnLoading = this.querySelector('.form-submit-loading') as HTMLElement | null
-      if (btn && btnText && btnLoading) {
-        btn.disabled = true
-        btnText.style.display = 'none'
-        btnLoading.style.display = 'inline'
+      const setLoading = (loading: boolean) => {
+        if (!btn || !btnText || !btnLoading) return
+        btn.disabled = loading
+        btnText.style.display = loading ? 'none' : 'inline'
+        btnLoading.style.display = loading ? 'inline' : 'none'
       }
+      setLoading(true)
 
-      // Simulate submission
-      setTimeout(() => {
-        if (btn && btnText && btnLoading) {
-          btnLoading.style.display = 'none'
-          btnText.textContent = "Sent! We'll be in touch soon."
-          btnText.style.display = 'inline'
-          btn.style.background = 'rgba(184,151,46,0.5)'
+      const formEl = this
+      const formError = document.getElementById('quoteForm-error') as HTMLElement | null
+      if (formError) { formError.textContent = ''; formError.style.display = 'none' }
+
+      try {
+        const name = (document.getElementById('form-name') as HTMLInputElement)?.value.trim()
+        const company = (document.getElementById('form-company') as HTMLInputElement)?.value.trim()
+        const email = (document.getElementById('form-email') as HTMLInputElement)?.value.trim()
+        const teamSize = (document.getElementById('form-size') as HTMLSelectElement)?.value
+        const budget = (document.getElementById('form-budget') as HTMLSelectElement)?.value
+        const occasion = (document.getElementById('form-occasion') as HTMLInputElement)?.value
+
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, company, email,
+            occasion: occasion || undefined,
+            notes: [
+              teamSize ? `Team size: ${teamSize}` : '',
+              budget ? `Budget: ${budget}` : '',
+            ].filter(Boolean).join('\n') || undefined,
+            items: [],
+          }),
+        })
+
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) throw new Error(data?.error || 'Something went wrong. Please try again.')
+
+        // BUG-002: visible success state — replace form with a thank-you panel and reset fields
+        formEl.reset()
+        const success = document.getElementById('quoteForm-success')
+        if (success) {
+          formEl.style.display = 'none'
+          success.style.display = 'block'
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' })
         }
-      }, 1200)
+      } catch (err) {
+        setLoading(false)
+        if (formError) {
+          formError.textContent = err instanceof Error ? err.message : 'Network error. Please try again.'
+          formError.style.display = 'block'
+        }
+      }
     }
     quoteForm?.addEventListener('submit', onQuoteSubmit)
 
@@ -179,6 +235,7 @@ export function LandingPage() {
     return () => {
       observer.disconnect()
       quoteForm?.removeEventListener('submit', onQuoteSubmit)
+      fieldInputHandlers.forEach(({ el, handler }) => el.removeEventListener('input', handler))
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', positionHighlight)
       vaTrack?.removeEventListener('mousedown', onDragStart)
@@ -667,12 +724,24 @@ export function LandingPage() {
                 <input type="hidden" id="form-occasion" name="occasion" />
               </div>
 
+              <div className="form-error" id="quoteForm-error" style={{ display: 'none' }} role="alert" />
+
               <button type="submit" className="cta-submit" id="quoteSubmitBtn">
                 <span className="form-submit-text">Send enquiry →</span>
                 <span className="form-submit-loading" style={{ display: 'none' }}>Sending...</span>
               </button>
               <a href="https://wa.me/918618237189" className="cta-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
             </form>
+
+            <div id="quoteForm-success" className="cta-form-success" role="status" aria-live="polite" style={{ display: 'none' }}>
+              <div className="cta-form-success-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+              </div>
+              <h3 className="cta-form-success-title">Thanks — your enquiry is in.</h3>
+              <p className="cta-form-success-sub">A real person from the MintBox team will get back to you within 4 working hours with a curated proposal.</p>
+            </div>
           </div>
         </div>
       </section>
