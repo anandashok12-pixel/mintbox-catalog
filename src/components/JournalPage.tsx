@@ -20,7 +20,7 @@ interface Article {
 
 const featuredArticle: Article = {
   title: 'The 2025 guide to employee onboarding gifts in Bengaluru',
-  excerpt: 'What your new hire\u2019s first box says about your company - and how to get it exactly right without blowing the budget.',
+  excerpt: 'What your new hire\u2019s first box says about your company \u2014 and how to get it exactly right without blowing the budget.',
   category: 'Gifting guides',
   date: 'March 2025',
   readTime: '8 min read',
@@ -33,16 +33,16 @@ const articles: Article[] = [
   { title: 'The Diwali corporate gifting edit: premium options under \u20B93,500', excerpt: 'Curated picks for teams that want to stand out from the usual box of dry fruits and branded mugs.', category: 'Occasion edits', date: 'Feb 2025', readTime: '6 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion edit' },
   { title: 'How a Series B startup onboarded 200 employees across 12 cities in one week', excerpt: 'When Bengaluru-based Finova scaled their hiring, their HR team needed gifting that could keep up. Here\u2019s how we did it.', category: 'Case studies', date: 'Jan 2025', readTime: '5 min read', imgClass: 'jn-img-case', catClass: 'jn-cat-case', imgLabel: 'Case study' },
   { title: 'How to choose branded merchandise that people actually keep', excerpt: 'The difference between a gift that lives on the desk and one that goes straight to the back of a drawer.', category: 'Gifting guides', date: 'Jan 2025', readTime: '7 min read', imgClass: 'jn-img-guide', catClass: 'jn-cat-guide', imgLabel: 'Gifting guide' },
-  { title: 'Why we do branding in-house - and why it matters to you', excerpt: 'Most gifting vendors outsource printing to whoever is cheapest. We don\u2019t. Here\u2019s what that means for the quality of your brand.', category: 'Inside MintBox', date: 'Dec 2024', readTime: '4 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
+  { title: 'Why we do branding in-house \u2014 and why it matters to you', excerpt: 'Most gifting vendors outsource printing to whoever is cheapest. We don\u2019t. Here\u2019s what that means for the quality of your brand.', category: 'Inside MintBox', date: 'Dec 2024', readTime: '4 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
   { title: 'New Year corporate gifting: 8 ideas that don\u2019t feel like afterthoughts', excerpt: 'The window between Christmas and New Year is when most companies phone it in. Here\u2019s how to use it to stand out instead.', category: 'Occasion edits', date: 'Dec 2024', readTime: '5 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion edit' },
   { title: 'Sustainable corporate gifting in India: what actually works', excerpt: 'Eco gifting in India is full of greenwashing. We break down which materials, certifications, and sourcing choices genuinely reduce impact.', category: 'Gifting guides', date: 'Nov 2024', readTime: '9 min read', imgClass: 'jn-img-wellness', catClass: 'jn-cat-guide', imgLabel: 'Gifting guide' },
 ]
 
 const wideArticles: Article[] = [
-  { title: 'Work anniversary gifts that don\u2019t feel like a HR checkbox', excerpt: 'Year 1, year 3, year 5 - each milestone deserves a different approach. A framework for gifting that actually recognises the individual.', category: 'Gifting guides', date: 'Oct 2024', readTime: '6 min read', imgClass: 'jn-img-guide', catClass: 'jn-cat-guide', imgLabel: 'Guide' },
+  { title: 'Work anniversary gifts that don\u2019t feel like a HR checkbox', excerpt: 'Year 1, year 3, year 5 \u2014 each milestone deserves a different approach. A framework for gifting that actually recognises the individual.', category: 'Gifting guides', date: 'Oct 2024', readTime: '6 min read', imgClass: 'jn-img-guide', catClass: 'jn-cat-guide', imgLabel: 'Guide' },
   { title: 'How a GCC used gifting to close the culture gap with their India team', excerpt: 'A Singapore-headquartered company was struggling with engagement at their Bengaluru office. One Diwali gifting programme changed the conversation.', category: 'Case studies', date: 'Sep 2024', readTime: '7 min read', imgClass: 'jn-img-case', catClass: 'jn-cat-case', imgLabel: 'Case study' },
-  { title: 'Conference swag that people actually take home - not leave behind', excerpt: 'The graveyard of branded pens and stress balls is long. Here\u2019s what actually works at events in 2025.', category: 'Occasion edits', date: 'Aug 2024', readTime: '5 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion' },
-  { title: 'The sourcing trip: how we find products that meet the MintBox standard', excerpt: 'We visit every manufacturer before listing a product. Here\u2019s what we look for - and what makes us walk away.', category: 'Inside MintBox', date: 'Jul 2024', readTime: '8 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
+  { title: 'Conference swag that people actually take home \u2014 not leave behind', excerpt: 'The graveyard of branded pens and stress balls is long. Here\u2019s what actually works at events in 2025.', category: 'Occasion edits', date: 'Aug 2024', readTime: '5 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion' },
+  { title: 'The sourcing trip: how we find products that meet the MintBox standard', excerpt: 'We visit every manufacturer before listing a product. Here\u2019s what we look for \u2014 and what makes us walk away.', category: 'Inside MintBox', date: 'Jul 2024', readTime: '8 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
 ]
 
 const topics = [
@@ -82,7 +82,7 @@ export function JournalPage() {
       <nav id="navbar" role="navigation" aria-label="Main navigation">
         <a href="/" className="nav-logo" aria-label="MintBox Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo-white.webp" alt="MintBox" className="nav-logo-img"  width={600} height={234} />
+          <img src="/mintbox-logo-white.png" alt="MintBox" className="nav-logo-img" />
         </a>
         <ul className="nav-links" role="list">
           <li><a href="/#occasions">Catalogue</a></li>
@@ -96,7 +96,7 @@ export function JournalPage() {
         </div>
       </nav>
 
-      {/* HERO - split */}
+      {/* HERO — split */}
       <div className="jn-hero">
         <div className="jn-hero-left">
           <div className="jn-hero-pat" />
@@ -219,7 +219,7 @@ export function JournalPage() {
           ))}
         </div>
 
-        {/* WIDE CARDS - MORE FROM THE JOURNAL */}
+        {/* WIDE CARDS — MORE FROM THE JOURNAL */}
         <div className="jn-grid-label" style={{ marginTop: '2.5rem' }}>
           <div className="jn-grid-label-text">More from the journal</div>
         </div>
@@ -256,22 +256,22 @@ export function JournalPage() {
         <div className="footer-grid">
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/mintbox-logo-white.webp" alt="MintBox" className="footer-logo-img"  width={600} height={234} />
+            <img src="/mintbox-logo-white.png" alt="MintBox" className="footer-logo-img" />
             <p className="footer-tagline">&ldquo;Gifting that says what words can&apos;t.&rdquo;</p>
             <div className="footer-socials">
-              <a href="/coming-soon" aria-label="Instagram">
+              <a href="#" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: '20px', height: '20px', color: 'rgba(245,240,230,0.6)' }}>
                   <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
                 </svg>
               </a>
-              <a href="/coming-soon" aria-label="LinkedIn">
+              <a href="#" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px', color: 'rgba(245,240,230,0.6)' }}>
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </a>
             </div>
-            <a href="/" className="footer-url">themintbox.in</a>
+            <a href="https://getmintbox.com" className="footer-url" target="_blank" rel="noopener">getmintbox.com</a>
           </div>
           <div>
             <span className="footer-col-label">Navigate</span>
@@ -289,16 +289,16 @@ export function JournalPage() {
           </div>
           <div>
             <span className="footer-col-label">Reach Us</span>
-            <p className="footer-contact-item"><a href="tel:+919916996642">+91 9916996642</a></p>
-            <p className="footer-contact-item"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
+            <p className="footer-contact-item"><a href="tel:+919886537631">+91 9886537631</a></p>
+            <p className="footer-contact-item"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></p>
             <p className="footer-contact-item" style={{ marginTop: '8px' }}>2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</p>
             <p className="footer-contact-item" style={{ marginTop: '10px' }}>
-              <a href="https://wa.me/919916996642" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
+              <a href="https://wa.me/919886537631" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
             </p>
           </div>
           <div>
             <span className="footer-col-label">The Journal</span>
-            <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news - monthly.</p>
+            <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news — monthly.</p>
             <form className="newsletter-form" noValidate onSubmit={(e) => { e.preventDefault(); const btn = (e.target as HTMLFormElement).querySelector('button'); if (btn) { btn.textContent = '✓'; (btn as HTMLButtonElement).disabled = true; } }}>
               <input type="email" name="email" placeholder="your@email.com" autoComplete="email" aria-label="Email address" />
               <button type="submit">Subscribe</button>
@@ -308,18 +308,18 @@ export function JournalPage() {
         <div className="footer-bottom">
           <span className="footer-bottom-text">&copy; 2026 MintBox. All rights reserved.</span>
           <div className="footer-bottom-links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
           </div>
         </div>
       </footer>
 
       {/* FLOATING WHATSAPP */}
-      <a id="wa-float" href="https://wa.me/919916996642" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <a id="wa-float" href="https://wa.me/919886537631" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
-        <span className="wa-tooltip">Chat with Anand &rarr;</span>
+        <span className="wa-tooltip">Get In Touch &rarr;</span>
       </a>
     </div>
   )

@@ -29,10 +29,12 @@ export default function LeadModal({ onClose }: LeadModalProps) {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [occasion, setOccasion] = useState('')
+  const [customOccasionType, setCustomOccasionType] = useState('')
+  const [customOccasionLocation, setCustomOccasionLocation] = useState('')
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState<{ refCode: string; total: number } | null>(null)
+  const [success, setSuccess] = useState<{ refCode: string; total: number; confirmationEmailSent: boolean } | null>(null)
 
   const estimatedTotal = items.reduce(
     (sum, item) => sum + item.price * (quantities[item.id] || item.quantity),
@@ -45,6 +47,10 @@ export default function LeadModal({ onClose }: LeadModalProps) {
 
     if (!name.trim() || !company.trim() || !email.trim()) {
       setError('Please fill in all required fields.')
+      return
+    }
+    if (occasion === 'other' && (!customOccasionType.trim() || !customOccasionLocation.trim())) {
+      setError('Please add the custom occasion type and location.')
       return
     }
     if (items.length === 0) {
@@ -63,7 +69,11 @@ export default function LeadModal({ onClose }: LeadModalProps) {
           email: email.trim(),
           phone: phone.trim(),
           occasion: occasion || undefined,
-          notes: notes.trim() || undefined,
+          notes: [
+            occasion === 'other' && customOccasionType.trim() ? `Custom occasion type: ${customOccasionType.trim()}` : '',
+            occasion === 'other' && customOccasionLocation.trim() ? `Location: ${customOccasionLocation.trim()}` : '',
+            notes.trim(),
+          ].filter(Boolean).join('\n') || undefined,
           items: items.map((item) => ({
             productId: item.id,
             productName: item.name,
@@ -79,7 +89,11 @@ export default function LeadModal({ onClose }: LeadModalProps) {
         return
       }
 
-      setSuccess({ refCode: data.referenceCode, total: data.estimatedTotal })
+      setSuccess({
+        refCode: data.referenceCode,
+        total: data.estimatedTotal,
+        confirmationEmailSent: data.confirmationEmailSent !== false,
+      })
       clearCart()
     } catch {
       setError('Network error. Please check your connection and try again.')
@@ -107,9 +121,16 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             <p className="success-total">
               Estimated Pack Value: <strong>₹{success.total.toLocaleString('en-IN')}</strong>
             </p>
-            <p className="success-email">
-              A confirmation has been sent to <strong>{email}</strong>
-            </p>
+            {success.confirmationEmailSent ? (
+              <p className="success-email">
+                A confirmation has been sent to <strong>{email}</strong>
+              </p>
+            ) : (
+              <p className="success-email">
+                We received your request, but couldn&apos;t deliver the confirmation email right now.
+                Please contact us at <strong>hello@getmintbox.com</strong> if needed.
+              </p>
+            )}
             <button className="btn-request-pricing" onClick={onClose}>
               Done
             </button>
@@ -244,6 +265,33 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                 ))}
               </select>
             </div>
+
+            {occasion === 'other' && (
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Custom occasion type *</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={customOccasionType}
+                    onChange={(e) => setCustomOccasionType(e.target.value)}
+                    placeholder="e.g. Dealer meet gifting, product launch"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Location *</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={customOccasionLocation}
+                    onChange={(e) => setCustomOccasionLocation(e.target.value)}
+                    placeholder="e.g. Bengaluru, Mumbai"
+                    required
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="form-group">
               <label className="form-label">Additional Notes</label>

@@ -237,7 +237,7 @@ export default function SolutionsPage() {
               </select>
             </div>
             <button className="sl-qbf-submit">Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp Anand directly: <a href="https://wa.me/919916996642">+91 9916996642 →</a></div>
+            <div className="sl-qbf-wa">WhatsApp us directly: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
           </div>
         </div>
       </div>
@@ -342,7 +342,7 @@ export default function SolutionsPage() {
               </select>
             </div>
             <button className="sl-qbf-submit" style={{ background: '#B8972E' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp Anand: <a href="https://wa.me/919916996642">+91 9916996642 →</a></div>
+            <div className="sl-qbf-wa">WhatsApp us: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
           </div>
         </div>
       </div>
@@ -447,7 +447,7 @@ export default function SolutionsPage() {
               </select>
             </div>
             <button className="sl-qbf-submit" style={{ background: '#2A4F7A', color: 'white' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp Anand: <a href="https://wa.me/919916996642">+91 9916996642 →</a></div>
+            <div className="sl-qbf-wa">WhatsApp us: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
           </div>
         </div>
       </div>
@@ -552,7 +552,7 @@ export default function SolutionsPage() {
               </select>
             </div>
             <button className="sl-qbf-submit" style={{ background: '#7A2A5E', color: 'white' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp Anand directly: <a href="https://wa.me/919916996642">+91 9916996642 →</a></div>
+            <div className="sl-qbf-wa">WhatsApp us directly: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
           </div>
         </div>
       </div>

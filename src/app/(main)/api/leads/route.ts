@@ -3,17 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Resend } from 'resend'
 
-// Lazy-init: the Resend constructor throws when RESEND_API_KEY is unset,
-// and Next's build-time "Collecting page data" step evaluates this module
-// without runtime env vars. Constructing inside the handler avoids that.
-let _resend: Resend | null = null
-function getResend(): Resend | null {
-  if (_resend) return _resend
-  const key = process.env.RESEND_API_KEY
-  if (!key) return null
-  _resend = new Resend(key)
-  return _resend
-}
+const resend = new Resend(process.env.RESEND_API_KEY?.trim())
 
 interface LeadItem {
   productId: string
@@ -24,12 +14,12 @@ interface LeadItem {
 
 interface LeadRequest {
   name: string
-  company: string
+  company?: string
   email: string
   phone?: string
   occasion?: string
   notes?: string
-  items: LeadItem[]
+  items?: LeadItem[]
 }
 
 function formatOccasion(occasion: string): string {
@@ -47,7 +37,8 @@ function formatOccasion(occasion: string): string {
 }
 
 function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: number): string {
-  const itemRows = lead.items
+  const leadItems = lead.items ?? []
+  const itemRows = leadItems
     .map(
       (item) => `
       <tr>
@@ -69,7 +60,7 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
         <tr>
           <td style="background:#0D3D2B;padding:28px 32px;">
             <h1 style="margin:0;color:#C9A84C;font-size:24px;font-weight:700;letter-spacing:2px;">MINTBOX</h1>
-            <p style="margin:4px 0 0;color:#a8c4b8;font-size:13px;">New Quote Request - ${refCode}</p>
+            <p style="margin:4px 0 0;color:#a8c4b8;font-size:13px;">New Quote Request — ${refCode}</p>
           </td>
         </tr>
         <tr>
@@ -79,8 +70,8 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
               <tr><td style="padding:6px 0;color:#666;width:120px;">Name</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.name}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Company</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.company}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Email</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.email}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.phone || '-'}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Occasion</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.occasion ? formatOccasion(lead.occasion) : '-'}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.phone || '—'}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Occasion</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.occasion ? formatOccasion(lead.occasion) : '—'}</td></tr>
             </table>
             ${lead.notes ? `<div style="margin-top:16px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;">${lead.notes}</p></div>` : ''}
             <h2 style="color:#0D3D2B;font-size:18px;margin:28px 0 16px;">Requested Items</h2>
@@ -108,7 +99,8 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
 }
 
 function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: number): string {
-  const itemList = lead.items
+  const leadItems = lead.items ?? []
+  const itemList = leadItems
     .map(
       (item) =>
         `<li style="padding:6px 0;border-bottom:1px solid #e8e0d0;display:flex;justify-content:space-between;">${item.productName} × ${item.quantity} &mdash; <strong>₹${(item.quantity * item.unitPrice).toLocaleString('en-IN')}</strong></li>`,
@@ -136,6 +128,15 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
               <p style="margin:0;color:#666;font-size:13px;letter-spacing:1px;">YOUR REFERENCE CODE</p>
               <p style="margin:8px 0 0;color:#0D3D2B;font-size:24px;font-weight:700;letter-spacing:3px;">${refCode}</p>
             </div>
+            <h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Details You Shared</h3>
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;">
+              <tr><td style="padding:6px 0;color:#666;width:140px;">Name</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.name}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Company</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.company || '—'}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Email</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.email}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.phone || '—'}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Occasion</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.occasion ? formatOccasion(lead.occasion) : '—'}</td></tr>
+            </table>
+            ${lead.notes ? `<div style="margin:0 0 20px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;">${lead.notes}</p></div>` : ''}
             <h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Your Pack Summary</h3>
             <ul style="list-style:none;padding:0;margin:0 0 16px;">
               ${itemList}
@@ -146,8 +147,8 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
         </tr>
         <tr>
           <td style="background:#0D3D2B;padding:20px 32px;text-align:center;">
-            <p style="margin:0;color:#a8c4b8;font-size:13px;">Questions? Email us at <a href="mailto:hello@themintbox.in" style="color:#C9A84C;">hello@themintbox.in</a></p>
-            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© 2025 MintBox - themintbox.in</p>
+            <p style="margin:0;color:#a8c4b8;font-size:13px;">Questions? Email us at <a href="mailto:hello@getmintbox.com" style="color:#C9A84C;">hello@getmintbox.com</a></p>
+            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© 2025 MintBox — getmintbox.com</p>
           </td>
         </tr>
       </table>
@@ -161,9 +162,9 @@ export async function POST(req: NextRequest) {
   try {
     const body: LeadRequest = await req.json()
 
-    const { name, company, email, items } = body
-    if (!name || !company || !email || !items || items.length === 0) {
-      return NextResponse.json({ error: 'Missing required fields: name, company, email, items' }, { status: 400 })
+    const { name, email } = body
+    if (!name || !email) {
+      return NextResponse.json({ error: 'Missing required fields: name, email' }, { status: 400 })
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -171,7 +172,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 })
     }
 
+    const items = Array.isArray(body.items) ? body.items : []
     const estimatedTotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
+    const company = body.company?.trim() || 'Not provided'
 
     const payload = await getPayload({ config: configPromise })
 
@@ -197,32 +200,39 @@ export async function POST(req: NextRequest) {
 
     const refCode = lead.referenceCode || 'MB-XXXXX'
 
-    const notifyEmail = process.env.NOTIFY_EMAIL || 'hello@themintbox.in'
+    const notifyEmail = process.env.NOTIFY_EMAIL || 'anand@getmintbox.com'
 
-    const resend = getResend()
-    if (resend) {
-      await Promise.allSettled([
-        resend.emails.send({
-          from: 'MintBox <noreply@themintbox.in>',
-          to: notifyEmail,
-          subject: `New Quote Request ${refCode} - ${company}`,
-          html: teamEmailHtml(body, refCode, estimatedTotal),
-        }),
-        resend.emails.send({
-          from: 'MintBox <noreply@themintbox.in>',
-          to: email,
-          subject: `Your MintBox request is confirmed - ${refCode}`,
-          html: customerEmailHtml(body, refCode, estimatedTotal),
-        }),
-      ])
-    } else {
-      console.warn('[leads] RESEND_API_KEY not set; skipping email notifications')
+    const [teamMailResult, customerMailResult] = await Promise.allSettled([
+      resend.emails.send({
+        from: 'MintBox <noreply@getmintbox.com>',
+        to: notifyEmail,
+        subject: `New Quote Request ${refCode} — ${company}`,
+        html: teamEmailHtml(body, refCode, estimatedTotal),
+      }),
+      resend.emails.send({
+        from: 'MintBox <noreply@getmintbox.com>',
+        to: email,
+        subject: `Your MintBox request is confirmed — ${refCode}`,
+        html: customerEmailHtml(body, refCode, estimatedTotal),
+      }),
+    ])
+
+    const teamEmailSent = teamMailResult.status === 'fulfilled'
+    const confirmationEmailSent = customerMailResult.status === 'fulfilled'
+
+    if (!teamEmailSent) {
+      console.error('Team lead email send failed:', teamMailResult.reason)
+    }
+    if (!confirmationEmailSent) {
+      console.error('Customer confirmation email send failed:', customerMailResult.reason)
     }
 
     return NextResponse.json({
       success: true,
       referenceCode: refCode,
       estimatedTotal,
+      teamEmailSent,
+      confirmationEmailSent,
     })
   } catch (error) {
     console.error('Lead submission error:', error)

@@ -22,17 +22,17 @@ export async function GET(req: Request) {
           hero: {
             titleLine1: 'We exist because',
             titleLine2: 'gifting deserved better.',
-            manifesto: "The corporate gifting market doesn\u2019t have a product problem. It has a meaning problem. Every box that arrives late, every logo that peels, every invoice that doesn\u2019t match the quote - these aren\u2019t vendor failures. They\u2019re failures of care. MintBox exists to give every gift its meaning back.",
+            manifesto: "The corporate gifting market doesn\u2019t have a product problem. It has a meaning problem. Every box that arrives late, every logo that peels, every invoice that doesn\u2019t match the quote \u2014 these aren\u2019t vendor failures. They\u2019re failures of care. MintBox exists to give every gift its meaning back.",
           },
           imageBanner: { caption: 'Every product is sourced, sampled, and physically evaluated before it earns a place in a MintBox.' },
           foundingStory: {
             label: 'The founding story',
             title: 'Born from a box that disappointed.',
-            paragraph1: "It started with a bad experience. Not one bad experience - dozens of them. As a founder who had hired teams, managed vendors, and sat through more than a few uncomfortable conversations about why the Diwali gifts arrived three days late and with the wrong logo - we knew something was fundamentally broken about how corporate gifting worked in India.",
+            paragraph1: "It started with a bad experience. Not one bad experience \u2014 dozens of them. As a founder who had hired teams, managed vendors, and sat through more than a few uncomfortable conversations about why the Diwali gifts arrived three days late and with the wrong logo \u2014 we knew something was fundamentally broken about how corporate gifting worked in India.",
             pullQuote: "\u201CThe industry had hundreds of vendors. It had no one who actually cared about what happened when the box was opened.\u201D",
-            paragraph2: "The problem wasn\u2019t a lack of products. India has extraordinary manufacturers, brilliant artisans, and a gifting culture that runs deep. The problem was the layer between - the opaque pricing, the outsourced branding, the \u201Cwe\u2019ll check with the courier\u201D non-answers, and the invoices that bore no resemblance to the quote.",
-            paragraph3: "We started MintBox with a simple conviction: a premium corporate gift should work like a premium product. It should arrive on time. The logo should look exactly like the mockup. The invoice should match the quote. The person who opens it should feel - genuinely - that someone thought about them specifically.",
-            paragraph4: "We launched in Bengaluru because this city - with its density of tech companies, its globally minded workforce, and its founders who understand what brand quality means - is the perfect place to build a gifting brand that holds itself to a higher standard.",
+            paragraph2: "The problem wasn\u2019t a lack of products. India has extraordinary manufacturers, brilliant artisans, and a gifting culture that runs deep. The problem was the layer between \u2014 the opaque pricing, the outsourced branding, the \u201Cwe\u2019ll check with the courier\u201D non-answers, and the invoices that bore no resemblance to the quote.",
+            paragraph3: "We started MintBox with a simple conviction: a premium corporate gift should work like a premium product. It should arrive on time. The logo should look exactly like the mockup. The invoice should match the quote. The person who opens it should feel \u2014 genuinely \u2014 that someone thought about them specifically.",
+            paragraph4: "We launched in Bengaluru because this city \u2014 with its density of tech companies, its globally minded workforce, and its founders who understand what brand quality means \u2014 is the perfect place to build a gifting brand that holds itself to a higher standard.",
             paragraph5: "MintBox is still early. We\u2019re a small team, we\u2019re pre-launch, and we\u2019re building every process and every partnership from scratch with quality as the only non-negotiable. We won\u2019t ship a gift we wouldn\u2019t be proud to receive ourselves.",
           },
           whatBroke: {
@@ -42,7 +42,7 @@ export async function GET(req: Request) {
               { num: '01', title: 'The invoice surprise', desc: 'Vendors quote one number, invoice another. We quote everything upfront. What you approve is what you pay.' },
               { num: '02', title: 'The peeling logo', desc: 'We keep artwork in-house, match every mockup, and physically inspect every batch before dispatch.' },
               { num: '03', title: 'The Diwali chaos', desc: 'We plan lead times honestly and track every delivery individually.' },
-              { num: '04', title: 'The creativity plateau', desc: 'We curate with intention - matching products to brand personality, not just what\u2019s in stock.' },
+              { num: '04', title: 'The creativity plateau', desc: 'We curate with intention \u2014 matching products to brand personality, not just what\u2019s in stock.' },
               { num: '05', title: 'The remote gifting failure', desc: 'We built the tools to make individual address delivery effortless.' },
             ],
             closingCard: { title: 'MintBox is the answer to all five.', desc: 'Every process we have built exists to fix one of these five failures. Not as a feature. As a founding principle.' },
@@ -52,7 +52,7 @@ export async function GET(req: Request) {
             subtitle: "These aren\u2019t values we put on a wall. They\u2019re the criteria every product, vendor, and process has to pass before it becomes part of MintBox.",
             items: [
               { num: '01', title: 'Craftsmanship', tag: 'Quality first', desc: 'Every product in our catalogue has been sourced, sampled, and physically evaluated.', example: '\u201CWe rejected three notebook suppliers before finding one whose debossing held to our spec.\u201D' },
-              { num: '02', title: 'Transparency', tag: 'No surprises', desc: 'What you see on the quote is what appears on the invoice - line for line.', example: '\u201CWe have never billed a rupee that wasn\u2019t discussed upfront.\u201D' },
+              { num: '02', title: 'Transparency', tag: 'No surprises', desc: 'What you see on the quote is what appears on the invoice \u2014 line for line.', example: '\u201CWe have never billed a rupee that wasn\u2019t discussed upfront.\u201D' },
               { num: '03', title: 'Reliability', tag: 'On time, always', desc: 'We set honest lead times and track every individual shipment.', example: '\u201CWe plan every festive order with a minimum three-week buffer.\u201D' },
               { num: '04', title: 'Human connection', tag: 'People, not portals', desc: 'Every new client speaks to a person. Every enquiry gets a response from Anand personally.', example: '\u201CAnand picks up every WhatsApp. That won\u2019t change.\u201D' },
             ],
@@ -60,8 +60,8 @@ export async function GET(req: Request) {
           founder: {
             label: 'The person behind MintBox', title: 'Built by someone who felt the problem firsthand.',
             bioParagraph1: 'Anand Ashok is the Director of MintBox and the driving force behind its founding.',
-            bioParagraph2: 'The frustration that became MintBox came from lived experience - managing gifting vendors, watching quality fall short of expectations.',
-            email: 'hello@themintbox.in', phone: '+91 86182 37189', whatsappUrl: 'https://wa.me/918618237189',
+            bioParagraph2: 'The frustration that became MintBox came from lived experience \u2014 managing gifting vendors, watching quality fall short of expectations.',
+            email: 'anand@getmintbox.com', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631',
             cardName: 'Anand Ashok', cardRole: 'Director, MintBox',
           },
           cta: {
@@ -117,12 +117,12 @@ export async function GET(req: Request) {
             successMessage: 'Anand will get back to you within 4 hours on business days.',
           },
           contactDetails: {
-            phone: '+91 86182 37189', email: 'hello@themintbox.in',
+            phone: '+91 9886537631', email: 'anand@getmintbox.com',
             emailSubNote: 'Reply within 4 hours on business days',
             officeAddress: "2nd Floor, Building 16/2\nSobha Alexander Plaza\nAshok Nagar, Bengaluru 560025",
             mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
             mapSublabel: 'Commissariat Rd, Bengaluru 560025',
-            whatsappUrl: 'https://wa.me/918618237189',
+            whatsappUrl: 'https://wa.me/919886537631',
           },
         },
       })
@@ -134,7 +134,7 @@ export async function GET(req: Request) {
       await payload.updateGlobal({
         slug: 'faq-page' as any,
         data: {
-          hero: { eyebrow: 'Frequently asked questions', titleLine1: 'Everything you', titleLine2: 'need to know.', subtitle: "From minimum order quantities to branding quality and lead times - we\u2019ve answered the questions we hear most from HR teams, founders, and procurement leads." },
+          hero: { eyebrow: 'Frequently asked questions', titleLine1: 'Everything you', titleLine2: 'need to know.', subtitle: "From minimum order quantities to branding quality and lead times \u2014 we\u2019ve answered the questions we hear most from HR teams, founders, and procurement leads." },
           categories: [
             { categoryId: 'ordering', title: 'Ordering & MOQ', desc: 'Minimum quantities, how to place an order, and what happens next', iconId: 'ordering', items: [
               { question: 'What is your minimum order quantity (MOQ)?', answer: 'Our standard MOQ is <strong>25 units</strong> per product.', searchText: 'minimum order quantity moq', tag: 'popular' },
@@ -144,7 +144,7 @@ export async function GET(req: Request) {
               { question: 'What branding options do you offer?', answer: 'Laser engraving, UV printing, screen printing, embroidery, debossing.', searchText: 'branding options', tag: 'none' },
             ]},
             { categoryId: 'delivery', title: 'Delivery & logistics', desc: 'Shipping, tracking, and coverage', iconId: 'delivery', items: [
-              { question: 'Can you deliver to individual home addresses?', answer: 'Yes - this is one of our core capabilities.', searchText: 'individual delivery', tag: 'popular' },
+              { question: 'Can you deliver to individual home addresses?', answer: 'Yes \u2014 this is one of our core capabilities.', searchText: 'individual delivery', tag: 'popular' },
             ]},
             { categoryId: 'products', title: 'Products & catalogue', desc: 'What we carry and custom sourcing', iconId: 'products', items: [
               { question: 'How many products do you have?', answer: '<strong>200+ SKUs</strong> across all categories.', searchText: 'how many products', tag: 'none' },
@@ -153,15 +153,15 @@ export async function GET(req: Request) {
               { question: 'Are there any hidden charges?', answer: 'No. Quotes include <strong>everything</strong>.', searchText: 'hidden charges', tag: 'popular' },
             ]},
             { categoryId: 'esg', title: 'Sustainability & ESG', desc: 'Eco credentials and plastic-free options', iconId: 'sustainability', items: [
-              { question: 'Do you have sustainable options?', answer: 'Yes - dedicated <strong>eco-friendly range</strong>.', searchText: 'sustainable eco', tag: 'new' },
+              { question: 'Do you have sustainable options?', answer: 'Yes \u2014 dedicated <strong>eco-friendly range</strong>.', searchText: 'sustainable eco', tag: 'new' },
             ]},
           ],
           stillQuestions: {
             title: "We're a WhatsApp message away.",
             subtitle: 'Anand picks up every WhatsApp personally. Most questions get a reply within 30 minutes.',
             contactCards: [
-              { title: 'WhatsApp us directly', desc: 'Chat with Anand - real answers, not templates.', linkText: '+91 86182 37189 \u2192', linkUrl: 'https://wa.me/918618237189' },
-              { title: 'Send us a message', desc: "We'll reply within 4 hours on business days.", linkText: 'hello@themintbox.in \u2192', linkUrl: '/contact' },
+              { title: 'WhatsApp us directly', desc: 'Get In Touch \u2014 real answers, not templates.', linkText: '+91 9886537631 \u2192', linkUrl: 'https://wa.me/919886537631' },
+              { title: 'Send us a message', desc: "We'll reply within 4 hours on business days.", linkText: 'anand@getmintbox.com \u2192', linkUrl: '/contact' },
             ],
           },
         },

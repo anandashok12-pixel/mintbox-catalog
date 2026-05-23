@@ -39,7 +39,7 @@ export function ContactPage() {
       <nav className="page-nav">
         <a href="/" className="page-nav-logo" aria-label="MintBox Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo-white.webp" alt="MintBox"  width={600} height={234} />
+          <img src="/mintbox-logo-white.png" alt="MintBox" />
         </a>
         <ul className="page-nav-links">
           <li><a href="/catalog">Catalogue</a></li>
@@ -71,7 +71,7 @@ export function ContactPage() {
 
       {/* MAIN GRID */}
       <div className="contact-main">
-        {/* LEFT - CONTACT INFO */}
+        {/* LEFT — CONTACT INFO */}
         <div className="contact-info-panel">
           {/* Founder card */}
           <div className="contact-founder">
@@ -79,7 +79,7 @@ export function ContactPage() {
             <div>
               <div className="contact-founder-name">Anand Ashok</div>
               <div className="contact-founder-role">Director, MintBox</div>
-              <a href="https://wa.me/919916996642" target="_blank" rel="noopener" className="contact-founder-wa">
+              <a href="https://wa.me/919886537631" target="_blank" rel="noopener" className="contact-founder-wa">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                 Chat on WhatsApp
               </a>
@@ -98,7 +98,7 @@ export function ContactPage() {
               </div>
               <div>
                 <div className="contact-info-title">Phone</div>
-                <div className="contact-info-val">+91 9916996642</div>
+                <div className="contact-info-val">+91 9886537631</div>
                 <div className="contact-info-sub">Mon &ndash; Sat, 9 AM &ndash; 7 PM IST</div>
               </div>
             </div>
@@ -112,7 +112,7 @@ export function ContactPage() {
               </div>
               <div>
                 <div className="contact-info-title">Email</div>
-                <div className="contact-info-val">hello@themintbox.in</div>
+                <div className="contact-info-val">anand@getmintbox.com</div>
                 <div className="contact-info-sub">Response within 4 hours on business days</div>
               </div>
             </div>
@@ -169,7 +169,7 @@ export function ContactPage() {
           </div>
         </div>
 
-        {/* RIGHT - FORM */}
+        {/* RIGHT — FORM */}
         <div className="contact-form-panel">
           <div className="section-eyebrow" style={{ marginBottom: 10 }}>Send us a message</div>
           <h2 className="contact-form-title">We&apos;d love to<br />hear from you.</h2>
@@ -260,8 +260,8 @@ export function ContactPage() {
 
           <div className="contact-form-wa-alt">
             Prefer a quicker reply?
-            <a href="https://wa.me/919916996642" target="_blank" rel="noopener" className="contact-form-wa-link">
-              WhatsApp Anand directly &rarr;
+            <a href="https://wa.me/919886537631" target="_blank" rel="noopener" className="contact-form-wa-link">
+              WhatsApp us directly &rarr;
             </a>
           </div>
 
@@ -306,13 +306,13 @@ export function Footer() {
           </div>
           <p className="page-footer-tagline">&ldquo;Gifting that says what words can&apos;t.&rdquo;</p>
           <div className="page-footer-socials">
-            <a href="/coming-soon" aria-label="Instagram">
+            <a href="#" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
                 <rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" />
                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
               </svg>
             </a>
-            <a href="/coming-soon" aria-label="LinkedIn">
+            <a href="#" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
                 <rect x="2" y="2" width="20" height="20" rx="3" />
                 <line x1="7" y1="11" x2="7" y2="17" />
@@ -321,7 +321,7 @@ export function Footer() {
               </svg>
             </a>
           </div>
-          <a href="/" className="page-footer-url">themintbox.in</a>
+          <a href="https://getmintbox.com" className="page-footer-url" target="_blank" rel="noopener">getmintbox.com</a>
         </div>
 
         <div>
@@ -339,11 +339,11 @@ export function Footer() {
         <div>
           <span className="page-footer-col-label">Reach Us</span>
           <p className="page-footer-contact">Anand Ashok, Director</p>
-          <p className="page-footer-contact"><a href="tel:+919916996642">+91 9916996642</a></p>
-          <p className="page-footer-contact"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
+          <p className="page-footer-contact"><a href="tel:+919886537631">+91 9886537631</a></p>
+          <p className="page-footer-contact"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></p>
           <p className="page-footer-contact" style={{ marginTop: 8 }}>2nd Floor, Sobha Alexander Plaza,<br />Ashok Nagar, Bengaluru 560 025</p>
           <p className="page-footer-contact" style={{ marginTop: 10 }}>
-            <a href="https://wa.me/919916996642" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
+            <a href="https://wa.me/919886537631" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
           </p>
         </div>
 
@@ -360,8 +360,8 @@ export function Footer() {
       <div className="page-footer-bottom">
         <span className="page-footer-bottom-text">&copy; {new Date().getFullYear()} MintBox. All rights reserved.</span>
         <div className="page-footer-bottom-links">
-          <a href="/privacy">Privacy Policy</a>
-          <a href="/terms">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
         </div>
       </div>
     </footer>
@@ -371,11 +371,11 @@ export function Footer() {
 /* ── Floating WhatsApp button ── */
 export function WhatsAppFloat() {
   return (
-    <a className="wa-float" href="https://wa.me/919916996642" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <a className="wa-float" href="https://wa.me/919886537631" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
       <svg viewBox="0 0 24 24">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
       </svg>
-      <span className="wa-tooltip">Chat with Anand &rarr;</span>
+      <span className="wa-tooltip">Get In Touch &rarr;</span>
     </a>
   )
 }

@@ -1,12 +1,70 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { WhatsAppFloat } from './WhatsAppFloat'
 
 export function LandingPage() {
+  const [quoteSubmitting, setQuoteSubmitting] = useState(false)
+  const [quoteSuccess, setQuoteSuccess] = useState(false)
+  const [quoteError, setQuoteError] = useState('')
+  const [quoteFieldErrors, setQuoteFieldErrors] = useState<{ name: boolean; company: boolean; email: boolean }>({
+    name: false,
+    company: false,
+    email: false,
+  })
+
+  const handleQuoteSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setQuoteError('')
+    setQuoteSuccess(false)
+
+    const formData = new FormData(e.currentTarget)
+    const name = String(formData.get('name') || '').trim()
+    const company = String(formData.get('company') || '').trim()
+    const email = String(formData.get('email') || '').trim()
+    const teamSize = String(formData.get('teamSize') || '').trim()
+    const budget = String(formData.get('budget') || '').trim()
+
+    const nextErrors = {
+      name: !name,
+      company: !company,
+      email: !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+    }
+    setQuoteFieldErrors(nextErrors)
+    if (nextErrors.name || nextErrors.company || nextErrors.email) return
+
+    setQuoteSubmitting(true)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          company,
+          email,
+          notes: [teamSize ? `Team size: ${teamSize}` : '', budget ? `Budget: ${budget}` : ''].filter(Boolean).join('\n') || undefined,
+          items: [],
+        }),
+      })
+
+      const resData = await res.json()
+      if (!res.ok) {
+        setQuoteError(resData.error || 'Something went wrong. Please try again.')
+        return
+      }
+
+      e.currentTarget.reset()
+      setQuoteFieldErrors({ name: false, company: false, email: false })
+      setQuoteSuccess(true)
+    } catch {
+      setQuoteError('Network error. Please try again.')
+    } finally {
+      setQuoteSubmitting(false)
+    }
+  }
 
   useEffect(() => {
     /* ---------- SCROLL REVEAL ---------- */
@@ -28,116 +86,6 @@ export function LandingPage() {
     document.querySelectorAll('#hero .reveal').forEach((el, i) => {
       setTimeout(() => el.classList.add('visible'), 200 + i * 150)
     })
-
-    /* ---------- FORM SUBMIT ---------- */
-    const quoteForm = document.getElementById('quoteForm') as HTMLFormElement | null
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-    const fieldConfigs = [
-      { id: 'form-name', errorId: 'form-name-error' },
-      { id: 'form-email', errorId: 'form-email-error' },
-      { id: 'form-company', errorId: 'form-company-error' },
-    ] as const
-
-    const isFieldValid = (id: string, value: string) => {
-      const trimmed = value.trim()
-      if (!trimmed) return false
-      if (id === 'form-email' && !emailRegex.test(trimmed)) return false
-      return true
-    }
-
-    const setFieldError = (id: string, errorId: string, hasError: boolean) => {
-      const input = document.getElementById(id) as HTMLInputElement | null
-      const error = document.getElementById(errorId)
-      if (input) input.classList.toggle('form-input-error', hasError)
-      if (error) error.style.display = hasError ? 'block' : 'none'
-    }
-
-    // BUG-001: clear field error as soon as the user types a valid value
-    const fieldInputHandlers: Array<{ el: HTMLInputElement; handler: () => void }> = []
-    fieldConfigs.forEach(({ id, errorId }) => {
-      const input = document.getElementById(id) as HTMLInputElement | null
-      if (!input) return
-      const handler = () => {
-        if (input.classList.contains('form-input-error') && isFieldValid(id, input.value)) {
-          setFieldError(id, errorId, false)
-        }
-      }
-      input.addEventListener('input', handler)
-      fieldInputHandlers.push({ el: input, handler })
-    })
-
-    const onQuoteSubmit = async function (this: HTMLFormElement, e: Event) {
-      e.preventDefault()
-
-      // Re-validate everything on submit
-      let valid = true
-      fieldConfigs.forEach(({ id, errorId }) => {
-        const input = document.getElementById(id) as HTMLInputElement | null
-        if (!input) return
-        const fieldValid = isFieldValid(id, input.value)
-        setFieldError(id, errorId, !fieldValid)
-        if (!fieldValid) valid = false
-      })
-      if (!valid) return
-
-      const btn = this.querySelector('.cta-submit') as HTMLButtonElement | null
-      const btnText = this.querySelector('.form-submit-text') as HTMLElement | null
-      const btnLoading = this.querySelector('.form-submit-loading') as HTMLElement | null
-      const setLoading = (loading: boolean) => {
-        if (!btn || !btnText || !btnLoading) return
-        btn.disabled = loading
-        btnText.style.display = loading ? 'none' : 'inline'
-        btnLoading.style.display = loading ? 'inline' : 'none'
-      }
-      setLoading(true)
-
-      const formEl = this
-      const formError = document.getElementById('quoteForm-error') as HTMLElement | null
-      if (formError) { formError.textContent = ''; formError.style.display = 'none' }
-
-      try {
-        const name = (document.getElementById('form-name') as HTMLInputElement)?.value.trim()
-        const company = (document.getElementById('form-company') as HTMLInputElement)?.value.trim()
-        const email = (document.getElementById('form-email') as HTMLInputElement)?.value.trim()
-        const teamSize = (document.getElementById('form-size') as HTMLSelectElement)?.value
-        const budget = (document.getElementById('form-budget') as HTMLSelectElement)?.value
-        const occasion = (document.getElementById('form-occasion') as HTMLInputElement)?.value
-
-        const res = await fetch('/api/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name, company, email,
-            occasion: occasion || undefined,
-            notes: [
-              teamSize ? `Team size: ${teamSize}` : '',
-              budget ? `Budget: ${budget}` : '',
-            ].filter(Boolean).join('\n') || undefined,
-            items: [],
-          }),
-        })
-
-        const data = await res.json().catch(() => ({}))
-        if (!res.ok) throw new Error(data?.error || 'Something went wrong. Please try again.')
-
-        // BUG-002: visible success state — replace form with a thank-you panel and reset fields
-        formEl.reset()
-        const success = document.getElementById('quoteForm-success')
-        if (success) {
-          formEl.style.display = 'none'
-          success.style.display = 'block'
-          success.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
-      } catch (err) {
-        setLoading(false)
-        if (formError) {
-          formError.textContent = err instanceof Error ? err.message : 'Network error. Please try again.'
-          formError.style.display = 'block'
-        }
-      }
-    }
-    quoteForm?.addEventListener('submit', onQuoteSubmit)
 
     /* ---------- TESTIMONIAL PARALLAX ---------- */
     const testiSection = document.getElementById('testimonials')
@@ -234,8 +182,6 @@ export function LandingPage() {
 
     return () => {
       observer.disconnect()
-      quoteForm?.removeEventListener('submit', onQuoteSubmit)
-      fieldInputHandlers.forEach(({ el, handler }) => el.removeEventListener('input', handler))
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', positionHighlight)
       vaTrack?.removeEventListener('mousedown', onDragStart)
@@ -249,7 +195,7 @@ export function LandingPage() {
     <>
       <Navbar />
 
-      {/* SECTION 1: HERO - Centered */}
+      {/* SECTION 1: HERO — Centered */}
       <section id="hero" aria-label="Hero">
         <div className="geo-overlay" aria-hidden="true"></div>
         <div className="hero-content">
@@ -257,11 +203,11 @@ export function LandingPage() {
             Gifting that says<br/><em>what words can&apos;t.</em>
           </h1>
           <p className="hero-sub reveal reveal-delay-2">
-            Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers - delivered with the precision your brand deserves.
+            Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers — delivered with the precision your brand deserves.
           </p>
           <div className="hero-ctas reveal reveal-delay-3">
-            <a href="/catalog" className="hero-btn-primary">Browse Catalogue</a>
-            <a href="/contact" className="hero-btn-secondary">Book a Discovery Call</a>
+            <a href="/contact" className="hero-btn-primary">Request a Quote</a>
+            <a href="#occasions" className="hero-btn-secondary">Browse Catalogue</a>
           </div>
         </div>
       </section>
@@ -272,11 +218,11 @@ export function LandingPage() {
             {/* Cards × 2 for seamless loop */}
             {(() => {
               const items = [
-                { src: '/hampers/hero1.webp', label: 'Artisan Festive Hamper' },
-                { src: '/hampers/hero2.webp', label: 'Corporate Gift Box' },
-                { src: '/hampers/hero3.webp', label: 'Heritage Gift Set' },
-                { src: '/hampers/hero4.webp', label: 'Elegant Gift Box' },
-                { src: '/hampers/hero5.webp', label: 'Premium Nuts Collection' },
+                { src: '/hampers/hero1.png', label: 'Artisan Festive Hamper' },
+                { src: '/hampers/hero2.png', label: 'Corporate Gift Box' },
+                { src: '/hampers/hero3.png', label: 'Heritage Gift Set' },
+                { src: '/hampers/hero4.png', label: 'Elegant Gift Box' },
+                { src: '/hampers/hero5.png', label: 'Premium Nuts Collection' },
               ];
               return [...items, ...items];
             })().map((card, i) => (
@@ -325,65 +271,97 @@ export function LandingPage() {
         </div>
 
         <div className="occasions-grid">
-          {[
-            { src: '/occasions/employee-onboarding.webp', name: 'Employee Onboarding', desc: 'Make Day 1 unforgettable', delay: 1 },
-            { src: '/occasions/diwali-and-festive.webp', name: 'Diwali & Festive', desc: 'The gift they actually keep', delay: 2 },
-            { src: '/occasions/client-appreciation.webp', name: 'Client Appreciation', desc: 'Strengthen every relationship', delay: 3 },
-            { src: '/occasions/work-anniversary.webp', name: 'Work Anniversary', desc: 'Celebrate the ones who stayed', delay: 1 },
-            { src: '/occasions/team-and-events.webp', name: 'Team & Events', desc: 'Brand that travels with them', delay: 2 },
-            { src: '/occasions/new-year.webp', name: 'New Year', desc: 'Start the year with intention', delay: 3 },
-          ].map((item) => (
-            <a href="/catalog" key={item.src} className={`occasion-card reveal reveal-delay-${item.delay}`}>
-              <div className="occasion-card-img">
-                <Image
-                  src={item.src}
-                  alt={item.name}
-                  fill
-                  sizes="(max-width: 700px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  style={{ objectFit: 'cover' }}
-                  loading="lazy"
-                />
+          <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.png')" }}></div>
+            <div className="occasion-card-overlay">
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Employee Onboarding</h3>
+                <p className="occasion-desc">Make Day 1 unforgettable</p>
               </div>
-              <div className="occasion-card-overlay">
-                <div className="occasion-overlay-text">
-                  <h3 className="occasion-name">{item.name}</h3>
-                  <p className="occasion-desc">{item.desc}</p>
-                </div>
-                <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.png')" }}></div>
+            <div className="occasion-card-overlay">
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Diwali &amp; Festive</h3>
+                <p className="occasion-desc">The gift they actually keep</p>
               </div>
-            </a>
-          ))}
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.png')" }}></div>
+            <div className="occasion-card-overlay">
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Client Appreciation</h3>
+                <p className="occasion-desc">Strengthen every relationship</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.png')" }}></div>
+            <div className="occasion-card-overlay">
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Work Anniversary</h3>
+                <p className="occasion-desc">Celebrate the ones who stayed</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.png')" }}></div>
+            <div className="occasion-card-overlay">
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">Team &amp; Events</h3>
+                <p className="occasion-desc">Brand that travels with them</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
+            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.png')" }}></div>
+            <div className="occasion-card-overlay">
+              <div className="occasion-overlay-text">
+                <h3 className="occasion-name">New Year</h3>
+                <p className="occasion-desc">Start the year with intention</p>
+              </div>
+              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+            </div>
+          </article>
         </div>
 
-        <a href="/catalog" className="view-all-link reveal">View all occasions →</a>
+        <a href="#" className="view-all-link reveal">View all occasions →</a>
       </section>
 
-      {/* SECTION 4: HOW IT WORKS - Bento cards */}
+      {/* SECTION 4: HOW IT WORKS — Bento cards */}
       <section id="how-it-works" aria-label="How MintBox works">
         <div className="hiw-header reveal">
           <span className="hiw-eyebrow">How It Works</span>
           <h2 className="hiw-headline">Four steps to the<br/>perfect gift.</h2>
-          <p className="hiw-sub">From your brief to their doorstep - we handle everything in between.</p>
+          <p className="hiw-sub">From your brief to their doorstep — we handle everything in between.</p>
         </div>
 
         <div className="hiw-bento">
-          {/* 01 - Share requirements */}
+          {/* 01 — Share requirements */}
           <div className="hiw-card reveal reveal-delay-1">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 01</span>
               <h3 className="hiw-card-title">Share your requirements</h3>
-              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form - we work around you.</p>
+              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.</p>
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-chat">
-                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each.</div>
+                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each 🎁</div>
                 <div className="hiw-bubble reply">Got it! Sending you 3 curated options by tonight.</div>
                 <div className="hiw-bubble" style={{ maxWidth: '55%' }}>Perfect, thank you!</div>
               </div>
             </div>
           </div>
 
-          {/* 02 - Curate & brand */}
+          {/* 02 — Curate & brand */}
           <div className="hiw-card reveal reveal-delay-2">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 02</span>
@@ -393,9 +371,9 @@ export function LandingPage() {
             <div className="hiw-mock">
               <span className="brand-section-label">Products selected</span>
               <div className="brand-products">
-                <div className="brand-product-chip"><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">✓</span></div>
-                <div className="brand-product-chip"><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">✓</span></div>
-                <div className="brand-product-chip"><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-icon">☕</span><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-icon">📓</span><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-icon">🕯️</span><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">✓</span></div>
               </div>
               <div className="brand-divider"></div>
               <span className="brand-section-label">Brand colours applied</span>
@@ -409,7 +387,7 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* 03 - Approve sample */}
+          {/* 03 — Approve sample */}
           <div className="hiw-card reveal reveal-delay-3">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 03</span>
@@ -418,19 +396,19 @@ export function LandingPage() {
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-checklist">
-                <div className="hiw-check-row"><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-icon">✅</span><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-icon">✅</span><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-icon">⏳</span><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
               </div>
             </div>
           </div>
 
-          {/* 04 - Delivered */}
+          {/* 04 — Delivered */}
           <div className="hiw-card reveal reveal-delay-4">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 04</span>
               <h3 className="hiw-card-title">Delivered to your team</h3>
-              <p className="hiw-card-desc">Individual addresses or bulk office delivery - tracked, on time, and beautifully packaged across India.</p>
+              <p className="hiw-card-desc">Individual addresses or bulk office delivery — tracked, on time, and beautifully packaged across India.</p>
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-delivery">
@@ -455,7 +433,7 @@ export function LandingPage() {
           <div className="scorecard-mintbox-highlight" aria-hidden="true"></div>
           <div className="scorecard-header">
             <div className="scorecard-feature-col">Feature</div>
-            <div className="scorecard-mintbox-col"><img src="/mintbox-logo.webp" alt="MintBox" className="scorecard-logo"  width={600} height={245} /></div>
+            <div className="scorecard-mintbox-col"><img src="/mintbox-logo.png" alt="MintBox" className="scorecard-logo" /></div>
             <div className="scorecard-vendor-col">Typical Vendor</div>
           </div>
           {[
@@ -493,44 +471,61 @@ export function LandingPage() {
         </div>
 
         <div className="products-grid">
-          {[
-            { src: '/hampers/onboarding.webp', name: 'The Onboarding Kit', desc: 'Everything they need from Day 1 - branded, curated, and unforgettable.', price: '₹1,500', moq: '25', delay: 1 },
-            { src: '/hampers/diwali.webp', name: 'The Diwali Edit', desc: 'Festive gifting that earns a second look - and a post on their stories.', price: '₹2,200', moq: '25', delay: 2 },
-            { src: '/hampers/wfh-essentials.webp', name: 'The WFH Essentials', desc: 'For the team that works everywhere - tools that travel as well as they do.', price: '₹1,800', moq: '25', delay: 3 },
-            { src: '/hampers/executive-gift.webp', name: 'The Executive Gift', desc: 'For clients worth impressing - luxury presentation, no compromise.', price: '₹3,500', moq: '10', delay: 4 },
-          ].map((p) => (
-            <article key={p.src} className={`product-card reveal reveal-delay-${p.delay}`}>
-              <div className="product-image-wrap">
-                <div className="product-img-placeholder">
-                  <Image
-                    src={p.src}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 320px"
-                    style={{ objectFit: 'cover' }}
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <div className="product-body">
-                <h3 className="product-name">{p.name}</h3>
-                <p className="product-desc">{p.desc}</p>
-                <p className="product-price">From {p.price} / unit</p>
-                <p className="product-moq">Min. order: {p.moq} units</p>
-              </div>
-            </article>
-          ))}
+          <article className="product-card reveal reveal-delay-1">
+            <div className="product-image-wrap">
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/onboarding.png') center/cover" }}></div>
+            </div>
+            <div className="product-body">
+              <h3 className="product-name">The Onboarding Kit</h3>
+              <p className="product-desc">Everything they need from Day 1 — branded, curated, and unforgettable.</p>
+              <p className="product-price">From ₹1,500 / unit</p>
+              <p className="product-moq">Min. order: 25 units</p>
+            </div>
+          </article>
+          <article className="product-card reveal reveal-delay-2">
+            <div className="product-image-wrap">
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/diwali.png') center/cover" }}></div>
+            </div>
+            <div className="product-body">
+              <h3 className="product-name">The Diwali Edit</h3>
+              <p className="product-desc">Festive gifting that earns a second look — and a post on their stories.</p>
+              <p className="product-price">From ₹2,200 / unit</p>
+              <p className="product-moq">Min. order: 25 units</p>
+            </div>
+          </article>
+          <article className="product-card reveal reveal-delay-3">
+            <div className="product-image-wrap">
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/wfh-essentials.png') center/cover" }}></div>
+            </div>
+            <div className="product-body">
+              <h3 className="product-name">The WFH Essentials</h3>
+              <p className="product-desc">For the team that works everywhere — tools that travel as well as they do.</p>
+              <p className="product-price">From ₹1,800 / unit</p>
+              <p className="product-moq">Min. order: 25 units</p>
+            </div>
+          </article>
+          <article className="product-card reveal reveal-delay-4">
+            <div className="product-image-wrap">
+              <div className="product-img-placeholder" style={{ background: "url('/hampers/executive-gift.png') center/cover" }}></div>
+            </div>
+            <div className="product-body">
+              <h3 className="product-name">The Executive Gift</h3>
+              <p className="product-desc">For clients worth impressing — luxury presentation, no compromise.</p>
+              <p className="product-price">From ₹3,500 / unit</p>
+              <p className="product-moq">Min. order: 10 units</p>
+            </div>
+          </article>
         </div>
 
         <div className="catalogue-cta-wrap reveal">
-          <a href="/catalog" className="btn-outlined">Browse the full catalogue</a>
+          <a href="#" className="btn-outlined">Browse the full catalogue</a>
         </div>
       </section>
 
       {/* SECTION: OUR STANDARDS */}
       <section id="why-mintbox" aria-label="Our standards">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/hampers/why-bg.webp" alt="" className="why-bg" aria-hidden="true" />
+        <img src="/hampers/why-bg.png" alt="" className="why-bg" aria-hidden="true" />
         <div className="why-overlay" aria-hidden="true"></div>
         <div className="why-content">
           <div className="why-headline-wrap">
@@ -586,13 +581,13 @@ export function LandingPage() {
       {/* SECTION: COMBINED TESTIMONIAL + QUOTE FORM */}
       <section id="quote-cta" aria-label="Request a quote">
         <div className="cta-combined">
-          {/* LEFT - Testimonial panel */}
+          {/* LEFT — Testimonial panel */}
           <div className="cta-left">
             <span className="cta-left-wordmark">MINTBOX</span>
             <div className="cta-left-quote">
               <div className="cta-left-quote-mark" aria-hidden="true">&ldquo;</div>
               <blockquote className="cta-left-text">
-                Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to - the box was just that good.
+                Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.
               </blockquote>
               <div className="cta-left-divider"></div>
               <p className="cta-left-name">Priya S.</p>
@@ -614,30 +609,30 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* RIGHT - Quote form panel */}
+          {/* RIGHT — Quote form panel */}
           <div className="cta-right">
             <span className="cta-right-eyebrow">Request a Quote</span>
             <h2 className="cta-right-headline">Ready to make your people feel valued?</h2>
-            <p className="cta-right-sub">Tell us about your team, your occasion, and your budget. We handle everything else.</p>
+            <p className="cta-right-sub">Tell us about your team and your budget. We handle everything else.</p>
 
-            <form id="quoteForm" className="cta-form" noValidate>
+            <form id="quoteForm" className="cta-form" noValidate onSubmit={handleQuoteSubmit}>
               <div className="cta-form-row">
                 <div className="cta-form-group">
                   <label htmlFor="form-name">Your name <span className="form-required">*</span></label>
-                  <input type="text" id="form-name" name="name" placeholder="Priya Sharma" autoComplete="name" required />
-                  <span className="form-error" id="form-name-error">Please enter your name</span>
+                  <input className={quoteFieldErrors.name ? 'form-input-error' : ''} type="text" id="form-name" name="name" placeholder="Priya Sharma" autoComplete="name" required />
+                  {quoteFieldErrors.name && <span className="form-error" id="form-name-error" style={{ display: 'block' }}>Please enter your name</span>}
                 </div>
                 <div className="cta-form-group">
                   <label htmlFor="form-company">Company <span className="form-required">*</span></label>
-                  <input type="text" id="form-company" name="company" placeholder="Acme Tech" autoComplete="organization" required />
-                  <span className="form-error" id="form-company-error">Please enter your company name</span>
+                  <input className={quoteFieldErrors.company ? 'form-input-error' : ''} type="text" id="form-company" name="company" placeholder="Acme Tech" autoComplete="organization" required />
+                  {quoteFieldErrors.company && <span className="form-error" id="form-company-error" style={{ display: 'block' }}>Please enter your company name</span>}
                 </div>
               </div>
 
               <div className="cta-form-group">
                 <label htmlFor="form-email">Email <span className="form-required">*</span></label>
-                <input type="email" id="form-email" name="email" placeholder="priya@company.com" autoComplete="email" required />
-                <span className="form-error" id="form-email-error">Please enter a valid email</span>
+                <input className={quoteFieldErrors.email ? 'form-input-error' : ''} type="email" id="form-email" name="email" placeholder="priya@company.com" autoComplete="email" required />
+                {quoteFieldErrors.email && <span className="form-error" id="form-email-error" style={{ display: 'block' }}>Please enter a valid email</span>}
               </div>
 
               <div className="cta-form-row">
@@ -663,36 +658,14 @@ export function LandingPage() {
                 </div>
               </div>
 
-              <div className="cta-form-group">
-                <label>Occasion</label>
-                <div className="cta-occasion-chips" id="occasionChips">
-                  <button type="button" className="cta-chip" data-value="onboarding">Onboarding</button>
-                  <button type="button" className="cta-chip" data-value="diwali">Diwali</button>
-                  <button type="button" className="cta-chip" data-value="anniversary">Work Anniversary</button>
-                  <button type="button" className="cta-chip" data-value="client">Client Gift</button>
-                  <button type="button" className="cta-chip" data-value="other">Other</button>
-                </div>
-                <input type="hidden" id="form-occasion" name="occasion" />
-              </div>
+              {quoteError && <div className="cta-form-server-error">{quoteError}</div>}
+              {quoteSuccess && <div className="cta-form-success">Sent! We&apos;ll be in touch soon.</div>}
 
-              <div className="form-error" id="quoteForm-error" style={{ display: 'none' }} role="alert" />
-
-              <button type="submit" className="cta-submit" id="quoteSubmitBtn">
-                <span className="form-submit-text">Send enquiry →</span>
-                <span className="form-submit-loading" style={{ display: 'none' }}>Sending...</span>
+              <button type="submit" className="cta-submit" id="quoteSubmitBtn" disabled={quoteSubmitting}>
+                <span className="form-submit-text">{quoteSubmitting ? 'Sending...' : 'Send enquiry →'}</span>
               </button>
-              <a href="https://wa.me/918618237189" className="cta-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
+              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
             </form>
-
-            <div id="quoteForm-success" className="cta-form-success" role="status" aria-live="polite" style={{ display: 'none' }}>
-              <div className="cta-form-success-check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </div>
-              <h3 className="cta-form-success-title">Thanks — your enquiry is in.</h3>
-              <p className="cta-form-success-sub">A real person from the MintBox team will get back to you within 4 working hours with a curated proposal.</p>
-            </div>
           </div>
         </div>
       </section>
