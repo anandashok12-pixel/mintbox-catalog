@@ -31,9 +31,9 @@ const EMPTY: ContactPageData = {
   formInfo: {
     eyebrow: 'Send us a message',
     title: "We'd love to hear from you.",
-    subtitle: "Share a few details about your gifting need and we'll get back within four working hours with a curated proposal — no spam, no sales follow-ups, just a real reply from the team.",
+    subtitle: "Share a few details about your gifting need and we'll get back within four working hours with a curated proposal  -  no spam, no sales follow-ups, just a real reply from the team.",
     promises: [
-      { bold: 'Reply within 4 hours. ', desc: 'Every enquiry gets a real response from a real person — never an auto-reply.' },
+      { bold: 'Reply within 4 hours. ', desc: 'Every enquiry gets a real response from a real person  -  never an auto-reply.' },
       { bold: 'Transparent pricing. ', desc: 'The number we quote upfront is the number on your invoice. No surprise fees, no surcharges.' },
       { bold: 'No pressure, no pitch. ', desc: "We'll send options that fit your budget. If we're not the right fit, we'll say so honestly." },
     ],
@@ -64,7 +64,7 @@ const EMPTY: ContactPageData = {
     successTitle: 'Message sent!',
     successMessage: "Thank you! We'll be in touch within 4 hours.",
   },
-  contactDetails: { phone: '+91 9886537631', email: 'anand@getmintbox.com', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/919886537631' },
+  contactDetails: { phone: '+91 9886537631', email: 'anand@themintbox.in', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/919886537631' },
 }
 
 // Merge raw DB values onto defaults, but ignore null/undefined/empty-string
@@ -104,7 +104,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     contactDetails: {
       ...merged.contactDetails,
       phone: merged.contactDetails.phone ?? '+91 9886537631',
-      email: merged.contactDetails.email ?? 'anand@getmintbox.com',
+      email: merged.contactDetails.email ?? 'anand@themintbox.in',
       emailSubNote: merged.contactDetails.emailSubNote ?? '',
       officeAddress: merged.contactDetails.officeAddress ?? '',
       mapLabel: merged.contactDetails.mapLabel ?? '',
@@ -356,11 +356,11 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
         </div>
       </div>
 
-      {/* CONTACT DETAILS — split panel */}
+      {/* CONTACT DETAILS  -  split panel */}
       <div className="ct-contact-section">
         <div className="ct-contact-split">
 
-          {/* LEFT — white, contact details */}
+          {/* LEFT  -  white, contact details */}
           <div className="ct-contact-left">
             <div className="ct-cs-eyebrow">Contact details</div>
             <div className="ct-cs-list">
@@ -418,15 +418,23 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
             </div>
           </div>
 
-          {/* RIGHT — cream, map */}
+          {/* RIGHT  -  cream, map */}
           <div className="ct-contact-right">
             <div className="ct-cs-eyebrow">Find us</div>
             <div className="ct-map-placeholder">
+              <div className="ct-map-embed">
+                <iframe
+                  title="MintBox Office Location"
+                  src="https://www.google.com/maps?q=Sobha+Alexander+Plaza,+Ashok+Nagar,+Bengaluru+560025&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
               <a
                 href="https://maps.google.com/?q=Sobha+Alexander+Plaza,+Ashok+Nagar,+Bengaluru+560025"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', textDecoration: 'none', color: 'inherit' }}
+                className="ct-map-directions"
               >
                 <svg className="ct-map-pin" viewBox="0 0 24 24" fill="none" stroke="#1B4D3E" strokeWidth="1.5" strokeLinecap="round">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />

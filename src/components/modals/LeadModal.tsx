@@ -128,7 +128,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             ) : (
               <p className="success-email">
                 We received your request, but couldn&apos;t deliver the confirmation email right now.
-                Please contact us at <strong>hello@getmintbox.com</strong> if needed.
+                Please contact us at <strong>hello@themintbox.in</strong> if needed.
               </p>
             )}
             <button className="btn-request-pricing" onClick={onClose}>

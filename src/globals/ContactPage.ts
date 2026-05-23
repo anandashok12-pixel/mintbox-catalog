@@ -8,6 +8,20 @@ export const ContactPage: GlobalConfig = {
     update: () => true,
   },
   fields: [
+    {
+      name: 'seo',
+      type: 'group',
+      fields: [
+        { name: 'metaTitle', type: 'text', defaultValue: 'Contact MintBox | Request a Corporate Gifting Quote' },
+        {
+          name: 'metaDescription',
+          type: 'textarea',
+          defaultValue:
+            'Contact MintBox to plan onboarding kits, festive gifting, client gifts, and team hampers. Share your team size, occasion, and budget to get a curated quote.',
+        },
+      ],
+    },
+
     // ── HERO ──
     {
       name: 'hero',

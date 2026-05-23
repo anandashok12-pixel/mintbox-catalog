@@ -19,6 +19,11 @@ export async function GET(req: Request) {
       await payload.updateGlobal({
         slug: 'about-page' as any,
         data: {
+          seo: {
+            metaTitle: 'About MintBox | Premium Corporate Gifting in India',
+            metaDescription:
+              'Learn why MintBox was built, what we stand for, and how we deliver premium corporate gifting with transparent pricing and reliable Pan-India fulfillment.',
+          },
           hero: {
             titleLine1: 'We exist because',
             titleLine2: 'gifting deserved better.',
@@ -61,7 +66,7 @@ export async function GET(req: Request) {
             label: 'The person behind MintBox', title: 'Built by someone who felt the problem firsthand.',
             bioParagraph1: 'Anand Ashok is the Director of MintBox and the driving force behind its founding.',
             bioParagraph2: 'The frustration that became MintBox came from lived experience \u2014 managing gifting vendors, watching quality fall short of expectations.',
-            email: 'anand@getmintbox.com', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631',
+            email: 'anand@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631',
             cardName: 'Anand Ashok', cardRole: 'Director, MintBox',
           },
           cta: {
@@ -80,6 +85,11 @@ export async function GET(req: Request) {
       await payload.updateGlobal({
         slug: 'contact-page' as any,
         data: {
+          seo: {
+            metaTitle: 'Contact MintBox | Request a Corporate Gifting Quote',
+            metaDescription:
+              'Contact MintBox to plan onboarding kits, festive gifting, client gifts, and team hampers. Share your team size, occasion, and budget to get a curated quote.',
+          },
           hero: { label: 'Get in touch', titleLine1: "Let's talk", titleLine2: 'about your team.', subtitle: "Whether you have a brief, a budget, or just a feeling, we\u2019d love to hear from you. Most enquiries get a response within 4 hours." },
           formInfo: {
             eyebrow: 'Send us a message', title: "We'd love to hear from you.",
@@ -117,7 +127,7 @@ export async function GET(req: Request) {
             successMessage: 'Anand will get back to you within 4 hours on business days.',
           },
           contactDetails: {
-            phone: '+91 9886537631', email: 'anand@getmintbox.com',
+            phone: '+91 9886537631', email: 'anand@themintbox.in',
             emailSubNote: 'Reply within 4 hours on business days',
             officeAddress: "2nd Floor, Building 16/2\nSobha Alexander Plaza\nAshok Nagar, Bengaluru 560025",
             mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
@@ -134,6 +144,11 @@ export async function GET(req: Request) {
       await payload.updateGlobal({
         slug: 'faq-page' as any,
         data: {
+          seo: {
+            metaTitle: 'MintBox FAQ | Corporate Gifting, MOQ, Branding, Delivery',
+            metaDescription:
+              'Get answers to common corporate gifting questions - minimum order quantity, branding quality, timelines, delivery coverage, pricing, and customisation with MintBox.',
+          },
           hero: { eyebrow: 'Frequently asked questions', titleLine1: 'Everything you', titleLine2: 'need to know.', subtitle: "From minimum order quantities to branding quality and lead times \u2014 we\u2019ve answered the questions we hear most from HR teams, founders, and procurement leads." },
           categories: [
             { categoryId: 'ordering', title: 'Ordering & MOQ', desc: 'Minimum quantities, how to place an order, and what happens next', iconId: 'ordering', items: [
@@ -161,7 +176,7 @@ export async function GET(req: Request) {
             subtitle: 'Anand picks up every WhatsApp personally. Most questions get a reply within 30 minutes.',
             contactCards: [
               { title: 'WhatsApp us directly', desc: 'Get In Touch \u2014 real answers, not templates.', linkText: '+91 9886537631 \u2192', linkUrl: 'https://wa.me/919886537631' },
-              { title: 'Send us a message', desc: "We'll reply within 4 hours on business days.", linkText: 'anand@getmintbox.com \u2192', linkUrl: '/contact' },
+              { title: 'Send us a message', desc: "We'll reply within 4 hours on business days.", linkText: 'anand@themintbox.in \u2192', linkUrl: '/contact' },
             ],
           },
         },

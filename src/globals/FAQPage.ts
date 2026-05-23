@@ -8,6 +8,20 @@ export const FAQPage: GlobalConfig = {
     update: () => true,
   },
   fields: [
+    {
+      name: 'seo',
+      type: 'group',
+      fields: [
+        { name: 'metaTitle', type: 'text', defaultValue: 'MintBox FAQ | Corporate Gifting, MOQ, Branding, Delivery' },
+        {
+          name: 'metaDescription',
+          type: 'textarea',
+          defaultValue:
+            'Get answers to common corporate gifting questions - minimum order quantity, branding quality, timelines, delivery coverage, pricing, and customisation with MintBox.',
+        },
+      ],
+    },
+
     // ── HERO ──
     {
       name: 'hero',

@@ -8,6 +8,20 @@ export const AboutPage: GlobalConfig = {
     update: () => true,
   },
   fields: [
+    {
+      name: 'seo',
+      type: 'group',
+      fields: [
+        { name: 'metaTitle', type: 'text', defaultValue: 'About MintBox | Premium Corporate Gifting in India' },
+        {
+          name: 'metaDescription',
+          type: 'textarea',
+          defaultValue:
+            'Learn why MintBox was built, what we stand for, and how we deliver premium corporate gifting with transparent pricing and reliable Pan-India fulfillment.',
+        },
+      ],
+    },
+
     // ── HERO ──
     {
       name: 'hero',

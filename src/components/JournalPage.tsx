@@ -96,7 +96,7 @@ export function JournalPage() {
         </div>
       </nav>
 
-      {/* HERO — split */}
+      {/* HERO  -  split */}
       <div className="jn-hero">
         <div className="jn-hero-left">
           <div className="jn-hero-pat" />
@@ -219,7 +219,7 @@ export function JournalPage() {
           ))}
         </div>
 
-        {/* WIDE CARDS — MORE FROM THE JOURNAL */}
+        {/* WIDE CARDS  -  MORE FROM THE JOURNAL */}
         <div className="jn-grid-label" style={{ marginTop: '2.5rem' }}>
           <div className="jn-grid-label-text">More from the journal</div>
         </div>
@@ -271,7 +271,7 @@ export function JournalPage() {
                 </svg>
               </a>
             </div>
-            <a href="https://getmintbox.com" className="footer-url" target="_blank" rel="noopener">getmintbox.com</a>
+            <a href="https://themintbox.in" className="footer-url" target="_blank" rel="noopener">themintbox.in</a>
           </div>
           <div>
             <span className="footer-col-label">Navigate</span>
@@ -290,7 +290,7 @@ export function JournalPage() {
           <div>
             <span className="footer-col-label">Reach Us</span>
             <p className="footer-contact-item"><a href="tel:+919886537631">+91 9886537631</a></p>
-            <p className="footer-contact-item"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></p>
+            <p className="footer-contact-item"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
             <p className="footer-contact-item" style={{ marginTop: '8px' }}>2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</p>
             <p className="footer-contact-item" style={{ marginTop: '10px' }}>
               <a href="https://wa.me/919886537631" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
@@ -298,7 +298,7 @@ export function JournalPage() {
           </div>
           <div>
             <span className="footer-col-label">The Journal</span>
-            <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news — monthly.</p>
+            <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news  -  monthly.</p>
             <form className="newsletter-form" noValidate onSubmit={(e) => { e.preventDefault(); const btn = (e.target as HTMLFormElement).querySelector('button'); if (btn) { btn.textContent = '✓'; (btn as HTMLButtonElement).disabled = true; } }}>
               <input type="email" name="email" placeholder="your@email.com" autoComplete="email" aria-label="Email address" />
               <button type="submit">Subscribe</button>

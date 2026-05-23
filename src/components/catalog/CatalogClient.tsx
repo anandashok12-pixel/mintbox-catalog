@@ -188,7 +188,6 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
           aria-label={`View pack (${count} ${count === 1 ? 'item' : 'items'})`}
           onClick={() => setMobileCartOpen(true)}
         >
-          <span className="mobile-cart-fab-icon" aria-hidden="true">🎁</span>
           <span className="mobile-cart-fab-label">Pack</span>
           {count > 0 && <span className="mobile-cart-fab-count">{count}</span>}
         </button>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <g fill="none" stroke="#3d8a72" stroke-width="1.2">
+    <!-- 8-pointed star at center -->
+    <polygon points="50,15 57,35 77,28 65,43 85,50 65,57 77,72 57,65 50,85 43,65 23,72 35,57 15,50 35,43 23,28 43,35"/>
+    <!-- connecting kite shapes at edges (will tile) -->
+    <!-- top-left corner star (quarter) -->
+    <polygon points="0,0 7,15 0,20"/>
+    <polygon points="0,0 15,7 20,0"/>
+    <!-- top-right corner star (quarter) -->
+    <polygon points="100,0 93,15 100,20"/>
+    <polygon points="100,0 85,7 80,0"/>
+    <!-- bottom-left corner star (quarter) -->
+    <polygon points="0,100 7,85 0,80"/>
+    <polygon points="0,100 15,93 20,100"/>
+    <!-- bottom-right corner star (quarter) -->
+    <polygon points="100,100 93,85 100,80"/>
+    <polygon points="100,100 85,93 80,100"/>
+    <!-- connecting lines between stars -->
+    <line x1="20" y1="0" x2="43" y2="35"/>
+    <line x1="57" y1="35" x2="80" y2="0"/>
+    <line x1="0" y1="20" x2="35" y2="43"/>
+    <line x1="0" y1="80" x2="35" y2="57"/>
+    <line x1="100" y1="20" x2="65" y2="43"/>
+    <line x1="100" y1="80" x2="65" y2="57"/>
+    <line x1="20" y1="100" x2="43" y2="65"/>
+    <line x1="57" y1="65" x2="80" y2="100"/>
+    <!-- kite connectors -->
+    <path d="M7,15 L35,43 L15,7 Z"/>
+    <path d="M93,15 L65,43 L85,7 Z"/>
+    <path d="M7,85 L35,57 L15,93 Z"/>
+    <path d="M93,85 L65,57 L85,93 Z"/>
+  </g>
+</svg>

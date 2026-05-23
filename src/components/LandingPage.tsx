@@ -195,7 +195,7 @@ export function LandingPage() {
     <>
       <Navbar />
 
-      {/* SECTION 1: HERO — Centered */}
+      {/* SECTION 1: HERO  -  Centered */}
       <section id="hero" aria-label="Hero">
         <div className="geo-overlay" aria-hidden="true"></div>
         <div className="hero-content">
@@ -203,11 +203,11 @@ export function LandingPage() {
             Gifting that says<br/><em>what words can&apos;t.</em>
           </h1>
           <p className="hero-sub reveal reveal-delay-2">
-            Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers — delivered with the precision your brand deserves.
+            Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers - delivered with the precision your brand deserves.
           </p>
           <div className="hero-ctas reveal reveal-delay-3">
-            <a href="/contact" className="hero-btn-primary">Request a Quote</a>
-            <a href="#occasions" className="hero-btn-secondary">Browse Catalogue</a>
+            <a href="/catalog" className="hero-btn-primary">Browse Catalogue</a>
+            <a href="/contact" className="hero-btn-secondary">Book a Discovery Call</a>
           </div>
         </div>
       </section>
@@ -333,35 +333,35 @@ export function LandingPage() {
           </article>
         </div>
 
-        <a href="#" className="view-all-link reveal">View all occasions →</a>
+        <a href="/catalog" className="view-all-link reveal">View all occasions →</a>
       </section>
 
-      {/* SECTION 4: HOW IT WORKS — Bento cards */}
+      {/* SECTION 4: HOW IT WORKS  -  Bento cards */}
       <section id="how-it-works" aria-label="How MintBox works">
         <div className="hiw-header reveal">
           <span className="hiw-eyebrow">How It Works</span>
           <h2 className="hiw-headline">Four steps to the<br/>perfect gift.</h2>
-          <p className="hiw-sub">From your brief to their doorstep — we handle everything in between.</p>
+          <p className="hiw-sub">From your brief to their doorstep - we handle everything in between.</p>
         </div>
 
         <div className="hiw-bento">
-          {/* 01 — Share requirements */}
+          {/* 01  -  Share requirements */}
           <div className="hiw-card reveal reveal-delay-1">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 01</span>
               <h3 className="hiw-card-title">Share your requirements</h3>
-              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.</p>
+              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form - we work around you.</p>
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-chat">
-                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each 🎁</div>
+                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each.</div>
                 <div className="hiw-bubble reply">Got it! Sending you 3 curated options by tonight.</div>
                 <div className="hiw-bubble" style={{ maxWidth: '55%' }}>Perfect, thank you!</div>
               </div>
             </div>
           </div>
 
-          {/* 02 — Curate & brand */}
+          {/* 02  -  Curate & brand */}
           <div className="hiw-card reveal reveal-delay-2">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 02</span>
@@ -371,9 +371,9 @@ export function LandingPage() {
             <div className="hiw-mock">
               <span className="brand-section-label">Products selected</span>
               <div className="brand-products">
-                <div className="brand-product-chip"><span className="brand-product-icon">☕</span><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">✓</span></div>
-                <div className="brand-product-chip"><span className="brand-product-icon">📓</span><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">✓</span></div>
-                <div className="brand-product-chip"><span className="brand-product-icon">🕯️</span><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">Yes</span></div>
+                <div className="brand-product-chip"><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">Yes</span></div>
+                <div className="brand-product-chip"><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">Yes</span></div>
               </div>
               <div className="brand-divider"></div>
               <span className="brand-section-label">Brand colours applied</span>
@@ -387,7 +387,7 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* 03 — Approve sample */}
+          {/* 03  -  Approve sample */}
           <div className="hiw-card reveal reveal-delay-3">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 03</span>
@@ -396,19 +396,19 @@ export function LandingPage() {
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-checklist">
-                <div className="hiw-check-row"><span className="hiw-check-icon">✅</span><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-icon">✅</span><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-icon">⏳</span><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
               </div>
             </div>
           </div>
 
-          {/* 04 — Delivered */}
+          {/* 04  -  Delivered */}
           <div className="hiw-card reveal reveal-delay-4">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 04</span>
               <h3 className="hiw-card-title">Delivered to your team</h3>
-              <p className="hiw-card-desc">Individual addresses or bulk office delivery — tracked, on time, and beautifully packaged across India.</p>
+              <p className="hiw-card-desc">Individual addresses or bulk office delivery - tracked, on time, and beautifully packaged across India.</p>
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-delivery">
@@ -466,7 +466,7 @@ export function LandingPage() {
         <div className="section-header-center reveal">
           <span className="section-label">Curated For You</span>
           <h2 className="section-headline">The MintBox Edit.</h2>
-          <p className="collections-sub" style={{ marginTop: '10px' }}>Our most-loved collections, ready to brand and ship.</p>
+              <p className="collections-sub" style={{ marginTop: '10px' }}>Our most-loved collections, ready to brand and ship.</p>
           <span className="gold-rule"></span>
         </div>
 
@@ -477,7 +477,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Onboarding Kit</h3>
-              <p className="product-desc">Everything they need from Day 1 — branded, curated, and unforgettable.</p>
+              <p className="product-desc">Everything they need from Day 1 - branded, curated, and unforgettable.</p>
               <p className="product-price">From ₹1,500 / unit</p>
               <p className="product-moq">Min. order: 25 units</p>
             </div>
@@ -488,7 +488,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Diwali Edit</h3>
-              <p className="product-desc">Festive gifting that earns a second look — and a post on their stories.</p>
+              <p className="product-desc">Festive gifting that earns a second look - and a post on their stories.</p>
               <p className="product-price">From ₹2,200 / unit</p>
               <p className="product-moq">Min. order: 25 units</p>
             </div>
@@ -499,7 +499,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The WFH Essentials</h3>
-              <p className="product-desc">For the team that works everywhere — tools that travel as well as they do.</p>
+              <p className="product-desc">For the team that works everywhere - tools that travel as well as they do.</p>
               <p className="product-price">From ₹1,800 / unit</p>
               <p className="product-moq">Min. order: 25 units</p>
             </div>
@@ -510,7 +510,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Executive Gift</h3>
-              <p className="product-desc">For clients worth impressing — luxury presentation, no compromise.</p>
+              <p className="product-desc">For clients worth impressing - luxury presentation, no compromise.</p>
               <p className="product-price">From ₹3,500 / unit</p>
               <p className="product-moq">Min. order: 10 units</p>
             </div>
@@ -518,7 +518,7 @@ export function LandingPage() {
         </div>
 
         <div className="catalogue-cta-wrap reveal">
-          <a href="#" className="btn-outlined">Browse the full catalogue</a>
+          <a href="/catalog" className="btn-outlined">Browse the full catalogue</a>
         </div>
       </section>
 
@@ -581,13 +581,13 @@ export function LandingPage() {
       {/* SECTION: COMBINED TESTIMONIAL + QUOTE FORM */}
       <section id="quote-cta" aria-label="Request a quote">
         <div className="cta-combined">
-          {/* LEFT — Testimonial panel */}
+          {/* LEFT  -  Testimonial panel */}
           <div className="cta-left">
             <span className="cta-left-wordmark">MINTBOX</span>
             <div className="cta-left-quote">
               <div className="cta-left-quote-mark" aria-hidden="true">&ldquo;</div>
               <blockquote className="cta-left-text">
-                Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.
+                Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to - the box was just that good.
               </blockquote>
               <div className="cta-left-divider"></div>
               <p className="cta-left-name">Priya S.</p>
@@ -609,7 +609,7 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* RIGHT — Quote form panel */}
+          {/* RIGHT  -  Quote form panel */}
           <div className="cta-right">
             <span className="cta-right-eyebrow">Request a Quote</span>
             <h2 className="cta-right-headline">Ready to make your people feel valued?</h2>

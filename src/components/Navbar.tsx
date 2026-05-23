@@ -31,7 +31,6 @@ export function Navbar() {
         <a href="/about" onClick={() => setMobileOpen(false)}>About</a>
         <a href="/faq" onClick={() => setMobileOpen(false)}>FAQ</a>
         <a href="/contact" onClick={() => setMobileOpen(false)}>Contact</a>
-        <a href="/contact" onClick={() => setMobileOpen(false)} style={{ color: 'var(--gold)' }}>Request a Quote</a>
       </div>
 
       {/* NAVBAR */}

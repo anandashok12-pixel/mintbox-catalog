@@ -5,9 +5,24 @@ import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-  title: 'About - MintBox',
-  description: 'The story behind MintBox - why we exist, what we believe, and the team behind premium corporate gifting.',
+const FALLBACK_TITLE = 'About MintBox | Premium Corporate Gifting in India'
+const FALLBACK_DESCRIPTION =
+  'Learn why MintBox was built, what we stand for, and how we deliver premium corporate gifting with transparent pricing and reliable Pan-India fulfillment.'
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const data: any = await payload.findGlobal({ slug: 'about-page' })
+    return {
+      title: data?.seo?.metaTitle || FALLBACK_TITLE,
+      description: data?.seo?.metaDescription || FALLBACK_DESCRIPTION,
+    }
+  } catch {
+    return {
+      title: FALLBACK_TITLE,
+      description: FALLBACK_DESCRIPTION,
+    }
+  }
 }
 
 export default async function AboutPage() {
