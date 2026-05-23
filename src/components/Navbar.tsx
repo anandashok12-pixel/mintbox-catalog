@@ -25,6 +25,7 @@ export function Navbar() {
         >
           ✕
         </button>
+        <a href="/" onClick={() => setMobileOpen(false)}>Home</a>
         <a href="/catalog" onClick={() => setMobileOpen(false)}>Catalogue</a>
 
         <a href="/about" onClick={() => setMobileOpen(false)}>About</a>
@@ -41,6 +42,7 @@ export function Navbar() {
         </a>
 
         <ul className="nav-links" role="list">
+          <li><a href="/" className="nav-link">Home</a></li>
           <li><a href="/catalog" className="nav-link">Catalogue</a></li>
 
           <li><a href="/about" className="nav-link">About</a></li>
@@ -49,7 +51,7 @@ export function Navbar() {
         </ul>
 
         <div className="nav-actions">
-          <a href="/contact" className="btn-primary">Request a Quote</a>
+          <a href="/contact" className="btn-primary nav-cta-desktop">Request a Quote</a>
           <button
             className="hamburger"
             aria-label="Open menu"

@@ -95,7 +95,6 @@ export default function ProductGrid({
       {grouped.map(({ cat, items }) => (
         <section key={cat.id} id={`cat-${cat.name}`} className="cat-section">
           <div className="cat-section-header">
-            {cat.emoji && <span className="cat-emoji">{cat.emoji}</span>}
             <h2 className="cat-title">{cat.name}</h2>
             <span className="cat-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
           </div>
@@ -122,7 +121,7 @@ export default function ProductGrid({
                         style={{ objectFit: 'cover' }}
                       />
                     ) : (
-                      <span className="product-card-emoji">{product.emoji || '🎁'}</span>
+                      <span className="product-card-placeholder" aria-hidden="true" />
                     )}
                   </div>
                   <div className="product-card-body">

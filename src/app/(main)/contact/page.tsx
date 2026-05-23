@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Contact — MintBox',
+  title: 'Contact - MintBox',
   description: 'Get in touch with MintBox for premium corporate gifting. Request a quote, ask a question, or say hello.',
 }
 

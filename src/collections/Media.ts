@@ -15,7 +15,7 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      // Not required — the inline image picker on Product form doesn't
+      // Not required - the inline image picker on Product form doesn't
       // prompt for alt text, so making it required causes a 500 on upload.
       required: false,
     },

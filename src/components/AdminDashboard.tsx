@@ -1,6 +1,6 @@
 'use client'
 
-/* Admin Dashboard — updated 2026-04-11 */
+/* Admin Dashboard - updated 2026-04-11 */
 import React from 'react'
 import Link from 'next/link'
 
@@ -25,7 +25,7 @@ export function AdminDashboard() {
         MintBox Catalog
       </h1>
       <p style={{ marginBottom: '2rem', opacity: 0.6, fontSize: '0.95rem' }}>
-        Admin dashboard — manage collections and edit page content.
+        Admin dashboard - manage collections and edit page content.
       </p>
 
       <h2 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.75rem' }}>

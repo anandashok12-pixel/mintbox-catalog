@@ -10,7 +10,7 @@ interface Category {
 interface SidebarProps {
   categories: Category[]
   // Slug of the category currently in view (driven by scroll-spy in the
-  // parent). Sidebar clicks only navigate — they don't filter the grid.
+  // parent). Sidebar clicks only navigate - they don't filter the grid.
   activeCat: string | null
 }
 

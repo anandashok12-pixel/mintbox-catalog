@@ -20,7 +20,7 @@ interface Article {
 
 const featuredArticle: Article = {
   title: 'The 2025 guide to employee onboarding gifts in Bengaluru',
-  excerpt: 'What your new hire\u2019s first box says about your company \u2014 and how to get it exactly right without blowing the budget.',
+  excerpt: 'What your new hire\u2019s first box says about your company - and how to get it exactly right without blowing the budget.',
   category: 'Gifting guides',
   date: 'March 2025',
   readTime: '8 min read',
@@ -33,16 +33,16 @@ const articles: Article[] = [
   { title: 'The Diwali corporate gifting edit: premium options under \u20B93,500', excerpt: 'Curated picks for teams that want to stand out from the usual box of dry fruits and branded mugs.', category: 'Occasion edits', date: 'Feb 2025', readTime: '6 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion edit' },
   { title: 'How a Series B startup onboarded 200 employees across 12 cities in one week', excerpt: 'When Bengaluru-based Finova scaled their hiring, their HR team needed gifting that could keep up. Here\u2019s how we did it.', category: 'Case studies', date: 'Jan 2025', readTime: '5 min read', imgClass: 'jn-img-case', catClass: 'jn-cat-case', imgLabel: 'Case study' },
   { title: 'How to choose branded merchandise that people actually keep', excerpt: 'The difference between a gift that lives on the desk and one that goes straight to the back of a drawer.', category: 'Gifting guides', date: 'Jan 2025', readTime: '7 min read', imgClass: 'jn-img-guide', catClass: 'jn-cat-guide', imgLabel: 'Gifting guide' },
-  { title: 'Why we do branding in-house \u2014 and why it matters to you', excerpt: 'Most gifting vendors outsource printing to whoever is cheapest. We don\u2019t. Here\u2019s what that means for the quality of your brand.', category: 'Inside MintBox', date: 'Dec 2024', readTime: '4 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
+  { title: 'Why we do branding in-house - and why it matters to you', excerpt: 'Most gifting vendors outsource printing to whoever is cheapest. We don\u2019t. Here\u2019s what that means for the quality of your brand.', category: 'Inside MintBox', date: 'Dec 2024', readTime: '4 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
   { title: 'New Year corporate gifting: 8 ideas that don\u2019t feel like afterthoughts', excerpt: 'The window between Christmas and New Year is when most companies phone it in. Here\u2019s how to use it to stand out instead.', category: 'Occasion edits', date: 'Dec 2024', readTime: '5 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion edit' },
   { title: 'Sustainable corporate gifting in India: what actually works', excerpt: 'Eco gifting in India is full of greenwashing. We break down which materials, certifications, and sourcing choices genuinely reduce impact.', category: 'Gifting guides', date: 'Nov 2024', readTime: '9 min read', imgClass: 'jn-img-wellness', catClass: 'jn-cat-guide', imgLabel: 'Gifting guide' },
 ]
 
 const wideArticles: Article[] = [
-  { title: 'Work anniversary gifts that don\u2019t feel like a HR checkbox', excerpt: 'Year 1, year 3, year 5 \u2014 each milestone deserves a different approach. A framework for gifting that actually recognises the individual.', category: 'Gifting guides', date: 'Oct 2024', readTime: '6 min read', imgClass: 'jn-img-guide', catClass: 'jn-cat-guide', imgLabel: 'Guide' },
+  { title: 'Work anniversary gifts that don\u2019t feel like a HR checkbox', excerpt: 'Year 1, year 3, year 5 - each milestone deserves a different approach. A framework for gifting that actually recognises the individual.', category: 'Gifting guides', date: 'Oct 2024', readTime: '6 min read', imgClass: 'jn-img-guide', catClass: 'jn-cat-guide', imgLabel: 'Guide' },
   { title: 'How a GCC used gifting to close the culture gap with their India team', excerpt: 'A Singapore-headquartered company was struggling with engagement at their Bengaluru office. One Diwali gifting programme changed the conversation.', category: 'Case studies', date: 'Sep 2024', readTime: '7 min read', imgClass: 'jn-img-case', catClass: 'jn-cat-case', imgLabel: 'Case study' },
-  { title: 'Conference swag that people actually take home \u2014 not leave behind', excerpt: 'The graveyard of branded pens and stress balls is long. Here\u2019s what actually works at events in 2025.', category: 'Occasion edits', date: 'Aug 2024', readTime: '5 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion' },
-  { title: 'The sourcing trip: how we find products that meet the MintBox standard', excerpt: 'We visit every manufacturer before listing a product. Here\u2019s what we look for \u2014 and what makes us walk away.', category: 'Inside MintBox', date: 'Jul 2024', readTime: '8 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
+  { title: 'Conference swag that people actually take home - not leave behind', excerpt: 'The graveyard of branded pens and stress balls is long. Here\u2019s what actually works at events in 2025.', category: 'Occasion edits', date: 'Aug 2024', readTime: '5 min read', imgClass: 'jn-img-occasion', catClass: 'jn-cat-occasion', imgLabel: 'Occasion' },
+  { title: 'The sourcing trip: how we find products that meet the MintBox standard', excerpt: 'We visit every manufacturer before listing a product. Here\u2019s what we look for - and what makes us walk away.', category: 'Inside MintBox', date: 'Jul 2024', readTime: '8 min read', imgClass: 'jn-img-inside', catClass: 'jn-cat-inside', imgLabel: 'Inside MintBox' },
 ]
 
 const topics = [
@@ -96,7 +96,7 @@ export function JournalPage() {
         </div>
       </nav>
 
-      {/* HERO — split */}
+      {/* HERO - split */}
       <div className="jn-hero">
         <div className="jn-hero-left">
           <div className="jn-hero-pat" />
@@ -219,7 +219,7 @@ export function JournalPage() {
           ))}
         </div>
 
-        {/* WIDE CARDS — MORE FROM THE JOURNAL */}
+        {/* WIDE CARDS - MORE FROM THE JOURNAL */}
         <div className="jn-grid-label" style={{ marginTop: '2.5rem' }}>
           <div className="jn-grid-label-text">More from the journal</div>
         </div>
@@ -271,7 +271,7 @@ export function JournalPage() {
                 </svg>
               </a>
             </div>
-            <a href="https://getmintbox.com" className="footer-url" target="_blank" rel="noopener">getmintbox.com</a>
+            <a href="https://themintbox.in" className="footer-url" target="_blank" rel="noopener">themintbox.in</a>
           </div>
           <div>
             <span className="footer-col-label">Navigate</span>
@@ -290,7 +290,7 @@ export function JournalPage() {
           <div>
             <span className="footer-col-label">Reach Us</span>
             <p className="footer-contact-item"><a href="tel:+919916996642">+91 9916996642</a></p>
-            <p className="footer-contact-item"><a href="mailto:anand@getmintbox.com">anand@getmintbox.com</a></p>
+            <p className="footer-contact-item"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
             <p className="footer-contact-item" style={{ marginTop: '8px' }}>2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</p>
             <p className="footer-contact-item" style={{ marginTop: '10px' }}>
               <a href="https://wa.me/919916996642" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>
@@ -298,7 +298,7 @@ export function JournalPage() {
           </div>
           <div>
             <span className="footer-col-label">The Journal</span>
-            <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news — monthly.</p>
+            <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news - monthly.</p>
             <form className="newsletter-form" noValidate onSubmit={(e) => { e.preventDefault(); const btn = (e.target as HTMLFormElement).querySelector('button'); if (btn) { btn.textContent = '✓'; (btn as HTMLButtonElement).disabled = true; } }}>
               <input type="email" name="email" placeholder="your@email.com" autoComplete="email" aria-label="Email address" />
               <button type="submit">Subscribe</button>

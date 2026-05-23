@@ -229,7 +229,7 @@
     }
 
     /* ===========================
-       HERO SECTION — Centered
+       HERO SECTION - Centered
     =========================== */
     #hero {
       background-color: var(--cream);
@@ -353,7 +353,7 @@
       margin-top: 4px;
     }
 
-    /* Right panel — full-bleed image */
+    /* Right panel - full-bleed image */
     #hero .hero-photo {
       position: relative;
       overflow: hidden;
@@ -450,12 +450,14 @@
       background: var(--cream-dark);
       border-bottom: 0.5px solid rgba(27,77,62,0.1);
       overflow: hidden;
+      padding: 24px 0;
     }
     .trust-bar-inner {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 96px;
+      min-height: 96px;
+      padding: 0 24px;
     }
     .trust-stats {
       display: flex;
@@ -539,12 +541,15 @@
       margin: 0 auto;
     }
     .occasion-card {
+      display: block;
       aspect-ratio: 1/1;
       background: var(--forest-green);
       border-radius: 8px;
       overflow: hidden;
       position: relative;
       cursor: pointer;
+      text-decoration: none;
+      color: inherit;
       transition: transform 0.35s ease, box-shadow 0.35s ease;
     }
     .occasion-card:hover {
@@ -616,7 +621,7 @@
     .view-all-link:hover { color: var(--gold); }
 
     /* ===========================
-       HOW IT WORKS — BENTO
+       HOW IT WORKS - BENTO
     =========================== */
     #how-it-works {
       background: var(--cream);
@@ -705,7 +710,7 @@
       border-top: 0.5px solid rgba(27,77,62,0.07);
     }
 
-    /* Chat mock — Step 01 */
+    /* Chat mock - Step 01 */
     .hiw-mock-chat { display: flex; flex-direction: column; gap: 10px; }
     .hiw-bubble {
       background: var(--forest-green);
@@ -726,7 +731,7 @@
       border: 0.5px solid rgba(27,77,62,0.1);
     }
 
-    /* Brand mock — Step 02 */
+    /* Brand mock - Step 02 */
     .brand-section-label {
       font-family: 'Satoshi', sans-serif;
       font-size: 10px;
@@ -767,7 +772,7 @@
       margin-left: 4px;
     }
 
-    /* Approval checklist — Step 03 */
+    /* Approval checklist - Step 03 */
     .hiw-mock-checklist { display: flex; flex-direction: column; gap: 10px; }
     .hiw-check-row {
       display: flex;
@@ -794,7 +799,7 @@
       border-radius: 999px;
     }
 
-    /* Delivery tracker — Step 04 */
+    /* Delivery tracker - Step 04 */
     .hiw-mock-delivery { display: flex; flex-direction: column; gap: 8px; }
     .hiw-delivery-row {
       display: flex;
@@ -1069,7 +1074,7 @@
     /* ===========================
        CATALOG CATEGORIES
     =========================== */
-    /* ── CATALOG — THE RUNWAY ── */
+    /* ── CATALOG - THE RUNWAY ── */
     #catalog {
       background: var(--cream);
       padding: 100px 0 80px;
@@ -1440,7 +1445,7 @@
       gap: 0;
       min-height: 600px;
     }
-    /* LEFT — testimonial panel */
+    /* LEFT - testimonial panel */
     .cta-left {
       background: var(--forest-deep);
       padding: 60px 56px;
@@ -1525,7 +1530,7 @@
       text-transform: capitalize;
     }
 
-    /* RIGHT — quote form panel */
+    /* RIGHT - quote form panel */
     .cta-right {
       background: var(--cream);
       padding: 52px 56px;
@@ -1668,6 +1673,51 @@
       transition: color 0.2s ease;
     }
     .cta-wa-link:hover { color: var(--forest-deep); }
+    .cta-submit:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
+    .cta-form-success {
+      display: none;
+      text-align: center;
+      padding: 36px 28px;
+      border-radius: 12px;
+      background: var(--cream);
+      border: 1px solid rgba(27,77,62,0.08);
+    }
+    .cta-form-success-check {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: var(--forest-green);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-form-success-check svg {
+      width: 28px;
+      height: 28px;
+    }
+    .cta-form-success-title {
+      font-family: var(--font-libre-baskerville), serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--forest-deep);
+      margin: 0 0 10px;
+      line-height: 1.2;
+    }
+    .cta-form-success-sub {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      max-width: 420px;
+      margin: 0 auto;
+    }
 
     /* Legacy form classes kept for compatibility */
     .quote-cta-inner {
@@ -1816,21 +1866,21 @@
       height: 40px;
       width: auto;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 16px;
     }
     .footer-tagline {
       font-family: var(--font-libre-baskerville), serif;
       font-size: 16px;
       font-style: italic;
       color: var(--cream);
-      margin-top: 10px;
-      margin-bottom: 20px;
+      margin-top: 0;
+      margin-bottom: 28px;
       opacity: 0.75;
     }
     .footer-socials {
       display: flex;
-      gap: 16px;
-      margin-bottom: 14px;
+      gap: 18px;
+      margin-bottom: 24px;
     }
     .footer-socials a {
       width: 20px; height: 20px;
@@ -2020,6 +2070,7 @@
       .testi-hero-text { font-size: 22px; }
       #navbar { width: calc(100% - 24px); padding: 0 20px; }
       .nav-links { display: none; }
+      .nav-cta-desktop { display: none; }
       .hamburger { display: flex; }
       #hero { grid-template-columns: 1fr; min-height: auto; }
       #hero .hero-content { padding: 110px 28px 56px; }
@@ -2091,13 +2142,28 @@
       .hiw-card-title { font-size: 20px; }
       .hiw-card-body { padding: 24px 20px 20px; }
       .hiw-mock { padding: 20px 20px; min-height: 160px; }
-      .scorecard-header { padding: 10px 14px 6px; font-size: 9px; letter-spacing: 0.06em; }
-      .scorecard-row { padding: 14px 14px; margin-bottom: 6px; border-radius: 10px; }
-      .scorecard-feature-col { font-size: 13px; }
-      .scorecard-mintbox-col { font-size: 12px; gap: 4px; }
-      .scorecard-vendor-col { font-size: 12px; gap: 4px; }
-      .scorecard-check { width: 16px; height: 16px; }
+      .scorecard-mintbox-highlight { display: none; }
+      .scorecard-header,
+      .scorecard-row { grid-template-columns: 1.3fr 1fr 1fr; }
+      .scorecard-header { padding: 10px 12px 6px; font-size: 9px; letter-spacing: 0.06em; }
+      .scorecard-header .scorecard-mintbox-col { padding-left: 6px; }
+      .scorecard-row { padding: 14px 12px; margin-bottom: 6px; border-radius: 10px; }
+      .scorecard-feature-col { font-size: 13px; padding-right: 8px; }
+      .scorecard-mintbox-col {
+        font-size: 12px;
+        gap: 4px;
+        background: rgba(184,151,46,0.08);
+        border-left: 2px solid var(--gold);
+        margin: -8px 0;
+        padding: 8px 8px;
+        border-radius: 6px;
+      }
+      .scorecard-vendor-col { font-size: 12px; gap: 4px; padding-left: 8px; }
+      .scorecard-vendor-col { color: rgba(26,26,24,0.55); }
+      .scorecard-header .scorecard-vendor-col { color: rgba(26,26,24,0.45); }
+      .scorecard-check { width: 14px; height: 14px; }
       .scorecard-x { width: 12px; height: 12px; }
+      .scorecard-logo { height: 22px; }
       .va-header { flex-direction: column; align-items: flex-start; gap: 16px; padding: 0 20px; }
       .va-sub { text-align: left; }
       .va-track-wrap { padding: 0 20px; }
@@ -2112,7 +2178,32 @@
       .occasion-card-overlay { padding: 12px 12px 12px 16px; }
       .occasion-arrow { width: 32px; height: 32px; }
       .occasion-arrow svg { width: 14px; height: 14px; }
-      .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      #why-mintbox {
+        height: auto;
+        min-height: 0;
+        background: var(--forest-deep);
+        padding: 60px 0 0;
+      }
+      .why-bg { display: none; }
+      .why-overlay {
+        background: var(--forest-deep);
+      }
+      .why-content {
+        position: relative;
+        inset: auto;
+      }
+      .why-headline-wrap { padding: 0 24px 32px; }
+      .why-headline { font-size: 30px; line-height: 1.2; }
+      .pillars-grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+      .pillar-card {
+        padding: 24px 18px;
+        background: rgba(255,255,255,0.04);
+        border-top: 1px solid rgba(184,151,46,0.3);
+        border-right: 1px solid rgba(184,151,46,0.15);
+      }
+      .pillar-card:nth-child(2n) { border-right: none; }
+      .pillar-icon { width: 22px; height: 22px; }
+      .pillar-title { font-size: 1rem; }
       .quote-cta-sub { font-size: 13px; }
       .cta-left { padding: 36px 24px; }
       .cta-right { padding: 32px 24px; }

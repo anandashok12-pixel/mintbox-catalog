@@ -47,7 +47,7 @@ export default function SolutionsPage() {
               <path d="M40 16L38 24M40 16L42 24" stroke="#B8972E" strokeWidth="0.9" strokeLinecap="round" />
             </svg>
             <div className="sl-hero-title">MintBox is built<br />for the person<br />reading this.</div>
-            <div className="sl-hero-sub">Whether you&apos;re running HR for a unicorn, closing deals for a SaaS company, or building culture from scratch — MintBox works the way you work.</div>
+            <div className="sl-hero-sub">Whether you&apos;re running HR for a unicorn, closing deals for a SaaS company, or building culture from scratch - MintBox works the way you work.</div>
             <div className="sl-hero-ctas">
               <button className="sl-btn-primary" onClick={() => switchTab('hr')}>I&apos;m in HR &amp; People Ops →</button>
               <button className="sl-btn-ghost" onClick={() => switchTab('founder')}>I&apos;m a Founder →</button>
@@ -93,13 +93,13 @@ export default function SolutionsPage() {
         <div className="sl-persona-hero">
           <div>
             <div className="sl-ph-eyebrow" style={{ color: '#2A7A5E' }}>HR &amp; People Operations</div>
-            <div className="sl-ph-title">Gifting that builds culture — not admin workload.</div>
-            <div className="sl-ph-desc">You&apos;re responsible for how people feel about the company they work at. Every onboarding kit, every Diwali hamper, every work anniversary gift is a reflection of that care. MintBox makes sure the gift lives up to the intention — and takes the operational burden entirely off your plate.</div>
+            <div className="sl-ph-title">Gifting that builds culture - not admin workload.</div>
+            <div className="sl-ph-desc">You&apos;re responsible for how people feel about the company they work at. Every onboarding kit, every Diwali hamper, every work anniversary gift is a reflection of that care. MintBox makes sure the gift lives up to the intention - and takes the operational burden entirely off your plate.</div>
             <div className="sl-ph-pains">
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Spending 3–4 hours chasing couriers and collecting addresses during Diwali</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Logo that looked right on the mockup but arrived peeled or misaligned</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Final invoice 20–30% higher than the original quote</div>
-              <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox handles address collection, branding, QC, and tracking — you approve once and we do the rest</div>
+              <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox handles address collection, branding, QC, and tracking - you approve once and we do the rest</div>
             </div>
             <button className="sl-ph-cta">See HR solutions →</button>
           </div>
@@ -130,7 +130,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#EAF0ED', color: '#1B4D3E' }}>Day 1</span>
               </div>
               <div className="sl-uc-name">Employee Onboarding</div>
-              <div className="sl-uc-desc">Make Day 1 feel designed for them. Pre-branded, multi-item kits delivered to home or office — automated as new hires join.</div>
+              <div className="sl-uc-desc">Make Day 1 feel designed for them. Pre-branded, multi-item kits delivered to home or office - automated as new hires join.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Branded bottle</span><span className="sl-uc-product">Premium notebook</span><span className="sl-uc-product">Tote bag</span><span className="sl-uc-product">Snack box</span><span className="sl-uc-product">Welcome card</span></div>
@@ -144,7 +144,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#F7F1E2', color: '#7A6020' }}>Festive</span>
               </div>
               <div className="sl-uc-name">Diwali &amp; Festive Gifting</div>
-              <div className="sl-uc-desc">Ship to 500 individual home addresses simultaneously. Address collection tool included — your team fills their own details.</div>
+              <div className="sl-uc-desc">Ship to 500 individual home addresses simultaneously. Address collection tool included - your team fills their own details.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Gourmet hampers</span><span className="sl-uc-product">Wellness kits</span><span className="sl-uc-product">Premium drinkware</span><span className="sl-uc-product">Eco packaging</span></div>
@@ -158,7 +158,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#EEF2FA', color: '#2A4F7A' }}>Milestone</span>
               </div>
               <div className="sl-uc-name">Work Anniversary</div>
-              <div className="sl-uc-desc">Tiered gifting that escalates with tenure — Year 1, 3, 5, 10. We keep your branding files for seamless reorders.</div>
+              <div className="sl-uc-desc">Tiered gifting that escalates with tenure - Year 1, 3, 5, 10. We keep your branding files for seamless reorders.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Luxury accessories</span><span className="sl-uc-product">Premium tech</span><span className="sl-uc-product">Personalised gifts</span></div>
@@ -205,7 +205,7 @@ export default function SolutionsPage() {
           <table className="sl-cmp-table">
             <thead><tr><th style={{ width: 200 }}>What matters to HR</th><th>Typical vendor</th><th className="sl-highlight">MintBox</th></tr></thead>
             <tbody>
-              <tr><td className="sl-cmp-row-label">Address collection</td><td className="sl-cmp-no">Your spreadsheet, your problem</td><td className="sl-highlight sl-cmp-yes">Address collection tool — team fills their own</td></tr>
+              <tr><td className="sl-cmp-row-label">Address collection</td><td className="sl-cmp-no">Your spreadsheet, your problem</td><td className="sl-highlight sl-cmp-yes">Address collection tool - team fills their own</td></tr>
               <tr><td className="sl-cmp-row-label">Branding quality</td><td className="sl-cmp-no">Outsourced, inconsistent</td><td className="sl-highlight sl-cmp-yes">In-house, QC checked before dispatch</td></tr>
               <tr><td className="sl-cmp-row-label">Invoice accuracy</td><td className="sl-cmp-no">Surprises at final invoice stage</td><td className="sl-highlight sl-cmp-yes">Quote = invoice. Always.</td></tr>
               <tr><td className="sl-cmp-row-label">Delivery tracking</td><td className="sl-cmp-no">One link, no visibility</td><td className="sl-highlight sl-cmp-yes">Individual tracking per address</td></tr>
@@ -248,11 +248,11 @@ export default function SolutionsPage() {
           <div>
             <div className="sl-ph-eyebrow" style={{ color: '#B8972E' }}>Marketing &amp; Brand</div>
             <div className="sl-ph-title">Swag that becomes content. Gifting that earns reach.</div>
-            <div className="sl-ph-desc">You think about brand equity in everything you touch. A gift is a physical extension of your brand — the unboxing moment is earned media waiting to happen. MintBox gives you the branding quality to make that moment Instagram-worthy, every time.</div>
+            <div className="sl-ph-desc">You think about brand equity in everything you touch. A gift is a physical extension of your brand - the unboxing moment is earned media waiting to happen. MintBox gives you the branding quality to make that moment Instagram-worthy, every time.</div>
             <div className="sl-ph-pains">
-              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Logo colour is off — PMS 356 becomes something closer to lime green</div>
-              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Generic swag catalogue — same products your competitor ordered last Diwali</div>
-              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Unboxing is forgettable — no one photographs it, no one shares it</div>
+              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Logo colour is off - PMS 356 becomes something closer to lime green</div>
+              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Generic swag catalogue - same products your competitor ordered last Diwali</div>
+              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Unboxing is forgettable - no one photographs it, no one shares it</div>
               <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox matches your exact brand colours, curates products that photograph beautifully, and designs unboxings that get shared</div>
             </div>
             <button className="sl-ph-cta" style={{ background: '#B8972E', color: '#122E25' }}>See Marketing solutions →</button>
@@ -260,7 +260,7 @@ export default function SolutionsPage() {
           <div>
             <div className="sl-stat-card">
               <div className="sl-sc-pat" />
-              <div className="sl-sc-quote">&ldquo;The branding quality is the closest I&apos;ve seen to international vendors — delivered locally and on time.&rdquo;</div>
+              <div className="sl-sc-quote">&ldquo;The branding quality is the closest I&apos;ve seen to international vendors - delivered locally and on time.&rdquo;</div>
               <div className="sl-sc-attr">
                 <div className="sl-sc-avatar">VN</div>
                 <div><div className="sl-sc-name">Vikram N.</div><div className="sl-sc-role">Brand Head · GCC, Bengaluru</div><div className="sl-sc-pill">Brand &amp; Swag</div></div>
@@ -269,7 +269,7 @@ export default function SolutionsPage() {
             <div className="sl-stats-row">
               <div className="sl-stat-mini"><div className="sl-sm-num">6</div><div className="sl-sm-label">Branding techniques available</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">∞</div><div className="sl-sm-label">Mockup revisions until approved</div></div>
-              <div className="sl-stat-mini"><div className="sl-sm-num">In-house</div><div className="sl-sm-label">Artwork prep — never outsourced</div></div>
+              <div className="sl-stat-mini"><div className="sl-sm-num">In-house</div><div className="sl-sm-label">Artwork prep - never outsourced</div></div>
             </div>
           </div>
         </div>
@@ -284,7 +284,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#F7F1E2', color: '#7A6020' }}>Events</span>
               </div>
               <div className="sl-uc-name">Conference &amp; Event Swag</div>
-              <div className="sl-uc-desc">Swag that people take home — not leave in the delegate bag. Products that photograph well and keep your brand in the room long after the event ends.</div>
+              <div className="sl-uc-desc">Swag that people take home - not leave in the delegate bag. Products that photograph well and keep your brand in the room long after the event ends.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Premium totes</span><span className="sl-uc-product">Branded apparel</span><span className="sl-uc-product">Tech accessories</span><span className="sl-uc-product">Notebooks</span></div>
@@ -312,7 +312,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#EAF0ED', color: '#1B4D3E' }}>Culture</span>
               </div>
               <div className="sl-uc-name">Employer Brand Kits</div>
-              <div className="sl-uc-desc">Build visible culture through branded merchandise your team actually wears and uses. Seen on LinkedIn, Glassdoor, and beyond — organic employer brand at scale.</div>
+              <div className="sl-uc-desc">Build visible culture through branded merchandise your team actually wears and uses. Seen on LinkedIn, Glassdoor, and beyond - organic employer brand at scale.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Branded hoodies</span><span className="sl-uc-product">Quality caps</span><span className="sl-uc-product">Lifestyle accessories</span></div>
@@ -353,11 +353,11 @@ export default function SolutionsPage() {
           <div>
             <div className="sl-ph-eyebrow" style={{ color: '#2A4F7A' }}>Sales &amp; Account Management</div>
             <div className="sl-ph-title">Gifts that close deals and renew contracts.</div>
-            <div className="sl-ph-desc">You know the ROI of a well-timed gift. A premium gesture at the right moment — deal closure, contract renewal, a key client&apos;s birthday — can shift a relationship from transactional to loyal. MintBox gives you high-quality, branded gifts that signal you value the partnership, not just the revenue.</div>
+            <div className="sl-ph-desc">You know the ROI of a well-timed gift. A premium gesture at the right moment - deal closure, contract renewal, a key client&apos;s birthday - can shift a relationship from transactional to loyal. MintBox gives you high-quality, branded gifts that signal you value the partnership, not just the revenue.</div>
             <div className="sl-ph-pains">
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Generic hampers that feel like a checkbox, not a thank-you</div>
-              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>No way to scale — gifting 50 clients at renewal time is operationally painful</div>
-              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Your brand is on the gift — but the quality doesn&apos;t match your pitch deck</div>
+              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>No way to scale - gifting 50 clients at renewal time is operationally painful</div>
+              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Your brand is on the gift - but the quality doesn&apos;t match your pitch deck</div>
               <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox curates high-value gifts at ₹4,000–₹12,000 per client, delivered individually to any address, with the premium branding your brand demands</div>
             </div>
             <button className="sl-ph-cta" style={{ background: '#2A4F7A' }}>See Sales solutions →</button>
@@ -417,7 +417,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#EEF2FA', color: '#2A4F7A' }}>Appreciation</span>
               </div>
               <div className="sl-uc-name">Key Account Appreciation</div>
-              <div className="sl-uc-desc">For the accounts that matter most — a deeply personal, high-value gift that goes beyond the usual Diwali hamper. Memorable, branded, and delivered with intent.</div>
+              <div className="sl-uc-desc">For the accounts that matter most - a deeply personal, high-value gift that goes beyond the usual Diwali hamper. Memorable, branded, and delivered with intent.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Personalised luxury items</span><span className="sl-uc-product">Premium tech</span><span className="sl-uc-product">Artisan products</span></div>
@@ -458,10 +458,10 @@ export default function SolutionsPage() {
           <div>
             <div className="sl-ph-eyebrow" style={{ color: '#7A2A5E' }}>Founders &amp; CEOs</div>
             <div className="sl-ph-title">Your first 20 hires set the culture your next 200 inherits.</div>
-            <div className="sl-ph-desc">At the early stage, every touchpoint is a culture signal. The box your first hire opens on Day 1 tells them whether you&apos;re building something that sweats the details — or something that doesn&apos;t. MintBox gives founders a way to signal premium culture from day one, without MOQ pressure or time investment.</div>
+            <div className="sl-ph-desc">At the early stage, every touchpoint is a culture signal. The box your first hire opens on Day 1 tells them whether you&apos;re building something that sweats the details - or something that doesn&apos;t. MintBox gives founders a way to signal premium culture from day one, without MOQ pressure or time investment.</div>
             <div className="sl-ph-pains">
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Minimum order quantities that don&apos;t make sense for a 15-person team</div>
-              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>No time to design a kit — too many other priorities</div>
+              <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>No time to design a kit - too many other priorities</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Gifting that doesn&apos;t match the premium brand you&apos;re trying to build</div>
               <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox starts at 25 units, curates the kit for you, and sets up a reorder system so every new hire gets the same premium experience automatically</div>
             </div>
@@ -477,7 +477,7 @@ export default function SolutionsPage() {
               </div>
             </div>
             <div className="sl-stats-row">
-              <div className="sl-stat-mini"><div className="sl-sm-num">25</div><div className="sl-sm-label">Minimum units — no pressure</div></div>
+              <div className="sl-stat-mini"><div className="sl-sm-num">25</div><div className="sl-sm-label">Minimum units - no pressure</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">1 day</div><div className="sl-sm-label">We curate your kit proposal</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">Auto</div><div className="sl-sm-label">Reorder for every new hire</div></div>
             </div>
@@ -494,7 +494,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#F5EEF8', color: '#7A2A5E' }}>Culture</span>
               </div>
               <div className="sl-uc-name">Founder&apos;s Onboarding Kit</div>
-              <div className="sl-uc-desc">A curated, premium Day 1 kit that tells your culture story. We design it once — you reorder as the team grows. Sets the tone for every new hire that follows.</div>
+              <div className="sl-uc-desc">A curated, premium Day 1 kit that tells your culture story. We design it once - you reorder as the team grows. Sets the tone for every new hire that follows.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Branded bottle</span><span className="sl-uc-product">Premium notebook</span><span className="sl-uc-product">Tote bag</span><span className="sl-uc-product">Snack box</span><span className="sl-uc-product">Personalised card</span></div>
@@ -508,7 +508,7 @@ export default function SolutionsPage() {
                 <span className="sl-uc-occasion" style={{ background: '#EAF0ED', color: '#1B4D3E' }}>Investors</span>
               </div>
               <div className="sl-uc-name">Investor &amp; Advisor Gifts</div>
-              <div className="sl-uc-desc">Show appreciation to your cap table and advisors with a premium, thoughtful gift that reflects the quality of what you&apos;re building — not a last-minute hamper.</div>
+              <div className="sl-uc-desc">Show appreciation to your cap table and advisors with a premium, thoughtful gift that reflects the quality of what you&apos;re building - not a last-minute hamper.</div>
             </div>
             <div className="sl-uc-body">
               <div className="sl-uc-products"><span className="sl-uc-product">Luxury hampers</span><span className="sl-uc-product">Premium artisanal</span><span className="sl-uc-product">Executive accessories</span></div>

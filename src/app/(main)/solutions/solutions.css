@@ -1,4 +1,4 @@
-/* Solutions page — all classes prefixed sl- */
+/* Solutions page - all classes prefixed sl- */
 
 :root {
   --sl-forest: #1B4D3E;
@@ -148,7 +148,7 @@
   cursor: pointer;
 }
 
-/* HERO RIGHT — persona selector preview */
+/* HERO RIGHT - persona selector preview */
 .sl-persona-preview {
   display: flex;
   flex-direction: column;

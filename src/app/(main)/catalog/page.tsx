@@ -2,35 +2,39 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import CatalogClient from '@/components/catalog/CatalogClient'
 
-export const metadata = { title: 'Catalogue — MintBox' }
+export const metadata = { title: 'Catalogue - MintBox' }
 
-export const revalidate = 60 // Revalidate every 60 seconds (ISR)
+// Render on every request: avoids build-time DB access (which fails on
+// preview deploys where PAYLOAD_SECRET / DATABASE_URL may not be set),
+// and lets Payload-driven catalog updates land instantly.
+export const dynamic = 'force-dynamic'
 
 export default async function CatalogPage() {
-  const payload = await getPayload({ config: configPromise })
+  let categoriesDocs: any[] = []
+  let productsDocs: any[] = []
 
-  // Run both queries in parallel — they're independent. depth:1 is enough to
-  // populate `category` and `image` relations; depth:2 was pulling nested
-  // sub-relations that nothing on the page consumes.
-  const [categoriesResult, productsResult] = await Promise.all([
-    payload.find({
-      collection: 'categories',
-      sort: 'order',
-      limit: 100,
-    }),
-    payload.find({
-      collection: 'products',
-      where: { inStock: { equals: true } },
-      sort: 'order',
-      limit: 500,
-      depth: 1,
-    }),
-  ])
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const [categoriesResult, productsResult] = await Promise.all([
+      payload.find({ collection: 'categories', sort: 'order', limit: 100 }),
+      payload.find({
+        collection: 'products',
+        where: { inStock: { equals: true } },
+        sort: 'order',
+        limit: 500,
+        depth: 1,
+      }),
+    ])
+    categoriesDocs = categoriesResult.docs
+    productsDocs = productsResult.docs
+  } catch (err) {
+    console.error('[catalog] Payload query failed; rendering empty catalog:', err)
+  }
 
   return (
     <CatalogClient
-      categories={categoriesResult.docs as any}
-      products={productsResult.docs as any}
+      categories={categoriesDocs as any}
+      products={productsDocs as any}
     />
   )
 }

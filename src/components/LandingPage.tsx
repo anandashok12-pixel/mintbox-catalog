@@ -31,55 +31,111 @@ export function LandingPage() {
 
     /* ---------- FORM SUBMIT ---------- */
     const quoteForm = document.getElementById('quoteForm') as HTMLFormElement | null
-    const onQuoteSubmit = function (this: HTMLFormElement, e: Event) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    const fieldConfigs = [
+      { id: 'form-name', errorId: 'form-name-error' },
+      { id: 'form-email', errorId: 'form-email-error' },
+      { id: 'form-company', errorId: 'form-company-error' },
+    ] as const
+
+    const isFieldValid = (id: string, value: string) => {
+      const trimmed = value.trim()
+      if (!trimmed) return false
+      if (id === 'form-email' && !emailRegex.test(trimmed)) return false
+      return true
+    }
+
+    const setFieldError = (id: string, errorId: string, hasError: boolean) => {
+      const input = document.getElementById(id) as HTMLInputElement | null
+      const error = document.getElementById(errorId)
+      if (input) input.classList.toggle('form-input-error', hasError)
+      if (error) error.style.display = hasError ? 'block' : 'none'
+    }
+
+    // BUG-001: clear field error as soon as the user types a valid value
+    const fieldInputHandlers: Array<{ el: HTMLInputElement; handler: () => void }> = []
+    fieldConfigs.forEach(({ id, errorId }) => {
+      const input = document.getElementById(id) as HTMLInputElement | null
+      if (!input) return
+      const handler = () => {
+        if (input.classList.contains('form-input-error') && isFieldValid(id, input.value)) {
+          setFieldError(id, errorId, false)
+        }
+      }
+      input.addEventListener('input', handler)
+      fieldInputHandlers.push({ el: input, handler })
+    })
+
+    const onQuoteSubmit = async function (this: HTMLFormElement, e: Event) {
       e.preventDefault()
-      // Clear previous errors
-      this.querySelectorAll('.form-error').forEach(el => (el as HTMLElement).style.display = 'none')
-      this.querySelectorAll('.form-input-error').forEach(el => el.classList.remove('form-input-error'))
 
-      // Validate required fields
+      // Re-validate everything on submit
       let valid = true
-      const fields = [
-        { id: 'form-name', errorId: 'form-name-error' },
-        { id: 'form-email', errorId: 'form-email-error' },
-        { id: 'form-company', errorId: 'form-company-error' },
-      ]
-      fields.forEach(({ id, errorId }) => {
-        const input = document.getElementById(id) as HTMLInputElement
-        const error = document.getElementById(errorId)
-        if (input && !input.value.trim()) {
-          input.classList.add('form-input-error')
-          if (error) error.style.display = 'block'
-          valid = false
-        }
-        if (id === 'form-email' && input?.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
-          input.classList.add('form-input-error')
-          if (error) error.style.display = 'block'
-          valid = false
-        }
+      fieldConfigs.forEach(({ id, errorId }) => {
+        const input = document.getElementById(id) as HTMLInputElement | null
+        if (!input) return
+        const fieldValid = isFieldValid(id, input.value)
+        setFieldError(id, errorId, !fieldValid)
+        if (!fieldValid) valid = false
       })
-
       if (!valid) return
 
-      // Show loading state
-      const btn = this.querySelector('.form-submit') as HTMLButtonElement | null
+      const btn = this.querySelector('.cta-submit') as HTMLButtonElement | null
       const btnText = this.querySelector('.form-submit-text') as HTMLElement | null
       const btnLoading = this.querySelector('.form-submit-loading') as HTMLElement | null
-      if (btn && btnText && btnLoading) {
-        btn.disabled = true
-        btnText.style.display = 'none'
-        btnLoading.style.display = 'inline'
+      const setLoading = (loading: boolean) => {
+        if (!btn || !btnText || !btnLoading) return
+        btn.disabled = loading
+        btnText.style.display = loading ? 'none' : 'inline'
+        btnLoading.style.display = loading ? 'inline' : 'none'
       }
+      setLoading(true)
 
-      // Simulate submission
-      setTimeout(() => {
-        if (btn && btnText && btnLoading) {
-          btnLoading.style.display = 'none'
-          btnText.textContent = "Sent! We'll be in touch soon ✦"
-          btnText.style.display = 'inline'
-          btn.style.background = 'rgba(184,151,46,0.5)'
+      const formEl = this
+      const formError = document.getElementById('quoteForm-error') as HTMLElement | null
+      if (formError) { formError.textContent = ''; formError.style.display = 'none' }
+
+      try {
+        const name = (document.getElementById('form-name') as HTMLInputElement)?.value.trim()
+        const company = (document.getElementById('form-company') as HTMLInputElement)?.value.trim()
+        const email = (document.getElementById('form-email') as HTMLInputElement)?.value.trim()
+        const teamSize = (document.getElementById('form-size') as HTMLSelectElement)?.value
+        const budget = (document.getElementById('form-budget') as HTMLSelectElement)?.value
+        const occasion = (document.getElementById('form-occasion') as HTMLInputElement)?.value
+
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, company, email,
+            occasion: occasion || undefined,
+            notes: [
+              teamSize ? `Team size: ${teamSize}` : '',
+              budget ? `Budget: ${budget}` : '',
+            ].filter(Boolean).join('\n') || undefined,
+            items: [],
+          }),
+        })
+
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) throw new Error(data?.error || 'Something went wrong. Please try again.')
+
+        // BUG-002: visible success state — replace form with a thank-you panel and reset fields
+        formEl.reset()
+        const success = document.getElementById('quoteForm-success')
+        if (success) {
+          formEl.style.display = 'none'
+          success.style.display = 'block'
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' })
         }
-      }, 1200)
+      } catch (err) {
+        setLoading(false)
+        if (formError) {
+          formError.textContent = err instanceof Error ? err.message : 'Network error. Please try again.'
+          formError.style.display = 'block'
+        }
+      }
     }
     quoteForm?.addEventListener('submit', onQuoteSubmit)
 
@@ -179,6 +235,7 @@ export function LandingPage() {
     return () => {
       observer.disconnect()
       quoteForm?.removeEventListener('submit', onQuoteSubmit)
+      fieldInputHandlers.forEach(({ el, handler }) => el.removeEventListener('input', handler))
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', positionHighlight)
       vaTrack?.removeEventListener('mousedown', onDragStart)
@@ -192,7 +249,7 @@ export function LandingPage() {
     <>
       <Navbar />
 
-      {/* SECTION 1: HERO — Centered */}
+      {/* SECTION 1: HERO - Centered */}
       <section id="hero" aria-label="Hero">
         <div className="geo-overlay" aria-hidden="true"></div>
         <div className="hero-content">
@@ -200,11 +257,11 @@ export function LandingPage() {
             Gifting that says<br/><em>what words can&apos;t.</em>
           </h1>
           <p className="hero-sub reveal reveal-delay-2">
-            Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers — delivered with the precision your brand deserves.
+            Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers - delivered with the precision your brand deserves.
           </p>
           <div className="hero-ctas reveal reveal-delay-3">
-            <a href="/contact" className="hero-btn-primary">Request a Quote</a>
-            <a href="#occasions" className="hero-btn-secondary">Browse Catalogue</a>
+            <a href="/catalog" className="hero-btn-primary">Browse Catalogue</a>
+            <a href="/contact" className="hero-btn-secondary">Book a Discovery Call</a>
           </div>
         </div>
       </section>
@@ -268,7 +325,7 @@ export function LandingPage() {
         </div>
 
         <div className="occasions-grid">
-          <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-1">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.png')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -277,8 +334,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-2">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.png')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -287,8 +344,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-3">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.png')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -297,8 +354,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-1">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.png')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -307,8 +364,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-2">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.png')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -317,8 +374,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-3">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.png')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -327,38 +384,38 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
+          </a>
         </div>
 
-        <a href="#" className="view-all-link reveal">View all occasions →</a>
+        <a href="/catalog" className="view-all-link reveal">View all occasions →</a>
       </section>
 
-      {/* SECTION 4: HOW IT WORKS — Bento cards */}
+      {/* SECTION 4: HOW IT WORKS - Bento cards */}
       <section id="how-it-works" aria-label="How MintBox works">
         <div className="hiw-header reveal">
           <span className="hiw-eyebrow">How It Works</span>
           <h2 className="hiw-headline">Four steps to the<br/>perfect gift.</h2>
-          <p className="hiw-sub">From your brief to their doorstep — we handle everything in between.</p>
+          <p className="hiw-sub">From your brief to their doorstep - we handle everything in between.</p>
         </div>
 
         <div className="hiw-bento">
-          {/* 01 — Share requirements */}
+          {/* 01 - Share requirements */}
           <div className="hiw-card reveal reveal-delay-1">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 01</span>
               <h3 className="hiw-card-title">Share your requirements</h3>
-              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form — we work around you.</p>
+              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form - we work around you.</p>
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-chat">
-                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each 🎁</div>
+                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each.</div>
                 <div className="hiw-bubble reply">Got it! Sending you 3 curated options by tonight.</div>
                 <div className="hiw-bubble" style={{ maxWidth: '55%' }}>Perfect, thank you!</div>
               </div>
             </div>
           </div>
 
-          {/* 02 — Curate & brand */}
+          {/* 02 - Curate & brand */}
           <div className="hiw-card reveal reveal-delay-2">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 02</span>
@@ -368,9 +425,9 @@ export function LandingPage() {
             <div className="hiw-mock">
               <span className="brand-section-label">Products selected</span>
               <div className="brand-products">
-                <div className="brand-product-chip"><span className="brand-product-icon">☕</span><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">✓</span></div>
-                <div className="brand-product-chip"><span className="brand-product-icon">📓</span><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">✓</span></div>
-                <div className="brand-product-chip"><span className="brand-product-icon">🕯️</span><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">✓</span></div>
+                <div className="brand-product-chip"><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">✓</span></div>
               </div>
               <div className="brand-divider"></div>
               <span className="brand-section-label">Brand colours applied</span>
@@ -384,7 +441,7 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* 03 — Approve sample */}
+          {/* 03 - Approve sample */}
           <div className="hiw-card reveal reveal-delay-3">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 03</span>
@@ -393,19 +450,19 @@ export function LandingPage() {
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-checklist">
-                <div className="hiw-check-row"><span className="hiw-check-icon">✅</span><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-icon">✅</span><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-icon">⏳</span><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
+                <div className="hiw-check-row"><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
               </div>
             </div>
           </div>
 
-          {/* 04 — Delivered */}
+          {/* 04 - Delivered */}
           <div className="hiw-card reveal reveal-delay-4">
             <div className="hiw-card-body">
               <span className="hiw-card-step">Step 04</span>
               <h3 className="hiw-card-title">Delivered to your team</h3>
-              <p className="hiw-card-desc">Individual addresses or bulk office delivery — tracked, on time, and beautifully packaged across India.</p>
+              <p className="hiw-card-desc">Individual addresses or bulk office delivery - tracked, on time, and beautifully packaged across India.</p>
             </div>
             <div className="hiw-mock">
               <div className="hiw-mock-delivery">
@@ -474,7 +531,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Onboarding Kit</h3>
-              <p className="product-desc">Everything they need from Day 1 — branded, curated, and unforgettable.</p>
+              <p className="product-desc">Everything they need from Day 1 - branded, curated, and unforgettable.</p>
               <p className="product-price">From ₹1,500 / unit</p>
               <p className="product-moq">Min. order: 25 units</p>
             </div>
@@ -485,7 +542,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Diwali Edit</h3>
-              <p className="product-desc">Festive gifting that earns a second look — and a post on their stories.</p>
+              <p className="product-desc">Festive gifting that earns a second look - and a post on their stories.</p>
               <p className="product-price">From ₹2,200 / unit</p>
               <p className="product-moq">Min. order: 25 units</p>
             </div>
@@ -496,7 +553,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The WFH Essentials</h3>
-              <p className="product-desc">For the team that works everywhere — tools that travel as well as they do.</p>
+              <p className="product-desc">For the team that works everywhere - tools that travel as well as they do.</p>
               <p className="product-price">From ₹1,800 / unit</p>
               <p className="product-moq">Min. order: 25 units</p>
             </div>
@@ -507,7 +564,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Executive Gift</h3>
-              <p className="product-desc">For clients worth impressing — luxury presentation, no compromise.</p>
+              <p className="product-desc">For clients worth impressing - luxury presentation, no compromise.</p>
               <p className="product-price">From ₹3,500 / unit</p>
               <p className="product-moq">Min. order: 10 units</p>
             </div>
@@ -578,13 +635,13 @@ export function LandingPage() {
       {/* SECTION: COMBINED TESTIMONIAL + QUOTE FORM */}
       <section id="quote-cta" aria-label="Request a quote">
         <div className="cta-combined">
-          {/* LEFT — Testimonial panel */}
+          {/* LEFT - Testimonial panel */}
           <div className="cta-left">
             <span className="cta-left-wordmark">MINTBOX</span>
             <div className="cta-left-quote">
               <div className="cta-left-quote-mark" aria-hidden="true">&ldquo;</div>
               <blockquote className="cta-left-text">
-                Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to — the box was just that good.
+                Our new hires post about the onboarding kit on LinkedIn. We didn&apos;t ask them to - the box was just that good.
               </blockquote>
               <div className="cta-left-divider"></div>
               <p className="cta-left-name">Priya S.</p>
@@ -606,7 +663,7 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* RIGHT — Quote form panel */}
+          {/* RIGHT - Quote form panel */}
           <div className="cta-right">
             <span className="cta-right-eyebrow">Request a Quote</span>
             <h2 className="cta-right-headline">Ready to make your people feel valued?</h2>
@@ -667,12 +724,24 @@ export function LandingPage() {
                 <input type="hidden" id="form-occasion" name="occasion" />
               </div>
 
+              <div className="form-error" id="quoteForm-error" style={{ display: 'none' }} role="alert" />
+
               <button type="submit" className="cta-submit" id="quoteSubmitBtn">
                 <span className="form-submit-text">Send enquiry →</span>
                 <span className="form-submit-loading" style={{ display: 'none' }}>Sending...</span>
               </button>
               <a href="https://wa.me/918618237189" className="cta-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
             </form>
+
+            <div id="quoteForm-success" className="cta-form-success" role="status" aria-live="polite" style={{ display: 'none' }}>
+              <div className="cta-form-success-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+              </div>
+              <h3 className="cta-form-success-title">Thanks — your enquiry is in.</h3>
+              <p className="cta-form-success-sub">A real person from the MintBox team will get back to you within 4 working hours with a curated proposal.</p>
+            </div>
           </div>
         </div>
       </section>

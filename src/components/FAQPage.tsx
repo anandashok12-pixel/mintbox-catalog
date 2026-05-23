@@ -121,7 +121,7 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
           </div>
           <input
             type="text"
-            placeholder="Search questions — e.g. 'minimum order', 'lead time', 'branding'"
+            placeholder="Search questions - e.g. 'minimum order', 'lead time', 'branding'"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />

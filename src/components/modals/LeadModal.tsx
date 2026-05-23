@@ -135,7 +135,6 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             <div className="lead-pack-chips">
               {items.map((item) => (
                 <div key={item.id} className="lead-pack-chip">
-                  <span>{item.emoji || '🎁'}</span>
                   <span className="chip-name">{item.name}</span>
                   <div className="chip-qty-control">
                     <button
