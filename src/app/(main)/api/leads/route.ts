@@ -3,7 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy-init: the Resend constructor throws when RESEND_API_KEY is unset,
+// and Next's build-time "Collecting page data" step evaluates this module
+// without runtime env vars. Constructing inside the handler avoids that.
+let _resend: Resend | null = null
+function getResend(): Resend | null {
+  if (_resend) return _resend
+  const key = process.env.RESEND_API_KEY
+  if (!key) return null
+  _resend = new Resend(key)
+  return _resend
+}
 
 interface LeadItem {
   productId: string
@@ -189,20 +199,25 @@ export async function POST(req: NextRequest) {
 
     const notifyEmail = process.env.NOTIFY_EMAIL || 'anand@themintbox.in'
 
-    await Promise.allSettled([
-      resend.emails.send({
-        from: 'MintBox <noreply@themintbox.in>',
-        to: notifyEmail,
-        subject: `New Quote Request ${refCode} - ${company}`,
-        html: teamEmailHtml(body, refCode, estimatedTotal),
-      }),
-      resend.emails.send({
-        from: 'MintBox <noreply@themintbox.in>',
-        to: email,
-        subject: `Your MintBox request is confirmed - ${refCode}`,
-        html: customerEmailHtml(body, refCode, estimatedTotal),
-      }),
-    ])
+    const resend = getResend()
+    if (resend) {
+      await Promise.allSettled([
+        resend.emails.send({
+          from: 'MintBox <noreply@themintbox.in>',
+          to: notifyEmail,
+          subject: `New Quote Request ${refCode} - ${company}`,
+          html: teamEmailHtml(body, refCode, estimatedTotal),
+        }),
+        resend.emails.send({
+          from: 'MintBox <noreply@themintbox.in>',
+          to: email,
+          subject: `Your MintBox request is confirmed - ${refCode}`,
+          html: customerEmailHtml(body, refCode, estimatedTotal),
+        }),
+      ])
+    } else {
+      console.warn('[leads] RESEND_API_KEY not set; skipping email notifications')
+    }
 
     return NextResponse.json({
       success: true,
