@@ -38,7 +38,7 @@ export function Navbar() {
       <nav id="navbar" role="navigation" aria-label="Main navigation">
         <a href="/" className="nav-logo" aria-label="MintBox Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo-white.png" alt="MintBox" className="nav-logo-img" />
+          <img src="/mintbox-logo-white.webp" alt="MintBox" className="nav-logo-img"  width={600} height={234} />
         </a>
 
         <ul className="nav-links" role="list">

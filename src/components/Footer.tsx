@@ -8,7 +8,7 @@ export function Footer() {
       <div className="footer-grid">
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mintbox-logo-white.png" alt="MintBox" className="footer-logo-img" />
+          <img src="/mintbox-logo-white.webp" alt="MintBox" className="footer-logo-img"  width={600} height={234} />
           <p className="footer-tagline">&ldquo;Gifting that says what words can&apos;t.&rdquo;</p>
           <div className="footer-socials">
             <a href="#" aria-label="Instagram">

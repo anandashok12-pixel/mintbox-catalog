@@ -272,11 +272,11 @@ export function LandingPage() {
             {/* Cards × 2 for seamless loop */}
             {(() => {
               const items = [
-                { src: '/hampers/hero1.png', label: 'Artisan Festive Hamper' },
-                { src: '/hampers/hero2.png', label: 'Corporate Gift Box' },
-                { src: '/hampers/hero3.png', label: 'Heritage Gift Set' },
-                { src: '/hampers/hero4.png', label: 'Elegant Gift Box' },
-                { src: '/hampers/hero5.png', label: 'Premium Nuts Collection' },
+                { src: '/hampers/hero1.webp', label: 'Artisan Festive Hamper' },
+                { src: '/hampers/hero2.webp', label: 'Corporate Gift Box' },
+                { src: '/hampers/hero3.webp', label: 'Heritage Gift Set' },
+                { src: '/hampers/hero4.webp', label: 'Elegant Gift Box' },
+                { src: '/hampers/hero5.webp', label: 'Premium Nuts Collection' },
               ];
               return [...items, ...items];
             })().map((card, i) => (
@@ -325,66 +325,34 @@ export function LandingPage() {
         </div>
 
         <div className="occasions-grid">
-          <a href="/catalog" className="occasion-card reveal reveal-delay-1">
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.png')" }}></div>
-            <div className="occasion-card-overlay">
-              <div className="occasion-overlay-text">
-                <h3 className="occasion-name">Employee Onboarding</h3>
-                <p className="occasion-desc">Make Day 1 unforgettable</p>
+          {[
+            { src: '/occasions/employee-onboarding.webp', name: 'Employee Onboarding', desc: 'Make Day 1 unforgettable', delay: 1 },
+            { src: '/occasions/diwali-and-festive.webp', name: 'Diwali & Festive', desc: 'The gift they actually keep', delay: 2 },
+            { src: '/occasions/client-appreciation.webp', name: 'Client Appreciation', desc: 'Strengthen every relationship', delay: 3 },
+            { src: '/occasions/work-anniversary.webp', name: 'Work Anniversary', desc: 'Celebrate the ones who stayed', delay: 1 },
+            { src: '/occasions/team-and-events.webp', name: 'Team & Events', desc: 'Brand that travels with them', delay: 2 },
+            { src: '/occasions/new-year.webp', name: 'New Year', desc: 'Start the year with intention', delay: 3 },
+          ].map((item) => (
+            <a href="/catalog" key={item.src} className={`occasion-card reveal reveal-delay-${item.delay}`}>
+              <div className="occasion-card-img">
+                <Image
+                  src={item.src}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 700px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                />
               </div>
-              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-            </div>
-          </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-2">
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.png')" }}></div>
-            <div className="occasion-card-overlay">
-              <div className="occasion-overlay-text">
-                <h3 className="occasion-name">Diwali &amp; Festive</h3>
-                <p className="occasion-desc">The gift they actually keep</p>
+              <div className="occasion-card-overlay">
+                <div className="occasion-overlay-text">
+                  <h3 className="occasion-name">{item.name}</h3>
+                  <p className="occasion-desc">{item.desc}</p>
+                </div>
+                <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
               </div>
-              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-            </div>
-          </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-3">
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.png')" }}></div>
-            <div className="occasion-card-overlay">
-              <div className="occasion-overlay-text">
-                <h3 className="occasion-name">Client Appreciation</h3>
-                <p className="occasion-desc">Strengthen every relationship</p>
-              </div>
-              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-            </div>
-          </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-1">
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.png')" }}></div>
-            <div className="occasion-card-overlay">
-              <div className="occasion-overlay-text">
-                <h3 className="occasion-name">Work Anniversary</h3>
-                <p className="occasion-desc">Celebrate the ones who stayed</p>
-              </div>
-              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-            </div>
-          </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-2">
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.png')" }}></div>
-            <div className="occasion-card-overlay">
-              <div className="occasion-overlay-text">
-                <h3 className="occasion-name">Team &amp; Events</h3>
-                <p className="occasion-desc">Brand that travels with them</p>
-              </div>
-              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-            </div>
-          </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-3">
-            <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.png')" }}></div>
-            <div className="occasion-card-overlay">
-              <div className="occasion-overlay-text">
-                <h3 className="occasion-name">New Year</h3>
-                <p className="occasion-desc">Start the year with intention</p>
-              </div>
-              <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-            </div>
-          </a>
+            </a>
+          ))}
         </div>
 
         <a href="/catalog" className="view-all-link reveal">View all occasions →</a>
@@ -487,7 +455,7 @@ export function LandingPage() {
           <div className="scorecard-mintbox-highlight" aria-hidden="true"></div>
           <div className="scorecard-header">
             <div className="scorecard-feature-col">Feature</div>
-            <div className="scorecard-mintbox-col"><img src="/mintbox-logo.png" alt="MintBox" className="scorecard-logo" /></div>
+            <div className="scorecard-mintbox-col"><img src="/mintbox-logo.webp" alt="MintBox" className="scorecard-logo"  width={600} height={245} /></div>
             <div className="scorecard-vendor-col">Typical Vendor</div>
           </div>
           {[
@@ -525,50 +493,33 @@ export function LandingPage() {
         </div>
 
         <div className="products-grid">
-          <article className="product-card reveal reveal-delay-1">
-            <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/onboarding.png') center/cover" }}></div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-name">The Onboarding Kit</h3>
-              <p className="product-desc">Everything they need from Day 1 - branded, curated, and unforgettable.</p>
-              <p className="product-price">From ₹1,500 / unit</p>
-              <p className="product-moq">Min. order: 25 units</p>
-            </div>
-          </article>
-          <article className="product-card reveal reveal-delay-2">
-            <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/diwali.png') center/cover" }}></div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-name">The Diwali Edit</h3>
-              <p className="product-desc">Festive gifting that earns a second look - and a post on their stories.</p>
-              <p className="product-price">From ₹2,200 / unit</p>
-              <p className="product-moq">Min. order: 25 units</p>
-            </div>
-          </article>
-          <article className="product-card reveal reveal-delay-3">
-            <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/wfh-essentials.png') center/cover" }}></div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-name">The WFH Essentials</h3>
-              <p className="product-desc">For the team that works everywhere - tools that travel as well as they do.</p>
-              <p className="product-price">From ₹1,800 / unit</p>
-              <p className="product-moq">Min. order: 25 units</p>
-            </div>
-          </article>
-          <article className="product-card reveal reveal-delay-4">
-            <div className="product-image-wrap">
-              <div className="product-img-placeholder" style={{ background: "url('/hampers/executive-gift.png') center/cover" }}></div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-name">The Executive Gift</h3>
-              <p className="product-desc">For clients worth impressing - luxury presentation, no compromise.</p>
-              <p className="product-price">From ₹3,500 / unit</p>
-              <p className="product-moq">Min. order: 10 units</p>
-            </div>
-          </article>
+          {[
+            { src: '/hampers/onboarding.webp', name: 'The Onboarding Kit', desc: 'Everything they need from Day 1 - branded, curated, and unforgettable.', price: '₹1,500', moq: '25', delay: 1 },
+            { src: '/hampers/diwali.webp', name: 'The Diwali Edit', desc: 'Festive gifting that earns a second look - and a post on their stories.', price: '₹2,200', moq: '25', delay: 2 },
+            { src: '/hampers/wfh-essentials.webp', name: 'The WFH Essentials', desc: 'For the team that works everywhere - tools that travel as well as they do.', price: '₹1,800', moq: '25', delay: 3 },
+            { src: '/hampers/executive-gift.webp', name: 'The Executive Gift', desc: 'For clients worth impressing - luxury presentation, no compromise.', price: '₹3,500', moq: '10', delay: 4 },
+          ].map((p) => (
+            <article key={p.src} className={`product-card reveal reveal-delay-${p.delay}`}>
+              <div className="product-image-wrap">
+                <div className="product-img-placeholder">
+                  <Image
+                    src={p.src}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 320px"
+                    style={{ objectFit: 'cover' }}
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="product-body">
+                <h3 className="product-name">{p.name}</h3>
+                <p className="product-desc">{p.desc}</p>
+                <p className="product-price">From {p.price} / unit</p>
+                <p className="product-moq">Min. order: {p.moq} units</p>
+              </div>
+            </article>
+          ))}
         </div>
 
         <div className="catalogue-cta-wrap reveal">
@@ -579,7 +530,7 @@ export function LandingPage() {
       {/* SECTION: OUR STANDARDS */}
       <section id="why-mintbox" aria-label="Our standards">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/hampers/why-bg.png" alt="" className="why-bg" aria-hidden="true" />
+        <img src="/hampers/why-bg.webp" alt="" className="why-bg" aria-hidden="true" />
         <div className="why-overlay" aria-hidden="true"></div>
         <div className="why-content">
           <div className="why-headline-wrap">
