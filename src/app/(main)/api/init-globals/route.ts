@@ -78,7 +78,9 @@ export async function GET(req: Request) {
         },
       })
       results.push('about-page: seeded')
-    } catch (e: any) { results.push('about-page: ' + e.message?.slice(0, 150)) }
+    } catch (e: any) {
+      results.push('about-page: ' + (e?.cause?.message || e?.message || String(e)).slice(0, 1500))
+    }
 
     // Seed contact page
     try {
@@ -137,7 +139,9 @@ export async function GET(req: Request) {
         },
       })
       results.push('contact-page: seeded')
-    } catch (e: any) { results.push('contact-page: ' + e.message?.slice(0, 150)) }
+    } catch (e: any) {
+      results.push('contact-page: ' + (e?.cause?.message || e?.message || String(e)).slice(0, 1500))
+    }
 
     // Seed FAQ page
     try {
@@ -201,7 +205,9 @@ export async function GET(req: Request) {
         },
       })
       results.push('faq-page: seeded')
-    } catch (e: any) { results.push('faq-page: ' + e.message?.slice(0, 150)) }
+    } catch (e: any) {
+      results.push('faq-page: ' + (e?.cause?.message || e?.message || String(e)).slice(0, 1500))
+    }
 
     return NextResponse.json({ success: true, results })
   } catch (e: any) {
