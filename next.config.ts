@@ -2,6 +2,13 @@ import type { NextConfig } from 'next'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
+  // drizzle-kit is loaded at runtime by @payloadcms/drizzle's pushDevSchema
+  // via a dynamic require. Without externalising it Turbopack tries to bundle
+  // it into the serverless function and the dynamic path can't be resolved
+  // ("Cannot find module 'drizzle-kit-<hash>/api'") — so the schema push
+  // silently fails on Vercel. Marking it external keeps it in node_modules
+  // for the function to require directly.
+  serverExternalPackages: ['drizzle-kit'],
   images: {
     // AVIF first (smaller), WebP fallback for older browsers.
     formats: ['image/avif', 'image/webp'],
