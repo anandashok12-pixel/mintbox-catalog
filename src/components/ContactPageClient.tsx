@@ -64,7 +64,15 @@ const EMPTY: ContactPageData = {
     successTitle: 'Message sent!',
     successMessage: "Thank you! We'll be in touch within 4 hours.",
   },
-  contactDetails: { phone: '+91 9886537631', email: 'anand@themintbox.in', emailSubNote: '', officeAddress: '', mapLabel: '', mapSublabel: '', whatsappUrl: 'https://wa.me/919886537631' },
+  contactDetails: {
+    phone: '+91 9886537631',
+    email: 'hello@themintbox.in',
+    emailSubNote: 'Response within 4 hours on business days',
+    officeAddress: '2nd Floor, Sobha Alexander Plaza\n2-A, Commissariat Rd, Ashok Nagar\nBengaluru, Karnataka 560025',
+    mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
+    mapSublabel: 'Commissariat Rd, Bengaluru 560 025',
+    whatsappUrl: 'https://wa.me/919886537631',
+  },
 }
 
 // Merge raw DB values onto defaults, but ignore null/undefined/empty-string
@@ -104,7 +112,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     contactDetails: {
       ...merged.contactDetails,
       phone: merged.contactDetails.phone ?? '+91 9886537631',
-      email: merged.contactDetails.email ?? 'anand@themintbox.in',
+      email: merged.contactDetails.email ?? 'hello@themintbox.in',
       emailSubNote: merged.contactDetails.emailSubNote ?? '',
       officeAddress: merged.contactDetails.officeAddress ?? '',
       mapLabel: merged.contactDetails.mapLabel ?? '',
@@ -173,6 +181,12 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     }
   }
 
+  // Defensively rewrite any stale anand@... email values from the CMS to the
+  // new public address. Lets us update branding without re-seeding the DB.
+  const publicEmail = data.contactDetails.email.replace(
+    /anand@(themintbox\.in|getmintbox\.com)/gi,
+    'hello@themintbox.in',
+  )
   const addressLines = data.contactDetails.officeAddress.split('\n')
 
   return (
@@ -389,7 +403,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 <div>
                   <div className="ct-cs-ilabel">Email</div>
                   <div className="ct-cs-ival">
-                    <a href={`mailto:${data.contactDetails.email}`} style={{ color: 'inherit', textDecoration: 'none' }}>{data.contactDetails.email}</a>
+                    <a href={`mailto:${publicEmail}`} style={{ color: 'inherit', textDecoration: 'none' }}>{publicEmail}</a>
                   </div>
                   <div className="ct-cs-isub">{data.contactDetails.emailSubNote}</div>
                 </div>
@@ -436,13 +450,13 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 rel="noopener noreferrer"
                 className="ct-map-directions"
               >
-                <svg className="ct-map-pin" viewBox="0 0 24 24" fill="none" stroke="#1B4D3E" strokeWidth="1.5" strokeLinecap="round">
+                <svg className="ct-map-pin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8972E" strokeWidth="1.8" strokeLinecap="round" style={{ verticalAlign: 'middle', marginRight: 6 }}>
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-                <div className="ct-map-label">{data.contactDetails.mapLabel || 'Sobha Alexander Plaza'}</div>
-                <div className="ct-map-sublabel">{data.contactDetails.mapSublabel || 'Ashok Nagar, Bengaluru 560 025'}</div>
-                <div style={{ fontSize: '13px', color: '#B8972E', marginTop: '4px' }}>Get Directions →</div>
+                <span style={{ verticalAlign: 'middle' }}>
+                  {data.contactDetails.mapLabel || 'Sobha Alexander Plaza'} — Get Directions →
+                </span>
               </a>
             </div>
           </div>

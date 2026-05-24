@@ -3,6 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Resend } from 'resend'
 
+// Vercel's default for hobby is 10s. Payload cold-start + two Resend sends can
+// exceed that and the function returns a non-JSON 504, which the browser
+// surfaces as "Network error" to the user. Give the route headroom.
+export const maxDuration = 60
+export const dynamic = 'force-dynamic'
+
 const resend = new Resend(process.env.RESEND_API_KEY?.trim())
 
 interface LeadItem {
@@ -200,7 +206,7 @@ export async function POST(req: NextRequest) {
 
     const refCode = lead.referenceCode || 'MB-XXXXX'
 
-    const notifyEmail = process.env.NOTIFY_EMAIL || 'anand@themintbox.in'
+    const notifyEmail = process.env.NOTIFY_EMAIL || 'hello@themintbox.in'
 
     const [teamMailResult, customerMailResult] = await Promise.allSettled([
       resend.emails.send({

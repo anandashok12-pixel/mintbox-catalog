@@ -112,7 +112,7 @@ export function ContactPage() {
               </div>
               <div>
                 <div className="contact-info-title">Email</div>
-                <div className="contact-info-val">anand@themintbox.in</div>
+                <div className="contact-info-val">hello@themintbox.in</div>
                 <div className="contact-info-sub">Response within 4 hours on business days</div>
               </div>
             </div>
@@ -340,7 +340,7 @@ export function Footer() {
           <span className="page-footer-col-label">Reach Us</span>
           <p className="page-footer-contact">Anand Ashok, Director</p>
           <p className="page-footer-contact"><a href="tel:+919886537631">+91 9886537631</a></p>
-          <p className="page-footer-contact"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
+          <p className="page-footer-contact"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
           <p className="page-footer-contact" style={{ marginTop: 8 }}>2nd Floor, Sobha Alexander Plaza,<br />Ashok Nagar, Bengaluru 560 025</p>
           <p className="page-footer-contact" style={{ marginTop: 10 }}>
             <a href="https://wa.me/919886537631" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Chat on WhatsApp &rarr;</a>

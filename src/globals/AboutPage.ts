@@ -119,7 +119,7 @@ export const AboutPage: GlobalConfig = {
         { name: 'title', type: 'text', defaultValue: 'Built by someone who felt the problem firsthand.' },
         { name: 'bioParagraph1', type: 'textarea' },
         { name: 'bioParagraph2', type: 'textarea' },
-        { name: 'email', type: 'text', defaultValue: 'anand@getmintbox.com' },
+        { name: 'email', type: 'text', defaultValue: 'hello@themintbox.in' },
         { name: 'phone', type: 'text', defaultValue: '+91 9886537631' },
         { name: 'whatsappUrl', type: 'text', defaultValue: 'https://wa.me/919886537631' },
         { name: 'cardName', type: 'text', defaultValue: 'Anand Ashok' },
