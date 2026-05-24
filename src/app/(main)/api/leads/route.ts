@@ -3,7 +3,22 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY?.trim())
+// Vercel's default for hobby is 10s. Payload cold-start + two Resend sends can
+// exceed that and the function returns a non-JSON 504, which the browser
+// surfaces as "Network error" to the user. Give the route headroom.
+export const maxDuration = 60
+export const dynamic = 'force-dynamic'
+
+// Lazy: Resend's constructor throws when the API key is missing. Initialising
+// at module top-level breaks `next build`'s page-data collection on Vercel
+// where env vars are not populated during that step.
+let resendClient: Resend | null = null
+function getResend(): Resend {
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY?.trim() || 're_placeholder')
+  }
+  return resendClient
+}
 
 interface LeadItem {
   productId: string
@@ -200,8 +215,9 @@ export async function POST(req: NextRequest) {
 
     const refCode = lead.referenceCode || 'MB-XXXXX'
 
-    const notifyEmail = process.env.NOTIFY_EMAIL || 'anand@themintbox.in'
+    const notifyEmail = process.env.NOTIFY_EMAIL || 'hello@themintbox.in'
 
+    const resend = getResend()
     const [teamMailResult, customerMailResult] = await Promise.allSettled([
       resend.emails.send({
         from: 'MintBox <noreply@themintbox.in>',

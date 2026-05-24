@@ -78,7 +78,7 @@ const EMPTY: AboutPageData = {
     closingCard: { title: 'MintBox is the answer to all five.', desc: 'Every process we have built - from branding in-house to transparent quoting to individual address delivery - exists to fix one of these five failures. Not as a feature. As a founding principle.' },
   },
   values: { label: '', titleLine1: '', titleLine2: '', subtitle: '', items: [] },
-  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
+  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'hello@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
   cta: {
     title: 'Work with the team that takes gifting seriously.',
     subtitle: "Whether you're planning a 50-person Diwali pack or onboarding 500 new hires next quarter - we'd love to hear what you're building and show you what good gifting can feel like.",
@@ -313,7 +313,9 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         </div>
       </div>
 
-      {/* VALUES  -  dark accordion */}
+      {/* VALUES  -  dark accordion. Skip rendering entirely if no items so we
+          don't leave a tall empty dark band on the page when the CMS is blank. */}
+      {data.values.items.length > 0 && (
       <div className="ab-values">
         <div className="ab-values-pat" />
         <div className="ab-values-inner">
@@ -354,6 +356,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
           </div>
         </div>
       </div>
+      )}
 
 
       {/* CLOSING CTA */}

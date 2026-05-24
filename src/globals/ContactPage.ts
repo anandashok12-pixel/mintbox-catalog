@@ -93,7 +93,7 @@ export const ContactPage: GlobalConfig = {
       type: 'group',
       fields: [
         { name: 'phone', type: 'text', defaultValue: '+91 9886537631' },
-        { name: 'email', type: 'text', defaultValue: 'anand@getmintbox.com' },
+        { name: 'email', type: 'text', defaultValue: 'hello@themintbox.in' },
         { name: 'emailSubNote', type: 'text', defaultValue: 'Reply within 4 hours on business days' },
         { name: 'officeAddress', type: 'textarea' },
         { name: 'mapLabel', type: 'text', defaultValue: 'Sobha Alexander Plaza, Ashok Nagar' },

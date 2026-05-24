@@ -42,7 +42,7 @@ export function Footer() {
         <div>
           <span className="footer-col-label">Reach Us</span>
           <p className="footer-contact-item"><a href="tel:+919886537631">+91 9886537631</a></p>
-          <p className="footer-contact-item"><a href="mailto:anand@themintbox.in">anand@themintbox.in</a></p>
+          <p className="footer-contact-item"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
           <p className="footer-contact-item" style={{ marginTop: '8px' }}>2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</p>
           <p className="footer-contact-item" style={{ marginTop: '10px' }}>
             <a href="https://wa.me/919886537631" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Get In Touch &rarr;</a>
@@ -70,8 +70,8 @@ export function Footer() {
       <div className="footer-bottom">
         <span className="footer-bottom-text">&copy; 2026 MintBox. All rights reserved.</span>
         <div className="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
         </div>
       </div>
     </footer>
