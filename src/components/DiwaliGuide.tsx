@@ -108,7 +108,9 @@ export function DiwaliGuide() {
                   <strong>Employees</strong> want gifts that feel personal and useful — festive
                   hampers, sweets and dry fruits, branded products they will actually use, or a
                   thoughtful combination. The volume is usually large, so consistency, packaging and
-                  logistics matter as much as the gift itself.
+                  logistics matter as much as the gift itself. The dedicated guide,{' '}
+                  <a href="/guides/diwali-gifts-for-employees">Diwali gifts for employees</a>, covers
+                  ideas by budget.
                 </p>
                 <p>
                   <strong>Clients</strong> want gifts that feel premium and considered, and they
