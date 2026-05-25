@@ -360,7 +360,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
               <a
                 href={data.contactDetails.whatsappUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="ct-form-wa-link"
               >
                 WhatsApp us directly &rarr;

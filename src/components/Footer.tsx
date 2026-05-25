@@ -32,7 +32,7 @@ export function Footer() {
           <p className="footer-contact-item"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
           <p className="footer-contact-item" style={{ marginTop: '8px' }}>2nd Floor, Sobha Alexander Plaza,<br/>Ashok Nagar, Bengaluru 560 025</p>
           <p className="footer-contact-item" style={{ marginTop: '10px' }}>
-            <a href="https://wa.me/919886537631" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Get In Touch &rarr;</a>
+            <a href="https://wa.me/919886537631" target="_blank" rel="noopener nofollow" style={{ color: 'var(--gold)' }}>Get In Touch &rarr;</a>
           </p>
         </div>
 

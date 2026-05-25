@@ -4,6 +4,7 @@ import './landing.css'
 import { libreBaskerville } from './fonts'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://themintbox.in'),
   title: 'MintBox  -  Premium Corporate Gifting',
   description:
     'Curated corporate gifting packs for every occasion. Discover premium gifts, build your pack, and request custom pricing.',

@@ -668,7 +668,7 @@ export function LandingPage() {
               <button type="submit" className="cta-submit" id="quoteSubmitBtn" disabled={quoteSubmitting}>
                 <span className="form-submit-text">{quoteSubmitting ? 'Sending...' : 'Send enquiry →'}</span>
               </button>
-              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
+              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener nofollow">Prefer WhatsApp? →</a>
             </form>
           </div>
         </div>
