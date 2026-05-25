@@ -210,7 +210,7 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
                 <a
                   href={linkUrl}
                   className="faq-contact-action"
-                  {...(isExternal ? { target: '_blank', rel: 'noopener' } : {})}
+                  {...(isExternal ? { target: '_blank', rel: 'noopener nofollow' } : {})}
                 >
                   {linkText} &rarr;
                 </a>

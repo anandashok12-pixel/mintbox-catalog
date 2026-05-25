@@ -360,7 +360,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
               <a
                 href={data.contactDetails.whatsappUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="ct-form-wa-link"
               >
                 WhatsApp us directly &rarr;
@@ -461,6 +461,67 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
             </div>
           </div>
 
+        </div>
+      </div>
+
+      {/* What happens next — gives enquirers context and adds substantive
+          page content. */}
+      <div className="ct-next-section">
+        <div className="ct-next-inner">
+          <div className="ct-cs-eyebrow">What happens next</div>
+          <h2 className="ct-next-title">From enquiry to delivered gifts</h2>
+          <p className="ct-next-lead">
+            Reaching out to MintBox is the start of a conversation, not a sales funnel. Tell us who
+            you&apos;re gifting, the occasion, and a rough budget — we&apos;ll take it from there and
+            come back with a curated proposal, transparent pricing, and honest lead times. Here is
+            exactly how it works.
+          </p>
+          <div className="ct-next-steps">
+            <div className="ct-next-step">
+              <span className="ct-next-num">1</span>
+              <h3 className="ct-next-step-title">You share your brief</h3>
+              <p className="ct-next-step-desc">
+                Send your requirement via the form or WhatsApp — team size, occasion, budget and any
+                branding needs. No commitment, and no account to create.
+              </p>
+            </div>
+            <div className="ct-next-step">
+              <span className="ct-next-num">2</span>
+              <h3 className="ct-next-step-title">We send a curated proposal</h3>
+              <p className="ct-next-step-desc">
+                Within four working hours you&apos;ll get hand-picked hamper options that fit your
+                budget, with clear per-unit pricing — everything included, no surprise fees.
+              </p>
+            </div>
+            <div className="ct-next-step">
+              <span className="ct-next-num">3</span>
+              <h3 className="ct-next-step-title">You approve the mockups</h3>
+              <p className="ct-next-step-desc">
+                We share high-fidelity branding mockups for every product. Production only begins once
+                you&apos;ve signed off on exactly how your gifts will look.
+              </p>
+            </div>
+            <div className="ct-next-step">
+              <span className="ct-next-num">4</span>
+              <h3 className="ct-next-step-title">We pack and deliver</h3>
+              <p className="ct-next-step-desc">
+                We produce, quality-check, and deliver across Bengaluru and pan-India — to a single
+                office or individually to employees&apos; homes — with GST invoicing throughout.
+              </p>
+            </div>
+          </div>
+          <p className="ct-next-foot">
+            Prefer to talk it through first? Message us on{' '}
+            <a
+              href={data.contactDetails.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              WhatsApp
+            </a>{' '}
+            or email <a href={`mailto:${publicEmail}`}>{publicEmail}</a> — a real person replies,
+            usually within a few hours on business days.
+          </p>
         </div>
       </div>
 

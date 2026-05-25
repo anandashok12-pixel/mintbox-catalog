@@ -90,7 +90,7 @@ export function SolutionsQuoteForm({
           </p>
         </div>
         <div className="sl-qbf-wa">
-          {waText} <a href="https://wa.me/919886537631">+91 9886537631 →</a>
+          {waText} <a href="https://wa.me/919886537631" target="_blank" rel="noopener noreferrer nofollow">+91 9886537631 →</a>
         </div>
       </div>
     )
@@ -152,7 +152,7 @@ export function SolutionsQuoteForm({
         {submitting ? 'Sending…' : 'Request a quote →'}
       </button>
       <div className="sl-qbf-wa">
-        {waText} <a href="https://wa.me/919886537631">+91 9886537631 →</a>
+        {waText} <a href="https://wa.me/919886537631" target="_blank" rel="noopener noreferrer nofollow">+91 9886537631 →</a>
       </div>
     </form>
   )

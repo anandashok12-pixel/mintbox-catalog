@@ -275,7 +275,7 @@ export function LandingPage() {
         </div>
 
         <div className="occasions-grid">
-          <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-1" aria-label="Employee Onboarding gifts — browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -284,8 +284,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-2" aria-label="Diwali & Festive gifts — browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -294,8 +294,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-3" aria-label="Client Appreciation gifts — browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -304,8 +304,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-1" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-1" aria-label="Work Anniversary gifts — browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -314,8 +314,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-2" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-2" aria-label="Team & Events gifts — browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -324,8 +324,8 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
-          <article className="occasion-card reveal reveal-delay-3" tabIndex={0}>
+          </a>
+          <a href="/catalog" className="occasion-card reveal reveal-delay-3" aria-label="New Year gifts — browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -334,7 +334,7 @@ export function LandingPage() {
               </div>
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
-          </article>
+          </a>
         </div>
 
         <a href="/catalog" className="view-all-link reveal">View all occasions →</a>
@@ -668,7 +668,7 @@ export function LandingPage() {
               <button type="submit" className="cta-submit" id="quoteSubmitBtn" disabled={quoteSubmitting}>
                 <span className="form-submit-text">{quoteSubmitting ? 'Sending...' : 'Send enquiry →'}</span>
               </button>
-              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener">Prefer WhatsApp? →</a>
+              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener nofollow">Prefer WhatsApp? →</a>
             </form>
           </div>
         </div>

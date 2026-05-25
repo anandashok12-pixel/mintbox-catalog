@@ -114,6 +114,24 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
         <Sidebar categories={categories} activeCat={activeCat} />
 
         <main className="main-content">
+          {/* SEO/a11y page heading. Visually hidden — the catalog UI leads
+              with the filter/category strip, so a visible h1 would disrupt
+              the dense layout, but the page still needs a single h1. */}
+          <h1
+            style={{
+              position: 'absolute',
+              width: 1,
+              height: 1,
+              padding: 0,
+              margin: -1,
+              overflow: 'hidden',
+              clip: 'rect(0, 0, 0, 0)',
+              whiteSpace: 'nowrap',
+              border: 0,
+            }}
+          >
+            MintBox Corporate Gifting Catalogue
+          </h1>
           {/* Mobile-only horizontal category chip strip - sidebar is hidden
               at this breakpoint, so this is the primary way to jump between
               categories on a phone. */}
