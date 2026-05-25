@@ -9,6 +9,20 @@ const nextConfig: NextConfig = {
   // silently fails on Vercel. Marking it external keeps it in node_modules
   // for the function to require directly.
   serverExternalPackages: ['drizzle-kit'],
+  // Redirect www → apex. NOTE: this only fires if the request actually
+  // reaches the app. If www.themintbox.in 503s at the edge, the `www`
+  // domain still needs to be added/assigned to this project in the Vercel
+  // dashboard (Project → Domains) for this redirect to take effect.
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.themintbox.in' }],
+        destination: 'https://themintbox.in/:path*',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     // AVIF first (smaller), WebP fallback for older browsers.
     formats: ['image/avif', 'image/webp'],
