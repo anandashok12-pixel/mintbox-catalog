@@ -191,6 +191,26 @@ export async function POST(req: NextRequest) {
     const estimatedTotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
     const company = body.company?.trim() || 'Not provided'
 
+    // The leads collection's `occasion` is a select with a fixed enum. Forms
+    // around the site send human-readable labels (e.g. "Conference & event
+    // swag") that aren't valid enum values and would fail payload.create with
+    // a 500. Pass valid values through; otherwise preserve the label in notes
+    // and store the field as 'other'.
+    const VALID_OCCASIONS = [
+      'welcome_kit', 'diwali', 'holi', 'corporate_event',
+      'client_gifting', 'festival', 'year_end', 'other',
+    ]
+    const rawOccasion = body.occasion?.trim()
+    let occasion: string | undefined = rawOccasion || undefined
+    let notes = body.notes
+    if (rawOccasion && !VALID_OCCASIONS.includes(rawOccasion)) {
+      notes = [`Occasion: ${rawOccasion}`, notes].filter(Boolean).join('\n')
+      occasion = 'other'
+    }
+    // Keep the notification emails in sync with the sanitized values.
+    body.occasion = occasion
+    body.notes = notes
+
     const payload = await getPayload({ config: configPromise })
 
     const lead = await payload.create({
@@ -200,8 +220,8 @@ export async function POST(req: NextRequest) {
         company,
         email,
         phone: body.phone,
-        occasion: body.occasion as any,
-        notes: body.notes,
+        occasion: occasion as any,
+        notes,
         items: items.map((item) => ({
           product: item.productId,
           productName: item.productName,
