@@ -21,7 +21,11 @@ export function LandingPage() {
     setQuoteError('')
     setQuoteSuccess(false)
 
-    const formData = new FormData(e.currentTarget)
+    // Capture the form element now: React nulls e.currentTarget after the
+    // first await, so reading it later (for .reset()) throws and the error
+    // gets swallowed by the catch as a bogus "Network error".
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const name = String(formData.get('name') || '').trim()
     const company = String(formData.get('company') || '').trim()
     const email = String(formData.get('email') || '').trim()
@@ -56,7 +60,7 @@ export function LandingPage() {
         return
       }
 
-      e.currentTarget.reset()
+      form.reset()
       setQuoteFieldErrors({ name: false, company: false, email: false })
       setQuoteSuccess(true)
     } catch {
