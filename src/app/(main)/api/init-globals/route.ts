@@ -6,7 +6,8 @@ export const maxDuration = 60
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('secret') !== 'mintbox-seed') {
+  const expected = process.env.SEED_SECRET
+  if (!expected || searchParams.get('secret') !== expected) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

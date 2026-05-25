@@ -6,6 +6,7 @@ import './solutions.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
+import { SolutionsQuoteForm } from '@/components/SolutionsQuoteForm'
 
 type PersonaKey = 'hr' | 'marketing' | 'sales' | 'founder'
 
@@ -223,22 +224,12 @@ export default function SolutionsPage() {
             <div className="sl-qb-title">&ldquo;Tell us your headcount and the occasion. We&apos;ll handle everything else.&rdquo;</div>
             <div className="sl-qb-sub">Most HR teams spend 3–4 hours managing a gifting order. With MintBox, that drops to a single approval.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Occasion</option>
-                <option>Onboarding</option><option>Diwali</option><option>Anniversary</option><option>Other</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Team size</option>
-                <option>Under 25</option><option>25–100</option><option>100–500</option><option>500+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit">Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us directly: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <SolutionsQuoteForm
+            persona="HR & People Ops"
+            select1={{ placeholder: 'Occasion', options: ['Onboarding', 'Diwali', 'Anniversary', 'Other'] }}
+            select2={{ placeholder: 'Team size', options: ['Under 25', '25–100', '100–500', '500+'] }}
+            waText="WhatsApp us directly:"
+          />
         </div>
       </div>
 
@@ -328,22 +319,13 @@ export default function SolutionsPage() {
             <div className="sl-qb-title">&ldquo;When the unboxing is worth photographing, the gift becomes content.&rdquo;</div>
             <div className="sl-qb-sub">Tell us about your brand and your next activation. We&apos;ll build a kit that looks as good as your best campaign.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Use case</option>
-                <option>Event swag</option><option>Product launch</option><option>Employer brand</option><option>Other</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Volume</option>
-                <option>Under 100</option><option>100–500</option><option>500–2,000</option><option>2,000+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit" style={{ background: '#B8972E' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <SolutionsQuoteForm
+            persona="Marketing & Brand"
+            select1={{ placeholder: 'Use case', options: ['Event swag', 'Product launch', 'Employer brand', 'Other'] }}
+            select2={{ placeholder: 'Volume', options: ['Under 100', '100–500', '500–2,000', '2,000+'] }}
+            submitStyle={{ background: '#B8972E' }}
+            waText="WhatsApp us:"
+          />
         </div>
       </div>
 
@@ -433,22 +415,13 @@ export default function SolutionsPage() {
             <div className="sl-qb-title">&ldquo;Tell us your client list and your budget. We&apos;ll handle the rest before renewal season.&rdquo;</div>
             <div className="sl-qb-sub">Scale client gifting across your entire book of business without adding administrative overhead.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Occasion</option>
-                <option>Deal closure</option><option>Contract renewal</option><option>Client appreciation</option><option>Diwali</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>No. of clients</option>
-                <option>Under 10</option><option>10–50</option><option>50–200</option><option>200+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit" style={{ background: '#2A4F7A', color: 'white' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <SolutionsQuoteForm
+            persona="Sales & Account"
+            select1={{ placeholder: 'Occasion', options: ['Deal closure', 'Contract renewal', 'Client appreciation', 'Diwali'] }}
+            select2={{ placeholder: 'No. of clients', options: ['Under 10', '10–50', '50–200', '200+'] }}
+            submitStyle={{ background: '#2A4F7A', color: 'white' }}
+            waText="WhatsApp us:"
+          />
         </div>
       </div>
 
@@ -538,22 +511,14 @@ export default function SolutionsPage() {
             <div className="sl-qb-title">&ldquo;Tell us your team size and what you&apos;re building. We&apos;ll design the kit.&rdquo;</div>
             <div className="sl-qb-sub">Most founders spend 2 hours choosing products, 1 hour designing the brief, and 3 hours chasing delivery. With MintBox, you approve once.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company / startup name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Use case</option>
-                <option>Onboarding kit</option><option>Investor gift</option><option>Team milestone</option><option>Diwali</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Team size</option>
-                <option>Under 10</option><option>10–25</option><option>25–100</option><option>100+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit" style={{ background: '#7A2A5E', color: 'white' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us directly: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <SolutionsQuoteForm
+            persona="Founders & CEOs"
+            companyPlaceholder="Company / startup name"
+            select1={{ placeholder: 'Use case', options: ['Onboarding kit', 'Investor gift', 'Team milestone', 'Diwali'] }}
+            select2={{ placeholder: 'Team size', options: ['Under 10', '10–25', '25–100', '100+'] }}
+            submitStyle={{ background: '#7A2A5E', color: 'white' }}
+            waText="WhatsApp us directly:"
+          />
         </div>
       </div>
 
