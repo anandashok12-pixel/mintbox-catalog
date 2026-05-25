@@ -121,7 +121,6 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
   const brokeTrackRef = useRef<HTMLDivElement>(null)
   const bannerRef = useRef<HTMLDivElement>(null)
   const [activeDot, setActiveDot] = useState(0)
-  const [openValue, setOpenValue] = useState<number | null>(null)
 
   useEffect(() => {
     /* ── Banner parallax ── */
@@ -185,23 +184,9 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
     }
     track.addEventListener('scroll', onScroll)
 
-    /* ── Value rows reveal + auto-open on scroll ── */
-    const valRows = document.querySelectorAll('.ab-val-row')
-    const rowIO = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          (e.target as HTMLElement).classList.add('vis')
-          const idx = Array.from(valRows).indexOf(e.target)
-          if (idx !== -1) setOpenValue(idx)
-        }
-      })
-    }, { threshold: 0.5, rootMargin: '-10% 0px -30% 0px' })
-    valRows.forEach((r) => rowIO.observe(r))
-
     return () => {
       window.removeEventListener('scroll', onParallax)
       io.disconnect()
-      rowIO.disconnect()
       track.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mouseup', onMouseUp)
       track.removeEventListener('mousemove', onMouseMove)
@@ -313,50 +298,8 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         </div>
       </div>
 
-      {/* VALUES  -  dark accordion. Skip rendering entirely if no items so we
-          don't leave a tall empty dark band on the page when the CMS is blank. */}
-      {data.values.items.length > 0 && (
-      <div className="ab-values">
-        <div className="ab-values-pat" />
-        <div className="ab-values-inner">
-          <div className="ab-values-header">
-            <div>
-              <div className="ab-values-label">{data.values.label}</div>
-              <div className="ab-values-title">
-                {data.values.titleLine1}<br /><em>{data.values.titleLine2}</em>
-              </div>
-            </div>
-            <div className="ab-values-sub">
-              {data.values.subtitle}
-            </div>
-          </div>
-
-          <div className="ab-val-list">
-            {data.values.items.map((val: any, i: number) => (
-              <div key={val.id || val.num} className={`ab-val-row${openValue === i ? ' open' : ''}`}>
-                <div className="ab-val-row-head" onClick={() => setOpenValue(openValue === i ? null : i)}>
-                  <span className="ab-val-num">{val.num}</span>
-                  <div className="ab-val-head-title">{val.title}</div>
-                  <div className="ab-val-tag">{val.tag}</div>
-                  <div className="ab-val-arrow">
-                    <svg viewBox="0 0 12 12" fill="none" stroke="rgba(184,151,46,0.6)" strokeWidth="1.2" strokeLinecap="round">
-                      <line x1="6" y1="1" x2="6" y2="11" /><line x1="1" y1="6" x2="11" y2="6" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="ab-val-body">
-                  <div className="ab-val-body-inner">
-                    <div className="ab-val-body-spacer" />
-                    <div className="ab-val-desc">{val.desc}</div>
-                    <div className="ab-val-example">{val.example}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      )}
+      {/* VALUES section removed — was redundant with the "five things we set
+          out to fix" section above it. */}
 
 
       {/* CLOSING CTA */}
