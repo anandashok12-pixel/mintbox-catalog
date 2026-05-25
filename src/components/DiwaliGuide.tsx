@@ -44,7 +44,12 @@ export function DiwaliGuide() {
           </div>
         </header>
 
-        <article className="legal-body">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <div className="guide-hero-img">
+          <img src="/hampers/diwali.webp" alt="A premium MintBox Diwali gift hamper" />
+        </div>
+
+        <article className="legal-body guide-body">
           <div className="legal-body-inner">
             <div className="legal-intro">
               <p>
@@ -167,6 +172,11 @@ export function DiwaliGuide() {
                     quality branded product, suited to senior staff and key clients.
                   </li>
                 </ul>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <figure className="guide-figure">
+                  <img src="/hampers/executive-gift.webp" alt="A curated premium Diwali hamper with branded packaging" />
+                  <figcaption>A curated premium hamper — food paired with a quality branded product, in festive packaging.</figcaption>
+                </figure>
                 <p>
                   MintBox runs a build-your-pack catalogue: choose items, add them to a gifting pack
                   and request a quote. Browse and build at the{' '}
@@ -259,6 +269,11 @@ export function DiwaliGuide() {
                   <a href="/catalog">MintBox catalogue</a> or{' '}
                   <a href="/contact">request a quote</a>.
                 </p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <figure className="guide-figure">
+                  <img src="/hampers/hamper5.webp" alt="Branded Diwali gift hamper with logo-printed items" />
+                  <figcaption>Branded packaging and logo-printed items turn a bought product into a considered gift.</figcaption>
+                </figure>
               </div>
             </section>
 

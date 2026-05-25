@@ -43,7 +43,12 @@ export function EmployeeGiftsGuide() {
           </div>
         </header>
 
-        <article className="legal-body">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <div className="guide-hero-img">
+          <img src="/hampers/onboarding.webp" alt="A MintBox Diwali gift hamper for an employee" />
+        </div>
+
+        <article className="legal-body guide-body">
           <div className="legal-body-inner">
             <div className="legal-intro">
               <p>
@@ -172,6 +177,11 @@ export function EmployeeGiftsGuide() {
                   (₹320) and a Wooden Glass Scented Candle (₹200) in a Jute Basket (₹170). Build and
                   price your own at the <a href="/catalog">MintBox catalogue</a>.
                 </p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <figure className="guide-figure">
+                  <img src="/hampers/hamper3.webp" alt="A curated Diwali hamper for employees" />
+                  <figcaption>A ₹500–₹1,500 hamper — the most popular tier for company-wide gifting.</figcaption>
+                </figure>
               </div>
             </section>
 
@@ -213,6 +223,11 @@ export function EmployeeGiftsGuide() {
                   with your branding — start at the <a href="/catalog">MintBox catalogue</a> or{' '}
                   <a href="/contact">request a quote</a>.
                 </p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <figure className="guide-figure">
+                  <img src="/hampers/hamper8.webp" alt="Personalised Diwali gift with branded packaging" />
+                  <figcaption>Branded festive packaging makes a team-wide gift feel individual.</figcaption>
+                </figure>
               </div>
             </section>
 
