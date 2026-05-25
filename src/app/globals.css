@@ -2,6 +2,32 @@
    MINTBOX CATALOG - Global Styles
    ============================================================ */
 
+/* Satoshi — self-hosted (woff2) instead of the Fontshare CDN. Serving the
+   font + its CSS from our own domain lets Vercel compress them (the
+   Fontshare CSS response was uncompressed) and removes a third-party
+   request. font-display: swap keeps text visible during load. */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --green-dark: #0D3D2B;
   --green-mid: #1A5C40;
