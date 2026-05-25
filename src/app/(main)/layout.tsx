@@ -43,11 +43,15 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
-        {/* Satoshi (body)  -  not on Google Fonts, served by Fontshare.
-            preconnect lets the browser open the TLS/DNS in parallel with the HTML parse. */}
-        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
-        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+        {/* Satoshi (body) is now self-hosted via @font-face in globals.css.
+            Preload the primary weight to avoid a flash before it loads. */}
+        <link
+          rel="preload"
+          href="/fonts/Satoshi-400.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>{children}</body>
     </html>
