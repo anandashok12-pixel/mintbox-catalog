@@ -2,6 +2,54 @@
    MINTBOX  -  Guide pages (extends LegalPage.css)
    ============================================================ */
 
+/* Full-width hero banner image (sits between the dark hero and the body,
+   filling what was an empty gap before the intro). */
+.guide-hero-img {
+  width: 100%;
+  aspect-ratio: 1920 / 600;
+  overflow: hidden;
+  position: relative;
+  background: var(--forest-deep, #122E25);
+}
+.guide-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+@media (max-width: 720px) {
+  .guide-hero-img { aspect-ratio: 16 / 11; }
+}
+
+/* Trim the body's top padding on guides — the banner now carries the
+   transition from hero to text, so the large gap is no longer needed. */
+.legal-body.guide-body {
+  padding-top: 3rem;
+}
+
+/* Inline article images */
+.guide-figure {
+  margin: 2.25rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid rgba(27, 77, 62, 0.12);
+  background: #fff;
+}
+.guide-figure img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.guide-figure figcaption {
+  font-size: 13px;
+  color: rgba(26, 26, 24, 0.55);
+  padding: 10px 16px;
+  font-family: 'Satoshi', sans-serif;
+  line-height: 1.5;
+}
+
 /* Budget table */
 .guide-table-wrap {
   overflow-x: auto;
