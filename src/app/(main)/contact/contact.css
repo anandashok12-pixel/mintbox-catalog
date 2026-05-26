@@ -478,6 +478,27 @@
   text-decoration: underline;
 }
 
+.ct-map-pin {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.ct-map-label {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--forest-deep, #122E25);
+  margin-bottom: 4px;
+}
+
+.ct-map-sublabel {
+  font-size: 13px;
+  color: #8A8A84;
+  font-weight: 300;
+}
+
 /* ===========================
    RESPONSIVE
 =========================== */

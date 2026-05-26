@@ -1,73 +1,44 @@
 import type { Metadata } from 'next'
-import { DiwaliGuide } from '@/components/DiwaliGuide'
-import { DIWALI_FAQS, DIWALI_GUIDE } from '@/components/diwaliGuideData'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+import DiwaliCorporateClient from '@/components/pages/DiwaliCorporateClient'
+import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: DIWALI_GUIDE.metaTitle,
-  description: DIWALI_GUIDE.metaDescription,
-  alternates: { canonical: DIWALI_GUIDE.url },
+  title: 'Diwali Corporate Gifts 2026: Best Ideas for Every Budget | MintBox',
+  description:
+    'Best Diwali corporate gifts for 2026 - hampers, drinkware, sweets kits, and eco sets. Budget ₹500–₹3,000 per head. Order early to avoid delays. Pan-India.',
+  alternates: { canonical: 'https://themintbox.in/guides/diwali-corporate-gifts' },
   openGraph: {
-    type: 'article',
-    title: DIWALI_GUIDE.metaTitle,
-    description: DIWALI_GUIDE.metaDescription,
-    url: DIWALI_GUIDE.url,
-    siteName: 'MintBox',
+    title: 'Diwali Corporate Gifts 2026: Best Ideas for Every Budget | MintBox',
+    description:
+      'Best Diwali corporate gifts for 2026 - hampers, drinkware, sweets kits, and eco sets. Budget ₹500–₹3,000 per head. Order early to avoid delays. Pan-India.',
   },
 }
 
-const articleSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: DIWALI_GUIDE.title,
-  description: DIWALI_GUIDE.metaDescription,
-  mainEntityOfPage: { '@type': 'WebPage', '@id': DIWALI_GUIDE.url },
-  about: 'Diwali corporate gifts',
-  inLanguage: 'en-IN',
-  author: { '@type': 'Organization', name: 'MintBox', url: 'https://themintbox.in' },
-  publisher: {
-    '@type': 'Organization',
-    name: 'MintBox',
-    url: 'https://themintbox.in',
-    logo: { '@type': 'ImageObject', url: 'https://themintbox.in/mintbox-logo-white.webp' },
-  },
-}
+export const dynamic = 'force-dynamic'
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://themintbox.in' },
-    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://themintbox.in/guides' },
-    { '@type': 'ListItem', position: 3, name: 'Diwali Corporate Gifts 2026', item: DIWALI_GUIDE.url },
-  ],
-}
+export default async function DiwaliCorporatePage() {
+  let products: any[] = []
+  let categories: any[] = []
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: DIWALI_FAQS.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-}
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const [catsResult, productsResult] = await Promise.all([
+      payload.find({ collection: 'categories', sort: 'order', limit: 100 }),
+      payload.find({
+        collection: 'products',
+        where: { inStock: { equals: true } },
+        sort: 'order',
+        limit: 500,
+        depth: 1,
+      }),
+    ])
+    categories = catsResult.docs
+    products = productsResult.docs
+  } catch (err) {
+    console.error('[diwali-corporate-gifts] Payload query failed:', err)
+  }
 
-export default function DiwaliCorporateGiftsPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <DiwaliGuide />
-    </>
-  )
+  return <DiwaliCorporateClient products={products} categories={categories} />
 }

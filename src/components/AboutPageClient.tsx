@@ -52,8 +52,15 @@ function BowSvg({ width = 88, className }: { width?: number; className?: string 
 }
 
 const EMPTY: AboutPageData = {
-  hero: { titleLine1: 'We exist because', titleLine2: 'gifting deserved better.', manifesto: '' },
-  imageBanner: { bannerImage: null, caption: '' },
+  hero: {
+    titleLine1: 'We exist because',
+    titleLine2: 'gifting deserved better.',
+    manifesto: "The corporate gifting market doesn’t have a product problem. It has a meaning problem. Every box that arrives late, every logo that peels, every invoice that doesn’t match the quote - these aren’t vendor failures. They’re failures of care. MintBox exists to give every gift its meaning back.",
+  },
+  imageBanner: {
+    bannerImage: null,
+    caption: 'Every product is sourced, sampled, and physically evaluated before it earns a place in a MintBox.',
+  },
   foundingStory: {
     label: 'The Founding Story',
     title: 'Born from a box that disappointed.',
@@ -77,8 +84,19 @@ const EMPTY: AboutPageData = {
     ],
     closingCard: { title: 'MintBox is the answer to all five.', desc: 'Every process we have built - from branding in-house to transparent quoting to individual address delivery - exists to fix one of these five failures. Not as a feature. As a founding principle.' },
   },
-  values: { label: '', titleLine1: '', titleLine2: '', subtitle: '', items: [] },
-  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'hello@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
+  values: {
+    label: 'Our commitments',
+    titleLine1: 'Four things we',
+    titleLine2: 'never compromise on.',
+    subtitle: "These aren't values we put on a wall. They're the criteria every product, vendor, and process has to pass before it becomes part of MintBox.",
+    items: [
+      { num: '01', title: 'Craftsmanship', tag: 'Quality first', desc: 'Every product in our catalogue has been sourced, sampled, and physically evaluated.', example: '“We rejected three notebook suppliers before finding one whose debossing held to our spec.”' },
+      { num: '02', title: 'Transparency', tag: 'No surprises', desc: 'What you see on the quote is what appears on the invoice - line for line.', example: '“We have never billed a rupee that wasn’t discussed upfront.”' },
+      { num: '03', title: 'Reliability', tag: 'On time, always', desc: 'We set honest lead times and track every individual shipment.', example: '“We plan every festive order with a minimum three-week buffer.”' },
+      { num: '04', title: 'Human connection', tag: 'People, not portals', desc: 'Every new client speaks to a person. Every enquiry gets a response from Anand personally.', example: '“Anand picks up every WhatsApp. That won’t change.”' },
+    ],
+  },
+  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
   cta: {
     title: 'Work with the team that takes gifting seriously.',
     subtitle: "Whether you're planning a 50-person Diwali pack or onboarding 500 new hires next quarter - we'd love to hear what you're building and show you what good gifting can feel like.",
