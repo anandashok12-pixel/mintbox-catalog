@@ -235,13 +235,15 @@ export async function POST(req: NextRequest) {
 
     const refCode = lead.referenceCode || 'MB-XXXXX'
 
-    const notifyEmail = process.env.NOTIFY_EMAIL || 'hello@themintbox.in'
+    const notifyEmails = process.env.NOTIFY_EMAIL
+      ? process.env.NOTIFY_EMAIL.split(',').map((e) => e.trim()).filter(Boolean)
+      : ['anand@themintbox.in', 'hello@themintbox.in', 'ashok@themintbox.in']
 
     const resend = getResend()
     const [teamMailResult, customerMailResult] = await Promise.allSettled([
       resend.emails.send({
         from: 'MintBox <noreply@themintbox.in>',
-        to: notifyEmail,
+        to: notifyEmails,
         subject: `New Quote Request ${refCode}  -  ${company}`,
         html: teamEmailHtml(body, refCode, estimatedTotal),
       }),
