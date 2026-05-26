@@ -196,150 +196,6 @@
       transition: all 0.3s ease;
     }
 
-    /* ── Mega menu ─────────────────────────────── */
-    .has-mega {
-      position: static; /* panel positions relative to #navbar */
-    }
-    .nav-link-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .nav-caret {
-      font-size: 10px;
-      opacity: 0.7;
-      transition: transform 0.2s ease;
-    }
-    .nav-link-open .nav-caret {
-      transform: rotate(180deg);
-    }
-
-    /* Backdrop dims the page and catches clicks outside */
-    .mega-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 998;
-    }
-
-    /* Panel itself */
-    .mega-panel {
-      position: fixed;
-      top: 90px; /* just below the 64px pill + 16px top offset */
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
-      width: calc(100% - 48px);
-      max-width: 1160px;
-      background: rgba(22, 64, 52, 0.99);
-      border-radius: 20px;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.35);
-      backdrop-filter: blur(20px);
-      padding: 28px 32px 32px;
-      animation: mega-in 0.15s ease;
-    }
-    @keyframes mega-in {
-      from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
-      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    .mega-inner {
-      display: flex;
-      gap: 0;
-    }
-    .mega-col {
-      flex: 1;
-      padding: 0 20px;
-      border-right: 1px solid rgba(255,255,255,0.08);
-    }
-    .mega-col:first-child { padding-left: 0; }
-    .mega-col:last-child  { padding-right: 0; border-right: none; }
-    .mega-col-heading {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin: 0 0 12px;
-    }
-    .mega-col-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .mega-link {
-      display: block;
-      font-family: 'Satoshi', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      padding: 6px 8px;
-      border-radius: 8px;
-      transition: background 0.15s ease, color 0.15s ease;
-      white-space: nowrap;
-    }
-    .mega-link:hover {
-      background: rgba(255,255,255,0.09);
-      color: #fff;
-    }
-
-    /* Mobile accordion inside full-screen overlay */
-    .mob-accordion {
-      width: 100%;
-      text-align: center;
-    }
-    .mob-accordion-trigger {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font-libre-baskerville), serif;
-      font-size: 36px;
-      font-weight: 400;
-      color: var(--cream);
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 0;
-    }
-    .mob-accordion-arrow {
-      font-size: 22px;
-      display: inline-block;
-      transition: transform 0.2s ease;
-      color: var(--gold);
-      font-family: sans-serif;
-    }
-    .mob-accordion-arrow.open {
-      transform: rotate(90deg);
-    }
-    .mob-accordion-body {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 8px 0 16px;
-      align-items: center;
-    }
-    .mob-sub-link {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 18px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      padding: 5px 0;
-      transition: color 0.2s ease;
-    }
-    .mob-sub-link:hover { color: var(--gold); }
-    /* ─────────────────────────────────────────── */
-
     /* Mobile nav overlay */
     .mobile-nav {
       display: flex;
@@ -1993,9 +1849,9 @@
     }
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr;
-      gap: 60px;
-      max-width: 1200px;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 1.1fr;
+      gap: 40px;
+      max-width: 1320px;
       margin: 0 auto;
       padding-bottom: 56px;
     }
@@ -2035,6 +1891,27 @@
       transition: color 0.2s ease;
     }
     .footer-socials a:hover { color: var(--gold); }
+    .footer-contact-block {
+      margin-bottom: 16px;
+    }
+    .footer-whatsapp-link {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .footer-whatsapp-link:hover { opacity: 0.75; }
+    .footer-sub-label {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245,240,230,0.35);
+      margin: 0 0 8px;
+    }
     .footer-url {
       font-family: 'Satoshi', sans-serif;
       font-size: 16px;
@@ -2191,9 +2068,13 @@
     /* ===========================
        RESPONSIVE
     =========================== */
+    @media (max-width: 1280px) {
+      .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 36px; }
+    }
+
     @media (max-width: 1024px) {
       .products-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 36px; }
       .occasions-grid { grid-template-columns: repeat(2, 1fr); }
       .va-card { width: 300px; height: 440px; }
       .pillars-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2245,7 +2126,7 @@
       .cta-left { border-radius: 16px 16px 0 0; padding: 48px 40px; }
       .cta-right { border-radius: 0 0 16px 16px; padding: 40px 40px; }
       .cta-right-headline { font-size: 30px; }
-      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
       .trust-stat-num { font-size: 18px; }
       .trust-stat-label { font-size: 14px; }
