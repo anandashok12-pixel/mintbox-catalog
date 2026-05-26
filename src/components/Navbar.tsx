@@ -27,8 +27,6 @@ export function Navbar() {
         </button>
         <a href="/" onClick={() => setMobileOpen(false)}>Home</a>
         <a href="/catalog" onClick={() => setMobileOpen(false)}>Catalogue</a>
-        <a href="/guides/corporate-gifting-handbook" onClick={() => setMobileOpen(false)}>Guides</a>
-        <a href="/collections/corporate-gifts" onClick={() => setMobileOpen(false)}>Collections</a>
         <a href="/about" onClick={() => setMobileOpen(false)}>About</a>
         <a href="/faq" onClick={() => setMobileOpen(false)}>FAQ</a>
         <a href="/contact" onClick={() => setMobileOpen(false)}>Contact</a>
@@ -44,8 +42,6 @@ export function Navbar() {
         <ul className="nav-links" role="list">
           <li><a href="/" className="nav-link">Home</a></li>
           <li><a href="/catalog" className="nav-link">Catalogue</a></li>
-          <li><a href="/guides/corporate-gifting-handbook" className="nav-link">Guides</a></li>
-          <li><a href="/collections/corporate-gifts" className="nav-link">Collections</a></li>
           <li><a href="/about" className="nav-link">About</a></li>
           <li><a href="/faq" className="nav-link">FAQ</a></li>
         </ul>
