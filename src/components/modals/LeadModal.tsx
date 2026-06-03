@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cartStore'
 
 interface LeadModalProps {
@@ -19,6 +20,7 @@ const OCCASIONS = [
 ]
 
 export default function LeadModal({ onClose }: LeadModalProps) {
+  const router = useRouter()
   const { items, clearCart } = useCartStore()
 
   const [quantities, setQuantities] = useState<Record<string, number>>(
@@ -95,6 +97,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
         confirmationEmailSent: data.confirmationEmailSent !== false,
       })
       clearCart()
+      router.push('/thank-you')
     } catch {
       setError('Network error. Please check your connection and try again.')
     } finally {

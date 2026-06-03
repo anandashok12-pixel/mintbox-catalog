@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface SelectConfig {
   placeholder: string
@@ -31,6 +32,7 @@ export function SolutionsQuoteForm({
   const [email, setEmail] = useState('')
   const [sel1, setSel1] = useState('')
   const [sel2, setSel2] = useState('')
+  const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
@@ -72,6 +74,7 @@ export function SolutionsQuoteForm({
         return
       }
       setSuccess(true)
+      router.push('/thank-you')
     } catch {
       setError('Network error. Please try again.')
     } finally {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const OCCASIONS = [
   { value: 'welcome_kit', label: 'Employee Welcome Kit' },
@@ -28,6 +29,7 @@ export default function InlineQuoteForm({
   defaultOccasion = '',
   interestHint = '',
 }: InlineQuoteFormProps) {
+  const router = useRouter()
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
   const [email, setEmail] = useState('')
@@ -70,6 +72,7 @@ export default function InlineQuoteForm({
       if (!res.ok) throw new Error(data.error || 'Submission failed')
 
       setSuccess({ refCode: data.refCode || data.reference || 'MB-' + Math.random().toString(36).slice(2, 7).toUpperCase() })
+      router.push('/thank-you')
     } catch (err: any) {
       setError(err.message || 'Something went wrong. Please try again.')
     } finally {

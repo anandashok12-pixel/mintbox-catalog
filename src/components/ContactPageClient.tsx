@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import '../app/(main)/landing.css'
 import '../app/(main)/contact/contact.css'
 import { Navbar } from '@/components/Navbar'
@@ -120,6 +121,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
       whatsappUrl: merged.contactDetails.whatsappUrl ?? 'https://wa.me/919886537631',
     },
   }
+  const router = useRouter()
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -174,6 +176,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
       }
 
       setFormSubmitted(true)
+      router.push('/thank-you')
     } catch {
       setError('Network error. Please try again.')
     } finally {

@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { WhatsAppFloat } from './WhatsAppFloat'
 
 export function LandingPage() {
+  const router = useRouter()
   const [quoteSubmitting, setQuoteSubmitting] = useState(false)
   const [quoteSuccess, setQuoteSuccess] = useState(false)
   const [quoteError, setQuoteError] = useState('')
@@ -63,6 +65,7 @@ export function LandingPage() {
       form.reset()
       setQuoteFieldErrors({ name: false, company: false, email: false })
       setQuoteSuccess(true)
+      router.push('/thank-you')
     } catch {
       setQuoteError('Network error. Please try again.')
     } finally {
