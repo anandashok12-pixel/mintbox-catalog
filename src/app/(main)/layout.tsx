@@ -28,6 +28,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-9EH5D2P9LL');
+              gtag('config', 'AW-18208220528');
             `,
           }}
         />
