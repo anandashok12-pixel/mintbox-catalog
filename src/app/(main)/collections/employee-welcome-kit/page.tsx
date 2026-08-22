@@ -39,15 +39,17 @@ export default async function WelcomeKitPage() {
     console.error('[employee-welcome-kit] Payload query failed:', err)
   }
 
-  // Filter to category-relevant products only
-  const targetCat = categories.find((c: any) => {
-    const text = ((c.slug || '') + ' ' + (c.name || '')).toLowerCase()
-    return text.includes('welcome')
-  })
-  if (targetCat) {
+  // Filter to welcome-kit-relevant categories. No category slug/name contains
+  // "welcome", so the previous substring match never hit and the page fell
+  // back to rendering the entire catalog.
+  const WELCOME_KIT_SLUGS = ['stationery-writing', 'drinkware', 'desktop-accessories', 'bags-travel-accessories', 'apparel']
+  const matchedCatIds = new Set(
+    categories.filter((c: any) => WELCOME_KIT_SLUGS.includes(c.slug)).map((c: any) => c.id),
+  )
+  if (matchedCatIds.size > 0) {
     products = products.filter((p: any) => {
       const catId = typeof p.category === 'object' ? p.category?.id : p.category
-      return catId === targetCat.id
+      return matchedCatIds.has(catId)
     })
   }
 

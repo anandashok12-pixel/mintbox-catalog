@@ -40,17 +40,16 @@ export default async function EcoFriendlyPage() {
     console.error('[eco-friendly-gifts] Payload query failed:', err)
   }
 
-  // Filter to category-relevant products only
-  const targetCat = categories.find((c: any) => {
-    const text = ((c.slug || '') + ' ' + (c.name || '')).toLowerCase()
-    return text.includes('eco')
+  // No "eco" category exists, so the previous substring match never hit and
+  // the page fell back to rendering the entire catalog. Eco products are
+  // spread across categories (cork drinkware, bamboo pens, planters, jute
+  // baskets...), so match on material/eco keywords in name + features.
+  const ECO_KEYWORDS =
+    /\b(eco|ecodesk|bamboo|jute|cork|recycled|sustainable|plantable|planter|plant|biodegradable|terracotta|wooden|copper)\b/i
+  products = products.filter((p: any) => {
+    const features = Array.isArray(p.features) ? p.features.map((f: any) => f?.feature ?? '').join(' ') : ''
+    return ECO_KEYWORDS.test(`${p.name ?? ''} ${features}`)
   })
-  if (targetCat) {
-    products = products.filter((p: any) => {
-      const catId = typeof p.category === 'object' ? p.category?.id : p.category
-      return catId === targetCat.id
-    })
-  }
 
   return <EcoFriendlyClient products={products} categories={categories} />
 }

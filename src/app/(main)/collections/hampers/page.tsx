@@ -40,15 +40,17 @@ export default async function HampersPage() {
     console.error('[hampers] Payload query failed:', err)
   }
 
-  // Filter to category-relevant products only
-  const targetCat = categories.find((c: any) => {
-    const text = ((c.slug || '') + ' ' + (c.name || '')).toLowerCase()
-    return text.includes('hamper')
-  })
-  if (targetCat) {
+  // Filter to hamper-relevant categories. No category slug/name contains
+  // "hamper", so the previous substring match never hit and the page fell
+  // back to rendering the entire catalog.
+  const HAMPER_SLUGS = ['baskets-packaging', 'tea-coffee', 'snacks-gourmet-food', 'chocolate-sweets']
+  const matchedCatIds = new Set(
+    categories.filter((c: any) => HAMPER_SLUGS.includes(c.slug)).map((c: any) => c.id),
+  )
+  if (matchedCatIds.size > 0) {
     products = products.filter((p: any) => {
       const catId = typeof p.category === 'object' ? p.category?.id : p.category
-      return catId === targetCat.id
+      return matchedCatIds.has(catId)
     })
   }
 
