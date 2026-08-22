@@ -39,15 +39,17 @@ export default async function TechGiftsPage() {
     console.error('[tech-gifts] Payload query failed:', err)
   }
 
-  // Filter to category-relevant products only
-  const targetCat = categories.find((c: any) => {
-    const text = ((c.slug || '') + ' ' + (c.name || '')).toLowerCase()
-    return text.includes('tech')
-  })
-  if (targetCat) {
+  // Filter to tech-relevant categories only. No category slug/name contains
+  // "tech", so the previous substring match never hit and the page fell back
+  // to rendering the entire catalog (228 images).
+  const TECH_SLUGS = ['electronics', 'audio', 'desktop-accessories']
+  const techCatIds = new Set(
+    categories.filter((c: any) => TECH_SLUGS.includes(c.slug)).map((c: any) => c.id),
+  )
+  if (techCatIds.size > 0) {
     products = products.filter((p: any) => {
       const catId = typeof p.category === 'object' ? p.category?.id : p.category
-      return catId === targetCat.id
+      return techCatIds.has(catId)
     })
   }
 

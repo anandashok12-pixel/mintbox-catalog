@@ -57,7 +57,15 @@ export default buildConfig({
     vercelBlobStorage({
       enabled: true,
       collections: {
-        media: true,
+        media: {
+          // Serve media straight from the public Blob CDN instead of proxying
+          // every request through /api/media/file/... (a serverless function
+          // that does a blob head() + fetch() + stream per image, ~1-2.5s
+          // each). With 200+ product images per page that exceeded Googlebot's
+          // render budget and the tail of the page failed with "Other error"
+          // in Search Console. Media has public read access anyway.
+          disablePayloadAccessControl: true,
+        },
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
       // Upload directly from browser to Vercel Blob, bypassing serverless 4.5MB limit
