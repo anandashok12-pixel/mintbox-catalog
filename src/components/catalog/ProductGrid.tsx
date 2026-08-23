@@ -118,6 +118,11 @@ export default function ProductGrid({
                         alt={product.name}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+                        // TEMPORARY: Vercel Image Optimization quota is exhausted
+                        // (402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED), so serve
+                        // originals straight from Blob CDN. Remove once the plan is
+                        // upgraded so AVIF/WebP variants come back.
+                        unoptimized
                         style={{ objectFit: 'cover' }}
                       />
                     ) : (
