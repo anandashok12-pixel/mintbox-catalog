@@ -789,17 +789,20 @@ img {
 .product-modal {
   background: var(--white);
   border-radius: 16px;
-  width: 100%;
-  max-width: 720px;
-  max-height: 90vh;
+  width: fit-content;
+  max-width: 100%;
+  height: min(600px, 90vh);
   display: flex;
   overflow: hidden;
   position: relative;
   box-shadow: var(--shadow-lg);
 }
 
+/* Square pane that stretches to the modal's full height, so a square product
+   image fills it edge to edge with no letterboxing above/below. */
 .product-modal-image-pane {
-  width: 300px;
+  height: 100%;
+  aspect-ratio: 1 / 1;
   flex-shrink: 0;
   background: var(--cream);
   display: flex;
@@ -828,6 +831,8 @@ img {
 
 .product-modal-detail-pane {
   flex: 1;
+  min-width: 0;
+  width: 420px;
   padding: 32px;
   overflow-y: auto;
   display: flex;
@@ -1301,10 +1306,20 @@ img {
     max-height: 95vh;
   }
 
+  .product-modal {
+    width: 100%;
+    height: auto;
+  }
+
   .product-modal-image-pane {
     width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
     max-height: 360px;
+  }
+
+  .product-modal-detail-pane {
+    width: auto;
   }
 
   .form-row {

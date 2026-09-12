@@ -97,7 +97,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               src={imageUrl}
               alt={product.name}
               fill
-              sizes="(max-width: 768px) 100vw, 300px"
+              sizes="(max-width: 768px) 100vw, 600px"
               style={{ objectFit: 'contain' }}
             />
           ) : (
