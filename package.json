@@ -12,7 +12,8 @@
     "attach-images": "node --env-file=.env.local --require tsx/cjs scripts/attach-images.ts",
     "import-from-csv": "node --env-file=.env.local --require tsx/cjs scripts/import-from-csv.ts",
     "set-usbc-hub-image": "node --env-file=.env.local --require tsx/cjs scripts/set-usbc-hub-image.ts",
-    "payload": "payload"
+    "payload": "payload",
+    "import-diwali-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-boxes.ts"
   },
   "dependencies": {
     "@payloadcms/db-vercel-postgres": "^3.80.0",

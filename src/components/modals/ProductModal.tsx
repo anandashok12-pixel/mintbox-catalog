@@ -98,7 +98,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 300px"
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'contain' }}
             />
           ) : (
             <div className="product-modal-emoji-fallback" aria-hidden="true" />
