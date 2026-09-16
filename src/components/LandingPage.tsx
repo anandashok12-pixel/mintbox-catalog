@@ -6,16 +6,19 @@ import { useRouter } from 'next/navigation'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { WhatsAppFloat } from './WhatsAppFloat'
+import { getAttribution } from '@/lib/attribution'
+import { isValidPhone } from '@/lib/phone'
 
 export function LandingPage() {
   const router = useRouter()
   const [quoteSubmitting, setQuoteSubmitting] = useState(false)
   const [quoteSuccess, setQuoteSuccess] = useState(false)
   const [quoteError, setQuoteError] = useState('')
-  const [quoteFieldErrors, setQuoteFieldErrors] = useState<{ name: boolean; company: boolean; email: boolean }>({
+  const [quoteFieldErrors, setQuoteFieldErrors] = useState<{ name: boolean; company: boolean; email: boolean; phone: boolean }>({
     name: false,
     company: false,
     email: false,
+    phone: false,
   })
 
   const handleQuoteSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,6 +34,7 @@ export function LandingPage() {
     const name = String(formData.get('name') || '').trim()
     const company = String(formData.get('company') || '').trim()
     const email = String(formData.get('email') || '').trim()
+    const phone = String(formData.get('phone') || '').trim()
     const teamSize = String(formData.get('teamSize') || '').trim()
     const budget = String(formData.get('budget') || '').trim()
 
@@ -38,9 +42,10 @@ export function LandingPage() {
       name: !name,
       company: !company,
       email: !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+      phone: !isValidPhone(phone),
     }
     setQuoteFieldErrors(nextErrors)
-    if (nextErrors.name || nextErrors.company || nextErrors.email) return
+    if (nextErrors.name || nextErrors.company || nextErrors.email || nextErrors.phone) return
 
     setQuoteSubmitting(true)
     try {
@@ -51,8 +56,10 @@ export function LandingPage() {
           name,
           company,
           email,
+          phone,
           notes: [teamSize ? `Team size: ${teamSize}` : '', budget ? `Budget: ${budget}` : ''].filter(Boolean).join('\n') || undefined,
           items: [],
+          attribution: getAttribution(),
         }),
       })
 
@@ -63,7 +70,7 @@ export function LandingPage() {
       }
 
       form.reset()
-      setQuoteFieldErrors({ name: false, company: false, email: false })
+      setQuoteFieldErrors({ name: false, company: false, email: false, phone: false })
       setQuoteSuccess(true)
       router.push('/thank-you')
     } catch {
@@ -636,10 +643,17 @@ export function LandingPage() {
                 </div>
               </div>
 
-              <div className="cta-form-group">
-                <label htmlFor="form-email">Email <span className="form-required">*</span></label>
-                <input className={quoteFieldErrors.email ? 'form-input-error' : ''} type="email" id="form-email" name="email" placeholder="priya@company.com" autoComplete="email" required />
-                {quoteFieldErrors.email && <span className="form-error" id="form-email-error" style={{ display: 'block' }}>Please enter a valid email</span>}
+              <div className="cta-form-row">
+                <div className="cta-form-group">
+                  <label htmlFor="form-email">Email <span className="form-required">*</span></label>
+                  <input className={quoteFieldErrors.email ? 'form-input-error' : ''} type="email" id="form-email" name="email" placeholder="priya@company.com" autoComplete="email" required />
+                  {quoteFieldErrors.email && <span className="form-error" id="form-email-error" style={{ display: 'block' }}>Please enter a valid email</span>}
+                </div>
+                <div className="cta-form-group">
+                  <label htmlFor="form-phone">Phone <span className="form-required">*</span></label>
+                  <input className={quoteFieldErrors.phone ? 'form-input-error' : ''} type="tel" id="form-phone" name="phone" placeholder="+91 98765 43210" autoComplete="tel" required />
+                  {quoteFieldErrors.phone && <span className="form-error" id="form-phone-error" style={{ display: 'block' }}>Please enter a valid phone number</span>}
+                </div>
               </div>
 
               <div className="cta-form-row">

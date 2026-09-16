@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { getAttribution } from '@/lib/attribution'
+import { isValidPhone } from '@/lib/phone'
 
 interface SelectConfig {
   placeholder: string
@@ -30,6 +32,7 @@ export function SolutionsQuoteForm({
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [sel1, setSel1] = useState('')
   const [sel2, setSel2] = useState('')
   const router = useRouter()
@@ -48,6 +51,10 @@ export function SolutionsQuoteForm({
       setError('Please enter a valid work email.')
       return
     }
+    if (!isValidPhone(phone)) {
+      setError('Please enter a valid phone number.')
+      return
+    }
     setSubmitting(true)
     try {
       const res = await fetch('/api/leads', {
@@ -57,6 +64,7 @@ export function SolutionsQuoteForm({
           name: name.trim(),
           company: company.trim(),
           email: email.trim(),
+          phone: phone.trim(),
           occasion: sel1 || undefined,
           notes: [
             `Persona: ${persona}`,
@@ -66,6 +74,7 @@ export function SolutionsQuoteForm({
             .filter(Boolean)
             .join('\n'),
           items: [],
+          attribution: getAttribution(),
         }),
       })
       const data = await res.json()
@@ -121,6 +130,14 @@ export function SolutionsQuoteForm({
         placeholder="Work email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        className="sl-qbf"
+        type="tel"
+        placeholder="Phone number"
+        autoComplete="tel"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
       />
       <div className="sl-qbf-row">
         <select

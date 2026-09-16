@@ -7,6 +7,8 @@ import '../app/(main)/contact/contact.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
+import { getAttribution } from '@/lib/attribution'
+import { isValidPhone } from '@/lib/phone'
 
 interface ContactPageData {
   hero: { label: string; titleLine1: string; titleLine2: string; subtitle: string }
@@ -127,6 +129,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
   const [error, setError] = useState('')
   const [nameError, setNameError] = useState('')
   const [emailError, setEmailError] = useState('')
+  const [phoneError, setPhoneError] = useState('')
 
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
@@ -142,11 +145,14 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     setError('')
     setNameError('')
     setEmailError('')
+    setPhoneError('')
     let valid = true
     if (!name.trim()) { setNameError('Your name is required.'); valid = false }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!email.trim()) { setEmailError('Email address is required.'); valid = false }
     else if (!emailRegex.test(email.trim())) { setEmailError('Please enter a valid email address.'); valid = false }
+    if (!phone.trim()) { setPhoneError('Mobile number is required.'); valid = false }
+    else if (!isValidPhone(phone)) { setPhoneError('Please enter a valid mobile number.'); valid = false }
     if (!valid) return
 
     setSubmitting(true)
@@ -158,7 +164,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
           name: name.trim(),
           company: company.trim() || undefined,
           email: email.trim(),
-          phone: phone.trim() || undefined,
+          phone: phone.trim(),
           occasion: occasion || undefined,
           notes: [
             teamSize ? `Team size: ${teamSize}` : '',
@@ -166,6 +172,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
             notes.trim(),
           ].filter(Boolean).join('\n') || undefined,
           items: [],
+          attribution: getAttribution(),
         }),
       })
 
@@ -295,7 +302,10 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                       placeholder="Enter your mobile number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
+                      autoComplete="tel"
+                      required
                     />
+                    {phoneError && <div className="ct-field-error">{phoneError}</div>}
                   </div>
                 </div>
 

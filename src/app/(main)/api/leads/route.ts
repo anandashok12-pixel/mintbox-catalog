@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Resend } from 'resend'
+import { isValidPhone } from '@/lib/phone'
 
 // Vercel's default for hobby is 10s. Payload cold-start + two Resend sends can
 // exceed that and the function returns a non-JSON 504, which the browser
@@ -27,6 +28,17 @@ interface LeadItem {
   unitPrice: number
 }
 
+interface TouchInput {
+  source?: unknown
+  medium?: unknown
+  campaign?: unknown
+  term?: unknown
+  content?: unknown
+  referrer?: unknown
+  landingPage?: unknown
+  at?: unknown
+}
+
 interface LeadRequest {
   name: string
   company?: string
@@ -35,6 +47,39 @@ interface LeadRequest {
   occasion?: string
   notes?: string
   items?: LeadItem[]
+  attribution?: {
+    firstTouch?: TouchInput
+    lastTouch?: TouchInput
+    formPage?: unknown
+  }
+}
+
+// Attribution comes from the browser, so treat it as untrusted: strings only,
+// length-capped.
+function str(value: unknown, max = 500): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const v = value.trim()
+  return v ? v.slice(0, max) : undefined
+}
+
+function sanitizeTouch(t: TouchInput | undefined) {
+  if (!t || typeof t !== 'object') return undefined
+  const at = str(t.at, 40)
+  const atDate = at && !Number.isNaN(Date.parse(at)) ? new Date(at).toISOString() : undefined
+  return {
+    source: str(t.source, 100),
+    medium: str(t.medium, 100),
+    campaign: str(t.campaign, 200),
+    term: str(t.term, 200),
+    content: str(t.content, 200),
+    referrer: str(t.referrer, 1000),
+    landingPage: str(t.landingPage, 1000),
+    at: atDate,
+  }
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
 }
 
 function formatOccasion(occasion: string): string {
@@ -51,7 +96,14 @@ function formatOccasion(occasion: string): string {
   return map[occasion] || occasion
 }
 
-function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: number): string {
+interface SourceSummary {
+  channel?: string
+  entryPage?: string
+  referrer?: string
+  formPage?: string
+}
+
+function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: number, src: SourceSummary): string {
   const leadItems = lead.items ?? []
   const itemRows = leadItems
     .map(
@@ -87,6 +139,10 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
               <tr><td style="padding:6px 0;color:#666;">Email</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.email}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.phone || ' - '}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Occasion</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.occasion ? formatOccasion(lead.occasion) : ' - '}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Source</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(src.channel || 'unknown')}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Entry page</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;word-break:break-all;">${escapeHtml(src.entryPage || ' - ')}</td></tr>
+              ${src.referrer ? `<tr><td style="padding:6px 0;color:#666;">Referrer</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;word-break:break-all;">${escapeHtml(src.referrer)}</td></tr>` : ''}
+              <tr><td style="padding:6px 0;color:#666;">Form page</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;word-break:break-all;">${escapeHtml(src.formPage || ' - ')}</td></tr>
             </table>
             ${lead.notes ? `<div style="margin-top:16px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;">${lead.notes}</p></div>` : ''}
             <h2 style="color:#0D3D2B;font-size:18px;margin:28px 0 16px;">Requested Items</h2>
@@ -178,9 +234,14 @@ export async function POST(req: NextRequest) {
     const body: LeadRequest = await req.json()
 
     const { name, email } = body
-    if (!name || !email) {
-      return NextResponse.json({ error: 'Missing required fields: name, email' }, { status: 400 })
+    const phone = typeof body.phone === 'string' ? body.phone.trim() : ''
+    if (!name || !email || !phone) {
+      return NextResponse.json({ error: 'Missing required fields: name, email, phone' }, { status: 400 })
     }
+    if (!isValidPhone(phone)) {
+      return NextResponse.json({ error: 'Please enter a valid phone number' }, { status: 400 })
+    }
+    body.phone = phone
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
@@ -211,6 +272,11 @@ export async function POST(req: NextRequest) {
     body.occasion = occasion
     body.notes = notes
 
+    const first = sanitizeTouch(body.attribution?.firstTouch)
+    const last = sanitizeTouch(body.attribution?.lastTouch) ?? first
+    const formPage = str(body.attribution?.formPage, 1000)
+    const channel = first?.source ? [first.source, first.medium].filter(Boolean).join(' / ') : undefined
+
     const payload = await getPayload({ config: configPromise })
 
     const lead = await payload.create({
@@ -219,7 +285,7 @@ export async function POST(req: NextRequest) {
         name,
         company,
         email,
-        phone: body.phone,
+        phone,
         occasion: occasion as any,
         notes,
         items: items.map((item) => ({
@@ -229,6 +295,21 @@ export async function POST(req: NextRequest) {
           unitPrice: item.unitPrice,
         })),
         estimatedTotal,
+        channel,
+        source: first?.source,
+        medium: first?.medium,
+        campaign: first?.campaign,
+        entryPage: first?.landingPage,
+        referrer: first?.referrer,
+        utmTerm: first?.term,
+        utmContent: first?.content,
+        firstVisitAt: first?.at,
+        lastSource: last?.source,
+        lastMedium: last?.medium,
+        lastCampaign: last?.campaign,
+        lastEntryPage: last?.landingPage,
+        lastReferrer: last?.referrer,
+        formPage,
         status: 'new',
       },
     })
@@ -245,7 +326,12 @@ export async function POST(req: NextRequest) {
         from: 'MintBox <noreply@themintbox.in>',
         to: notifyEmails,
         subject: `New Quote Request ${refCode}  -  ${company}`,
-        html: teamEmailHtml(body, refCode, estimatedTotal),
+        html: teamEmailHtml(body, refCode, estimatedTotal, {
+          channel,
+          entryPage: first?.landingPage,
+          referrer: first?.referrer,
+          formPage,
+        }),
       }),
       resend.emails.send({
         from: 'MintBox <noreply@themintbox.in>',

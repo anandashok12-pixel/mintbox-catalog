@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cartStore'
+import { getAttribution } from '@/lib/attribution'
+import { isValidPhone } from '@/lib/phone'
 
 interface LeadModalProps {
   onClose: () => void
@@ -47,8 +49,12 @@ export default function LeadModal({ onClose }: LeadModalProps) {
     e.preventDefault()
     setError('')
 
-    if (!name.trim() || !company.trim() || !email.trim()) {
+    if (!name.trim() || !company.trim() || !email.trim() || !phone.trim()) {
       setError('Please fill in all required fields.')
+      return
+    }
+    if (!isValidPhone(phone)) {
+      setError('Please enter a valid phone number.')
       return
     }
     if (occasion === 'other' && (!customOccasionType.trim() || !customOccasionLocation.trim())) {
@@ -82,6 +88,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             quantity: quantities[item.id] || item.quantity,
             unitPrice: item.price,
           })),
+          attribution: getAttribution(),
         }),
       })
 
@@ -242,13 +249,15 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Phone</label>
+                <label className="form-label">Phone *</label>
                 <input
                   type="tel"
                   className="form-input"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 98765 43210"
+                  autoComplete="tel"
+                  required
                 />
               </div>
             </div>

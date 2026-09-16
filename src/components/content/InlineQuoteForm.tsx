@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { getAttribution } from '@/lib/attribution'
+import { isValidPhone } from '@/lib/phone'
 
 const OCCASIONS = [
   { value: 'welcome_kit', label: 'Employee Welcome Kit' },
@@ -44,8 +46,12 @@ export default function InlineQuoteForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    if (!name.trim() || !company.trim() || !email.trim()) {
-      setError('Please fill in name, company and email.')
+    if (!name.trim() || !company.trim() || !email.trim() || !phone.trim()) {
+      setError('Please fill in name, company, email and phone.')
+      return
+    }
+    if (!isValidPhone(phone)) {
+      setError('Please enter a valid phone number.')
       return
     }
 
@@ -58,13 +64,14 @@ export default function InlineQuoteForm({
           name: name.trim(),
           company: company.trim(),
           email: email.trim(),
-          phone: phone.trim() || undefined,
+          phone: phone.trim(),
           occasion: occasion || undefined,
           notes: [
             quantity ? `Quantity: ${quantity}` : '',
             notes.trim(),
           ].filter(Boolean).join('\n') || undefined,
           items: [],
+          attribution: getAttribution(),
         }),
       })
 
@@ -144,13 +151,15 @@ export default function InlineQuoteForm({
             />
           </div>
           <div className="cp-form-group">
-            <label className="cp-form-label">Phone</label>
+            <label className="cp-form-label">Phone *</label>
             <input
               className="cp-form-input"
               type="tel"
               placeholder="+91 98765 43210"
+              autoComplete="tel"
               value={phone}
               onChange={e => setPhone(e.target.value)}
+              required
             />
           </div>
         </div>

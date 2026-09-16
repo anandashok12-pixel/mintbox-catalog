@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '../globals.css'
 import './landing.css'
 import { libreBaskerville } from './fonts'
+import { AttributionTracker } from '@/components/AttributionTracker'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://themintbox.in'),
@@ -54,7 +55,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <AttributionTracker />
+        {children}
+      </body>
     </html>
   )
 }
