@@ -109,7 +109,7 @@ const FAQS = [
   },
   {
     q: 'Can I order by WhatsApp?',
-    a: 'Yes. WhatsApp is our preferred channel for same-day orders - faster than email and easier for last-minute changes. Message us at +91 86182 37189 with your order list, delivery address, and preferred time window.',
+    a: 'Yes. WhatsApp is our preferred channel for same-day orders - faster than email and easier for last-minute changes. Message us at +91 9886537631 with your order list, delivery address, and preferred time window.',
   },
 ]
 
@@ -212,7 +212,7 @@ export default function SameDayDeliveryClient({
             credentials={[
               'Same-day delivery to 15+ Bangalore zones',
               'In-stock ready items with pre-applied branding',
-              'WhatsApp order support: +91 86182 37189',
+              'WhatsApp order support: +91 9886537631',
               'Trusted by 200+ Bangalore corporates for urgent needs',
               'Order by 11 AM for 6 PM delivery guarantee',
             ]}

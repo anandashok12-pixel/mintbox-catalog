@@ -15,7 +15,7 @@ const organizationSchema = {
   logo: 'https://themintbox.in/mintbox-logo.webp',
   description:
     'Premium corporate gifting packs for every occasion — curated, customized, and delivered across India.',
-  telephone: '+918951069069',
+  telephone: '+919886537631',
   email: 'hello@themintbox.in',
   address: {
     '@type': 'PostalAddress',

@@ -275,7 +275,7 @@ export default function TermsPage() {
                   Email:{' '}
                   <a href="mailto:hello@themintbox.in">hello@themintbox.in</a>
                 </li>
-                <li>WhatsApp / Phone: +91 86182 37189</li>
+                <li>WhatsApp / Phone: +91 9886537631</li>
                 <li>
                   Office: 2nd Floor, Sobha Alexander Plaza, Ashok Nagar, Bengaluru 560 025, India
                 </li>
