@@ -44,6 +44,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
+    // Seasonal hubs
+    {
+      url: `${SITE_URL}/diwali-corporate-gifts`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+
     // Collections
     {
       url: `${SITE_URL}/collections/corporate-gifts`,

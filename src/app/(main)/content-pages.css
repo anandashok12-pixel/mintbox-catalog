@@ -2165,3 +2165,391 @@
   background: var(--cream, #f2f2f2);
   padding: 72px 40px;
 }
+
+/* ──────────────────────────────────────────────────────────
+   DIWALI HUB (/diwali-corporate-gifts)
+   Prefix: dh-  ·  Builds on the cp- system above.
+────────────────────────────────────────────────────────── */
+.dh-anchor { scroll-margin-top: 90px; }
+
+/* Deadline strip under the hero */
+.dh-deadline {
+  background: var(--gold, #B8972E);
+  color: var(--forest-deep, #122E25);
+  font-size: 13px;
+  font-weight: 400;
+  padding: 12px 0;
+}
+.dh-deadline-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 12px;
+  text-align: center;
+}
+.dh-deadline-item strong { font-weight: 600; }
+.dh-deadline-sep { opacity: 0.5; }
+
+/* Budget tier cards rendered as buttons */
+.dh-tier-card {
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+.dh-tier-card .cp-tier-desc { font-size: 14px; margin-bottom: 12px; }
+.dh-tier-best {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.dh-tier-best--dark { color: var(--forest-green, #1B4D3E); }
+.dh-tier-best--light { color: rgba(245, 240, 230, 0.75); }
+
+/* Showcase shell */
+.dh-showcase {
+  background: white;
+  border-radius: 16px;
+  border: 0.5px solid rgba(27, 77, 62, 0.1);
+  padding: 8px 0 0;
+}
+.dh-toolbar {
+  position: sticky;
+  top: 64px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 0.5px solid rgba(27, 77, 62, 0.1);
+  padding: 12px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 16px 16px 0 0;
+}
+.dh-toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.dh-toolbar-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 24, 0.45);
+  min-width: 96px;
+}
+.dh-segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  background: var(--cream, #f2f2f2);
+  padding: 4px;
+  border-radius: 999px;
+}
+.dh-seg {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.6);
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.dh-seg:hover { color: var(--forest-deep, #122E25); }
+.dh-seg.active {
+  background: var(--forest-green, #1B4D3E);
+  color: var(--cream, #f2f2f2);
+  font-weight: 500;
+}
+.dh-seg-count {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-left: 2px;
+}
+.dh-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.dh-chip {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--forest-deep, #122E25);
+  background: white;
+  border: 1px solid rgba(27, 77, 62, 0.2);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dh-chip:hover { border-color: var(--gold, #B8972E); }
+.dh-chip.active {
+  background: rgba(184, 151, 46, 0.14);
+  border-color: var(--gold, #B8972E);
+  font-weight: 500;
+}
+.dh-sort {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.dh-sort .dh-toolbar-label { min-width: 0; }
+.dh-sort select {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--forest-deep, #122E25);
+  background: white;
+  border: 1px solid rgba(27, 77, 62, 0.2);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+.dh-toolbar-meta {
+  font-size: 12px;
+  color: rgba(26, 26, 24, 0.55);
+}
+.dh-toolbar-meta strong { color: var(--forest-deep, #122E25); font-weight: 600; }
+
+/* Tier groups */
+.dh-group { padding: 28px 20px 8px; }
+.dh-group + .dh-group { border-top: 0.5px solid rgba(27, 77, 62, 0.1); }
+.dh-group-head { margin-bottom: 18px; }
+.dh-group-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--forest-deep, #122E25);
+  margin: 0 0 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+}
+.dh-group-range {
+  font-size: 15px;
+  color: var(--gold, #B8972E);
+  font-style: italic;
+}
+.dh-group-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(26, 26, 24, 0.6);
+  margin: 0;
+  max-width: 720px;
+  line-height: 1.6;
+}
+.dh-group-best { color: var(--forest-green, #1B4D3E); font-weight: 400; }
+
+/* Cards */
+.dh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  padding-bottom: 20px;
+}
+.dh-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 0.5px solid rgba(27, 77, 62, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  scroll-margin-top: 140px;
+}
+.dh-card:hover {
+  box-shadow: 0 10px 28px rgba(27, 77, 62, 0.12);
+  transform: translateY(-2px);
+}
+.dh-card-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: var(--cream, #f2f2f2);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.dh-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.dh-card:hover .dh-card-media img { transform: scale(1.03); }
+.dh-card-body {
+  padding: 14px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.dh-card-tier {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold, #B8972E);
+}
+.dh-card-name {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--forest-deep, #122E25);
+  margin: 0;
+}
+.dh-card-price {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--forest-green, #1B4D3E);
+}
+.dh-card-price span {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.5);
+  margin-left: 4px;
+}
+.dh-inside {
+  border-top: 0.5px solid rgba(27, 77, 62, 0.1);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+.dh-inside summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--forest-deep, #122E25);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.dh-inside summary::-webkit-details-marker { display: none; }
+.dh-inside summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  margin-right: 3px;
+}
+.dh-inside[open] summary::after { transform: rotate(-135deg); }
+.dh-inside-count {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.5);
+  margin-left: auto;
+}
+.dh-inside ul {
+  margin: 8px 0 0;
+  padding: 0 0 0 16px;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(26, 26, 24, 0.75);
+  line-height: 1.6;
+}
+.dh-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+.dh-btn-add {
+  flex: 1;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream, #f2f2f2);
+  background: var(--forest-green, #1B4D3E);
+  border: 1px solid var(--forest-green, #1B4D3E);
+  border-radius: 999px;
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dh-btn-add:hover { background: var(--forest-deep, #122E25); border-color: var(--forest-deep, #122E25); }
+.dh-btn-add.added { background: var(--gold, #B8972E); border-color: var(--gold, #B8972E); color: var(--forest-deep, #122E25); }
+.dh-btn-view {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--forest-green, #1B4D3E);
+  background: white;
+  border: 1px solid rgba(27, 77, 62, 0.25);
+  border-radius: 999px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dh-btn-view:hover { border-color: var(--forest-green, #1B4D3E); }
+
+.dh-showcase-foot {
+  border-top: 0.5px solid rgba(27, 77, 62, 0.1);
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: rgba(26, 26, 24, 0.55);
+}
+.dh-btn-quote {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream, #f2f2f2);
+  background: var(--forest-green, #1B4D3E);
+  border: none;
+  border-radius: 999px;
+  padding: 9px 20px;
+  cursor: pointer;
+}
+.dh-link-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--forest-green, #1B4D3E);
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* Quote section promise list reset */
+.dh-anchor .cp-cta-promises { list-style: none; padding: 0; margin: 0; }
+
+@media (max-width: 1024px) {
+  .dh-toolbar { position: static; }
+}
+@media (max-width: 768px) {
+  .dh-toolbar { padding: 12px 14px 10px; }
+  .dh-toolbar-label { min-width: 0; width: 100%; }
+  .dh-sort { margin-left: 0; }
+  .dh-group { padding: 22px 14px 4px; }
+  .dh-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .dh-card-body { padding: 12px 10px 12px; }
+  .dh-card-name { font-size: 14px; }
+  .dh-card-price { font-size: 16px; }
+  .dh-card-actions { flex-direction: column; }
+  .dh-btn-view { text-align: center; }
+  .dh-deadline { font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .dh-grid { grid-template-columns: 1fr; }
+  .dh-card-actions { flex-direction: row; }
+  .dh-seg { padding: 6px 10px; font-size: 12px; }
+}

@@ -35,6 +35,7 @@ export function Footer() {
           </ul>
           <p className="footer-sub-label" style={{ marginTop: '20px' }}>By Occasion</p>
           <ul className="footer-nav-links">
+            <li><a href="/diwali-corporate-gifts">Diwali Gift Hampers 2026</a></li>
             <li><a href="/guides/diwali-corporate-gifts">Diwali Corporate Gifts</a></li>
             <li><a href="/guides/diwali-gifts-for-employees">Diwali Gifts for Employees</a></li>
             <li><a href="/guides/christmas-corporate-gifts">Christmas Corporate Gifts</a></li>
