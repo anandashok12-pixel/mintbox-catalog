@@ -3,6 +3,7 @@ import { cache } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import DiwaliHubClient from '@/components/pages/DiwaliHubClient'
+import { DIWALI_HUB_FAQS, LAST_UPDATED } from '@/components/pages/diwaliHubData'
 import type { DiwaliProduct } from '@/components/content/DiwaliHamperShowcase'
 import '../content-pages.css'
 
@@ -82,7 +83,91 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+const FAQ_SCHEMA_ITEMS = DIWALI_HUB_FAQS.map(item => ({
+  '@type': 'Question',
+  name: item.q,
+  acceptedAnswer: { '@type': 'Answer', text: item.a },
+}))
+
 export default async function DiwaliCorporateGiftsPage() {
   const products = await getDiwaliProducts()
-  return <DiwaliHubClient products={products} />
+  const prices = products.map(p => Number(p.price)).filter(n => Number.isFinite(n))
+  const min = prices.length ? Math.min(...prices) : 434
+  const max = prices.length ? Math.max(...prices) : 2170
+
+  // Rendered from the server component so the structured data is always in the
+  // initial HTML and is never re-rendered (and discarded) during hydration.
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://themintbox.in' },
+      { '@type': 'ListItem', position: 2, name: 'Corporate Diwali Gifts 2026', item: PAGE_URL },
+    ],
+  }
+
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Corporate Diwali Gifts 2026: Hampers & Gift Boxes',
+    description: `Corporate Diwali gift hampers and boxes for employees and clients, from ${formatPrice(min)} to ${formatPrice(max)} per unit. Logo branding, MOQ 10, GST invoice, pan-India delivery before Diwali.`,
+    url: PAGE_URL,
+    dateModified: `${LAST_UPDATED}T00:00:00+05:30`,
+    inLanguage: 'en-IN',
+    isPartOf: { '@type': 'WebSite', name: 'MintBox', url: 'https://themintbox.in' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'MintBox',
+      url: 'https://themintbox.in',
+      areaServed: 'IN',
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'Corporate Diwali Gift Hampers 2026',
+      numberOfItems: products.length,
+      itemListElement: products.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Product',
+          name: p.name,
+          image: p.image?.url || undefined,
+          description: p.description,
+          brand: { '@type': 'Brand', name: 'MintBox' },
+          category: 'Corporate Diwali Gift Hampers',
+          url: `${PAGE_URL}#product-${p.id}`,
+          offers: {
+            '@type': 'Offer',
+            price: p.price,
+            priceCurrency: 'INR',
+            availability: 'https://schema.org/InStock',
+            url: `${PAGE_URL}#product-${p.id}`,
+            seller: { '@type': 'Organization', name: 'MintBox' },
+            eligibleQuantity: { '@type': 'QuantitativeValue', minValue: p.moq ?? 10, unitText: 'units' },
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: p.price,
+              priceCurrency: 'INR',
+              valueAddedTaxIncluded: false,
+            },
+          },
+        },
+      })),
+    },
+  }
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_SCHEMA_ITEMS,
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <DiwaliHubClient products={products} />
+    </>
+  )
 }

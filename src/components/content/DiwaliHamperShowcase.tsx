@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
 import ProductModal from '@/components/modals/ProductModal'
@@ -89,6 +89,10 @@ type SortKey = 'curated' | 'price-asc' | 'price-desc'
 
 const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
+// Never changes: used only to give useSyncExternalStore a stable subscription
+// so it can distinguish the server snapshot from the client one.
+const subscribeNoop = () => () => {}
+
 function haystack(p: DiwaliProduct): string {
   return [p.name, p.description, ...(p.features?.map(f => f.feature) ?? [])].join(' ')
 }
@@ -106,10 +110,17 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
   const [showLead, setShowLead] = useState(false)
   const [justAdded, setJustAdded] = useState<string | null>(null)
 
+  // The cart store rehydrates from sessionStorage, so cart-derived UI only
+  // renders on the client — otherwise the first client render disagrees with
+  // the server HTML and React throws away the whole SSR tree.
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false)
+
   const addItem = useCartStore(s => s.addItem)
   const items = useCartStore(s => s.items)
-  const count = useCartStore(s => s.count())
-  const total = useCartStore(s => s.total())
+  const storedCount = useCartStore(s => s.count())
+  const storedTotal = useCartStore(s => s.total())
+  const count = mounted ? storedCount : 0
+  const total = mounted ? storedTotal : 0
 
   const filtered = useMemo(() => {
     const t = TIERS.find(x => x.key === tier)
@@ -149,7 +160,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
     window.setTimeout(() => setJustAdded(prev => (prev === p.id ? null : prev)), 1600)
   }
 
-  const inPack = (id: string) => items.find(i => i.id === id)?.quantity ?? 0
+  const inPack = (id: string) => (mounted ? items.find(i => i.id === id)?.quantity ?? 0 : 0)
 
   return (
     <>
@@ -254,7 +265,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
                             className={`dh-btn-add${justAdded === p.id ? ' added' : ''}`}
                             onClick={() => handleAdd(p)}
                           >
-                            {justAdded === p.id ? '✓ Added to pack' : qty > 0 ? `+ Add another (${qty} in pack)` : '+ Add to pack'}
+                            {justAdded === p.id ? '✓ Added to pack' : qty > 0 ? `+ Add another · ${qty} in pack` : '+ Add to pack'}
                           </button>
                           <button type="button" className="dh-btn-view" onClick={() => setSelected(p)}>Details</button>
                         </div>

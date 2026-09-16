@@ -2170,7 +2170,7 @@
    DIWALI HUB (/diwali-corporate-gifts)
    Prefix: dh-  ·  Builds on the cp- system above.
 ────────────────────────────────────────────────────────── */
-.dh-anchor { scroll-margin-top: 90px; }
+.dh-anchor { scroll-margin-top: 96px; }
 
 /* Deadline strip under the hero */
 .dh-deadline {
@@ -2215,7 +2215,8 @@
 }
 .dh-toolbar {
   position: sticky;
-  top: 64px;
+  /* Clears the fixed pill navbar (16px offset + 64px tall) plus a small gap. */
+  top: 88px;
   z-index: 5;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(6px);

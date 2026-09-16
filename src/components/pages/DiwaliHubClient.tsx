@@ -12,6 +12,7 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { DIWALI_HUB_FAQS, LAST_UPDATED } from '@/components/pages/diwaliHubData'
 import DiwaliHamperShowcase, {
   TIERS,
   tierFor,
@@ -19,10 +20,8 @@ import DiwaliHamperShowcase, {
   type TierKey,
 } from '@/components/content/DiwaliHamperShowcase'
 
-const PAGE_URL = 'https://themintbox.in/diwali-corporate-gifts'
 const DIWALI_DATE_LABEL = 'Sunday, 8 November 2026'
 const ORDER_BY_LABEL = 'Friday, 24 October 2026'
-const LAST_UPDATED = '2026-09-12'
 
 // Product IDs used for the hero visual, in preference order. Falls back to the
 // first products in catalogue order if any are missing.
@@ -47,40 +46,6 @@ const COMPARISON = [
   { tier: 'Leadership & client tier', price: '₹1,300–₹2,170', contents: 'Pure copper bottle sets, 7-in-1 tech hamper, executive combos', bestFor: 'Clients, partners, senior leadership' },
 ]
 
-const FAQS = [
-  {
-    q: 'When is Diwali 2026 and when should we order corporate Diwali gifts?',
-    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by 24 October 2026 are guaranteed to be delivered before Diwali with full logo branding. Dispatch takes 7 to 10 working days after confirmation, so later orders are fulfilled from ready stock with limited branding.',
-  },
-  {
-    q: 'What is the minimum order quantity for Diwali gift hampers?',
-    a: 'The minimum order is 10 units per hamper. You can mix hampers from different tiers in a single order, for example a Team tier hamper for all staff and a Leadership tier hamper for clients, as long as each hamper meets the 10-unit minimum.',
-  },
-  {
-    q: 'How much do corporate Diwali gift hampers cost?',
-    a: 'MintBox Diwali hampers range from ₹434 to ₹2,170 per unit, exclusive of GST. Most companies spend ₹500 to ₹1,300 per employee and ₹1,300 to ₹2,200 per client. Every price on this page is the per-unit price at the minimum order; volume pricing for 100+ units is shared in your quote.',
-  },
-  {
-    q: 'Can we add our company logo to the Diwali gift boxes?',
-    a: 'Yes. Logo branding is available on the gift box or sleeve, on a printed insert card with your Diwali message, and on select items such as bottles, notebooks and mugs. Name personalisation for each recipient is available on request. Branding cost depends on quantity and print method and is confirmed in your quote.',
-  },
-  {
-    q: 'Do you deliver Diwali gifts outside Bengaluru?',
-    a: 'Yes. Hampers are assembled in Bengaluru and shipped across Karnataka and all of India. Share a city-wise breakdown or a list of employee home addresses and we coordinate dispatch so everything arrives before Diwali. Tracking details are shared on email and WhatsApp.',
-  },
-  {
-    q: 'Are the dry fruits and sweets in the hampers safe and fresh?',
-    a: 'All food items are sealed, FSSAI-compliant packs with shelf-life labelling. Dry fruits are packed in 50g to 200g jars or pouches, and chocolates are branded retail packs such as Ferrero Rocher and Hershey’s Kisses. Certificates are available on request.',
-  },
-  {
-    q: 'Will we get a GST invoice for corporate Diwali gifts?',
-    a: 'Yes. Every order comes with a GST invoice in your company’s name. Prices on this page are exclusive of GST; applicable GST is added on the invoice.',
-  },
-  {
-    q: 'Can we see a sample before placing a bulk Diwali order?',
-    a: 'Yes. Physical samples of shortlisted hampers can be arranged in Bengaluru, and a branding mockup is shared with every quote so you can see how your logo will look on the box before you confirm.',
-  },
-]
 
 const RELATED = [
   { label: 'Seasonal Guide', title: 'Diwali Corporate Gifts: Ideas for Every Budget', href: '/guides/diwali-corporate-gifts' },
@@ -112,56 +77,8 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
   const heroPicks = HERO_PICKS.map(id => byId.get(id)).filter((p): p is DiwaliProduct => Boolean(p && p.image?.url))
   const heroImages = heroPicks.length >= 3 ? heroPicks : products.filter(p => p.image?.url).slice(0, 3)
 
-  const itemListSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: 'Corporate Diwali Gifts 2026: Hampers & Gift Boxes',
-    description: `Corporate Diwali gift hampers and boxes for employees and clients, from ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} per unit. Logo branding, MOQ 10, GST invoice, pan-India delivery before Diwali.`,
-    url: PAGE_URL,
-    dateModified: `${LAST_UPDATED}T00:00:00+05:30`,
-    isPartOf: { '@type': 'WebSite', name: 'MintBox', url: 'https://themintbox.in' },
-    publisher: { '@type': 'Organization', name: 'MintBox', url: 'https://themintbox.in' },
-    mainEntity: {
-      '@type': 'ItemList',
-      name: 'Corporate Diwali Gift Hampers 2026',
-      numberOfItems: products.length,
-      itemListElement: products.map((p, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        item: {
-          '@type': 'Product',
-          name: p.name,
-          image: p.image?.url || undefined,
-          description: p.description,
-          brand: { '@type': 'Brand', name: 'MintBox' },
-          url: `${PAGE_URL}#product-${p.id}`,
-          offers: {
-            '@type': 'Offer',
-            price: p.price,
-            priceCurrency: 'INR',
-            availability: 'https://schema.org/InStock',
-            url: `${PAGE_URL}#product-${p.id}`,
-            eligibleQuantity: { '@type': 'QuantitativeValue', minValue: p.moq ?? 10, unitText: 'units' },
-            priceSpecification: { '@type': 'UnitPriceSpecification', price: p.price, priceCurrency: 'INR', valueAddedTaxIncluded: false },
-          },
-        },
-      })),
-    },
-  }
-
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://themintbox.in' },
-      { '@type': 'ListItem', position: 2, name: 'Corporate Diwali Gifts 2026', item: PAGE_URL },
-    ],
-  }
-
   return (
     <div className="cp-wrapper">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Navbar />
 
       {/* 1. HERO */}
@@ -209,8 +126,10 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
                       width={600}
                       height={600}
                       className={`cp-hero-img-actual${i === 0 ? ' cp-hero-img-actual--tall' : ''}`}
-                      priority={i === 0}
-                      loading={i === 0 ? 'eager' : 'lazy'}
+                      // The hero visual is display:none below 1024px, so these
+                      // stay lazy: a hidden lazy image is never fetched, which
+                      // keeps ~1MB of hamper photos off the mobile critical path.
+                      loading="lazy"
                       sizes={i === 0 ? '(max-width: 1024px) 60vw, 270px' : '(max-width: 1024px) 40vw, 140px'}
                       unoptimized
                     />
@@ -464,7 +383,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       {/* 12. FAQ */}
       <section className="cp-section cp-section--cream" aria-label="Frequently asked questions">
         <div className="cp-container--narrow">
-          <FAQSection items={FAQS} eyebrow="FAQ" title="Corporate Diwali Gifts 2026: Frequently Asked Questions" />
+          <FAQSection items={DIWALI_HUB_FAQS} emitSchema={false} eyebrow="FAQ" title="Corporate Diwali Gifts 2026: Frequently Asked Questions" />
         </div>
       </section>
 

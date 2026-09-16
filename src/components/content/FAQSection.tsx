@@ -11,9 +11,14 @@ interface FAQSectionProps {
   items: FAQItem[]
   title?: string
   eyebrow?: string
+  /**
+   * Emit the FAQPage JSON-LD from this client component. Pass false when the
+   * parent server component already renders the schema, to avoid duplicating it.
+   */
+  emitSchema?: boolean
 }
 
-export default function FAQSection({ items, title = 'Frequently Asked Questions', eyebrow = 'FAQ' }: FAQSectionProps) {
+export default function FAQSection({ items, title = 'Frequently Asked Questions', eyebrow = 'FAQ', emitSchema = true }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const schema = {
@@ -31,10 +36,12 @@ export default function FAQSection({ items, title = 'Frequently Asked Questions'
 
   return (
     <div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      {emitSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      )}
       <div className="cp-section-eyebrow">{eyebrow}</div>
       <h2 className="cp-section-title" style={{ marginBottom: '36px' }}>{title}</h2>
       <div className="cp-faq-list">
