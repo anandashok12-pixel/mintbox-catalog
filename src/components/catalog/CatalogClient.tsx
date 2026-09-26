@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Sidebar from './Sidebar'
+import Sidebar, { DIWALI_PARENT_SLUG } from './Sidebar'
 import ProductGrid from './ProductGrid'
 import CartPanel from '../cart/CartPanel'
 import ProductModal from '../modals/ProductModal'
@@ -136,7 +136,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
               at this breakpoint, so this is the primary way to jump between
               categories on a phone. */}
           <nav className="mobile-cat-strip" aria-label="Category navigation">
-            {categories.map((cat) => (
+            {categories.filter((cat) => cat.slug !== DIWALI_PARENT_SLUG).map((cat) => (
               <button
                 key={cat.id}
                 type="button"

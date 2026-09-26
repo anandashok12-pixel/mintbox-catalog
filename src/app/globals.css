@@ -247,6 +247,26 @@ img {
   flex-shrink: 0;
 }
 
+.sidebar-group-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.sidebar-sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-item--sub {
+  padding-left: 38px;
+}
+
 /* ============================================================
    MAIN CONTENT
    ============================================================ */
