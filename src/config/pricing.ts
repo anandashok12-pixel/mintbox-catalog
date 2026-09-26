@@ -4,7 +4,7 @@
  * anything here goes live. mrp is rounded to a ...49 or ...99 ending, the
  * pattern already used for MintBox's own listed prices.
  */
-export const MARKUP_MULTIPLIER = 2.2
+export const MARKUP_MULTIPLIER = 1.2
 
 export function roundToNearest49or99(value: number): number {
   const hundred = Math.floor(value / 100) * 100

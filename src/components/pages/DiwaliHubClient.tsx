@@ -62,6 +62,23 @@ const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
 export default function DiwaliHubClient({ products }: { products: DiwaliProduct[] }) {
   const [tier, setTier] = useState<TierKey | 'all'>('all')
+  const [subcategory, setSubcategory] = useState<'all' | string>('all')
+
+  // Subcategories present in the current product set (Hampers & Boxes, Products, ...).
+  // Only shown once there's more than one, so this degrades gracefully before
+  // the Diwali Gifting / subcategory restructure has run.
+  const subcategories = Array.from(
+    new Map(
+      products
+        .map(p => (typeof p.category === 'object' ? p.category : null))
+        .filter((c): c is NonNullable<typeof c> => Boolean(c))
+        .map(c => [c.slug, c]),
+    ).values(),
+  )
+  const subcategoryCounts = Object.fromEntries(
+    subcategories.map(c => [c.slug, products.filter(p => typeof p.category === 'object' && p.category.slug === c.slug).length]),
+  )
+  const productsInSubcategory = subcategory === 'all' ? products : products.filter(p => typeof p.category === 'object' && p.category.slug === subcategory)
 
   const jumpToTier = useCallback((t: TierKey | 'all') => {
     setTier(t)
@@ -237,7 +254,30 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
             Filter by budget or theme, open &ldquo;What&rsquo;s inside&rdquo; to see every item, and add hampers to your pack.
             One quote covers everything, including logo branding and delivery.
           </p>
-          <DiwaliHamperShowcase products={products} tier={tier} onTierChange={setTier} />
+          {subcategories.length > 1 && (
+            <div className="dh-chips" style={{ marginBottom: 20 }}>
+              <button
+                type="button"
+                className={`dh-chip${subcategory === 'all' ? ' active' : ''}`}
+                aria-pressed={subcategory === 'all'}
+                onClick={() => setSubcategory('all')}
+              >
+                All {products.length}
+              </button>
+              {subcategories.map(c => (
+                <button
+                  key={c.slug}
+                  type="button"
+                  className={`dh-chip${subcategory === c.slug ? ' active' : ''}`}
+                  aria-pressed={subcategory === c.slug}
+                  onClick={() => setSubcategory(c.slug)}
+                >
+                  {c.emoji} {c.name} {subcategoryCounts[c.slug] ?? 0}
+                </button>
+              ))}
+            </div>
+          )}
+          <DiwaliHamperShowcase products={productsInSubcategory} tier={tier} onTierChange={setTier} />
         </div>
       </section>
 

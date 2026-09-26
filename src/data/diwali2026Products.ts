@@ -84,7 +84,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Presented in a premium gift box",
       "Great for festive corporate gifting and desk decor"
     ],
-    "price": 2649,
+    "price": 1449,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -146,7 +146,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Beautifully gift-boxed and ready to present",
       "Suits both office and home settings"
     ],
-    "price": 3099,
+    "price": 1699,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -208,7 +208,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Long-lasting burn with minimal soot",
       "Comes in a choice of sizes, as pictured"
     ],
-    "price": 2549,
+    "price": 1399,
     "displayMode": "starting-from",
     "moq": 10,
     "leadTimeDays": 7,
@@ -264,7 +264,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Premium, long-lasting scent oil",
       "Statement piece for home, office or reception spaces"
     ],
-    "price": 3499,
+    "price": 1899,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -326,7 +326,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Helps candles last longer than open-flame burning",
       "No soot, smoke or open flame"
     ],
-    "price": 3299,
+    "price": 1799,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -385,7 +385,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Helps a candle burn longer than it would with an open flame",
       "Modern, contemporary design suited to home or office"
     ],
-    "price": 3499,
+    "price": 1899,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -444,7 +444,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Compact wall-plug design (74 x 72 x 217mm)",
       "130ml oil capacity, runs on just 2W"
     ],
-    "price": 7699,
+    "price": 4199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 10,
@@ -500,7 +500,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Crafted from tin, hand-poured for a handcrafted finish",
       "Versatile decor piece for home or office"
     ],
-    "price": 2199,
+    "price": 1199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -556,7 +556,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Presented in a ready-to-gift pack",
       "Suited to corporate and festive gifting alike"
     ],
-    "price": 2199,
+    "price": 1199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -618,7 +618,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Infused with soothing fragrances",
       "Inspired by Vedic tradition"
     ],
-    "price": 1999,
+    "price": 1099,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -680,7 +680,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Stable base suited for desks, shelves and consoles",
       "Indoor decor piece, wipe clean with a soft dry cloth"
     ],
-    "price": 2199,
+    "price": 1199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -732,7 +732,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Stable base suited for desks, shelves and consoles",
       "Indoor decor piece, wipe clean with a soft dry cloth"
     ],
-    "price": 2199,
+    "price": 1199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -785,7 +785,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Auto shut-off once the water runs out",
       "Works with a few drops of your favourite essential oil"
     ],
-    "price": 2199,
+    "price": 1199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 10,
@@ -844,7 +844,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Unscented, so the glow suits any space",
       "Comes packaged as a ready-to-gift set"
     ],
-    "price": 1649,
+    "price": 899,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -906,7 +906,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Potpourri included for lingering scent",
       "Lavender fragrance throughout the set"
     ],
-    "price": 1649,
+    "price": 899,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -980,7 +980,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Jar candle burns for up to 50 hours",
       "Presented in a premium gift box"
     ],
-    "price": 1649,
+    "price": 899,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1042,7 +1042,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Presented in a gift box ready for gifting",
       "Each jar carries a distinct scent profile"
     ],
-    "price": 1549,
+    "price": 849,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1099,7 +1099,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "10 heart-shaped fragrance tealights",
       "Glass tortoise and a deck of cards included"
     ],
-    "price": 1449,
+    "price": 799,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1170,7 +1170,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Organic potpourri included",
       "Presented in a gift box"
     ],
-    "price": 1299,
+    "price": 699,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1232,7 +1232,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Burn time of approximately 35 hours per candle",
       "Compact tins, ideal for gifting or travel"
     ],
-    "price": 1299,
+    "price": 699,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1297,7 +1297,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Reed sticks and reed oil for continuous fragrance",
       "Decorative potpourri included"
     ],
-    "price": 1299,
+    "price": 699,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1365,7 +1365,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Versatile use for floating flowers, potpourri or tealight candles",
       "Durable, long-lasting construction built to hold its shine"
     ],
-    "price": 1299,
+    "price": 699,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1421,7 +1421,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Warm gold finish",
       "Graduating heights, ideal for clustered styling"
     ],
-    "price": 1199,
+    "price": 649,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1478,7 +1478,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Flame-free fragrance that lasts for weeks",
       "Arrives in a premium gift box"
     ],
-    "price": 1199,
+    "price": 649,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1544,7 +1544,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Unscented, dripless and soot-free",
       "Handmade with vegan wax and a cotton-hemp wick"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "starting-from",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1601,7 +1601,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Hand-poured for consistent quality",
       "Large size, approximately 14cm"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1657,7 +1657,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Designer, ready-to-gift box",
       "Long-lasting fragrance for weeks"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1722,7 +1722,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Matte black jar with a silver lid",
       "Designed for slow, even burning"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1778,7 +1778,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Elegant amber jar",
       "Burns evenly for a lasting scent"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1835,7 +1835,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Pink Champagne fragrance",
       "Jasmine Sandalwood fragrance"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1900,7 +1900,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Potpourri bowl with a fragrance spray to refresh the scent",
       "Elegant tabletop design suited to festive and everyday decor"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -1968,7 +1968,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Includes floating candles, tealight candles and incense sticks",
       "Doubles as a decorative piece beyond the gift"
     ],
-    "price": 1099,
+    "price": 599,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2039,7 +2039,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Burn time of up to 10 hours per candle",
       "Compact glass votives, easy to gift individually or as a set"
     ],
-    "price": 999,
+    "price": 549,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2095,7 +2095,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Sleek bottle design suited to desks, shelves and reception areas",
       "No electricity or open flame needed"
     ],
-    "price": 999,
+    "price": 549,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2157,7 +2157,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Available in three sizes: 11x4cm, 14x4.5cm and 18x5cm",
       "Multiple wick options: 3, 4 or 7 wicks depending on size"
     ],
-    "price": 899,
+    "price": 499,
     "displayMode": "starting-from",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2213,7 +2213,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "2 spiral taper candles and a floating flower candle",
       "Aroma oil and an extra floating flower included"
     ],
-    "price": 899,
+    "price": 499,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2287,7 +2287,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Clean, smokeless burn with long-lasting wax",
       "Elegant black gift box printed with Teen Patti rules"
     ],
-    "price": 899,
+    "price": 499,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2346,7 +2346,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Soft, inviting fragrance",
       "Available in two variants"
     ],
-    "price": 899,
+    "price": 499,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2398,7 +2398,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "50gm potpourri for fragrance and colour",
       "Compact, affordable festive table decor"
     ],
-    "price": 799,
+    "price": 449,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2463,7 +2463,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Flame-free and electricity-free",
       "Adjustable scent intensity by varying the number of reeds"
     ],
-    "price": 749,
+    "price": 399,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2518,7 +2518,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Choice of Rose and Oud, Dark Amber and Oud, or Vanilla and Oud",
       "Elegant amber-toned glass jar with lid"
     ],
-    "price": 749,
+    "price": 399,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2571,7 +2571,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "10 Dhoop Cones with 1 holder",
       "Premium gift box packaging"
     ],
-    "price": 649,
+    "price": 349,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2643,7 +2643,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Up to 40+ hours of burn time",
       "Toxin-free and paraffin-free"
     ],
-    "price": 649,
+    "price": 349,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2695,7 +2695,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Clean, long-lasting burn",
       "Playful, conversation-starting design"
     ],
-    "price": 649,
+    "price": 349,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2752,7 +2752,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Easy wall mounting with included double-sided stickers",
       "Lightweight, ready to hang or reposition"
     ],
-    "price": 549,
+    "price": 299,
     "displayMode": "starting-from",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2814,7 +2814,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Suited to mandir shelves, console tables and centrepieces",
       "Ready-to-gift festive packaging"
     ],
-    "price": 449,
+    "price": 249,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2866,7 +2866,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Up to 10 hours of burn time per candle",
       "Elegant mercury glass finish, ideal for gifting"
     ],
-    "price": 399,
+    "price": 199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2918,7 +2918,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Designed to float gracefully in water",
       "Decorative, spa-style ambiance"
     ],
-    "price": 399,
+    "price": 199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -2970,7 +2970,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Long-lasting burn",
       "Presented in an elegant festive gift box"
     ],
-    "price": 349,
+    "price": 199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
@@ -3025,7 +3025,7 @@ export const DIWALI_2026_PRODUCTS: Diwali2026Product[] = [
       "Warm, flame-controlled glow with no noise",
       "Realistic detailing for a nostalgic festive look"
     ],
-    "price": 349,
+    "price": 199,
     "displayMode": "fixed",
     "moq": 10,
     "leadTimeDays": 7,
