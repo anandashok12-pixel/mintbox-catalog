@@ -14,7 +14,8 @@
     "set-usbc-hub-image": "node --env-file=.env.local --require tsx/cjs scripts/set-usbc-hub-image.ts",
     "payload": "payload",
     "import-diwali-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-boxes.ts",
-    "backfill-phone-e164": "node --env-file=.env.local --require tsx/cjs scripts/backfill-phone-e164.ts"
+    "backfill-phone-e164": "node --env-file=.env.local --require tsx/cjs scripts/backfill-phone-e164.ts",
+    "backfill-crm-from-leads": "node --env-file=.env.local --require tsx/cjs scripts/backfill-crm-from-leads.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",

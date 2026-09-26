@@ -17,6 +17,8 @@ export interface BoardCard {
   // blind to what the queue already knows - the one deliberate coupling
   // between the two views (see the PRD).
   queueBadge?: string | null
+  queueBucket?: string | null
+  createdAt: string
 }
 
 export interface BoardColumn {
@@ -80,6 +82,8 @@ export async function buildBoard(): Promise<{ columns: BoardColumn[]; stages: ty
       stageSetManually: deal.stageSetManually,
       suggestedStage: deal.suggestedStage,
       queueBadge,
+      queueBucket: bucketResult?.bucket || null,
+      createdAt: deal.createdAt,
     })
     column.totalValue += deal.estimatedValue || 0
   }
