@@ -20,6 +20,26 @@ export const LOST_REASONS = [
   { label: 'Not a fit', value: 'not_a_fit' },
 ] as const
 
+// Coarse, manually-set classification - distinct from the granular
+// source/medium the website's own attribution.ts captures automatically.
+// Exists for deals that never touched the site at all (a call, a walk-in,
+// someone's cousin), where there's no UTM data to fall back on.
+export const LEAD_SOURCES = [
+  { label: 'Referral', value: 'referral' },
+  { label: 'Organic', value: 'organic' },
+  { label: 'Inorganic', value: 'inorganic' },
+] as const
+
+export const CONTACT_CHANNELS = [
+  { label: 'Contact form', value: 'contact_form' },
+  { label: 'Phone call', value: 'call' },
+  { label: 'WhatsApp', value: 'whatsapp' },
+  { label: 'Email', value: 'email' },
+  { label: 'Walk-in', value: 'walk_in' },
+  { label: 'Referral', value: 'referral' },
+  { label: 'Other', value: 'other' },
+] as const
+
 export const Deals: CollectionConfig = {
   slug: 'deals',
   admin: {
@@ -121,6 +141,30 @@ export const Deals: CollectionConfig = {
         { label: 'Festival Season', value: 'festival' },
         { label: 'Year-End Gifting', value: 'year_end' },
         { label: 'Other', value: 'other' },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          // `text`, not `select`, so this never needs a Postgres enum - see
+          // git history for why: a fresh enum in the push diff reliably
+          // crashed this environment's schema-push. The CRM UI still
+          // presents this as a dropdown (LEAD_SOURCES in crm-app/lib/constants.ts).
+          name: 'leadSource',
+          type: 'text',
+          admin: { width: '33%', description: `Coarse, manually set: ${LEAD_SOURCES.map((s) => s.value).join(' / ')}. Optional.` },
+        },
+        {
+          name: 'contactChannel',
+          type: 'text',
+          admin: { width: '33%', description: `How they first reached us: ${CONTACT_CHANNELS.map((c) => c.value).join(' / ')}. Optional.` },
+        },
+        {
+          name: 'attribution',
+          type: 'text',
+          admin: { width: '34%', description: 'e.g. "Referred by Rajesh, Infosys" or "LinkedIn post". Optional.' },
+        },
       ],
     },
     {

@@ -1,4 +1,4 @@
-import type { Deal, Message, PaginatedResponse, User, WhatsappSession } from './types'
+import type { Contact, Deal, Message, PaginatedResponse, User, WhatsappSession } from './types'
 
 const apiBase = '/payload-api'
 const payloadAdminBase = (process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://themintbox.in').replace(/\/$/, '')
@@ -84,4 +84,35 @@ export async function updateDeal(
 
 export function payloadAdminDealUrl(id: string | number): string {
   return `${payloadAdminBase}/admin/collections/deals/${id}`
+}
+
+export async function findContactByPhone(token: string, phoneE164: string): Promise<Contact | null> {
+  const result = await request<PaginatedResponse<Contact>>(
+    `/api/contacts?where[phoneE164][equals]=${encodeURIComponent(phoneE164)}&limit=1`,
+    { cache: 'no-store' },
+    token,
+  )
+  return result.docs[0] || null
+}
+
+export async function createContact(
+  token: string,
+  data: { name: string; phoneE164: string; company?: string; email?: string },
+): Promise<Contact> {
+  const result = await request<{ doc: Contact } | Contact>('/api/contacts', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }, token)
+  return 'doc' in result ? result.doc : result
+}
+
+export async function createDeal(
+  token: string,
+  data: Partial<Deal> & { title: string; contact: string | number },
+): Promise<Deal> {
+  const result = await request<{ doc: Deal } | Deal>('/api/deals?depth=1', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }, token)
+  return 'doc' in result ? result.doc : result
 }

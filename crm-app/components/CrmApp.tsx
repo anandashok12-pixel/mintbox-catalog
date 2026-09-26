@@ -3,12 +3,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ApiError, getCurrentUser, getDeals, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateDeal } from '@/lib/payload'
 import type { Deal, Message, Stage, User, WhatsappSession } from '@/lib/types'
-import { BoardIcon, LogOutIcon, QueueIcon, RefreshIcon, SearchIcon, WhatsAppIcon } from './Icons'
+import { BoardIcon, LogOutIcon, PlusIcon, QueueIcon, RefreshIcon, SearchIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
 import { QueueView } from './QueueView'
 import { BoardView } from './BoardView'
 import { DealDrawer } from './DealDrawer'
 import { WhatsappView } from './WhatsappView'
+import { NewDealModal } from './NewDealModal'
 
 const TOKEN_KEY = 'mintbox-crm-token'
 
@@ -26,6 +27,7 @@ export function CrmApp() {
   const [booting, setBooting] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState('')
+  const [showNewDeal, setShowNewDeal] = useState(false)
 
   const logout = useCallback(() => {
     sessionStorage.removeItem(TOKEN_KEY)
@@ -121,6 +123,12 @@ export function CrmApp() {
     await patchDeal(deal, { nextActionAt: new Date(Date.now() + days * 86_400_000).toISOString() })
   }
 
+  function dealCreated(deal: Deal) {
+    setDeals((current) => [deal, ...current])
+    setShowNewDeal(false)
+    setSelectedDealId(deal.id)
+  }
+
   async function moveDeal(deal: Deal, stage: Stage, lostReason?: string) {
     await patchDeal(deal, {
       stage,
@@ -170,6 +178,7 @@ export function CrmApp() {
           <div className="header-title"><h1>{viewMeta.title}</h1><span>{viewMeta.subtitle}</span></div>
           <label className="global-search"><SearchIcon /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search deals and contacts" /><kbd>⌘ K</kbd></label>
           <div className="header-actions">
+            <button className="toolbar-button new-deal-button" onClick={() => setShowNewDeal(true)}><PlusIcon /><span>New deal</span></button>
             <button className={`icon-button ${refreshing ? 'spinning' : ''}`} onClick={refresh} disabled={refreshing} aria-label="Refresh data"><RefreshIcon /></button>
             <div className="user-chip"><span>{(user.name || user.email).slice(0, 1).toUpperCase()}</span><div><strong>{user.name || 'Admin'}</strong><small>{user.email}</small></div></div>
             <button className="icon-button" onClick={logout} aria-label="Sign out"><LogOutIcon /></button>
@@ -184,6 +193,7 @@ export function CrmApp() {
         </main>
       </div>
       <DealDrawer deal={selectedDeal} onClose={() => setSelectedDealId(null)} />
+      {showNewDeal && token && <NewDealModal token={token} onClose={() => setShowNewDeal(false)} onCreated={dealCreated} />}
     </div>
   )
 }

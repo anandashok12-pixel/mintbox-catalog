@@ -1,5 +1,7 @@
 export type Stage = 'new' | 'qualified' | 'quoted' | 'negotiation' | 'won' | 'lost'
 export type Bucket = 'waiting_on_you' | 'deadline_at_risk' | 'quoted_gone_quiet' | 'open_no_next_action' | 'dormant'
+export type LeadSource = 'referral' | 'organic' | 'inorganic'
+export type ContactChannel = 'contact_form' | 'call' | 'whatsapp' | 'email' | 'walk_in' | 'referral' | 'other'
 
 export interface User {
   id: string | number
@@ -74,6 +76,9 @@ export interface Deal {
   awaitingWhom?: 'us' | 'them' | 'nobody' | null
   quoteSentAt?: string | null
   source?: string | null
+  leadSource?: LeadSource | null
+  contactChannel?: ContactChannel | null
+  attribution?: string | null
   lastMessageAt?: string | null
   lastInboundMessageAt?: string | null
   lastOutboundMessageAt?: string | null

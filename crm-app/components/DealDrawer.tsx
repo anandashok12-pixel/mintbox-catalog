@@ -2,6 +2,7 @@
 
 import type { Deal } from '@/lib/types'
 import { payloadAdminDealUrl } from '@/lib/payload'
+import { CONTACT_CHANNELS, LEAD_SOURCES } from '@/lib/constants'
 import { CloseIcon, ExternalIcon, WhatsAppIcon } from './Icons'
 
 function contactFor(deal: Deal) {
@@ -57,7 +58,16 @@ export function DealDrawer({ deal, onClose }: { deal: Deal | null; onClose: () =
           <div><dt>Deadline</dt><dd>{formatDate(deal.deadlineDate)}</dd></div>
           <div><dt>Last message</dt><dd>{formatDate(deal.lastMessageAt)}</dd></div>
           <div><dt>Waiting on</dt><dd>{deal.awaitingWhom || '—'}</dd></div>
+          <div><dt>Lead source</dt><dd>{LEAD_SOURCES.find((item) => item.value === deal.leadSource)?.label || '—'}</dd></div>
+          <div><dt>Contacted via</dt><dd>{CONTACT_CHANNELS.find((item) => item.value === deal.contactChannel)?.label || '—'}</dd></div>
         </dl>
+
+        {deal.attribution && (
+          <section className="drawer-section">
+            <span className="eyebrow">Attribution</span>
+            <p>{deal.attribution}</p>
+          </section>
+        )}
 
         {deal.productInterest && deal.productInterest.length > 0 && (
           <section className="drawer-section">

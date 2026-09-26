@@ -17,6 +17,33 @@ export const LOST_REASONS = [
   { label: 'Not a fit', value: 'not_a_fit' },
 ]
 
+export const OCCASIONS = [
+  { label: 'Employee Welcome Kit', value: 'welcome_kit' },
+  { label: 'Diwali Gifting', value: 'diwali' },
+  { label: 'Holi Gifting', value: 'holi' },
+  { label: 'Corporate Event', value: 'corporate_event' },
+  { label: 'Client Gifting', value: 'client_gifting' },
+  { label: 'Festival Season', value: 'festival' },
+  { label: 'Year-End Gifting', value: 'year_end' },
+  { label: 'Other', value: 'other' },
+]
+
+export const LEAD_SOURCES = [
+  { label: 'Referral', value: 'referral' },
+  { label: 'Organic', value: 'organic' },
+  { label: 'Inorganic', value: 'inorganic' },
+]
+
+export const CONTACT_CHANNELS = [
+  { label: 'Contact form', value: 'contact_form' },
+  { label: 'Phone call', value: 'call' },
+  { label: 'WhatsApp', value: 'whatsapp' },
+  { label: 'Email', value: 'email' },
+  { label: 'Walk-in', value: 'walk_in' },
+  { label: 'Referral', value: 'referral' },
+  { label: 'Other', value: 'other' },
+]
+
 export const BUCKET_ACCENT: Record<string, string> = {
   waiting_on_you: '#B8972E',
   deadline_at_risk: '#B45232',
