@@ -1,6 +1,7 @@
 import type { Deal, PaginatedResponse, User } from './types'
 
-const payloadUrl = (process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000').replace(/\/$/, '')
+const apiBase = '/payload-api'
+const payloadAdminBase = (process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://themintbox.in').replace(/\/$/, '')
 
 export class ApiError extends Error {
   constructor(message: string, public status: number) {
@@ -9,7 +10,7 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init: RequestInit = {}, token?: string): Promise<T> {
-  const response = await fetch(`${payloadUrl}${path}`, {
+  const response = await fetch(`${apiBase}${path.replace(/^\/api/, '')}`, {
     ...init,
     headers: {
       Accept: 'application/json',
@@ -63,5 +64,5 @@ export async function updateDeal(
 }
 
 export function payloadAdminDealUrl(id: string | number): string {
-  return `${payloadUrl}/admin/collections/deals/${id}`
+  return `${payloadAdminBase}/admin/collections/deals/${id}`
 }

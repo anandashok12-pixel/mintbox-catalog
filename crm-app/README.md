@@ -7,6 +7,7 @@ This is the standalone UI for MintBox CRM. Payload remains the only data layer a
 Create `crm-app/.env.local`:
 
 ```env
+PAYLOAD_URL=http://localhost:3000
 NEXT_PUBLIC_PAYLOAD_URL=http://localhost:3000
 ```
 
@@ -17,13 +18,14 @@ npm install
 npm run dev
 ```
 
-The CRM runs at `http://localhost:3001`. It signs in through Payload's `/api/users/login`, keeps the returned JWT in `sessionStorage`, and sends it as an RFC 6750 Bearer token on every REST request. It never uses Payload's auth cookie.
+The CRM runs at `http://localhost:3001`. It signs in through Payload's `/api/users/login`, keeps the returned JWT in `sessionStorage`, and sends it as an RFC 6750 Bearer token on every REST request. A same-origin relay forwards those requests to Payload without cookies, so preview deployments do not depend on an exact CORS origin. `NEXT_PUBLIC_PAYLOAD_URL` is only used for links to the full Payload deal editor.
 
 ## Independent Vercel deployment
 
 Create a second Vercel project from this repository with **Root Directory** set to `crm-app`. Add:
 
 ```env
+PAYLOAD_URL=https://themintbox.in
 NEXT_PUBLIC_PAYLOAD_URL=https://themintbox.in
 ```
 
