@@ -1,14 +1,16 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import '../app/(main)/landing.css'
 import '../app/(main)/contact/contact.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import { getAttribution } from '@/lib/attribution'
 import { isValidPhone } from '@/lib/phone'
+import { QUOTE_TIME, REPLY_TIME } from '@/lib/businessFacts'
 
 interface ContactPageData {
   hero: { label: string; titleLine1: string; titleLine2: string; subtitle: string }
@@ -34,9 +36,9 @@ const EMPTY: ContactPageData = {
   formInfo: {
     eyebrow: 'Send us a message',
     title: "We'd love to hear from you.",
-    subtitle: "Share a few details about your gifting need and we'll get back within four working hours with a curated proposal  -  no spam, no sales follow-ups, just a real reply from the team.",
+    subtitle: `Share a few details about your gifting need. We reply within ${REPLY_TIME} and send a curated, priced proposal within ${QUOTE_TIME}  -  no spam, no sales follow-ups, just a real reply from the team.`,
     promises: [
-      { bold: 'Reply within 4 hours. ', desc: 'Every enquiry gets a real response from a real person  -  never an auto-reply.' },
+      { bold: `Reply within ${REPLY_TIME}. `, desc: 'Every enquiry gets a real response from a real person  -  never an auto-reply.' },
       { bold: 'Transparent pricing. ', desc: 'The number we quote upfront is the number on your invoice. No surprise fees, no surcharges.' },
       { bold: 'No pressure, no pitch. ', desc: "We'll send options that fit your budget. If we're not the right fit, we'll say so honestly." },
     ],
@@ -65,13 +67,13 @@ const EMPTY: ContactPageData = {
       { label: 'Rs8,000+', value: 'Rs8,000+' },
     ],
     successTitle: 'Message sent!',
-    successMessage: "Thank you! We'll be in touch within 4 hours.",
+    successMessage: `Thank you! We'll reply within ${REPLY_TIME} and send your priced quote within ${QUOTE_TIME}.`,
   },
   contactDetails: {
     phone: '+91 9886537631',
     email: 'hello@themintbox.in',
-    emailSubNote: 'Response within 4 hours on business days',
-    officeAddress: '2nd Floor, Sobha Alexander Plaza\n2-A, Commissariat Rd, Ashok Nagar\nBengaluru, Karnataka 560025',
+    emailSubNote: `We reply within ${REPLY_TIME}`,
+    officeAddress: '2nd Floor, Sobha Alexander Plaza\n16/2, Commissariat Rd, Ashok Nagar\nBengaluru, Karnataka 560025',
     mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
     mapSublabel: 'Commissariat Rd, Bengaluru 560 025',
     whatsappUrl: 'https://wa.me/919886537631',
@@ -124,6 +126,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     },
   }
   const router = useRouter()
+  const uid = useId()
+  const fid = (k: string) => `${uid}-${k}`
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -153,7 +157,15 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     else if (!emailRegex.test(email.trim())) { setEmailError('Please enter a valid email address.'); valid = false }
     if (!phone.trim()) { setPhoneError('Mobile number is required.'); valid = false }
     else if (!isValidPhone(phone)) { setPhoneError('Please enter a valid mobile number.'); valid = false }
-    if (!valid) return
+    if (!valid) {
+      const firstInvalid = !name.trim()
+        ? 'name'
+        : (!email.trim() || !emailRegex.test(email.trim()))
+          ? 'email'
+          : 'phone'
+      document.getElementById(fid(firstInvalid))?.focus()
+      return
+    }
 
     setSubmitting(true)
     try {
@@ -203,6 +215,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
     <div className="ct-page">
 
       <Navbar />
+      <main id="main">
 
       {/* HERO */}
       <div className="ct-hero">
@@ -245,35 +258,49 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
           {/* RIGHT: form fields */}
           <div>
             {formSubmitted ? (
-              <div className="ct-form-success">
-                <div className="ct-form-success-icon">&#10003;</div>
+              <div className="ct-form-success" role="status">
+                <div className="ct-form-success-icon" aria-hidden="true">&#10003;</div>
                 <div className="ct-form-success-title">{data.formConfig.successTitle}</div>
                 <p className="ct-form-success-sub">
                   {data.formConfig.successMessage}
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate>
-                {error && <div className="ct-form-error">{error}</div>}
+              <form onSubmit={handleSubmit} noValidate aria-label="Gifting enquiry">
+                <div role="alert">
+                  {error && <div className="ct-form-error">{error}</div>}
+                </div>
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Your name</label>
+                    <label className="ct-form-label" htmlFor={fid('name')}>
+                      Your name<span aria-hidden="true"> *</span>
+                    </label>
                     <input
+                      id={fid('name')}
+                      name="name"
                       className="ct-form-input"
                       type="text"
+                      autoComplete="name"
                       placeholder="Enter your name"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => { setName(e.target.value); if (nameError) setNameError('') }}
                       required
+                      aria-invalid={nameError ? true : undefined}
+                      aria-describedby={nameError ? fid('name-error') : undefined}
                     />
-                    {nameError && <div className="ct-field-error">{nameError}</div>}
+                    {nameError && <div id={fid('name-error')} className="ct-field-error">{nameError}</div>}
                   </div>
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Company</label>
+                    <label className="ct-form-label" htmlFor={fid('company')}>
+                      Company <span className="ct-form-optional">(optional)</span>
+                    </label>
                     <input
+                      id={fid('company')}
+                      name="company"
                       className="ct-form-input"
                       type="text"
+                      autoComplete="organization"
                       placeholder="Enter your company name"
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
@@ -283,36 +310,56 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Email address</label>
+                    <label className="ct-form-label" htmlFor={fid('email')}>
+                      Email address<span aria-hidden="true"> *</span>
+                    </label>
                     <input
+                      id={fid('email')}
+                      name="email"
                       className="ct-form-input"
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      spellCheck={false}
                       placeholder="Enter your email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => { setEmail(e.target.value); if (emailError) setEmailError('') }}
                       required
+                      aria-invalid={emailError ? true : undefined}
+                      aria-describedby={emailError ? fid('email-error') : undefined}
                     />
-                    {emailError && <div className="ct-field-error">{emailError}</div>}
+                    {emailError && <div id={fid('email-error')} className="ct-field-error">{emailError}</div>}
                   </div>
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Mobile number</label>
+                    <label className="ct-form-label" htmlFor={fid('phone')}>
+                      Mobile number<span aria-hidden="true"> *</span>
+                    </label>
                     <input
+                      id={fid('phone')}
+                      name="phone"
                       className="ct-form-input"
                       type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
                       placeholder="Enter your mobile number"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      autoComplete="tel"
+                      onChange={(e) => { setPhone(e.target.value); if (phoneError) setPhoneError('') }}
                       required
+                      aria-invalid={phoneError ? true : undefined}
+                      aria-describedby={phoneError ? fid('phone-error') : undefined}
                     />
-                    {phoneError && <div className="ct-field-error">{phoneError}</div>}
+                    {phoneError && <div id={fid('phone-error')} className="ct-field-error">{phoneError}</div>}
                   </div>
                 </div>
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Occasion</label>
+                    <label className="ct-form-label" htmlFor={fid('occasion')}>
+                      Occasion <span className="ct-form-optional">(optional)</span>
+                    </label>
                     <select
+                      id={fid('occasion')}
+                      name="occasion"
                       className="ct-form-select"
                       value={occasion}
                       onChange={(e) => setOccasion(e.target.value)}
@@ -324,8 +371,12 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                     </select>
                   </div>
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Team size</label>
+                    <label className="ct-form-label" htmlFor={fid('teamSize')}>
+                      Team size <span className="ct-form-optional">(optional)</span>
+                    </label>
                     <select
+                      id={fid('teamSize')}
+                      name="teamSize"
                       className="ct-form-select"
                       value={teamSize}
                       onChange={(e) => setTeamSize(e.target.value)}
@@ -339,8 +390,12 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 </div>
 
                 <div className="ct-form-group ct-full">
-                  <label className="ct-form-label">Budget per unit (optional)</label>
+                  <label className="ct-form-label" htmlFor={fid('budget')}>
+                    Budget per unit <span className="ct-form-optional">(optional)</span>
+                  </label>
                   <select
+                    id={fid('budget')}
+                    name="budget"
                     className="ct-form-select"
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
@@ -353,8 +408,12 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 </div>
 
                 <div className="ct-form-group ct-full">
-                  <label className="ct-form-label">Tell us more</label>
+                  <label className="ct-form-label" htmlFor={fid('notes')}>
+                    Tell us more <span className="ct-form-optional">(optional)</span>
+                  </label>
                   <textarea
+                    id={fid('notes')}
+                    name="notes"
                     className="ct-form-textarea"
                     placeholder="Share any details about your gifting requirement: timeline, special requests, branding needs, or anything else we should know."
                     value={notes}
@@ -362,8 +421,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                   />
                 </div>
 
-                <button type="submit" className="ct-form-submit" disabled={submitting}>
-                  {submitting ? 'Sending\u2026' : 'Send enquiry \u2192'}
+                <button type="submit" className="ct-form-submit" disabled={submitting} aria-busy={submitting}>
+                  {submitting ? 'Sending…' : 'Send enquiry →'}
                 </button>
               </form>
             )}
@@ -502,8 +561,9 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
               <span className="ct-next-num">2</span>
               <h3 className="ct-next-step-title">We send a curated proposal</h3>
               <p className="ct-next-step-desc">
-                Within four working hours you&apos;ll get hand-picked hamper options that fit your
-                budget, with clear per-unit pricing — everything included, no surprise fees.
+                We reply within {REPLY_TIME}, and within {QUOTE_TIME} you&apos;ll get hand-picked
+                options that fit your budget, with clear per-unit pricing — everything included, no
+                surprise fees.
               </p>
             </div>
             <div className="ct-next-step">
@@ -532,12 +592,14 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
             >
               WhatsApp
             </a>{' '}
-            or email <a href={`mailto:${publicEmail}`}>{publicEmail}</a> — a real person replies,
-            usually within a few hours on business days.
+            or email <a href={`mailto:${publicEmail}`}>{publicEmail}</a> — a real person replies
+            within {REPLY_TIME}.
           </p>
         </div>
       </div>
 
+      <GoogleReviews theme="light" />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

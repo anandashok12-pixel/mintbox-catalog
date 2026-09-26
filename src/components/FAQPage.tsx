@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from './WhatsAppFloat'
 import { getFaqIcon } from '@/lib/faqIcons'
 import '../app/(main)/landing.css'
@@ -95,6 +96,7 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
   return (
     <div className="page-wrapper">
       <Navbar />
+      <main id="main">
 
       {/* HERO */}
       <div className="page-hero">
@@ -221,6 +223,8 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
       </div>
 
       {/* FOOTER */}
+      <GoogleReviews theme="light" />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

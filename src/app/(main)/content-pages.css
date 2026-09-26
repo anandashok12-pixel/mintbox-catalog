@@ -36,13 +36,13 @@
   gap: 8px;
   font-size: 13px;
   font-weight: 400;
-  color: rgba(245, 240, 230, 0.5);
+  color: rgba(245, 240, 230, 0.72);
   margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
 .cp-breadcrumb a {
-  color: rgba(245, 240, 230, 0.5);
+  color: rgba(245, 240, 230, 0.72);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -134,8 +134,8 @@
 
 .cp-hero-sub {
   font-size: 18px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.55);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
   line-height: 1.75;
   max-width: 520px;
   margin-bottom: 32px;
@@ -250,7 +250,7 @@
 .cp-hero-badge {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(245, 240, 230, 0.6);
+  color: rgba(245, 240, 230, 0.72);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(245, 240, 230, 0.12);
   padding: 5px 12px;
@@ -289,7 +289,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold, #B8972E);
+  color: var(--gold-text);
   margin-bottom: 14px;
 }
 
@@ -308,15 +308,15 @@
 
 .cp-section-sub {
   font-size: 17px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.55);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   line-height: 1.75;
   max-width: 600px;
   margin-bottom: 44px;
 }
 
 .cp-section-sub--light {
-  color: rgba(245, 240, 230, 0.5);
+  color: rgba(245, 240, 230, 0.72);
 }
 
 .cp-section-header {
@@ -364,13 +364,13 @@
 
 .cp-stat-unit {
   font-size: 20px;
-  color: var(--gold, #B8972E);
+  color: var(--gold-text);
 }
 
 .cp-stat-label {
   font-size: 14px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.55);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   line-height: 1.5;
 }
 
@@ -428,8 +428,8 @@
 
 .cp-card-desc {
   font-size: 14px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.55);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   line-height: 1.65;
 }
 
@@ -490,7 +490,7 @@
 }
 
 .cp-occasion-card-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -509,8 +509,8 @@
 
 .cp-occasion-card-sub {
   font-size: 14px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.55);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
 }
 
 /* Budget tier cards */
@@ -558,8 +558,8 @@
   margin-bottom: 8px;
 }
 
-.cp-budget-label--dark { color: var(--gold, #B8972E); }
-.cp-budget-label--light { color: rgba(245, 240, 230, 0.5); }
+.cp-budget-label--dark { color: var(--gold-text); }
+.cp-budget-label--light { color: rgba(245, 240, 230, 0.72); }
 
 .cp-budget-price {
   font-family: 'Libre Baskerville', serif;
@@ -582,13 +582,13 @@
 
 .cp-budget-item {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.cp-budget-item--dark { color: rgba(26, 26, 24, 0.65); }
+.cp-budget-item--dark { color: rgba(26, 26, 24, 0.72); }
 .cp-budget-item--light { color: rgba(245, 240, 230, 0.65); }
 
 .cp-budget-item::before {
@@ -681,8 +681,8 @@
 
 .cp-step-desc {
   font-size: 13px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.5);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   line-height: 1.6;
 }
 
@@ -742,7 +742,7 @@
 .cp-table tbody td {
   padding: 14px 20px;
   color: rgba(26, 26, 24, 0.75);
-  font-weight: 300;
+  font-weight: 400;
   vertical-align: top;
 }
 
@@ -753,7 +753,7 @@
 
 .cp-table-badge {
   display: inline-block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   padding: 2px 8px;
   border-radius: 20px;
@@ -771,7 +771,7 @@
 
 .cp-table-badge--extra {
   background: rgba(26, 26, 24, 0.06);
-  color: rgba(26, 26, 24, 0.5);
+  color: rgba(26, 26, 24, 0.72);
 }
 
 /* Bulk pricing tier table */
@@ -806,8 +806,8 @@
   margin-bottom: 6px;
 }
 
-.cp-tier-label--dark { color: rgba(26, 26, 24, 0.4); }
-.cp-tier-label--light { color: rgba(245, 240, 230, 0.5); }
+.cp-tier-label--dark { color: rgba(26, 26, 24, 0.72); }
+.cp-tier-label--light { color: rgba(245, 240, 230, 0.72); }
 
 .cp-tier-qty {
   font-family: 'Libre Baskerville', serif;
@@ -827,16 +827,16 @@
   margin-bottom: 12px;
 }
 
-.cp-tier-saving--muted { color: rgba(26, 26, 24, 0.35); }
+.cp-tier-saving--muted { color: rgba(26, 26, 24, 0.72); }
 
 .cp-tier-desc {
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
 }
 
-.cp-tier-desc--dark { color: rgba(26, 26, 24, 0.5); }
-.cp-tier-desc--light { color: rgba(245, 240, 230, 0.45); }
+.cp-tier-desc--dark { color: rgba(26, 26, 24, 0.72); }
+.cp-tier-desc--light { color: rgba(245, 240, 230, 0.72); }
 
 /* ──────────────────────────────────────────────────────────
    QUOTE BAND (PULL QUOTE)
@@ -924,8 +924,8 @@
 
 .cp-cta-desc {
   font-size: 16px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.5);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
   line-height: 1.75;
   margin-bottom: 28px;
 }
@@ -941,8 +941,8 @@
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.55);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
 }
 
 .cp-cta-promise-dot {
@@ -971,8 +971,8 @@
 
 .cp-quote-form-sub {
   font-size: 13px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.4);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
   margin-bottom: 22px;
   line-height: 1.5;
 }
@@ -987,7 +987,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 240, 230, 0.45);
+  color: rgba(245, 240, 230, 0.72);
   margin-bottom: 6px;
 }
 
@@ -1001,7 +1001,7 @@
   padding: 11px 14px;
   font-family: 'Satoshi', sans-serif;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--cream, #f2f2f2);
   outline: none;
   transition: border-color 0.2s ease;
@@ -1009,7 +1009,7 @@
 
 .cp-form-input::placeholder,
 .cp-form-textarea::placeholder {
-  color: rgba(245, 240, 230, 0.3);
+  color: rgba(245, 240, 230, 0.6);
 }
 
 .cp-form-input:focus,
@@ -1112,8 +1112,8 @@
 
 .cp-form-success-desc {
   font-size: 14px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.5);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
   line-height: 1.65;
 }
 
@@ -1126,10 +1126,10 @@
 }
 
 .cp-form-success-ref-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(245, 240, 230, 0.4);
+  color: rgba(245, 240, 230, 0.72);
   margin-bottom: 4px;
 }
 
@@ -1169,8 +1169,8 @@
 
 .cp-showcase-count {
   font-size: 13px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.5);
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
 }
 
 .cp-showcase-filters {
@@ -1200,7 +1200,7 @@
   font-family: 'Satoshi', sans-serif;
   font-size: 13px;
   font-weight: 400;
-  color: rgba(26, 26, 24, 0.45);
+  color: rgba(26, 26, 24, 0.72);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
@@ -1244,7 +1244,7 @@
 }
 
 .cp-showcase-search-input::placeholder {
-  color: rgba(26, 26, 24, 0.35);
+  color: rgba(26, 26, 24, 0.6);
 }
 
 .cp-price-filter {
@@ -1255,8 +1255,8 @@
 }
 
 .cp-price-label {
-  font-size: 11px;
-  color: rgba(26, 26, 24, 0.5);
+  font-size: 12px;
+  color: rgba(26, 26, 24, 0.72);
   font-weight: 400;
 }
 
@@ -1340,7 +1340,7 @@
   right: 8px;
   background: var(--gold, #B8972E);
   color: var(--forest-deep, #122E25);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1365,9 +1365,9 @@
 }
 
 .cp-product-cat {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
-  color: rgba(26, 26, 24, 0.4);
+  color: rgba(26, 26, 24, 0.72);
   margin-bottom: 8px;
 }
 
@@ -1379,18 +1379,18 @@
 }
 
 .cp-product-moq {
-  font-size: 11px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.35);
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   margin-top: 2px;
 }
 
 .cp-showcase-empty {
   padding: 60px 20px;
   text-align: center;
-  color: rgba(26, 26, 24, 0.4);
+  color: rgba(26, 26, 24, 0.72);
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   background: white;
 }
 
@@ -1407,8 +1407,8 @@
 
 .cp-showcase-footer-text {
   font-size: 13px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.45);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -1464,9 +1464,9 @@
 }
 
 .cp-pack-bar-sub {
-  font-size: 11px;
-  font-weight: 300;
-  color: rgba(245, 240, 230, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(245, 240, 230, 0.72);
 }
 
 .cp-pack-bar-cta {
@@ -1511,7 +1511,7 @@
   transition: color 0.2s ease;
 }
 
-.cp-faq-question:hover { color: var(--gold, #B8972E); }
+.cp-faq-question:hover { color: var(--gold-text); }
 
 .cp-faq-chevron {
   width: 24px;
@@ -1545,8 +1545,8 @@
 .cp-faq-answer-text {
   padding: 0 0 20px;
   font-size: 15px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.6);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   line-height: 1.8;
   max-width: 700px;
 }
@@ -1586,11 +1586,11 @@
 }
 
 .cp-related-card-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold, #B8972E);
+  color: var(--gold-text);
 }
 
 .cp-related-card-title {
@@ -1766,7 +1766,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-text);
   margin-bottom: 8px;
 }
 
@@ -1822,7 +1822,7 @@
 .cp-last-updated {
   text-align: center;
   font-size: 12px;
-  color: #888;
+  color: #595959;
   padding: 16px 0 8px;
   border-top: 1px solid rgba(0,0,0,0.06);
   margin-top: 8px;
@@ -1977,7 +1977,7 @@
 
 .cp-editorial-img figcaption {
   font-size: 12px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.85);
   padding: 8px 16px;
   background: rgba(0,0,0,0.3);
 }
@@ -2026,7 +2026,7 @@
 /* Hero subtitle — readable cream on dark green */
 .cp-hero-subtitle {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.8);
   line-height: 1.75;
   max-width: 620px;
@@ -2108,16 +2108,16 @@
   line-height: 1;
 }
 
-.cp-stat-label {
+.cp-stats-band .cp-stat-label {
   font-size: 13px;
-  color: rgba(245, 240, 230, 0.55);
+  color: rgba(245, 240, 230, 0.72);
   font-weight: 400;
 }
 
 /* Section intro text */
 .cp-section-intro {
   font-size: 17px;
-  color: rgba(26, 26, 24, 0.7);
+  color: rgba(26, 26, 24, 0.72);
   line-height: 1.7;
   max-width: 720px;
   margin-bottom: 32px;
@@ -2234,11 +2234,11 @@
   gap: 8px 14px;
 }
 .dh-toolbar-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(26, 26, 24, 0.45);
+  color: rgba(26, 26, 24, 0.72);
   min-width: 96px;
 }
 .dh-segmented {
@@ -2250,12 +2250,16 @@
   border-radius: 999px;
 }
 .dh-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; /* flex trims the text/space before .dh-seg-count */
+  min-height: 40px;
   border: none;
   background: transparent;
   font-family: inherit;
   font-size: 13px;
   font-weight: 400;
-  color: rgba(26, 26, 24, 0.6);
+  color: rgba(26, 26, 24, 0.72);
   padding: 7px 14px;
   border-radius: 999px;
   cursor: pointer;
@@ -2269,12 +2273,15 @@
   font-weight: 500;
 }
 .dh-seg-count {
-  font-size: 11px;
-  opacity: 0.7;
+  font-size: 12px;
+  opacity: 0.9;
   margin-left: 2px;
 }
 .dh-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .dh-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-family: inherit;
   font-size: 12px;
   font-weight: 400;
@@ -2310,7 +2317,7 @@
 }
 .dh-toolbar-meta {
   font-size: 12px;
-  color: rgba(26, 26, 24, 0.55);
+  color: rgba(26, 26, 24, 0.72);
 }
 .dh-toolbar-meta strong { color: var(--forest-deep, #122E25); font-weight: 600; }
 
@@ -2331,13 +2338,13 @@
 }
 .dh-group-range {
   font-size: 15px;
-  color: var(--gold, #B8972E);
+  color: var(--gold-text);
   font-style: italic;
 }
 .dh-group-desc {
   font-size: 14px;
-  font-weight: 300;
-  color: rgba(26, 26, 24, 0.6);
+  font-weight: 400;
+  color: rgba(26, 26, 24, 0.72);
   margin: 0;
   max-width: 720px;
   line-height: 1.6;
@@ -2392,11 +2399,11 @@
   flex: 1;
 }
 .dh-card-tier {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold, #B8972E);
+  color: var(--gold-text);
 }
 .dh-card-name {
   font-family: 'Libre Baskerville', serif;
@@ -2412,9 +2419,9 @@
   color: var(--forest-green, #1B4D3E);
 }
 .dh-card-price span {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
-  color: rgba(26, 26, 24, 0.5);
+  color: rgba(26, 26, 24, 0.72);
   margin-left: 4px;
 }
 .dh-inside {
@@ -2446,16 +2453,16 @@
 }
 .dh-inside[open] summary::after { transform: rotate(-135deg); }
 .dh-inside-count {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
-  color: rgba(26, 26, 24, 0.5);
+  color: rgba(26, 26, 24, 0.72);
   margin-left: auto;
 }
 .dh-inside ul {
   margin: 8px 0 0;
   padding: 0 0 0 16px;
   font-size: 13px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(26, 26, 24, 0.75);
   line-height: 1.6;
 }
@@ -2506,7 +2513,7 @@
   justify-content: space-between;
   gap: 12px;
   font-size: 13px;
-  color: rgba(26, 26, 24, 0.55);
+  color: rgba(26, 26, 24, 0.72);
 }
 .dh-btn-quote {
   font-family: inherit;
@@ -2553,4 +2560,59 @@
   .dh-grid { grid-template-columns: 1fr; }
   .dh-card-actions { flex-direction: row; }
   .dh-seg { padding: 6px 10px; font-size: 12px; }
+}
+
+/* ──────────────────────────────────────────────────────────
+   FOCUS-VISIBLE + iOS INPUT ZOOM
+   Replaces `outline: none` on form controls.
+────────────────────────────────────────────────────────── */
+/* Dark quote form: gold border + ring (gold 5.2:1 on --forest-deep) */
+.cp-form-input:focus-visible,
+.cp-form-select:focus-visible,
+.cp-form-textarea:focus-visible {
+  border-color: var(--gold, #B8972E);
+  box-shadow: 0 0 0 3px rgba(184, 151, 46, 0.35);
+  outline: none;
+}
+/* Light showcase controls */
+.cp-showcase-search-input:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.cp-price-slider:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 6px;
+}
+
+/* A section eyebrow that lands on a dark band keeps bright gold */
+.cp-section--dark .cp-section-eyebrow,
+.cp-section--green .cp-section-eyebrow,
+.cp-cta-section .cp-section-eyebrow,
+.cp-stats-band .cp-section-eyebrow {
+  color: var(--gold, #B8972E);
+}
+
+@media (max-width: 768px) {
+  .cp-form-input,
+  .cp-form-select,
+  .cp-form-textarea,
+  .cp-showcase-search-input {
+    font-size: 16px;
+  }
+}
+
+/* Guide heroes set a fixed two-column grid inline (1fr 380px) with 40px side
+   padding and never collapse, which crushes the headline on phones. */
+@media (max-width: 900px) {
+  .cp-hero div[style*="grid-template-columns:1fr 380px"],
+  .cp-hero div[style*="grid-template-columns: 1fr 380px"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .cp-hero div[style*="padding:0 40px"],
+  .cp-hero div[style*="padding: 0px 40px"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { WhatsAppFloat } from './WhatsAppFloat'
+import { GoogleReviews } from './GoogleReviews'
 import { getAttribution } from '@/lib/attribution'
 import { isValidPhone } from '@/lib/phone'
 
@@ -590,6 +591,10 @@ export function LandingPage() {
           </div>
         </div>
       </section>
+
+
+      {/* SECTION: GOOGLE REVIEWS */}
+      <GoogleReviews theme="light" />
 
 
       {/* SECTION: COMBINED TESTIMONIAL + QUOTE FORM */}

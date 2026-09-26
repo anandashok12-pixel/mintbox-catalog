@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useId } from 'react'
 import Image from 'next/image'
-import { useCartStore } from '@/lib/cartStore'
+import Link from 'next/link'
+import { useCartStore, useHasMounted } from '@/lib/cartStore'
+import { MIN_ORDER_UNITS } from '@/lib/businessFacts'
 import ProductModal from '@/components/modals/ProductModal'
 import LeadModal from '@/components/modals/LeadModal'
 
@@ -40,6 +42,8 @@ interface ContentProductShowcaseProps {
   showPriceFilter?: boolean
   showSearch?: boolean
   gridCols?: number
+  /** Cards rendered before "Show more". Content pages pass up to 500 products. */
+  maxItems?: number
 }
 
 export default function ContentProductShowcase({
@@ -51,15 +55,23 @@ export default function ContentProductShowcase({
   filterCategoryId,
   showPriceFilter = true,
   showSearch = true,
+  maxItems = 24,
 }: ContentProductShowcaseProps) {
+  const uid = useId()
   const [activeCat, setActiveCat] = useState('all')
   const [search, setSearch] = useState('')
   const [priceMax, setPriceMax] = useState(maxPrice)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [showLeadModal, setShowLeadModal] = useState(false)
 
-  const count = useCartStore(s => s.count())
-  const total = useCartStore(s => s.total())
+  const [extra, setExtra] = useState(0)
+  const mounted = useHasMounted()
+  const storedLines = useCartStore(s => s.items.length)
+  const storedTotal = useCartStore(s => s.total())
+  // Products in the pack (each carries its own unit quantity). Gated on mount:
+  // the pack lives in localStorage, so the server always renders it empty.
+  const count = mounted ? storedLines : 0
+  const total = mounted ? storedTotal : 0
 
   // Build category list from products actually present
   const usedCatIds = useMemo(() => new Set(products.map(p =>
@@ -91,6 +103,16 @@ export default function ContentProductShowcase({
     })
   }, [products, onlyCustomisable, filterCategoryId, activeCat, priceMax, search])
 
+  const filterKey = `${activeCat}|${priceMax}|${search.trim()}`
+  const [extraKey, setExtraKey] = useState(filterKey)
+  if (extraKey !== filterKey) {
+    setExtraKey(filterKey)
+    setExtra(0)
+  }
+  const limit = maxItems + extra
+  const shown = filtered.slice(0, limit)
+  const remaining = filtered.length - shown.length
+
   const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
   return (
@@ -120,7 +142,7 @@ export default function ContentProductShowcase({
                 className={`cp-cat-tab${activeCat === cat.id ? ' active' : ''}`}
                 onClick={() => setActiveCat(cat.id)}
               >
-                {cat.emoji && <span>{cat.emoji}</span>}
+                
                 {cat.name}
               </button>
             ))}
@@ -136,11 +158,12 @@ export default function ContentProductShowcase({
                 className="cp-showcase-search-input"
                 type="text"
                 placeholder="Search products…"
+                aria-label="Search products"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />
               {search && (
-                <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(26,26,24,0.4)', fontSize: '16px', lineHeight: 1, padding: 0 }} onClick={() => setSearch('')}>×</button>
+                <button type="button" aria-label="Clear search" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(26,26,24,0.4)', fontSize: '16px', lineHeight: 1, padding: 0 }} onClick={() => setSearch('')}>×</button>
               )}
             </div>
           )}
@@ -148,10 +171,11 @@ export default function ContentProductShowcase({
           {/* Price slider */}
           {showPriceFilter && (
             <div className="cp-price-filter">
-              <span className="cp-price-label">
+              <label className="cp-price-label" htmlFor={`${uid}-price`}>
                 Budget: up to <strong>{formatPrice(priceMax)}</strong>
-              </span>
+              </label>
               <input
+                id={`${uid}-price`}
                 type="range"
                 className="cp-price-slider"
                 min={100}
@@ -167,50 +191,67 @@ export default function ContentProductShowcase({
         {/* Product grid */}
         {filtered.length === 0 ? (
           <div className="cp-showcase-empty">
-            No products match your filters. <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--forest-green,#1B4D3E)', fontFamily: 'inherit', fontSize: 'inherit', textDecoration: 'underline' }} onClick={() => { setActiveCat('all'); setSearch(''); setPriceMax(maxPrice) }}>Reset filters</button>
+            No products match your filters. <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--forest-green,#1B4D3E)', fontFamily: 'inherit', fontSize: 'inherit', textDecoration: 'underline' }} onClick={() => { setActiveCat('all'); setSearch(''); setPriceMax(maxPrice) }}>Reset filters</button>
           </div>
         ) : (
-          <div className="cp-showcase-grid">
-            {filtered.map(product => {
-              const imgUrl = product.image?.sizes?.card?.url || product.image?.url || null
-              const catName = typeof product.category === 'object' ? product.category?.name : ''
-              return (
-                <div
-                  key={product.id}
-                  className="cp-product-card"
-                  onClick={() => setSelectedProduct(product)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={e => e.key === 'Enter' && setSelectedProduct(product)}
-                >
-                  <div className="cp-product-image">
-                    {imgUrl ? (
-                      <Image
-                        src={imgUrl}
-                        alt={product.name}
-                        width={240}
-                        height={240}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    ) : (
-                      <span className="cp-product-emoji">{product.emoji || '🎁'}</span>
-                    )}
-                    {product.customisable && (
-                      <span className="cp-product-badge">Custom</span>
-                    )}
-                  </div>
-                  <div className="cp-product-info">
-                    {catName && <div className="cp-product-cat">{catName}</div>}
-                    <div className="cp-product-name">{product.name}</div>
-                    <div className="cp-product-price">{formatPrice(product.price)}</div>
-                    {product.moq && (
-                      <div className="cp-product-moq">Min. {product.moq} units</div>
-                    )}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          <>
+            <ul className="cp-showcase-grid">
+              {shown.map(product => {
+                const imgUrl = product.image?.sizes?.card?.url || product.image?.url || null
+                const catName = typeof product.category === 'object' ? product.category?.name : ''
+                return (
+                  <li key={product.id} className="cp-product-card">
+                    <button
+                      type="button"
+                      className="cp-product-open"
+                      onClick={() => setSelectedProduct(product)}
+                    >
+                      <span className="cp-product-image">
+                        {imgUrl ? (
+                          <Image
+                            src={imgUrl}
+                            alt=""
+                            width={240}
+                            height={240}
+                            sizes="(max-width: 768px) 50vw, 240px"
+                            loading="lazy"
+                            decoding="async"
+                            // Image Optimization quota exhausted (402): serve the Blob
+                            // original, or the 480px `sizes.card` WebP once generated.
+                            unoptimized
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <span className="cp-product-emoji" aria-hidden="true">{product.emoji || '🎁'}</span>
+                        )}
+                        {product.customisable && (
+                          <span className="cp-product-badge">Custom</span>
+                        )}
+                      </span>
+                      <span className="cp-product-info">
+                        {catName && <span className="cp-product-cat">{catName}</span>}
+                        <span className="cp-product-name">{product.name}</span>
+                        <span className="cp-product-price">{formatPrice(product.price)}</span>
+                        <span className="cp-product-moq">Min. {MIN_ORDER_UNITS} units</span>
+                      </span>
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+            {(remaining > 0 || products.length > maxItems) && (
+              <div className="cp-showcase-more">
+                {remaining > 0 && (
+                  <button type="button" className="cp-showcase-more-btn" onClick={() => setExtra(e => e + maxItems)}>
+                    Show more ({remaining} left)
+                  </button>
+                )}
+                <Link href="/catalog" className="cp-showcase-more-link">
+                  Browse all {products.length} in the catalogue →
+                </Link>
+              </div>
+            )}
+          </>
         )}
 
         {/* Footer */}
@@ -220,10 +261,11 @@ export default function ContentProductShowcase({
           </span>
           {count > 0 && (
             <button
+              type="button"
               onClick={() => setShowLeadModal(true)}
               style={{ background: 'var(--forest-green,#1B4D3E)', color: '#f2f2f2', border: 'none', borderRadius: '999px', padding: '8px 20px', fontSize: '13px', fontWeight: 500, cursor: 'pointer', fontFamily: 'Satoshi, sans-serif' }}
             >
-              Request Quote ({count} item{count !== 1 ? 's' : ''})
+              Request Quote ({count} product{count !== 1 ? 's' : ''})
             </button>
           )}
         </div>
@@ -231,14 +273,14 @@ export default function ContentProductShowcase({
 
       {/* Floating pack bar */}
       {count > 0 && (
-        <div className="cp-pack-bar" onClick={() => setShowLeadModal(true)} role="button" tabIndex={0}>
-          <div className="cp-pack-bar-icon">🛍</div>
-          <div className="cp-pack-bar-text">
-            <div className="cp-pack-bar-label">{count} item{count !== 1 ? 's' : ''} in your pack</div>
-            <div className="cp-pack-bar-sub">Est. {formatPrice(total)} · MOQ applies</div>
-          </div>
+        <button type="button" className="cp-pack-bar" onClick={() => setShowLeadModal(true)} aria-haspopup="dialog">
+          <span className="cp-pack-bar-icon" aria-hidden="true">🛍</span>
+          <span className="cp-pack-bar-text">
+            <span className="cp-pack-bar-label">{count} product{count !== 1 ? 's' : ''} in your pack</span>
+            <span className="cp-pack-bar-sub">Est. {formatPrice(total)} · min. {MIN_ORDER_UNITS} units each</span>
+          </span>
           <span className="cp-pack-bar-cta">Request Quote →</span>
-        </div>
+        </button>
       )}
 
       {/* Product modal */}

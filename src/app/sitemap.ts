@@ -124,6 +124,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/bangalore-corporate-gifting/top-companies`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/bangalore-corporate-gifting/where-to-buy`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/bangalore-corporate-gifting/gift-hampers`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/bangalore-corporate-gifting/famous-bangalore-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/bangalore-corporate-gifting/bulk-gifting`,
       lastModified,
       changeFrequency: 'monthly',
@@ -144,6 +168,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Industry solutions
     {
+      url: `${SITE_URL}/industry-solutions`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/industry-solutions/startups`,
       lastModified,
       changeFrequency: 'monthly',
@@ -157,6 +187,108 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // Guides
+    {
+      url: `${SITE_URL}/guides`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/top-corporate-gifting-companies-india`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/farewell-gifts-for-colleagues`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/secret-santa-gifts-for-colleagues`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/electronic-corporate-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/office-gift-ideas`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/employee-joining-kit`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/luxury-corporate-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/corporate-gift-items-list`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/corporate-diwali-gift-hampers`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/diwali-gifts-for-clients`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/guides/new-year-corporate-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/womens-day-gifts-for-employees`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/employee-appreciation-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/gst-on-corporate-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/guides/corporate-memento-ideas`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/guides/office-inauguration-gifts`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     {
       url: `${SITE_URL}/guides/diwali-corporate-gifts`,
       lastModified,

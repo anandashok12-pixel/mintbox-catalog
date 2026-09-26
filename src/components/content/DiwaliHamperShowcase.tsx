@@ -1,8 +1,9 @@
 'use client'
 
-import { useMemo, useState, useSyncExternalStore } from 'react'
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
-import { useCartStore } from '@/lib/cartStore'
+import { useCartStore, useHasMounted } from '@/lib/cartStore'
+import { MIN_ORDER_UNITS } from '@/lib/businessFacts'
 import ProductModal from '@/components/modals/ProductModal'
 import LeadModal from '@/components/modals/LeadModal'
 
@@ -89,10 +90,6 @@ type SortKey = 'curated' | 'price-asc' | 'price-desc'
 
 const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
-// Never changes: used only to give useSyncExternalStore a stable subscription
-// so it can distinguish the server snapshot from the client one.
-const subscribeNoop = () => () => {}
-
 function haystack(p: DiwaliProduct): string {
   return [p.name, p.description, ...(p.features?.map(f => f.feature) ?? [])].join(' ')
 }
@@ -110,16 +107,17 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
   const [showLead, setShowLead] = useState(false)
   const [justAdded, setJustAdded] = useState<string | null>(null)
 
-  // The cart store rehydrates from sessionStorage, so cart-derived UI only
+  // The cart store rehydrates from localStorage, so cart-derived UI only
   // renders on the client — otherwise the first client render disagrees with
   // the server HTML and React throws away the whole SSR tree.
-  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false)
+  const mounted = useHasMounted()
 
   const addItem = useCartStore(s => s.addItem)
   const items = useCartStore(s => s.items)
-  const storedCount = useCartStore(s => s.count())
+  const storedLines = useCartStore(s => s.items.length)
   const storedTotal = useCartStore(s => s.total())
-  const count = mounted ? storedCount : 0
+  // Number of products in the pack (each carries its own unit quantity).
+  const count = mounted ? storedLines : 0
   const total = mounted ? storedTotal : 0
 
   const filtered = useMemo(() => {
@@ -204,7 +202,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
             </label>
           </div>
           <div className="dh-toolbar-meta" aria-live="polite">
-            Showing <strong>{filtered.length}</strong> of {products.length} hampers · prices per unit, exclusive of GST · MOQ 10 units
+            Showing <strong>{filtered.length}</strong> of {products.length} hampers · prices per unit, exclusive of GST · MOQ {MIN_ORDER_UNITS} units
           </div>
         </div>
 
@@ -238,6 +236,11 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
                             width={600}
                             height={600}
                             sizes="(max-width: 480px) 50vw, (max-width: 1024px) 33vw, 280px"
+                            // The showcase sits below the hub's hero, so every card is lazy.
+                            loading="lazy"
+                            decoding="async"
+                            // Image Optimization quota exhausted (402): serve the Blob
+                            // original, or the 480px `sizes.card` WebP once generated.
                             unoptimized
                           />
                         ) : (
@@ -265,7 +268,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
                             className={`dh-btn-add${justAdded === p.id ? ' added' : ''}`}
                             onClick={() => handleAdd(p)}
                           >
-                            {justAdded === p.id ? '✓ Added to pack' : qty > 0 ? `+ Add another · ${qty} in pack` : '+ Add to pack'}
+                            {justAdded === p.id ? `✓ In pack · ${qty} units` : qty > 0 ? `+1 unit · ${qty} in pack` : `+ Add to pack (${MIN_ORDER_UNITS} units)`}
                           </button>
                           <button type="button" className="dh-btn-view" onClick={() => setSelected(p)}>Details</button>
                         </div>
@@ -282,21 +285,21 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
           <span>Add hampers to your pack, then request one quote for everything. Mixed tiers in one order are fine.</span>
           {count > 0 && (
             <button className="dh-btn-quote" onClick={() => setShowLead(true)}>
-              Request quote ({count} item{count !== 1 ? 's' : ''})
+              Request quote ({count} product{count !== 1 ? 's' : ''})
             </button>
           )}
         </div>
       </div>
 
       {count > 0 && (
-        <div className="cp-pack-bar" onClick={() => setShowLead(true)} role="button" tabIndex={0} onKeyDown={e => e.key === 'Enter' && setShowLead(true)}>
-          <div className="cp-pack-bar-icon" aria-hidden="true">🛍</div>
-          <div className="cp-pack-bar-text">
-            <div className="cp-pack-bar-label">{count} item{count !== 1 ? 's' : ''} in your pack</div>
-            <div className="cp-pack-bar-sub">Est. {formatPrice(total)} · MOQ applies</div>
-          </div>
+        <button type="button" className="cp-pack-bar" onClick={() => setShowLead(true)} aria-haspopup="dialog">
+          <span className="cp-pack-bar-icon" aria-hidden="true">🛍</span>
+          <span className="cp-pack-bar-text">
+            <span className="cp-pack-bar-label">{count} product{count !== 1 ? 's' : ''} in your pack</span>
+            <span className="cp-pack-bar-sub">Est. {formatPrice(total)} · min. {MIN_ORDER_UNITS} units each</span>
+          </span>
           <span className="cp-pack-bar-cta">Request Quote →</span>
-        </div>
+        </button>
       )}
 
       {selected && <ProductModal product={selected} onClose={() => setSelected(null)} />}

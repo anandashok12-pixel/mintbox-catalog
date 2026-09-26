@@ -64,7 +64,7 @@ export function ContactPage() {
           </h1>
           <div className="page-hero-rule" />
           <p className="page-hero-sub">
-            Whether you have a brief, a budget, or just a feeling &mdash; we&apos;d love to hear from you. Most enquiries get a response within 4 hours.
+            Whether you have a brief, a budget, or just a feeling &mdash; we&apos;d love to hear from you. Most enquiries get a response within 2 hours.
           </p>
         </div>
       </div>
@@ -113,7 +113,7 @@ export function ContactPage() {
               <div>
                 <div className="contact-info-title">Email</div>
                 <div className="contact-info-val">hello@themintbox.in</div>
-                <div className="contact-info-sub">Response within 4 hours on business days</div>
+                <div className="contact-info-sub">Response within 2 hours on business days</div>
               </div>
             </div>
 
@@ -184,7 +184,7 @@ export function ContactPage() {
                 Message sent!
               </div>
               <p style={{ fontSize: 14, color: 'rgba(26,26,24,0.5)', fontWeight: 300 }}>
-                Anand will get back to you within 4 hours on business days.
+                Anand will get back to you within 2 hours on business days.
               </p>
             </div>
           ) : (

@@ -1,6 +1,6 @@
 /* ============================================================
    MINTBOX - About Page (Redesigned)
-   Fonts: Cormorant Garamond (display), Jost (body)
+   Fonts: Libre Baskerville (display), Satoshi (body)
    All class names prefixed with "ab-"
    ============================================================ */
 :root {
@@ -8,13 +8,14 @@
   --ab-forest-deep: #122E25;
   --ab-forest-mid: #245E4C;
   --ab-forest-light: #EAF0ED;
-  --ab-gold: #B8972E;
+  --ab-gold: #B8972E;          /* fills + text on forest-deep only (5.20:1) */
+  --ab-gold-text: #7D6218;     /* gold as text on white / --ab-cream: 5.78 / 5.09 */
   --ab-gold-light: #F7F1E2;
   --ab-cream: #F5F0E6;
   --ab-cream-dark: #EDE6D8;
   --ab-ink: #1A1A18;
   --ab-ink-m: #4A4A46;
-  --ab-ink-f: #8A8A84;
+  --ab-ink-f: #66665F;         /* was #8A8A84 (3.06 on --ab-cream). Now 5.09 on --ab-cream, 5.78 on #fff */
   --ab-rule: rgba(27, 77, 62, 0.1);
   --ab-page-x: clamp(1.5rem, 5vw, 5rem);
   --ab-content-w: 1120px;
@@ -54,7 +55,7 @@
   margin: 0 auto;
 }
 .ab-hero-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ab-gold);
@@ -77,7 +78,7 @@
 }
 .ab-hero-title em {
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
 }
 .ab-hero-rule-gold {
   width: 40px;
@@ -89,7 +90,7 @@
 .ab-hero-manifesto {
   font-family: 'Satoshi', sans-serif;
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.92);
   line-height: 1.75;
   max-width: 560px;
@@ -135,7 +136,7 @@
   text-align: center;
 }
 .ab-img-banner-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ab-gold);
@@ -172,10 +173,10 @@
   top: 2rem;
 }
 .ab-story-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ab-gold);
+  color: var(--ab-gold-text);
   font-weight: 400;
   margin-bottom: 1rem;
 }
@@ -214,12 +215,12 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ab-ink-f);
-  font-weight: 300;
+  font-weight: 400;
   margin-top: 0.75rem;
 }
 .ab-story-p {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-ink-m);
   line-height: 1.9;
   margin-bottom: 1.5rem;
@@ -264,7 +265,7 @@
   margin-bottom: 2.5rem;
 }
 .ab-broke-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ab-gold);
@@ -352,7 +353,7 @@
 }
 .ab-broke-card-desc {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.92);
   line-height: 1.8;
 }
@@ -360,10 +361,10 @@
   position: relative;
   text-align: right;
   padding: 0 var(--ab-page-x);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.08em;
-  color: rgba(245, 240, 230, 0.25);
-  font-weight: 300;
+  color: rgba(245, 240, 230, 0.72);
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -422,7 +423,7 @@
   align-items: end;
 }
 .ab-values-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ab-gold);
@@ -441,7 +442,7 @@
 }
 .ab-values-sub {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.92);
   line-height: 1.8;
   padding-bottom: 0.5rem;
@@ -487,7 +488,6 @@
   gap: 2rem;
   padding: 2.25rem 0 2.25rem 1.5rem;
   cursor: pointer;
-  transition: padding 0.7s ease;
 }
 .ab-val-row.open .ab-val-row-head {
   padding-bottom: 1.25rem;
@@ -518,11 +518,11 @@
 }
 .ab-val-tag {
   font-family: 'Satoshi', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(184, 151, 46, 0.5);
+  color: var(--ab-gold);
   border: 0.5px solid rgba(184, 151, 46, 0.2);
   border-radius: 50px;
   padding: 4px 12px;
@@ -575,7 +575,7 @@
 .ab-val-body-spacer {}
 .ab-val-desc {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.92);
   line-height: 1.9;
 }
@@ -583,7 +583,7 @@
   font-family: 'Libre Baskerville', serif;
   font-size: 17px;
   font-weight: 400;
-  color: rgba(184, 151, 46, 0.7);
+  color: var(--ab-gold);
   line-height: 1.75;
   font-style: italic;
   border-left: 1.5px solid rgba(184, 151, 46, 0.25);
@@ -608,10 +608,10 @@
   align-items: center;
 }
 .ab-founder-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ab-gold);
+  color: var(--ab-gold-text);
   font-weight: 400;
   margin-bottom: 0.75rem;
 }
@@ -625,7 +625,7 @@
 }
 .ab-founder-bio {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-ink-m);
   line-height: 1.85;
   margin-bottom: 1.5rem;
@@ -645,7 +645,7 @@
   align-items: center;
   gap: 16px;
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ab-ink-m);
 }
 .ab-fc-icon {
@@ -665,7 +665,7 @@
 .ab-fc-label {
   font-size: 14px;
   color: var(--ab-ink-f);
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 4px;
 }
 .ab-fc-val {
@@ -728,7 +728,7 @@
 }
 .ab-fc-role {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.85);
   letter-spacing: 0.04em;
   text-shadow: 0 1px 8px rgba(0,0,0,0.9), 0 2px 16px rgba(0,0,0,0.7);
@@ -769,7 +769,7 @@
 }
 .ab-cta-sub {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(245, 240, 230, 0.92);
   line-height: 1.75;
   margin-bottom: 2.5rem;

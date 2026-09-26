@@ -1,10 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { getAttribution } from '@/lib/attribution'
+import { isValidPhone } from '@/lib/phone'
 import '../landing.css'
 import './solutions.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 
 type PersonaKey = 'hr' | 'marketing' | 'sales' | 'founder'
@@ -21,6 +25,158 @@ const SolutionCheck = (
   </svg>
 )
 
+/* ─── Quote band form ─── */
+// Visually hidden but announced: the band design shows placeholders only.
+const srOnly: React.CSSProperties = {
+  position: 'absolute', width: 1, height: 1, padding: 0, margin: -1,
+  overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0,
+}
+const bandErrorStyle: React.CSSProperties = { color: '#f87171', fontSize: '12px', margin: '2px 0 0' }
+// Inputs sit inside wrappers (for their error text), so they no longer stretch as flex/grid items.
+const bandFieldStyle: React.CSSProperties = { width: '100%', boxSizing: 'border-box' }
+const bandSelectStyle: React.CSSProperties = { ...bandFieldStyle, appearance: 'none', cursor: 'pointer' }
+const BAND_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+type BandField = 'name' | 'company' | 'email' | 'phone'
+interface BandSelect { label: string; options: string[] }
+
+function QuoteBandForm({
+  persona,
+  companyPlaceholder,
+  firstSelect,
+  secondSelect,
+  submitStyle,
+  waLabel,
+}: {
+  persona: string
+  companyPlaceholder: string
+  firstSelect: BandSelect
+  secondSelect: BandSelect
+  submitStyle?: React.CSSProperties
+  waLabel: string
+}) {
+  const router = useRouter()
+  const uid = useId()
+  const id = (k: string) => `${uid}-${k}`
+  const errId = (k: BandField) => `${uid}-${k}-error`
+  const [values, setValues] = useState({ name: '', company: '', email: '', phone: '', first: '', second: '' })
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<BandField, string>>>({})
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+
+  const set = (k: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setValues(v => ({ ...v, [k]: e.target.value }))
+    if (k in fieldErrors) setFieldErrors(prev => ({ ...prev, [k]: undefined }))
+  }
+  const errorProps = (k: BandField) =>
+    fieldErrors[k] ? { 'aria-invalid': true as const, 'aria-describedby': errId(k) } : {}
+  const fieldError = (k: BandField) =>
+    fieldErrors[k] ? <p id={errId(k)} style={bandErrorStyle}>{fieldErrors[k]}</p> : null
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setError('')
+    const next: Partial<Record<BandField, string>> = {}
+    if (!values.name.trim()) next.name = 'Please enter your name.'
+    if (!values.company.trim()) next.company = 'Please enter your company name.'
+    if (!values.email.trim()) next.email = 'Please enter your work email.'
+    else if (!BAND_EMAIL_RE.test(values.email.trim())) next.email = 'Please enter a valid email address.'
+    if (!values.phone.trim()) next.phone = 'Please enter your phone number.'
+    else if (!isValidPhone(values.phone)) next.phone = 'Please enter a valid phone number.'
+    setFieldErrors(next)
+    const firstInvalid = (Object.keys(next) as BandField[])[0]
+    if (firstInvalid) {
+      document.getElementById(id(firstInvalid))?.focus()
+      return
+    }
+
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          company: values.company.trim(),
+          email: values.email.trim(),
+          phone: values.phone.trim(),
+          notes: [
+            `Solutions page: ${persona}`,
+            values.first ? `${firstSelect.label}: ${values.first}` : '',
+            values.second ? `${secondSelect.label}: ${values.second}` : '',
+          ].filter(Boolean).join('\n'),
+          items: [],
+          attribution: getAttribution(),
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Submission failed')
+      router.push('/thank-you')
+    } catch (err) {
+      setError(err instanceof Error && err.message ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <form className="sl-qb-form" onSubmit={handleSubmit} noValidate aria-label={`Quote request for ${persona} teams`}>
+      <div>
+        <label htmlFor={id('name')} style={srOnly}>Your name (required)</label>
+        <input id={id('name')} name="name" className="sl-qbf" style={bandFieldStyle} type="text" autoComplete="name" placeholder="Your name"
+          value={values.name} onChange={set('name')} required {...errorProps('name')} />
+        {fieldError('name')}
+      </div>
+      <div>
+        <label htmlFor={id('company')} style={srOnly}>Company (required)</label>
+        <input id={id('company')} name="company" className="sl-qbf" style={bandFieldStyle} type="text" autoComplete="organization" placeholder={companyPlaceholder}
+          value={values.company} onChange={set('company')} required {...errorProps('company')} />
+        {fieldError('company')}
+      </div>
+      <div className="sl-qbf-row">
+        <div>
+          <label htmlFor={id('email')} style={srOnly}>Work email (required)</label>
+          <input id={id('email')} name="email" className="sl-qbf" style={bandFieldStyle} type="email" inputMode="email" autoComplete="email" spellCheck={false}
+            placeholder="Work email" value={values.email} onChange={set('email')} required {...errorProps('email')} />
+          {fieldError('email')}
+        </div>
+        <div>
+          <label htmlFor={id('phone')} style={srOnly}>Phone (required)</label>
+          <input id={id('phone')} name="phone" className="sl-qbf" style={bandFieldStyle} type="tel" inputMode="tel" autoComplete="tel"
+            placeholder="Phone" value={values.phone} onChange={set('phone')} required {...errorProps('phone')} />
+          {fieldError('phone')}
+        </div>
+      </div>
+      <div className="sl-qbf-row">
+        <div>
+          <label htmlFor={id('first')} style={srOnly}>{firstSelect.label} (optional)</label>
+          <select id={id('first')} name="first" className="sl-qbf" style={bandSelectStyle}
+            value={values.first} onChange={set('first')}>
+            <option value="" disabled>{firstSelect.label}</option>
+            {firstSelect.options.map(o => <option key={o}>{o}</option>)}
+          </select>
+        </div>
+        <div>
+          <label htmlFor={id('second')} style={srOnly}>{secondSelect.label} (optional)</label>
+          <select id={id('second')} name="second" className="sl-qbf" style={bandSelectStyle}
+            value={values.second} onChange={set('second')}>
+            <option value="" disabled>{secondSelect.label}</option>
+            {secondSelect.options.map(o => <option key={o}>{o}</option>)}
+          </select>
+        </div>
+      </div>
+      <button type="submit" className="sl-qbf-submit" style={submitStyle} disabled={submitting} aria-busy={submitting}>
+        {submitting ? 'Sending…' : 'Request a quote →'}
+      </button>
+      {/* Negative margin cancels the column gap while the live region is empty. */}
+      <div role="alert" style={error ? undefined : { marginTop: '-0.6rem' }}>
+        {error && <p style={bandErrorStyle}>{error}</p>}
+      </div>
+      <div className="sl-qbf-wa">{waLabel}: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
+    </form>
+  )
+}
+
 export default function SolutionsPageClient() {
   const [activeTab, setActiveTab] = useState<PersonaKey>('hr')
   const [activePreview, setActivePreview] = useState<PersonaKey>('hr')
@@ -33,6 +189,7 @@ export default function SolutionsPageClient() {
   return (
     <div className="sl-page">
       <Navbar />
+      <main id="main">
 
       {/* HERO */}
       <div className="sl-hero">
@@ -46,7 +203,7 @@ export default function SolutionsPageClient() {
               <path d="M34 13C37 10,39 9,40 9C41 9,43 10,46 13C43 16,41 16,40 16C39 16,37 16,34 13Z" stroke="#B8972E" strokeWidth="1.1" fill="none" />
               <path d="M40 16L38 24M40 16L42 24" stroke="#B8972E" strokeWidth="0.9" strokeLinecap="round" />
             </svg>
-            <div className="sl-hero-title">MintBox is built<br />for the person<br />reading this.</div>
+            <h1 className="sl-hero-title">MintBox is built<br />for the person<br />reading this.</h1>
             <div className="sl-hero-sub">Whether you&apos;re running HR for a unicorn, closing deals for a SaaS company, or building culture from scratch - MintBox works the way you work.</div>
             <div className="sl-hero-ctas">
               <button className="sl-btn-primary" onClick={() => switchTab('hr')}>I&apos;m in HR &amp; People Ops →</button>
@@ -115,7 +272,7 @@ export default function SolutionsPageClient() {
             <div className="sl-stats-row">
               <div className="sl-stat-mini"><div className="sl-sm-num">0</div><div className="sl-sm-label">Hours spent chasing vendors</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">3–4 wk</div><div className="sl-sm-label">Enquiry to doorstep</div></div>
-              <div className="sl-stat-mini"><div className="sl-sm-num">25+</div><div className="sl-sm-label">Min. order units</div></div>
+              <div className="sl-stat-mini"><div className="sl-sm-num">10</div><div className="sl-sm-label">Min. order units</div></div>
             </div>
           </div>
         </div>
@@ -223,22 +380,13 @@ export default function SolutionsPageClient() {
             <div className="sl-qb-title">&ldquo;Tell us your headcount and the occasion. We&apos;ll handle everything else.&rdquo;</div>
             <div className="sl-qb-sub">Most HR teams spend 3–4 hours managing a gifting order. With MintBox, that drops to a single approval.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Occasion</option>
-                <option>Onboarding</option><option>Diwali</option><option>Anniversary</option><option>Other</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Team size</option>
-                <option>Under 25</option><option>25–100</option><option>100–500</option><option>500+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit">Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us directly: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <QuoteBandForm
+            persona="HR & People Ops"
+            companyPlaceholder="Company name"
+            firstSelect={{ label: 'Occasion', options: ['Onboarding', 'Diwali', 'Anniversary', 'Other'] }}
+            secondSelect={{ label: 'Team size', options: ['Under 25', '25–100', '100–500', '500+'] }}
+            waLabel="WhatsApp us directly"
+          />
         </div>
       </div>
 
@@ -328,22 +476,14 @@ export default function SolutionsPageClient() {
             <div className="sl-qb-title">&ldquo;When the unboxing is worth photographing, the gift becomes content.&rdquo;</div>
             <div className="sl-qb-sub">Tell us about your brand and your next activation. We&apos;ll build a kit that looks as good as your best campaign.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Use case</option>
-                <option>Event swag</option><option>Product launch</option><option>Employer brand</option><option>Other</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Volume</option>
-                <option>Under 100</option><option>100–500</option><option>500–2,000</option><option>2,000+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit" style={{ background: '#B8972E' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <QuoteBandForm
+            persona="Marketing & Brand"
+            companyPlaceholder="Company name"
+            firstSelect={{ label: 'Use case', options: ['Event swag', 'Product launch', 'Employer brand', 'Other'] }}
+            secondSelect={{ label: 'Volume', options: ['Under 100', '100–500', '500–2,000', '2,000+'] }}
+            waLabel="WhatsApp us"
+            submitStyle={{ background: '#B8972E' }}
+          />
         </div>
       </div>
 
@@ -433,22 +573,14 @@ export default function SolutionsPageClient() {
             <div className="sl-qb-title">&ldquo;Tell us your client list and your budget. We&apos;ll handle the rest before renewal season.&rdquo;</div>
             <div className="sl-qb-sub">Scale client gifting across your entire book of business without adding administrative overhead.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Occasion</option>
-                <option>Deal closure</option><option>Contract renewal</option><option>Client appreciation</option><option>Diwali</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>No. of clients</option>
-                <option>Under 10</option><option>10–50</option><option>50–200</option><option>200+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit" style={{ background: '#2A4F7A', color: 'white' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <QuoteBandForm
+            persona="Sales & Account"
+            companyPlaceholder="Company name"
+            firstSelect={{ label: 'Occasion', options: ['Deal closure', 'Contract renewal', 'Client appreciation', 'Diwali'] }}
+            secondSelect={{ label: 'No. of clients', options: ['Under 10', '10–50', '50–200', '200+'] }}
+            waLabel="WhatsApp us"
+            submitStyle={{ background: '#2A4F7A', color: 'white' }}
+          />
         </div>
       </div>
 
@@ -463,7 +595,7 @@ export default function SolutionsPageClient() {
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Minimum order quantities that don&apos;t make sense for a 15-person team</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>No time to design a kit - too many other priorities</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Gifting that doesn&apos;t match the premium brand you&apos;re trying to build</div>
-              <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox starts at 25 units, curates the kit for you, and sets up a reorder system so every new hire gets the same premium experience automatically</div>
+              <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox starts at 10 units, curates the kit for you, and sets up a reorder system so every new hire gets the same premium experience automatically</div>
             </div>
             <button className="sl-ph-cta" style={{ background: '#7A2A5E' }}>See Founder solutions →</button>
           </div>
@@ -477,7 +609,7 @@ export default function SolutionsPageClient() {
               </div>
             </div>
             <div className="sl-stats-row">
-              <div className="sl-stat-mini"><div className="sl-sm-num">25</div><div className="sl-sm-label">Minimum units - no pressure</div></div>
+              <div className="sl-stat-mini"><div className="sl-sm-num">10</div><div className="sl-sm-label">Minimum units - no pressure</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">1 day</div><div className="sl-sm-label">We curate your kit proposal</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">Auto</div><div className="sl-sm-label">Reorder for every new hire</div></div>
             </div>
@@ -538,25 +670,19 @@ export default function SolutionsPageClient() {
             <div className="sl-qb-title">&ldquo;Tell us your team size and what you&apos;re building. We&apos;ll design the kit.&rdquo;</div>
             <div className="sl-qb-sub">Most founders spend 2 hours choosing products, 1 hour designing the brief, and 3 hours chasing delivery. With MintBox, you approve once.</div>
           </div>
-          <div className="sl-qb-form">
-            <input className="sl-qbf" type="text" placeholder="Your name" />
-            <input className="sl-qbf" type="text" placeholder="Company / startup name" />
-            <div className="sl-qbf-row">
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Use case</option>
-                <option>Onboarding kit</option><option>Investor gift</option><option>Team milestone</option><option>Diwali</option>
-              </select>
-              <select className="sl-qbf" style={{ appearance: 'none', cursor: 'pointer' }} defaultValue="">
-                <option value="" disabled>Team size</option>
-                <option>Under 10</option><option>10–25</option><option>25–100</option><option>100+</option>
-              </select>
-            </div>
-            <button className="sl-qbf-submit" style={{ background: '#7A2A5E', color: 'white' }}>Request a quote →</button>
-            <div className="sl-qbf-wa">WhatsApp us directly: <a href="https://wa.me/919886537631">+91 9886537631 →</a></div>
-          </div>
+          <QuoteBandForm
+            persona="Founders & CEOs"
+            companyPlaceholder="Company / startup name"
+            firstSelect={{ label: 'Use case', options: ['Onboarding kit', 'Investor gift', 'Team milestone', 'Diwali'] }}
+            secondSelect={{ label: 'Team size', options: ['Under 10', '10–25', '25–100', '100+'] }}
+            waLabel="WhatsApp us directly"
+            submitStyle={{ background: '#7A2A5E', color: 'white' }}
+          />
         </div>
       </div>
 
+      <GoogleReviews theme="light" />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

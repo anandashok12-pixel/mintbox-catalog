@@ -1,0 +1,413 @@
+/* ============================================================
+   MINTBOX — Google Reviews section
+   Consumes the colour tokens declared in landing.css
+   (--forest-green, --forest-deep, --gold, --cream, --near-black)
+   and falls back to literals so the component is safe to drop
+   onto pages that do not load landing.css.
+   ============================================================ */
+
+.gr-section {
+  --gr-forest: var(--forest-green, #1b4d3e);
+  --gr-forest-deep: var(--forest-deep, #122e25);
+  --gr-gold: var(--gold, #b8972e);
+  --gr-cream: var(--cream, #f2f2f2);
+  --gr-ink: var(--near-black, #1a1a18);
+
+  font-family: 'Satoshi', sans-serif;
+  padding: 96px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dark: cream cards floating on forest. */
+.gr-section--dark {
+  background: var(--gr-forest-deep);
+  --gr-fg: var(--gr-cream);
+  --gr-fg-muted: rgba(245, 240, 230, 0.55);
+  --gr-card-bg: rgba(255, 255, 255, 0.05);
+  --gr-card-border: rgba(245, 240, 230, 0.13);
+  --gr-card-fg: var(--gr-cream);
+  --gr-card-muted: rgba(245, 240, 230, 0.5);
+  --gr-rule: rgba(245, 240, 230, 0.16);
+}
+
+/* Light: forest ink on cream. */
+.gr-section--light {
+  background: var(--gr-cream);
+  --gr-fg: var(--gr-ink);
+  --gr-fg-muted: rgba(26, 26, 24, 0.6);
+  --gr-card-bg: #ffffff;
+  --gr-card-border: rgba(26, 26, 24, 0.1);
+  --gr-card-fg: var(--gr-ink);
+  --gr-card-muted: rgba(26, 26, 24, 0.55);
+  --gr-rule: rgba(26, 26, 24, 0.12);
+}
+
+/* Faint hex lattice, same motif as the quote band. */
+.gr-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%23B8972E' stroke-width='0.5'%3E%3Cpolygon points='30,4 53,17 53,43 30,56 7,43 7,17'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.gr-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ──────────────────────────────────────────────
+   HEADER
+────────────────────────────────────────────── */
+.gr-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--gr-rule);
+}
+
+.gr-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gr-gold);
+  margin-bottom: 14px;
+}
+
+.gr-headline {
+  font-family: var(--font-libre-baskerville), 'Libre Baskerville', serif;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.18;
+  color: var(--gr-fg);
+  margin: 0;
+  max-width: 16ch;
+}
+
+.gr-headline em {
+  font-style: italic;
+  color: var(--gr-gold);
+}
+
+.gr-score {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  padding: 18px 26px;
+  border: 1px solid var(--gr-card-border);
+  border-radius: 14px;
+  background: var(--gr-card-bg);
+}
+
+.gr-score-num {
+  font-family: var(--font-libre-baskerville), 'Libre Baskerville', serif;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--gr-fg);
+}
+
+.gr-score-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.gr-score-count {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gr-fg-muted);
+  white-space: nowrap;
+}
+
+/* ──────────────────────────────────────────────
+   STARS
+────────────────────────────────────────────── */
+.gr-stars {
+  display: inline-flex;
+  gap: 2px;
+  line-height: 0;
+}
+
+.gr-star {
+  width: var(--gr-star-size, 15px);
+  height: var(--gr-star-size, 15px);
+  fill: currentColor;
+  color: var(--gr-card-border);
+}
+
+.gr-star--on {
+  color: var(--gr-gold);
+}
+
+/* ──────────────────────────────────────────────
+   CARD GRID
+────────────────────────────────────────────── */
+.gr-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.gr-card {
+  background: var(--gr-card-bg);
+  border: 1px solid var(--gr-card-border);
+  border-radius: 14px;
+  padding: 26px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.gr-card:hover {
+  border-color: rgba(184, 151, 46, 0.5);
+  transform: translateY(-2px);
+}
+
+.gr-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gr-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.gr-card-who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.gr-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gr-card-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gr-date {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gr-card-muted);
+}
+
+.gr-glyph {
+  flex-shrink: 0;
+}
+
+.gr-text {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--gr-card-fg);
+  margin: 0;
+  opacity: 0.92;
+}
+
+.gr-text--clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gr-ellipsis {
+  color: var(--gr-card-muted);
+}
+
+.gr-card-foot:empty {
+  display: none;
+}
+
+.gr-more {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gr-gold);
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.gr-more:hover {
+  border-bottom-color: var(--gr-gold);
+}
+
+.gr-reply {
+  border-left: 2px solid var(--gr-gold);
+  padding: 2px 0 2px 14px;
+  margin-top: 2px;
+}
+
+.gr-reply-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gr-card-muted);
+  margin-bottom: 5px;
+}
+
+.gr-reply-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--gr-card-muted);
+  margin: 0;
+}
+
+/* ──────────────────────────────────────────────
+   ACTIONS
+────────────────────────────────────────────── */
+.gr-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+
+.gr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.gr-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gr-btn--solid {
+  background: var(--gr-gold);
+  border: 1px solid var(--gr-gold);
+  color: var(--gr-forest-deep);
+}
+
+.gr-btn--solid:hover {
+  background: #cfa93a;
+  border-color: #cfa93a;
+}
+
+.gr-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--gr-card-border);
+  color: var(--gr-fg);
+}
+
+.gr-btn--ghost:hover {
+  border-color: var(--gr-gold);
+  color: var(--gr-gold);
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE
+────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .gr-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gr-headline {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 860px) {
+  .gr-section {
+    padding: 72px 32px;
+  }
+  .gr-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .gr-headline {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .gr-section {
+    padding: 60px 20px;
+  }
+  .gr-headline {
+    font-size: 29px;
+  }
+  .gr-grid {
+    grid-template-columns: 1fr;
+  }
+  .gr-score {
+    padding: 14px 20px;
+  }
+  .gr-score-num {
+    font-size: 34px;
+  }
+  .gr-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .gr-btn {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr-card,
+  .gr-btn,
+  .gr-more {
+    transition: none;
+  }
+  .gr-card:hover {
+    transform: none;
+  }
+}

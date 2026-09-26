@@ -773,6 +773,15 @@
 .sl-qbf::placeholder {
   color: rgba(245, 240, 230, 0.3);
 }
+/* outline: none above needs a visible keyboard-focus replacement */
+.sl-qbf:focus-visible {
+  border-color: var(--sl-gold);
+  box-shadow: 0 0 0 3px rgba(184, 151, 46, 0.35);
+}
+/* iOS zooms the page when a focused input is under 16px */
+@media (max-width: 768px) {
+  .sl-qbf { font-size: 16px; }
+}
 .sl-qbf-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

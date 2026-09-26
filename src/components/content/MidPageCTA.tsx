@@ -1,5 +1,7 @@
 'use client'
 
+import { MIN_ORDER_UNITS, QUOTE_TIME, REPLY_TIME, SAMPLE_MIN_UNITS } from '@/lib/businessFacts'
+
 type Variant = 'quote' | 'catalog' | 'whatsapp' | 'samples'
 
 const CONFIG: Record<Variant, {
@@ -11,7 +13,7 @@ const CONFIG: Record<Variant, {
   quote: {
     eyebrow: 'Free Quote · No Commitments',
     headline: 'Ready to place an order?',
-    sub: 'Tell us what you need and get a detailed quote within 4 hours. Bulk from 25 units.',
+    sub: `Tell us what you need. We reply within ${REPLY_TIME} and send a priced quote within ${QUOTE_TIME}. Orders from ${MIN_ORDER_UNITS} units.`,
     primary: { label: 'Request a Free Quote →', href: '/contact' },
     secondary: { label: 'Browse Catalog', href: '/catalog' },
     accent: '#b8972e',
@@ -25,17 +27,17 @@ const CONFIG: Record<Variant, {
     accent: '#4a7c59',
   },
   whatsapp: {
-    eyebrow: 'Quick Response · Usually under 5 min',
-    headline: 'Questions? We reply in minutes.',
-    sub: 'Chat directly with our gifting team on WhatsApp. No bots, no waiting, just real answers.',
-    primary: { label: 'Chat on WhatsApp →', href: 'https://wa.me/919164741540' },
-    secondary: { label: 'Call Us Instead', href: 'tel:+919164741540' },
+    eyebrow: `Quick Response · Reply within ${REPLY_TIME}`,
+    headline: 'Questions? Talk to a real person.',
+    sub: `Chat directly with our gifting team on WhatsApp. No bots, just real answers within ${REPLY_TIME}.`,
+    primary: { label: 'Chat on WhatsApp →', href: 'https://wa.me/919886537631' },
+    secondary: { label: 'Call Us Instead', href: 'tel:+919886537631' },
     accent: '#25d366',
   },
   samples: {
     eyebrow: 'Before You Commit',
     headline: 'Order a sample kit first',
-    sub: 'Receive physical samples of our top-rated products before finalising your bulk order. Shipped within 3 days.',
+    sub: `For orders of ${SAMPLE_MIN_UNITS}+ units, we send physical samples of your shortlisted products before you finalise. Shipped within 3 days.`,
     primary: { label: 'Request Sample Kit →', href: '/contact' },
     secondary: { label: 'View Catalog', href: '/catalog' },
     accent: '#b8972e',

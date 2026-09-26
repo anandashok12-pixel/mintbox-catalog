@@ -34,7 +34,7 @@ export function DiwaliGuide() {
   return (
     <>
       <Navbar />
-      <main className="legal-page">
+      <main id="main" className="legal-page">
         <header className="legal-hero">
           <div className="legal-hero-pat" aria-hidden="true" />
           <div className="legal-hero-inner">
@@ -194,7 +194,7 @@ export function DiwaliGuide() {
                 <p>
                   Diwali gifting works at every price point — the budget decides the format, not
                   whether the gift lands. The examples below are real items from the MintBox catalogue
-                  (prices per unit; most items have a minimum order of 10 units).
+                  (prices per unit; every item has a minimum order of 10 units).
                 </p>
                 <div className="guide-table-wrap">
                   <table className="guide-table">
@@ -359,7 +359,7 @@ export function DiwaliGuide() {
                   natural-material packaging — everything needed to build a Diwali hamper. Choose your
                   items, add them to a gifting pack and request a quote; MintBox personalises the
                   gifts with your branding, packs them and delivers across Bengaluru, with GST
-                  invoicing and bulk pricing. Most catalogue items have a minimum order of 10 units.
+                  invoicing and bulk pricing. Every catalogue item has a minimum order of 10 units.
                 </p>
               </div>
             </section>

@@ -6,6 +6,7 @@ import '../app/(main)/landing.css'
 import '../app/(main)/about/about.css'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from './WhatsAppFloat'
 
 interface AboutPageData {
@@ -215,6 +216,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
   return (
     <div className="ab-page">
       <Navbar />
+      <main id="main">
 
       {/* HERO */}
       <section className="ab-hero">
@@ -342,6 +344,8 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         </div>
       </section>
 
+      <GoogleReviews theme="light" />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

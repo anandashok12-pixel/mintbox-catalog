@@ -56,6 +56,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <a href="#main" className="skip-link">Skip to content</a>
         <AttributionTracker />
         {children}
       </body>

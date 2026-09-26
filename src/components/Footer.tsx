@@ -15,7 +15,7 @@ export function Footer() {
           <div className="footer-contact-block">
             <p className="footer-contact-item"><a href="tel:+919886537631">+91 9886537631</a></p>
             <p className="footer-contact-item"><a href="mailto:hello@themintbox.in">hello@themintbox.in</a></p>
-            <p className="footer-contact-item">2nd Floor, Sobha Alexander Plaza,<br />Ashok Nagar, Bengaluru 560 025</p>
+            <p className="footer-contact-item">2nd Floor, Sobha Alexander Plaza<br />16/2, Commissariat Rd, Ashok Nagar<br />Bengaluru 560025</p>
           </div>
           <a href="https://wa.me/919886537631" target="_blank" rel="noopener nofollow" className="footer-whatsapp-link">
             Chat on WhatsApp &rarr;

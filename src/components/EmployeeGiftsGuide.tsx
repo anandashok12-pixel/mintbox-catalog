@@ -33,7 +33,7 @@ export function EmployeeGiftsGuide() {
   return (
     <>
       <Navbar />
-      <main className="legal-page">
+      <main id="main" className="legal-page">
         <header className="legal-hero">
           <div className="legal-hero-pat" aria-hidden="true" />
           <div className="legal-hero-inner">
@@ -117,7 +117,7 @@ export function EmployeeGiftsGuide() {
               <div className="legal-section-body">
                 <p>
                   The budget tier decides the format. The examples below are real items from the
-                  MintBox catalogue (prices per unit; minimum order generally 10 units).
+                  MintBox catalogue (prices per unit; minimum order 10 units).
                 </p>
                 <div className="guide-table-wrap">
                   <table className="guide-table">
