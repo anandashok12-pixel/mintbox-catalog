@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -34,25 +37,21 @@ interface Product {
 
 const GIFT_CATEGORIES = [
   {
-    icon: '⚡',
     bg: 'cp-img-green',
     title: 'Tech Accessories',
     desc: 'Wireless chargers, cable organisers, multi-port hubs, laptop stands - logo-engraved and built for daily desk use.',
   },
   {
-    icon: '💧',
     bg: 'cp-img-mid',
     title: 'Quality Drinkware',
     desc: 'Insulated bottles, tumbler mugs, French press kits - for desk and WFH use, used daily and seen by everyone.',
   },
   {
-    icon: '👕',
     bg: 'cp-img-warm',
     title: 'Team Swag',
     desc: 'Hoodies, quarter-zips, tees, caps - printed with company logo and team name. Culture-forward and worn with pride.',
   },
   {
-    icon: '📓',
     bg: 'cp-img-gold',
     title: 'Premium Notebooks',
     desc: 'Hardcover journals, notebooks with pen sets - ideal for onboarding packs and work anniversary gifts.',
@@ -62,8 +61,8 @@ const GIFT_CATEGORIES = [
 const OCCASION_TABLE = [
   { occasion: 'Employee Onboarding', gift: 'Notebook + bottle + tee combo', budget: '₹800–₹1,500', moq: '10 units' },
   { occasion: 'Work Anniversary', gift: 'Premium insulated bottle or engraved pen', budget: '₹500–₹1,500', moq: '1 unit' },
-  { occasion: 'Diwali Gifting', gift: 'Hamper with drinkware + snacks', budget: '₹1,000–₹3,000', moq: '25 units' },
-  { occasion: 'Conference/Event', gift: 'Branded tote + USB + pen', budget: '₹400–₹700', moq: '50 units' },
+  { occasion: 'Diwali Gifting', gift: 'Hamper with drinkware + snacks', budget: '₹1,000–₹3,000', moq: '10 units' },
+  { occasion: 'Conference/Event', gift: 'Branded tote + USB + pen', budget: '₹400–₹700', moq: '10 units' },
   { occasion: 'Client Appreciation', gift: 'Premium tech kit or curated hamper', budget: '₹2,000–₹5,000', moq: '1 unit' },
   { occasion: 'Team Win Celebration', gift: 'Swag box with tee + mug + snack', budget: '₹600–₹1,200', moq: '10 units' },
 ]
@@ -141,11 +140,12 @@ export default function TechCompaniesClient({ products, categories }: { products
         "headline": "Corporate Gifts for Tech Companies: Premium Picks for 2026",
         "description": "Premium corporate gifts for IT and tech companies - branded tech accessories, quality drinkware, eco kits. Bulk orders, GST invoicing. Bangalore & Pan-India.",
         "url": "https://themintbox.in/industry-solutions/tech-companies",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -177,7 +177,7 @@ export default function TechCompaniesClient({ products, categories }: { products
               <div className="cp-hero-badge-group">
                 <span className="cp-hero-badge">✓ Tech accessory specialists</span>
                 <span className="cp-hero-badge">✓ Remote team delivery</span>
-                <span className="cp-hero-badge">✓ MOQ from 25 units</span>
+                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
                 <span className="cp-hero-badge">✓ GST invoicing</span>
               </div>
             </div>
@@ -203,13 +203,13 @@ export default function TechCompaniesClient({ products, categories }: { products
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Corporate gifts for tech companies include branded wireless chargers, premium notebooks, quality stainless bottles, noise-cancelling earbuds, and eco kits - items that resonate with engineers and product managers. Budget range: ₹500–₹5,000 per head depending on seniority. MOQ is 25 units; delivery across India for distributed teams."
+            content="Corporate gifts for tech companies include branded wireless chargers, premium notebooks, quality stainless bottles, noise-cancelling earbuds, and eco kits - items that resonate with engineers and product managers. Budget range: ₹500–₹5,000 per head depending on seniority. MOQ is 10 units; delivery across India for distributed teams."
           />
           <EATSignal credentials={[
             'Tech-specific gifting for 50+ Bangalore IT companies',
             'Remote team delivery to 500+ cities in India',
             'Premium tech accessories and quality drinkware',
-            'Bulk orders from 25 units with individual delivery',
+            'Bulk orders from 10 units with individual delivery',
             'GST invoicing and purchase order support',
           ]} />
         </div>
@@ -229,7 +229,7 @@ export default function TechCompaniesClient({ products, categories }: { products
               <div className="cp-stat-label">Starting budget</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">25<span className="cp-stat-unit"> units</span></div>
+              <div className="cp-stat-value">10<span className="cp-stat-unit"> units</span></div>
               <div className="cp-stat-label">Minimum order quantity</div>
             </div>
             <div className="cp-stat-card">
@@ -252,9 +252,6 @@ export default function TechCompaniesClient({ products, categories }: { products
           <div className="cp-cards-grid cp-cards-grid--3">
             {GIFT_CATEGORIES.map(cat => (
               <div key={cat.title} className="cp-card">
-                <div className={`cp-card-icon ${cat.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {cat.icon}
-                </div>
                 <div className="cp-card-title">{cat.title}</div>
                 <p className="cp-card-desc">{cat.desc}</p>
               </div>
@@ -377,7 +374,7 @@ export default function TechCompaniesClient({ products, categories }: { products
                 'Tech-specific product curation',
                 'Individual delivery to remote employees',
                 'GST invoice and PO support',
-                'Quote within 4 business hours',
+                'Quote within 24 hours',
               ].map(p => (
                 <div key={p} className="cp-cta-promise">
                   <span className="cp-cta-promise-dot" />
@@ -420,7 +417,8 @@ export default function TechCompaniesClient({ products, categories }: { products
               { label: 'Collections', title: 'Tech Gifts Collection', href: '/collections/tech-gifts' },
               { label: 'Personalisation', title: 'Personalised Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Bangalore', title: 'Bulk Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
-              { label: 'Collections', title: 'All Collections', href: '/collections/corporate-gifts' },
+              { label: 'Guides', title: 'Electronic Corporate Gifts', href: '/guides/electronic-corporate-gifts' },
+              { label: 'Onboarding', title: 'Employee Joining Kit Checklist', href: '/guides/employee-joining-kit' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -433,8 +431,10 @@ export default function TechCompaniesClient({ products, categories }: { products
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

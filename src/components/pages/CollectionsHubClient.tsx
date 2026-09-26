@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -34,7 +37,6 @@ interface Product {
 
 const OCCASIONS = [
   {
-    emoji: '🎉',
     label: 'Employee Onboarding',
     title: 'Welcome Kits That Impress',
     desc: 'Make day one unforgettable with a curated onboarding pack.',
@@ -42,7 +44,6 @@ const OCCASIONS = [
     bg: 'cp-img-green',
   },
   {
-    emoji: '🪔',
     label: 'Diwali Gifting',
     title: 'Celebrate With the Whole Team',
     desc: "India's biggest gifting moment, done with taste and scale.",
@@ -50,7 +51,6 @@ const OCCASIONS = [
     bg: 'cp-img-gold',
   },
   {
-    emoji: '🤝',
     label: 'Client Gifting',
     title: 'Strengthen Every Relationship',
     desc: 'Premium gifts that reinforce your brand with key accounts.',
@@ -58,7 +58,6 @@ const OCCASIONS = [
     bg: 'cp-img-warm',
   },
   {
-    emoji: '🏆',
     label: 'Recognition & Milestones',
     title: 'Celebrate Work Anniversaries',
     desc: 'Tenure milestones and recognition moments, gifted right.',
@@ -70,17 +69,17 @@ const OCCASIONS = [
 const HOW_IT_WORKS = [
   { num: '1', title: 'Browse & Pick', desc: 'Explore 200+ products and add your favourites to a pack.' },
   { num: '2', title: 'Share Requirements', desc: 'Tell us quantity, occasion, delivery, and any customisation needs.' },
-  { num: '3', title: 'Receive Bulk Quote', desc: 'We respond within 4 hours with itemised pricing and lead times.' },
+  { num: '3', title: 'Receive Bulk Quote', desc: 'We respond within 24 hours with itemised pricing and lead times.' },
 ]
 
 const FAQS = [
   {
     q: 'What is the minimum order quantity?',
-    a: 'Minimum order quantity is 25 units for most products with logo printing. Some premium items (custom hampers, luxury sets) can be ordered from 10 units. High-volume giveaway items (pens, seed packets) typically require 100 units minimum. <a href="/contact">Contact us</a> for specific MOQs by product.',
+    a: 'Minimum order quantity is 10 units for every product, including logo printing, custom hampers, and giveaway items. <a href="/contact">Contact us</a> for a product-specific quote.',
   },
   {
     q: 'Can I mix products in a single order?',
-    a: 'Yes. You can build a hamper or kit with multiple products. Each product retains its own MOQ; mixed packs typically require a minimum of 25 sets total.',
+    a: 'Yes. You can build a hamper or kit with multiple products. Mixed packs follow the same 10-unit minimum as everything else.',
   },
   {
     q: 'Do all products support logo customisation?',
@@ -96,7 +95,7 @@ const FAQS = [
   },
   {
     q: 'Can I request samples before placing a bulk order?',
-    a: 'Yes. Sample orders (1–3 units) are available for most products. Sample cost is adjusted against the bulk order value when you proceed.',
+    a: 'Yes, on orders of 100+ units. Physical samples are available for most products, and the sample cost is adjusted against the bulk order value when you proceed.',
   },
   {
     q: 'What payment terms do you offer?',
@@ -118,6 +117,7 @@ export default function CollectionsHubClient({ products, categories }: { product
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -150,7 +150,7 @@ export default function CollectionsHubClient({ products, categories }: { product
               <div className="cp-hero-badge-group">
                 <span className="cp-hero-badge">✓ 200+ products</span>
                 <span className="cp-hero-badge">✓ 6 categories</span>
-                <span className="cp-hero-badge">✓ Bulk from 25 units</span>
+                <span className="cp-hero-badge">✓ Bulk from 10 units</span>
                 <span className="cp-hero-badge">✓ Pan-India delivery</span>
               </div>
             </div>
@@ -176,11 +176,11 @@ export default function CollectionsHubClient({ products, categories }: { product
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox offers 200+ corporate gifts across drinkware, stationery, tech gadgets, hampers, eco-friendly items, and apparel - all available with logo customisation. Pricing starts at ₹150 per unit; bulk orders from 25 units. Filter by category, occasion, and budget. Same-day delivery available in Bangalore for in-stock items."
+            content="MintBox offers 200+ corporate gifts across drinkware, stationery, tech gadgets, hampers, eco-friendly items, and apparel - all available with logo customisation. Pricing starts at ₹150 per unit; bulk orders from 10 units. Filter by category, occasion, and budget. Same-day delivery available in Bangalore for in-stock items."
           />
           <EATSignal credentials={[
             '200+ products across 6 categories - all in stock',
-            'Bulk orders from 25 units, volume discounts from 100+',
+            'Bulk orders from 10 units, volume discounts from 100+',
             'Logo customisation on 85%+ of products',
             'Same-day delivery in Bangalore for in-stock items',
             'GST-compliant invoicing, dedicated account manager',
@@ -245,9 +245,7 @@ export default function CollectionsHubClient({ products, categories }: { product
           <div className="cp-occasion-grid">
             {OCCASIONS.map(occ => (
               <a key={occ.href} href={occ.href} className="cp-occasion-card" style={{ minHeight: '220px' }}>
-                <div className={`cp-occasion-card-bg cp-img-placeholder ${occ.bg}`} style={{ fontSize: '64px' }}>
-                  {occ.emoji}
-                </div>
+                <div className={`cp-occasion-card-bg cp-img-placeholder ${occ.bg}`} />
                 <div className="cp-occasion-card-overlay" />
                 <div className="cp-occasion-card-content">
                   <div className="cp-occasion-card-label">{occ.label}</div>
@@ -352,7 +350,7 @@ export default function CollectionsHubClient({ products, categories }: { product
             <div className="cp-cta-promises">
               {[
                 'Complete 200+ product catalogue',
-                'Bulk pricing from 50 units',
+                'Bulk pricing from 10 units',
                 'Customisation options per category',
                 'Sent within 2 hours of request',
               ].map(p => (
@@ -395,9 +393,10 @@ export default function CollectionsHubClient({ products, categories }: { product
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Drinkware', title: 'Corporate Mugs & Drinkware', href: '/collections/drinkware' },
               { label: 'Hampers', title: 'Corporate Gift Hampers', href: '/collections/hampers' },
-              { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
               { label: 'Onboarding', title: 'Employee Welcome & Joining Kits', href: '/collections/employee-welcome-kit' },
               { label: 'Bangalore', title: 'Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting' },
+              { label: 'Office', title: 'Office Gift Ideas for Every Occasion', href: '/guides/office-gift-ideas' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -410,8 +409,10 @@ export default function CollectionsHubClient({ products, categories }: { product
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

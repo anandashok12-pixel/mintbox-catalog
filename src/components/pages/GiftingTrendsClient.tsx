@@ -11,6 +11,8 @@ import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
 
+const PAGE_UPDATED = '2026-05-26'
+
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
   id: string; name: string; price: number; emoji?: string | null
@@ -102,19 +104,19 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
         "headline": "Corporate Gifting Trends 2026: What Indian Companies Are Ordering",
         "description": "The top corporate gifting trends for 2026: sustainability, personalisation, tech gifts, and wellness. MintBox insight for Indian HR and procurement teams.",
         "url": "https://themintbox.in/guides/corporate-gifting-trends-2026",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
-      <main>
+      <main id="main">
         {/* Hero */}
         <section className="cp-hero">
           <div className="cp-hero-bg cp-img-green" aria-hidden="true" />
           <div className="cp-container">
-            <div className="cp-breadcrumb">
+            <nav className="cp-breadcrumb" aria-label="Breadcrumb">
               <a href="/">Home</a> › <a href="/guides/corporate-gifting-handbook">Guides</a> › Gifting Trends 2026
-            </div>
+            </nav>
             <h1 className="cp-hero-title">Corporate Gifting Trends 2026: What Indian Companies Are Ordering</h1>
             <p className="cp-hero-subtitle">
               Sustainability, deep personalisation, remote work kits, and wellness boxes - the six trends reshaping Indian corporate gifting in 2026.
@@ -268,26 +270,28 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
             <h2 className="cp-section-title">Related Guides</h2>
             <div className="cp-related-grid">
               <a href="/guides/corporate-gift-ideas-2026" className="cp-related-card">
-                <span className="cp-related-emoji">💡</span>
                 <span className="cp-related-title">Corporate Gift Ideas 2026</span>
               </a>
               <a href="/guides/unique-corporate-gifts" className="cp-related-card">
-                <span className="cp-related-emoji">✨</span>
                 <span className="cp-related-title">Unique Corporate Gifts</span>
               </a>
               <a href="/guides/corporate-gifts-for-clients" className="cp-related-card">
-                <span className="cp-related-emoji">🤝</span>
                 <span className="cp-related-title">Corporate Gifts for Clients</span>
               </a>
               <a href="/collections/eco-friendly-gifts" className="cp-related-card">
-                <span className="cp-related-emoji">🌱</span>
                 <span className="cp-related-title">Eco-Friendly Gifts</span>
+              </a>
+              <a href="/guides/new-year-corporate-gifts" className="cp-related-card">
+                <span className="cp-related-title">New Year Corporate Gifts</span>
+              </a>
+              <a href="/guides/top-corporate-gifting-companies-india" className="cp-related-card">
+                <span className="cp-related-title">Top Corporate Gifting Companies in India</span>
               </a>
             </div>
           </div>
         </section>
 
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </main>
       <Footer />
       <WhatsAppFloat />

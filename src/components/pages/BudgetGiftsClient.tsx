@@ -2,14 +2,18 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
 import InlineQuoteForm from '@/components/content/InlineQuoteForm'
 import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
-import LastUpdatedDate from '@/components/content/LastUpdatedDate'
+import LastUpdatedDate, { formatMonthYear } from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -35,7 +39,6 @@ interface Product {
 const PRICE_TIERS = [
   {
     label: 'Under ₹200',
-    icon: '✏️',
     bg: 'cp-img-warm',
     items: ['Branded pens', 'Seed paper cards', 'Eco bookmarks', 'Custom stickers'],
     desc: 'Ideal for conferences, events, and large-volume giveaways where per-head spend must be minimal but branding still matters.',
@@ -43,7 +46,6 @@ const PRICE_TIERS = [
   },
   {
     label: '₹200–₹500',
-    icon: '📓',
     bg: 'cp-img-green',
     items: ['Custom notebooks', 'Ceramic mugs', 'Tote bags', 'Desk accessories'],
     desc: 'The sweet spot for team gifts, event kits, and festive giveaways. Great branding impact without straining budgets.',
@@ -51,7 +53,6 @@ const PRICE_TIERS = [
   },
   {
     label: '₹500–₹1,000',
-    icon: '💧',
     bg: 'cp-img-mid',
     items: ['Insulated bottles', 'Diary + pen sets', 'Onboarding kits', 'Premium mugs'],
     desc: 'Best balance of quality and cost for employee welcome kits, Diwali gifts, and client gifting at scale.',
@@ -104,10 +105,10 @@ const BULK_TIERS = [
 ]
 
 const FREEBIES = [
-  { icon: '🖨', title: 'Logo Printing', desc: 'At 100+ units, standard one-colour or full-colour logo print is included.' },
-  { icon: '🎀', title: 'Custom Sleeve / Wrapper', desc: 'Branded kraft paper wrap or OPP bag for most products at 100+.' },
-  { icon: '💌', title: 'Personalised Card', desc: 'Printed message or name card included at no extra cost for 50+ units.' },
-  { icon: '📦', title: 'Branded Outer Box', desc: 'Standard shipping box with MintBox / client branding at 100+ units.' },
+  { title: 'Logo Printing', desc: 'At 100+ units, standard one-colour or full-colour logo print is included.' },
+  { title: 'Custom Sleeve / Wrapper', desc: 'Branded kraft paper wrap or OPP bag for most products at 100+.' },
+  { title: 'Personalised Card', desc: 'Printed message or name card included at no extra cost for 50+ units.' },
+  { title: 'Branded Outer Box', desc: 'Standard shipping box with MintBox / client branding at 100+ units.' },
 ]
 
 const FAQS = [
@@ -121,7 +122,7 @@ const FAQS = [
   },
   {
     q: 'What is the minimum order for budget gifts?',
-    a: 'Most products start from 50 units; notebooks and stationery from 25 units. We can accommodate smaller test orders (10–24 units) at a small per-unit premium for first-time buyers.',
+    a: 'The minimum order is 10 units for every product, including notebooks and stationery. Orders under 25 units carry a small per-unit premium.',
   },
   {
     q: 'How do bulk discounts work under ₹1,000?',
@@ -158,13 +159,14 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gifts Under ₹1,000: Best Budget Options for 2026",
-        "description": "Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 50 units, logo customisation included. Pan-India delivery.",
+        "description": "Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 10 units, logo customisation included. Pan-India delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-under-1000",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -179,7 +181,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
           </nav>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '60px', alignItems: 'center' }}>
             <div>
-              <div className="cp-hero-eyebrow">Budget Guide · Updated May 2026</div>
+              <div className="cp-hero-eyebrow">Budget Guide · Updated {formatMonthYear(PAGE_UPDATED)}</div>
               <h1 className="cp-hero-title">
                 Corporate Gifts Under ₹1,000:<br />
                 <em>Best Budget Options for 2026</em>
@@ -197,7 +199,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
               <div className="cp-hero-badge-group">
                 <span className="cp-hero-badge">✓ All under ₹1,000 / unit</span>
                 <span className="cp-hero-badge">✓ Logo printing included</span>
-                <span className="cp-hero-badge">✓ MOQ from 50 units</span>
+                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
                 <span className="cp-hero-badge">✓ GST invoicing</span>
               </div>
             </div>
@@ -226,7 +228,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
             content="Corporate gifts under ₹1,000 include branded drinkware, notebooks, eco kits, and tech accessories - all available with logo printing. At 100+ units, per-unit costs drop 20–30%, making ₹600–₹800 hampers realistic. Logo printing is included free at 100+ units. Standard production is 7–10 business days; Pan-India delivery 3–5 days after dispatch."
           />
           <EATSignal credentials={[
-            'Bulk pricing from 50 units - no hidden fees',
+            'Bulk pricing from 10 units - no hidden fees',
             'Logo printing included free at 100+ units',
             'All listed products priced ≤ ₹1,000 per unit',
             '7–10 day production, Pan-India delivery',
@@ -248,9 +250,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
           <div className="cp-cards-grid cp-cards-grid--3">
             {PRICE_TIERS.map(tier => (
               <a key={tier.label} href={tier.link} className="cp-card" style={{ textDecoration: 'none', display: 'block' }}>
-                <div className={`cp-card-icon ${tier.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {tier.icon}
-                </div>
                 <div className="cp-card-title">{tier.label}</div>
                 <p className="cp-card-desc" style={{ marginBottom: '14px' }}>{tier.desc}</p>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
@@ -342,7 +341,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
           <div className="cp-cards-grid">
             {FREEBIES.map(f => (
               <div key={f.title} className="cp-card">
-                <div className="cp-card-icon">{f.icon}</div>
                 <div className="cp-card-title">{f.title}</div>
                 <p className="cp-card-desc">{f.desc}</p>
                 <span className="cp-card-tag" style={{ background: 'rgba(184,151,46,0.1)', color: '#7A6020' }}>Free at 100+ units</span>
@@ -443,13 +441,12 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
               </p>
               <div className="cp-cards-grid cp-cards-grid--2" style={{ gap: '12px' }}>
                 {[
-                  { icon: '🧾', title: 'GST Invoice', desc: 'Full GSTIN on every invoice, all applicable taxes itemised.' },
-                  { icon: '🏦', title: 'NEFT / RTGS', desc: 'Bank transfer accepted. Credit terms for regular accounts.' },
-                  { icon: '💳', title: 'Card / UPI', desc: 'Razorpay-powered online payment for smaller orders.' },
-                  { icon: '📋', title: 'PO Accepted', desc: 'Purchase order workflow supported for enterprise accounts.' },
+                  { title: 'GST Invoice', desc: 'Full GSTIN on every invoice, all applicable taxes itemised.' },
+                  { title: 'NEFT / RTGS', desc: 'Bank transfer accepted. Credit terms for regular accounts.' },
+                  { title: 'Card / UPI', desc: 'Razorpay-powered online payment for smaller orders.' },
+                  { title: 'PO Accepted', desc: 'Purchase order workflow supported for enterprise accounts.' },
                 ].map(c => (
                   <div key={c.title} className="cp-card" style={{ padding: '18px' }}>
-                    <div className="cp-card-icon" style={{ width: '36px', height: '36px', fontSize: '16px' }}>{c.icon}</div>
                     <div className="cp-card-title" style={{ fontSize: '15px' }}>{c.title}</div>
                     <p className="cp-card-desc" style={{ fontSize: '13px' }}>{c.desc}</p>
                   </div>
@@ -469,11 +466,11 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
             <h2 className="cp-cta-title">Get Bulk Pricing<br />Under ₹1,000</h2>
             <p className="cp-cta-desc">
               Tell us your quantity, products of interest, and timeline - we'll send back
-              an itemised bulk quote within 4 hours.
+              an itemised bulk quote within {QUOTE_TIME}.
             </p>
             <div className="cp-cta-promises">
               {[
-                'Itemised quote within 4 business hours',
+                'Itemised quote within 24 hours',
                 'Volume discount applied automatically',
                 'Logo customisation options included',
                 'Delivery estimate to your city',
@@ -487,7 +484,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
           </div>
           <InlineQuoteForm
             title="Get Bulk Pricing Under ₹1,000"
-            subtitle="Tell us what you need and we'll come back with a detailed quote within 4 hours."
+            subtitle="Tell us what you need and we'll come back with a detailed quote within 24 hours."
             ctaLabel="Get Bulk Pricing"
             defaultOccasion=""
             interestHint="Interested in: (products / categories)\nApprox. quantity: "
@@ -517,10 +514,11 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
             {[
               { label: 'Budget Guide', title: 'Corporate Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
               { label: 'Budget Guide', title: 'Corporate Gifts Under ₹100 & ₹200', href: '/guides/corporate-gifts-under-100' },
-              { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
+              { label: 'Tech', title: 'Electronic Corporate Gifts', href: '/guides/electronic-corporate-gifts' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Onboarding', title: 'Employee Welcome & Joining Kits', href: '/collections/employee-welcome-kit' },
               { label: 'Bangalore', title: 'Same-Day Corporate Gift Delivery', href: '/bangalore-corporate-gifting/same-day-delivery' },
+              { label: 'Premium', title: 'Luxury Corporate Gifts', href: '/guides/luxury-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -533,8 +531,10 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

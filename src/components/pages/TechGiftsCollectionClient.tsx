@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Product {
   id: string
@@ -27,37 +30,31 @@ interface Product {
 
 const SUBCATEGORIES = [
   {
-    icon: '⚡',
     bg: 'cp-img-green',
     title: 'Wireless Chargers',
     desc: '10W fast charge, pad print or laser engrave. ₹400–₹1,200.',
   },
   {
-    icon: '🔌',
     bg: 'cp-img-gold',
     title: 'Cable Kits',
     desc: '3-in-1 cables and organiser pouches - practical for every desk. ₹250–₹600.',
   },
   {
-    icon: '💾',
     bg: 'cp-img-warm',
     title: 'USB Drives',
     desc: '4GB–64GB, metal body, laser engraved logo. ₹100–₹400.',
   },
   {
-    icon: '💻',
     bg: 'cp-img-mid',
     title: 'Laptop Accessories',
     desc: 'Stands, keyboard rests, mouse pads - all brandable. ₹300–₹1,500.',
   },
   {
-    icon: '🎧',
     bg: 'cp-img-green',
     title: 'Earphones',
     desc: 'Wired and wireless Bluetooth earbuds with logo print. ₹500–₹3,000.',
   },
   {
-    icon: '🔋',
     bg: 'cp-img-gold',
     title: 'Power Banks',
     desc: '5,000mAh–20,000mAh, logo printed, pan-India delivery. ₹600–₹2,500.',
@@ -67,9 +64,9 @@ const SUBCATEGORIES = [
 const OCCASIONS_TABLE = [
   { occasion: 'Employee Onboarding', gift: 'Cable kit + notebook', budget: '₹400–₹800', moq: '10' },
   { occasion: 'Work Anniversary', gift: 'Engraved wireless charger', budget: '₹600–₹1,500', moq: '1' },
-  { occasion: 'Diwali', gift: 'Power bank + earbuds combo', budget: '₹1,000–₹2,500', moq: '25' },
+  { occasion: 'Diwali', gift: 'Power bank + earbuds combo', budget: '₹1,000–₹2,500', moq: '10' },
   { occasion: 'Client Appreciation', gift: 'Premium laptop stand + accessories', budget: '₹1,500–₹4,000', moq: '1' },
-  { occasion: 'Conference', gift: 'USB drive + branded pouch', budget: '₹200–₹500', moq: '50' },
+  { occasion: 'Conference', gift: 'USB drive + branded pouch', budget: '₹200–₹500', moq: '10' },
   { occasion: 'Team Celebration', gift: 'Wireless charger + cable kit', budget: '₹700–₹1,500', moq: '10' },
 ]
 
@@ -121,6 +118,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -143,7 +141,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
                 Premium branded tech gifts for IT companies, product teams, and remote workers - wireless chargers,
-                cable organisers, USB drives, laptop accessories, and noise-cancelling earbuds. Logo-engraved from 25 units.
+                cable organisers, USB drives, laptop accessories, and noise-cancelling earbuds. Logo-engraved from 10 units.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Tech Gifts ↓</a>
@@ -178,7 +176,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Corporate tech gifts include branded wireless chargers (₹400–₹1,200), cable kits (₹250–₹600), USB drives (₹100–₹400), laptop stands (₹500–₹1,500), and Bluetooth earbuds (₹800–₹3,000). All available with laser engraving or pad printing. MOQ is 25 units. Tech gifts are particularly effective for IT companies and distributed teams."
+            content="Corporate tech gifts include branded wireless chargers (₹400–₹1,200), cable kits (₹250–₹600), USB drives (₹100–₹400), laptop stands (₹500–₹1,500), and Bluetooth earbuds (₹800–₹3,000). All available with laser engraving or pad printing. MOQ is 10 units. Tech gifts are particularly effective for IT companies and distributed teams."
           />
           <EATSignal
             credentials={[
@@ -233,9 +231,6 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
           <div className="cp-cards-grid cp-cards-grid--3">
             {SUBCATEGORIES.map(cat => (
               <div key={cat.title} className="cp-card">
-                <div className={`cp-card-icon ${cat.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {cat.icon}
-                </div>
                 <div className="cp-card-title">{cat.title}</div>
                 <div className="cp-card-desc">{cat.desc}</div>
               </div>
@@ -253,7 +248,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
           <div className="cp-section-eyebrow">Product Catalogue</div>
           <h2 className="cp-section-title">Browse Tech Gifts</h2>
           <p className="cp-section-sub">
-            Filter by product type or search by name. Add items to your quote - we confirm pricing and availability within 2 hours.
+            Filter by product type or search by name. Add items to your quote - we confirm pricing and availability within 24 hours.
           </p>
           <ContentProductShowcase
             products={products}
@@ -340,7 +335,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
             <h2 className="cp-cta-title">Get Tech Gift<br />Pricing</h2>
             <p className="cp-cta-sub">
               Share your quantity, occasion, and preferred budget. We will send you a curated shortlist
-              with bulk pricing within 2 hours.
+              with bulk pricing within 24 hours.
             </p>
             <div className="cp-quote-form-panel" />
           </div>
@@ -379,7 +374,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
               { label: 'Industry', title: 'Gifting for Tech Companies', href: '/industry-solutions/tech-companies' },
               { label: 'Guides', title: 'Corporate Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
               { label: 'Customisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
-              { label: 'Tech Cos', title: 'Corporate Gifts for Tech Companies', href: '/industry-solutions/tech-companies' },
+              { label: 'Guides', title: 'Electronic Corporate Gifts', href: '/guides/electronic-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -392,8 +387,10 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

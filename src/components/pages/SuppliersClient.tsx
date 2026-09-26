@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
@@ -23,39 +26,33 @@ interface Props { products: Product[]; categories: Category[] }
 
 const WHAT_TO_LOOK_FOR = [
   {
-    icon: "🏷️",
     title: "MOQ Flexibility",
     desc: "Look for suppliers who can handle both small orders (25–50 units) and large runs (500+). Rigid MOQs of 500+ exclude most SMEs.",
   },
   {
-    icon: "🎨",
     title: "Branding Capability",
     desc: "Your supplier should offer logo printing, embossing, UV printing, and packaging customisation - not just generic products.",
   },
   {
-    icon: "📄",
     title: "GST Compliance",
     desc: "All corporate purchases need proper GST invoicing. Verify your supplier is GST-registered and provides itemised bills.",
   },
   {
-    icon: "⚡",
     title: "Turnaround Time",
     desc: "Standard orders should be ready in 7–10 business days. Suppliers who promise less than 3 days may cut corners on quality.",
   },
   {
-    icon: "📦",
     title: "Packaging Quality",
     desc: "Premium packaging protects products in transit and elevates unboxing. Ask for samples before placing a bulk order.",
   },
   {
-    icon: "🤝",
     title: "Account Management",
     desc: "A dedicated point of contact saves time. Avoid suppliers who make you repeat your requirements every order.",
   },
 ]
 
 const MINTBOX_ADVANTAGES = [
-  { label: "MOQ", value: "From 25 units" },
+  { label: "MOQ", value: "From 10 units" },
   { label: "Turnaround", value: "7–10 business days" },
   { label: "Branding", value: "Logo print, emboss, UV, packaging" },
   { label: "GST", value: "Compliant invoicing on every order" },
@@ -79,7 +76,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What is the minimum order quantity for corporate gifts in Bangalore?",
-    a: "MintBox accepts orders from 25 units. Most categories have no fixed upper limit. For orders of 500+, we offer additional customisation and volume pricing.",
+    a: "MintBox accepts orders from 10 units. Most categories have no fixed upper limit. For orders of 500+, we offer additional customisation and volume pricing.",
   },
   {
     q: "How long does corporate gift production take in Bangalore?",
@@ -112,7 +109,7 @@ export default function SuppliersClient({ products, categories }: Props) {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
@@ -124,6 +121,7 @@ export default function SuppliersClient({ products, categories }: Props) {
         "priceRange": "₹₹"
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -152,7 +150,7 @@ export default function SuppliersClient({ products, categories }: Props) {
                 <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
               </div>
               <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ MOQ from 25 units</span>
+                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
                 <span className="cp-hero-badge">✓ Dedicated account manager</span>
                 <span className="cp-hero-badge">✓ GST invoicing</span>
                 <span className="cp-hero-badge">✓ Pan-India delivery</span>
@@ -180,7 +178,7 @@ export default function SuppliersClient({ products, categories }: Props) {
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox is a Bangalore-based corporate gift supplier offering branded merchandise, custom hampers, and bulk gifting with GST-compliant invoicing, dedicated account managers, and pan-India delivery. MOQ from 25 units."
+            content="MintBox is a Bangalore-based corporate gift supplier offering branded merchandise, custom hampers, and bulk gifting with GST-compliant invoicing, dedicated account managers, and pan-India delivery. MOQ from 10 units."
           />
           <EATSignal
             credentials={[
@@ -234,9 +232,6 @@ export default function SuppliersClient({ products, categories }: Props) {
           <div className="cp-cards-grid cp-cards-grid--3">
             {WHAT_TO_LOOK_FOR.map(item => (
               <div key={item.title} className="cp-card">
-                <div className="cp-card-icon cp-img-green" style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {item.icon}
-                </div>
                 <div className="cp-card-title">{item.title}</div>
                 <div className="cp-card-desc">{item.desc}</div>
               </div>
@@ -367,7 +362,8 @@ export default function SuppliersClient({ products, categories }: Props) {
               { title: 'Bulk Gifting Bangalore', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { title: 'Same-Day Delivery Bangalore', href: '/bangalore-corporate-gifting/same-day-delivery' },
               { title: 'Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { title: 'Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting' },
+              { title: 'Top 10 Corporate Gifting Companies in Bangalore', href: '/bangalore-corporate-gifting/top-companies' },
+              { title: 'Where to Buy Corporate Gifts in Bangalore', href: '/bangalore-corporate-gifting/where-to-buy' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-title">{link.title}</div>
@@ -379,8 +375,10 @@ export default function SuppliersClient({ products, categories }: Props) {
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
@@ -22,7 +25,6 @@ interface Product {
 
 const SERVICES = [
   {
-    icon: '⚡',
     title: 'Same-Day Delivery',
     desc: 'In-stock branded gifts delivered across Bangalore in 4–6 hours. Koramangala, Whitefield, HSR Layout, Electronic City and beyond.',
     href: '/bangalore-corporate-gifting/same-day-delivery',
@@ -30,7 +32,6 @@ const SERVICES = [
     bg: 'cp-img-green',
   },
   {
-    icon: '📦',
     title: 'Bulk Corporate Gifting',
     desc: '100 to 10,000 units with transparent bulk pricing, dedicated account manager, and GST-compliant invoicing. Pan-India dispatch from Bangalore.',
     href: '/bangalore-corporate-gifting/bulk-gifting',
@@ -38,7 +39,6 @@ const SERVICES = [
     bg: 'cp-img-gold',
   },
   {
-    icon: '🏭',
     title: 'Verified Local Suppliers',
     desc: "MintBox works with Bangalore's best corporate gift manufacturers. Shorter lead times, in-person sampling, and quality you can see before you order.",
     href: '/bangalore-corporate-gifting/suppliers',
@@ -55,32 +55,28 @@ const AREAS_SERVED = [
 
 const WHY_MINTBOX = [
   {
-    icon: '📍',
     title: 'Bangalore-Based',
     desc: 'Our operations and warehouse are in Bangalore. No third-party logistics for city deliveries - we control the end-to-end experience.',
   },
   {
-    icon: '⏱️',
     title: 'Fast Turnaround',
     desc: 'Same-day delivery for in-stock items. Standard bulk orders in 7–10 business days. Rush orders (3–5 days) available for most products.',
   },
   {
-    icon: '🎨',
     title: 'Logo Customisation',
     desc: 'Pad printing, UV printing, engraving, and embroidery on 85%+ of products. Branded gifts only - no generic gifting.',
   },
   {
-    icon: '📄',
     title: 'GST-Compliant',
     desc: 'Full GST invoicing on every order. Compliant with corporate procurement systems. HSN codes and itemised billing included.',
   },
 ]
 
 const INDUSTRIES = [
-  { label: 'Tech & Startups', href: '/industry-solutions/startups', emoji: '💻' },
-  { label: 'Tech Companies', href: '/industry-solutions/tech-companies', emoji: '🏢' },
-  { label: 'Personalised Gifts', href: '/customization/personalized-corporate-gifts', emoji: '✏️' },
-  { label: 'Eco-Friendly', href: '/collections/eco-friendly-gifts', emoji: '🌿' },
+  { label: 'Tech & Startups', href: '/industry-solutions/startups' },
+  { label: 'Tech Companies', href: '/industry-solutions/tech-companies' },
+  { label: 'Personalised Gifts', href: '/customization/personalized-corporate-gifts' },
+  { label: 'Eco-Friendly', href: '/collections/eco-friendly-gifts' },
 ]
 
 const FAQS = [
@@ -94,7 +90,7 @@ const FAQS = [
   },
   {
     q: 'What is the minimum order quantity for bulk gifting in Bangalore?',
-    a: 'Minimum order is 25 units for most products with logo customisation. Some premium items are available from 10 units. For large corporate campaigns (500–10,000 units), contact us for custom pricing and dedicated account management. See our <a href="/bangalore-corporate-gifting/bulk-gifting">bulk gifting page</a>.',
+    a: 'Minimum order is 10 units for every product, including logo customisation. For large corporate campaigns (500–10,000 units), contact us for custom pricing and dedicated account management. See our <a href="/bangalore-corporate-gifting/bulk-gifting">bulk gifting page</a>.',
   },
   {
     q: 'Can I visit your Bangalore office to see samples?',
@@ -130,7 +126,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
@@ -142,6 +138,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
         "priceRange": "₹₹"
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -162,7 +159,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
                 MintBox is Bangalore's corporate gifting partner - 200+ branded gifts,
-                same-day delivery across the city, bulk orders from 25 units, and
+                same-day delivery across the city, bulk orders from 10 units, and
                 GST-compliant invoicing on every order.
               </p>
               <div className="cp-hero-ctas">
@@ -171,7 +168,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
               </div>
               <div className="cp-hero-badge-group">
                 <span className="cp-hero-badge">✓ Same-day delivery in Bangalore</span>
-                <span className="cp-hero-badge">✓ Bulk from 25 units</span>
+                <span className="cp-hero-badge">✓ Bulk from 10 units</span>
                 <span className="cp-hero-badge">✓ GST invoicing</span>
                 <span className="cp-hero-badge">✓ Pan-India dispatch</span>
               </div>
@@ -198,7 +195,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Corporate gifting in Bangalore - quick answer"
-            content="MintBox offers same-day corporate gift delivery across Bangalore, bulk orders from 25 units with logo customisation, and works with verified local suppliers. Coverage includes Koramangala, Whitefield, HSR Layout, Electronic City, Indiranagar, Marathahalli, and all major tech corridors. GST-compliant invoicing included on every order."
+            content="MintBox offers same-day corporate gift delivery across Bangalore, bulk orders from 10 units with logo customisation, and works with verified local suppliers. Coverage includes Koramangala, Whitefield, HSR Layout, Electronic City, Indiranagar, Marathahalli, and all major tech corridors. GST-compliant invoicing included on every order."
           />
           <EATSignal credentials={[
             'Bangalore-based operations and warehouse - no third-party logistics for city deliveries',
@@ -242,9 +239,6 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginTop: '40px' }}>
             {SERVICES.map(svc => (
               <a key={svc.href} href={svc.href} className="cp-feature-card" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
-                <div className={`cp-img-placeholder ${svc.bg}`} style={{ fontSize: '40px', height: '100px', borderRadius: '8px', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {svc.icon}
-                </div>
                 <div className="cp-feature-card-title" style={{ fontSize: '1.15rem', marginBottom: '8px' }}>{svc.title}</div>
                 <p className="cp-feature-card-desc" style={{ marginBottom: '16px' }}>{svc.desc}</p>
                 <span style={{ color: 'var(--cp-green)', fontWeight: 600, fontSize: '0.9rem' }}>{svc.cta}</span>
@@ -269,7 +263,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '32px' }}>
             {AREAS_SERVED.map(area => (
               <span key={area} className="cp-hero-badge" style={{ fontSize: '0.9rem', padding: '8px 16px' }}>
-                📍 {area}
+                {area}
               </span>
             ))}
           </div>
@@ -287,7 +281,6 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', marginTop: '40px' }}>
             {WHY_MINTBOX.map(item => (
               <div key={item.title} className="cp-feature-card">
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>{item.icon}</div>
                 <div className="cp-feature-card-title">{item.title}</div>
                 <p className="cp-feature-card-desc">{item.desc}</p>
               </div>
@@ -331,7 +324,6 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
           <div className="cp-related-grid" style={{ marginTop: '32px' }}>
             {INDUSTRIES.map(ind => (
               <a key={ind.href} href={ind.href} className="cp-related-card">
-                <div style={{ fontSize: '28px', marginBottom: '8px' }}>{ind.emoji}</div>
                 <div className="cp-related-card-title">{ind.label}</div>
                 <div className="cp-related-card-arrow">→</div>
               </a>
@@ -359,13 +351,13 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
             <div className="cp-cta-eyebrow">Bangalore Orders</div>
             <h2 className="cp-cta-title">Get a Free Quote for<br />Bangalore Corporate Gifting</h2>
             <p className="cp-cta-desc">
-              Share your occasion, quantity, and delivery timeline - we'll respond within 4 business hours
+              Share your occasion, quantity, and delivery timeline - we'll respond within 24 hours
               with a curated recommendation and pricing.
             </p>
             <div className="cp-cta-promises">
               {[
                 'Same-day delivery available for in-stock items',
-                'Bulk pricing from 25 units',
+                'Bulk pricing from 10 units',
                 'Logo customisation on all orders',
                 'GST invoice included',
               ].map(p => (
@@ -378,7 +370,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
           </div>
           <InlineQuoteForm
             title="Get a Bangalore Gifting Quote"
-            subtitle="Tell us your occasion and delivery area - we'll confirm availability and pricing within 4 hours."
+            subtitle="Tell us your occasion and delivery area - we'll confirm availability and pricing within 24 hours."
             ctaLabel="Get Free Quote"
             interestHint="Delivery area in Bangalore, occasion, quantity"
           />
@@ -407,10 +399,11 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
             {[
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
               { label: 'Diwali', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
-              { label: 'Trends', title: 'Corporate Gifting Trends 2026', href: '/guides/corporate-gifting-trends-2026' },
-              { label: 'Personalised', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
+              { label: 'Bangalore', title: 'Top 10 Corporate Gifting Companies in Bangalore', href: '/bangalore-corporate-gifting/top-companies' },
+              { label: 'Bangalore', title: 'Where to Buy Corporate Gifts in Bangalore', href: '/bangalore-corporate-gifting/where-to-buy' },
+              { label: 'Hampers', title: 'Top Corporate Gift Hampers in Bangalore', href: '/bangalore-corporate-gifting/gift-hampers' },
+              { label: 'Local Flavours', title: 'Famous Bangalore Gifts for Hampers', href: '/bangalore-corporate-gifting/famous-bangalore-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -423,8 +416,10 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

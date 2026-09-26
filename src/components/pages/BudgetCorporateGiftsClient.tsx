@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -37,35 +40,30 @@ const PRICE_LEVELS = [
     range: 'Under ₹100/head',
     use: 'Event Giveaways',
     desc: 'Branded pens, badges, seed packets. Best for 500+ unit orders. Not suitable for premium occasions.',
-    icon: '✏️',
     bg: 'cp-img-warm',
   },
   {
     range: '₹100–₹500/head',
     use: 'Standard Utility',
     desc: 'Notebooks, mugs, totes, eco kits. Works for team events, department gifts, or large-team Diwali.',
-    icon: '📓',
     bg: 'cp-img-mid',
   },
   {
     range: '₹500–₹1,500/head',
     use: 'The Sweet Spot',
     desc: 'Quality bottles, combo kits, onboarding packs. Strong perceived value, personalisation included.',
-    icon: '💧',
     bg: 'cp-img-green',
   },
   {
     range: '₹1,500–₹3,000/head',
     use: 'Premium Occasion',
     desc: 'Curated hampers, premium drinkware, hardcover notebooks. For clients, senior staff, and milestones.',
-    icon: '🎁',
     bg: 'cp-img-gold',
   },
   {
     range: '₹3,000–₹5,000+/head',
     use: 'VIP Gifting',
     desc: 'Premium tech accessories, luxury hampers, personalised items. For board gifts, investors, and top performers.',
-    icon: '⭐',
     bg: 'cp-img-warm',
   },
 ]
@@ -159,11 +157,12 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
         "headline": "Budget Corporate Gifts: Smart Gifting Without Overspending",
         "description": "How to buy quality corporate gifts on a budget. Compare price tiers, see what's achievable at each level, and get bulk pricing. Free quote in 24 hours.",
         "url": "https://themintbox.in/guides/budget-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -270,9 +269,6 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
           <div className="cp-cards-grid cp-cards-grid--3">
             {PRICE_LEVELS.map(level => (
               <div key={level.range} className="cp-card">
-                <div className={`cp-card-icon ${level.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {level.icon}
-                </div>
                 <div className="cp-card-title">{level.range}</div>
                 <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--gold,#B8972E)', marginBottom: '8px' }}>{level.use}</div>
                 <p className="cp-card-desc">{level.desc}</p>
@@ -399,7 +395,7 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
             </p>
             <div className="cp-cta-promises">
               {[
-                'Itemised quote within 4 business hours',
+                'Itemised quote within 24 hours',
                 'Bulk discount applied automatically',
                 'No hidden setup or packaging fees',
                 'Multi-tier gifting supported (by seniority)',
@@ -445,8 +441,8 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
               { label: 'Gifting Guide', title: 'How to Choose Corporate Gifts', href: '/guides/how-to-choose-corporate-gifts' },
               { label: 'Bangalore', title: 'Bulk Gifting Guide', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Gifts', href: '/customization/personalized-corporate-gifts' },
-              { label: 'Collections', title: 'All Collections', href: '/collections/corporate-gifts' },
-              { label: 'Under ₹500', title: 'Corporate Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
+              { label: 'Secret Santa', title: 'Secret Santa Gifts Under ₹500', href: '/guides/secret-santa-gifts-for-colleagues' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -459,8 +455,10 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

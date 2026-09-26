@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
@@ -84,28 +88,28 @@ const BUDGET_GUIDE = [
 ]
 
 const OCCASIONS_GUIDE = [
-  { emoji: '🪔', title: 'Diwali Gifting', desc: 'Most important Indian corporate gifting moment. Book 6–8 weeks early.', href: '/guides/diwali-corporate-gifts' },
-  { emoji: '🎉', title: 'Employee Onboarding', desc: 'First impressions matter. Welcome kits set the tone from day one.', href: '/collections/employee-welcome-kit' },
-  { emoji: '🤝', title: 'Client Gifting', desc: 'Strengthen key relationships with thoughtful, premium selections.', href: '/guides/corporate-gifts-for-clients' },
-  { emoji: '🏆', title: 'Work Anniversaries', desc: 'Celebrate tenure milestones with personalised, lasting gifts.', href: '/guides/work-anniversary-gifts' },
-  { emoji: '🎄', title: 'Christmas & Year-End', desc: 'International teams and MNCs gifting season - plan by November.', href: '/guides/christmas-corporate-gifts' },
-  { emoji: '🌱', title: 'Sustainable Gifting', desc: 'ESG-aligned companies increasingly mandate eco-friendly choices.', href: '/guides/sustainable-corporate-gifts' },
+  { title: 'Diwali Gifting', desc: 'Most important Indian corporate gifting moment. Book 6–8 weeks early.', href: '/guides/diwali-corporate-gifts' },
+  { title: 'Employee Onboarding', desc: 'First impressions matter. Welcome kits set the tone from day one.', href: '/collections/employee-welcome-kit' },
+  { title: 'Client Gifting', desc: 'Strengthen key relationships with thoughtful, premium selections.', href: '/guides/corporate-gifts-for-clients' },
+  { title: 'Work Anniversaries', desc: 'Celebrate tenure milestones with personalised, lasting gifts.', href: '/guides/work-anniversary-gifts' },
+  { title: 'Christmas & Year-End', desc: 'International teams and MNCs gifting season - plan by November.', href: '/guides/christmas-corporate-gifts' },
+  { title: 'Sustainable Gifting', desc: 'ESG-aligned companies increasingly mandate eco-friendly choices.', href: '/guides/sustainable-corporate-gifts' },
 ]
 
 const CATEGORIES = [
-  { emoji: '☕', title: 'Drinkware', desc: 'Mugs, bottles, tumblers - the #1 category for brand recall.', href: '/collections/drinkware' },
-  { emoji: '📓', title: 'Stationery', desc: 'Notebooks, planners, pens - timeless desk gifts.', href: '/collections/stationery' },
-  { emoji: '📦', title: 'Hampers', desc: 'Curated multi-product sets for premium gifting occasions.', href: '/collections/hampers' },
-  { emoji: '💻', title: 'Tech Gifts', desc: 'Wireless chargers, USB hubs, and desk accessories.', href: '/collections/tech-gifts' },
-  { emoji: '🌿', title: 'Eco-Friendly', desc: 'Bamboo, recycled, and sustainable products for ESG programmes.', href: '/collections/eco-friendly-gifts' },
-  { emoji: '🎒', title: 'Welcome Kits', desc: 'Everything a new hire needs from day one - boxed and branded.', href: '/collections/employee-welcome-kit' },
+  { title: 'Drinkware', desc: 'Mugs, bottles, tumblers - the #1 category for brand recall.', href: '/collections/drinkware' },
+  { title: 'Stationery', desc: 'Notebooks, planners, pens - timeless desk gifts.', href: '/collections/stationery' },
+  { title: 'Hampers', desc: 'Curated multi-product sets for premium gifting occasions.', href: '/collections/hampers' },
+  { title: 'Tech Gifts', desc: 'Wireless chargers, USB hubs, and desk accessories.', href: '/collections/tech-gifts' },
+  { title: 'Eco-Friendly', desc: 'Bamboo, recycled, and sustainable products for ESG programmes.', href: '/collections/eco-friendly-gifts' },
+  { title: 'Welcome Kits', desc: 'Everything a new hire needs from day one - boxed and branded.', href: '/collections/employee-welcome-kit' },
 ]
 
 const COMPARISON_TABLE = [
-  { type: 'Conference Giveaway', budget: '₹100–₹300', moq: '100+', lead: '3–5 days', best: 'Pens, notepads, tote bags' },
-  { type: 'Team Event Gift', budget: '₹300–₹700', moq: '50+', lead: '5–7 days', best: 'Mugs, bottles, notebooks' },
-  { type: 'Diwali / Festival', budget: '₹500–₹1,500', moq: '50+', lead: '7–14 days', best: 'Hampers, premium drinkware' },
-  { type: 'Employee Onboarding', budget: '₹800–₹2,000', moq: '25+', lead: '5–10 days', best: 'Welcome kits, branded accessories' },
+  { type: 'Conference Giveaway', budget: '₹100–₹300', moq: '10+', lead: '3–5 days', best: 'Pens, notepads, tote bags' },
+  { type: 'Team Event Gift', budget: '₹300–₹700', moq: '10+', lead: '5–7 days', best: 'Mugs, bottles, notebooks' },
+  { type: 'Diwali / Festival', budget: '₹500–₹1,500', moq: '10+', lead: '7–14 days', best: 'Hampers, premium drinkware' },
+  { type: 'Employee Onboarding', budget: '₹800–₹2,000', moq: '10+', lead: '5–10 days', best: 'Welcome kits, branded accessories' },
   { type: 'Client Gift', budget: '₹1,000–₹3,000', moq: '10+', lead: '7–10 days', best: 'Curated hampers, tech gadgets' },
   { type: 'CXO / Executive', budget: '₹3,000+', moq: '5+', lead: '10–15 days', best: 'Premium boxes, bespoke items' },
 ]
@@ -113,7 +117,7 @@ const COMPARISON_TABLE = [
 const FAQS = [
   {
     q: 'What is the minimum order quantity for corporate gifts?',
-    a: 'Most products start at 25 units for bulk orders with logo printing. Premium hampers and onboarding kits are available from 10 units. Conference giveaways (pens, notepads) require a minimum of 100 units to unlock bulk pricing.',
+    a: 'Every product starts at 10 units, including logo printing, premium hampers, and onboarding kits. Conference giveaways (pens, notepads) need 100+ units to unlock bulk pricing.',
   },
   {
     q: 'How do I choose the right corporate gift?',
@@ -164,11 +168,12 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
         "headline": "The Corporate Gifting Handbook: Complete Guide for Indian Businesses",
         "description": "The complete corporate gifting guide for Indian businesses - budgeting, choosing gifts, bulk ordering, customisation, and occasion planning. Updated for 2026.",
         "url": "https://themintbox.in/guides/corporate-gifting-handbook",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -232,7 +237,7 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <EATSignal credentials={[
             'MintBox has fulfilled 10,000+ corporate gift orders across Bangalore and pan-India',
             '200+ products in stock - drinkware, stationery, hampers, tech, eco-friendly',
-            'Bulk orders from 25 units with logo customisation included',
+            'Bulk orders from 10 units with logo customisation included',
             'GST-compliant invoicing, dedicated account manager per order',
             'Same-day delivery available in Bangalore for in-stock items',
           ]} />
@@ -268,13 +273,12 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <h2 className="cp-section-title">Why Corporate Gifting Matters</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px', marginTop: '40px' }}>
             {[
-              { icon: '🤝', title: 'Builds Relationships', desc: 'A well-chosen gift creates a positive emotional touchpoint. Recipients associate the feeling of receiving the gift with your brand - for months, not minutes.' },
-              { icon: '🏷️', title: 'Keeps Your Brand Visible', desc: 'A branded insulated bottle or notebook sits on a desk or kitchen counter for years. Daily use = daily brand impressions without ongoing ad spend.' },
-              { icon: '💼', title: 'Reinforces Culture', desc: 'Onboarding kits and milestone gifts signal that your company invests in its people. This directly impacts engagement, retention, and referral rates.' },
-              { icon: '📈', title: 'Measurable ROI', desc: "Client gifting consistently shows 3–5x return in lifetime value when done thoughtfully. It's not a cost centre - it's a relationship investment." },
+              { title: 'Builds Relationships', desc: 'A well-chosen gift creates a positive emotional touchpoint. Recipients associate the feeling of receiving the gift with your brand - for months, not minutes.' },
+              { title: 'Keeps Your Brand Visible', desc: 'A branded insulated bottle or notebook sits on a desk or kitchen counter for years. Daily use = daily brand impressions without ongoing ad spend.' },
+              { title: 'Reinforces Culture', desc: 'Onboarding kits and milestone gifts signal that your company invests in its people. This directly impacts engagement, retention, and referral rates.' },
+              { title: 'Measurable ROI', desc: "Client gifting consistently shows 3–5x return in lifetime value when done thoughtfully. It's not a cost centre - it's a relationship investment." },
             ].map(item => (
               <div key={item.title} className="cp-feature-card">
-                <div className="cp-feature-card-icon" style={{ fontSize: '32px', marginBottom: '12px' }}>{item.icon}</div>
                 <div className="cp-feature-card-title">{item.title}</div>
                 <p className="cp-feature-card-desc">{item.desc}</p>
               </div>
@@ -312,7 +316,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
             <div className="cp-related-grid">
               {CATEGORIES.map(cat => (
                 <a key={cat.href} href={cat.href} className="cp-related-card">
-                  <div className="cp-related-card-label" style={{ fontSize: '24px', marginBottom: '4px' }}>{cat.emoji}</div>
                   <div className="cp-related-card-title">{cat.title}</div>
                   <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>{cat.desc}</div>
                   <div className="cp-related-card-arrow">→</div>
@@ -387,15 +390,14 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           </p>
           <div className="cp-occasion-grid" style={{ marginTop: '40px' }}>
             {[
-              { icon: '🖨️', title: 'Pad & UV Printing', desc: 'Logo printing on flat surfaces - mugs, bottles, notebooks, tote bags. Most cost-effective for large runs.' },
-              { icon: '✂️', title: 'Laser Engraving', desc: 'Premium permanent marking on metal and wood products. No ink to fade - ideal for executive gifts.' },
-              { icon: '🧵', title: 'Embroidery', desc: 'Logo stitching on caps, bags, and apparel. High-perceived-value, long-lasting brand placement.' },
-              { icon: '📦', title: 'Custom Packaging', desc: 'Branded boxes, tissue paper, ribbon, and inserts. Packaging is the first impression - make it count.' },
+              { title: 'Pad & UV Printing', desc: 'Logo printing on flat surfaces - mugs, bottles, notebooks, tote bags. Most cost-effective for large runs.' },
+              { title: 'Laser Engraving', desc: 'Premium permanent marking on metal and wood products. No ink to fade - ideal for executive gifts.' },
+              { title: 'Embroidery', desc: 'Logo stitching on caps, bags, and apparel. High-perceived-value, long-lasting brand placement.' },
+              { title: 'Custom Packaging', desc: 'Branded boxes, tissue paper, ribbon, and inserts. Packaging is the first impression - make it count.' },
             ].map(item => (
               <div key={item.title} className="cp-occasion-card" style={{ minHeight: '160px', cursor: 'default' }}>
                 <div className="cp-occasion-card-overlay" />
                 <div className="cp-occasion-card-content">
-                  <div style={{ fontSize: '28px', marginBottom: '8px' }}>{item.icon}</div>
                   <div className="cp-occasion-card-title">{item.title}</div>
                   <div className="cp-occasion-card-sub">{item.desc}</div>
                 </div>
@@ -452,7 +454,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <div className="cp-related-grid" style={{ marginTop: '40px' }}>
             {OCCASIONS_GUIDE.map(occ => (
               <a key={occ.href} href={occ.href} className="cp-related-card">
-                <div style={{ fontSize: '28px', marginBottom: '8px' }}>{occ.emoji}</div>
                 <div className="cp-related-card-title">{occ.title}</div>
                 <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>{occ.desc}</div>
                 <div className="cp-related-card-arrow">→</div>
@@ -468,7 +469,7 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <div className="cp-section-eyebrow">Browse the Catalogue</div>
           <h2 className="cp-section-title">Explore Corporate Gifts</h2>
           <p className="cp-section-sub">
-            All products are in stock, customisable, and available for bulk orders from 25 units.
+            All products are in stock, customisable, and available for bulk orders from 10 units.
             Filter by category or budget to find your perfect gift.
           </p>
           <ContentProductShowcase
@@ -528,14 +529,14 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
             <h2 className="cp-cta-title">Get a Free Corporate<br />Gifting Quote</h2>
             <p className="cp-cta-desc">
               Share your occasion, quantity, and budget - we'll send a curated recommendation
-              with pricing within 4 business hours.
+              with pricing within {QUOTE_TIME}.
             </p>
             <div className="cp-cta-promises">
               {[
                 'Curated product recommendation for your occasion',
-                'Bulk pricing from 25 units',
+                'Bulk pricing from 10 units',
                 'Customisation options included',
-                'Response within 4 business hours',
+                'Response within 2 hours',
               ].map(p => (
                 <div key={p} className="cp-cta-promise">
                   <span className="cp-cta-promise-dot" />
@@ -574,13 +575,12 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <div className="cp-related-grid">
             {[
               { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
-              { label: 'Budget', title: 'Corporate Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
-              { label: 'Budget', title: 'Budget Corporate Gifts', href: '/guides/budget-corporate-gifts' },
+              { label: 'Directory', title: 'Top Corporate Gifting Companies in India', href: '/guides/top-corporate-gifting-companies-india' },
+              { label: 'Compliance', title: 'GST on Corporate Gifts', href: '/guides/gst-on-corporate-gifts' },
               { label: 'Etiquette', title: 'Corporate Gifting Etiquette', href: '/guides/corporate-gifting-etiquette' },
               { label: 'Employees', title: 'What to Gift Employees', href: '/guides/what-to-gift-employees' },
               { label: 'Trends', title: 'Corporate Gifting Trends 2026', href: '/guides/corporate-gifting-trends-2026' },
               { label: 'Unique', title: 'Unique Corporate Gift Ideas', href: '/guides/unique-corporate-gifts' },
-              { label: 'Sustainable', title: 'Sustainable Corporate Gifts', href: '/guides/sustainable-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -593,8 +593,10 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

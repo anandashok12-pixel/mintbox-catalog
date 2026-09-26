@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -38,14 +42,14 @@ interface Props {
 }
 
 const UNIQUE_IDEAS = [
-  { icon: "🌱", title: "Seed Paper Stationery", desc: "Notebooks and cards made from seed-embedded paper - plant them after use. Memorable, eco-conscious, and wildly shareable on social media.", tag: "Eco-Friendly" },
-  { icon: "🪴", title: "Indoor Desk Plants", desc: "Succulents, air plants, or ZZ plants in branded pots. Lasts months on a desk, triggering brand recall every day.", tag: "Wellness" },
-  { icon: "🍵", title: "Artisan Tea & Coffee Kits", desc: "Curated loose-leaf teas or single-origin coffees with a branded brewing accessory. Works across dietary restrictions.", tag: "Gourmet" },
-  { icon: "🎨", title: "Custom Illustrated Portraits", desc: "Illustrated team portraits or mascot-branded items. Unique to your company - impossible to get elsewhere.", tag: "Personalised" },
-  { icon: "🔦", title: "Copper & Brass Drinkware", desc: "Handcrafted copper bottles and tumblers with logo engraving. Premium look, health connotations, and visible on every desk.", tag: "Premium" },
-  { icon: "📦", title: "Curated Experience Boxes", desc: "Theme boxes: 'Wellness Box', 'Work-From-Home Kit', 'Coffee Lover Set'. Tells a story, not just a bundle of items.", tag: "Curated" },
-  { icon: "🎙️", title: "Personalised Audio Gifts", desc: "Wireless earbuds or Bluetooth speakers with deep engraving or custom color. High perceived value and daily utility.", tag: "Tech" },
-  { icon: "🌿", title: "Bamboo Product Sets", desc: "Bamboo notebooks, pens, and phone stands. Sustainable, premium-feel, and increasingly sought-after by eco-aware employees.", tag: "Eco-Friendly" },
+  { title: "Seed Paper Stationery", desc: "Notebooks and cards made from seed-embedded paper - plant them after use. Memorable, eco-conscious, and wildly shareable on social media.", tag: "Eco-Friendly" },
+  { title: "Indoor Desk Plants", desc: "Succulents, air plants, or ZZ plants in branded pots. Lasts months on a desk, triggering brand recall every day.", tag: "Wellness" },
+  { title: "Artisan Tea & Coffee Kits", desc: "Curated loose-leaf teas or single-origin coffees with a branded brewing accessory. Works across dietary restrictions.", tag: "Gourmet" },
+  { title: "Custom Illustrated Portraits", desc: "Illustrated team portraits or mascot-branded items. Unique to your company - impossible to get elsewhere.", tag: "Personalised" },
+  { title: "Copper & Brass Drinkware", desc: "Handcrafted copper bottles and tumblers with logo engraving. Premium look, health connotations, and visible on every desk.", tag: "Premium" },
+  { title: "Curated Experience Boxes", desc: "Theme boxes: 'Wellness Box', 'Work-From-Home Kit', 'Coffee Lover Set'. Tells a story, not just a bundle of items.", tag: "Curated" },
+  { title: "Personalised Audio Gifts", desc: "Wireless earbuds or Bluetooth speakers with deep engraving or custom color. High perceived value and daily utility.", tag: "Tech" },
+  { title: "Bamboo Product Sets", desc: "Bamboo notebooks, pens, and phone stands. Sustainable, premium-feel, and increasingly sought-after by eco-aware employees.", tag: "Eco-Friendly" },
 ]
 
 const WHAT_MAKES_UNIQUE = [
@@ -60,7 +64,7 @@ const FAQ_ITEMS = [
   { q: "What are unique corporate gift ideas for employees?", a: "Unique employee gifts go beyond standard mugs and pens: seed paper stationery, desk plants in branded pots, artisan tea kits, copper drinkware, and curated theme boxes (wellness, coffee, work-from-home). Personalisation with the employee's name makes any gift feel unique." },
   { q: "What makes a corporate gift memorable?", a: "Three factors: personalisation (name, message, story), unexpected category (something they wouldn't buy themselves), and quality packaging. A thoughtfully packaged ₹500 gift is often remembered longer than a generic ₹2,000 item." },
   { q: "What are unique corporate gift ideas for clients?", a: "For clients, premium hampers with artisan products, copper gift sets, and experience boxes (curated themes) stand out. At ₹2,000–₹5,000, include at least one personalised element - engraving, a bespoke note, or custom colour." },
-  { q: "Can unique corporate gifts be ordered in bulk?", a: "Yes. MintBox specialises in unique bulk gifting - seed paper kits, copper sets, artisan hampers - all available from 25 units with logo branding and individual packaging. Many unique products have shorter MOQs than standard items." },
+  { q: "Can unique corporate gifts be ordered in bulk?", a: "Yes. MintBox specialises in unique bulk gifting - seed paper kits, copper sets, artisan hampers - all available from 10 units with logo branding and individual packaging. Many unique products have shorter MOQs than standard items." },
   { q: "What is the most unique Diwali corporate gift?", a: "Artisan copper bottles with logo engraving paired with premium dry fruits in a custom rigid box consistently rank as the most unique and appreciated Diwali gift. Budget: ₹1,500–₹2,500 per kit. MintBox produces these in batches from August." },
 ]
 
@@ -80,13 +84,14 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Unique Corporate Gift Ideas That Actually Get Remembered",
-        "description": "Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 50 units, from MintBox.",
+        "description": "Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 10 units, from MintBox.",
         "url": "https://themintbox.in/guides/unique-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -146,7 +151,7 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
             '50,000+ gifts delivered pan-India',
             '6+ years of corporate gifting expertise',
             'Unique, personalised, and eco-friendly options',
-            'From 25 units with full logo branding',
+            'From 10 units with full logo branding',
           ]} />
         </div>
       </div>
@@ -187,7 +192,6 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
           <div className="cp-card-grid cp-card-grid--4">
             {UNIQUE_IDEAS.map(idea => (
               <div key={idea.title} className="cp-card">
-                <div className="cp-card-icon">{idea.icon}</div>
                 <div className="cp-card-title">{idea.title}</div>
                 <p className="cp-card-desc">{idea.desc}</p>
                 <span className="cp-tag">{idea.tag}</span>
@@ -265,7 +269,7 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
             <h2 className="cp-cta-title">Order Unique Gifts<br />for Your Team</h2>
             <p className="cp-cta-sub">
               Share your headcount, budget, and occasion - we will curate a
-              unique gifting proposal within 4 hours.
+              unique gifting proposal within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -301,7 +305,8 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
               { label: 'Clients', title: 'Corporate Gifts for Clients', href: '/guides/corporate-gifts-for-clients' },
               { label: 'Personalised', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'Gift Hampers', href: '/collections/hampers' },
-              { label: 'Ideas 2026', title: 'Corporate Gift Ideas 2026', href: '/guides/corporate-gift-ideas-2026' },
+              { label: 'Bangalore', title: 'Famous Bangalore Gifts for Hampers', href: '/bangalore-corporate-gifting/famous-bangalore-gifts' },
+              { label: 'Luxury', title: 'Luxury Corporate Gifts', href: '/guides/luxury-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -314,8 +319,10 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

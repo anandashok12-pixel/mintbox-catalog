@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import FAQSection from '@/components/content/FAQSection'
 import InlineQuoteForm from '@/components/content/InlineQuoteForm'
@@ -13,6 +14,7 @@ import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
 import { DIWALI_HUB_FAQS, LAST_UPDATED } from '@/components/pages/diwaliHubData'
+import { QUOTE_TIME } from '@/lib/businessFacts'
 import DiwaliHamperShowcase, {
   TIERS,
   tierFor,
@@ -29,7 +31,7 @@ const HERO_PICKS = ['475', '463', '467']
 
 const STEPS = [
   { num: '1', title: 'Shortlist & add to pack', desc: 'Filter by budget or theme, open any hamper to see exactly what is inside, and add the ones you like.' },
-  { num: '2', title: 'Quote within 4 hours', desc: 'Share headcount, budget and delivery cities. You get per-unit pricing, a branding mockup and a GST-ready quote.' },
+  { num: '2', title: 'Quote within 24 hours', desc: 'Share headcount, budget and delivery cities. You get per-unit pricing, a branding mockup and a GST-ready quote.' },
   { num: '3', title: 'Approve & confirm', desc: 'Sign off on the mockup and quantities. Production and packing start as soon as the order is confirmed.' },
   { num: '4', title: 'Delivered before Diwali', desc: 'Assembled in Bengaluru and dispatched to one office or many cities, with tracking shared on WhatsApp.' },
 ]
@@ -80,6 +82,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
   return (
     <div className="cp-wrapper">
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -107,7 +110,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
               <a href="#quote" className="cp-hero-cta-secondary">Get a Diwali Quote</a>
             </div>
             <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">🪔 Diwali: Sun 8 Nov 2026</span>
+              <span className="cp-hero-badge">Diwali: Sun 8 Nov 2026</span>
               <span className="cp-hero-badge">✓ Order by 24 Oct for guaranteed delivery</span>
               <span className="cp-hero-badge">✓ MOQ 10 units</span>
               <span className="cp-hero-badge">✓ Logo branding</span>
@@ -132,6 +135,8 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
                       loading="lazy"
                       sizes={i === 0 ? '(max-width: 1024px) 60vw, 270px' : '(max-width: 1024px) 40vw, 140px'}
                       unoptimized
+                      decoding="async"
+                      fetchPriority={i === 0 ? 'high' : 'auto'}
                     />
                   </div>
                 ))}
@@ -287,6 +292,8 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
                 height={800}
                 sizes="(max-width: 768px) 100vw, 560px"
                 unoptimized
+                loading="lazy"
+                decoding="async"
               />
             )}
           </div>
@@ -361,14 +368,14 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Diwali 2026 Quote</div>
-            <h2 id="quote-title" className="cp-cta-title">Get Your Diwali<br />Proposal in 4 Hours</h2>
+            <h2 id="quote-title" className="cp-cta-title">Get Your Diwali<br />Proposal in 24 Hours</h2>
             <p className="cp-cta-desc">
               Tell us headcount, budget per head and delivery cities. You get per-unit pricing, a branding mockup and
-              a GST-ready quote, usually within 4 working hours.
+              a GST-ready quote, usually within {QUOTE_TIME}.
             </p>
             <ul className="cp-cta-promises">
               <li className="cp-cta-promise"><span className="cp-cta-promise-dot" />Mixed tiers in one order</li>
-              <li className="cp-cta-promise"><span className="cp-cta-promise-dot" />Samples available in Bengaluru</li>
+              <li className="cp-cta-promise"><span className="cp-cta-promise-dot" />Physical samples on orders of 100+ units</li>
               <li className="cp-cta-promise"><span className="cp-cta-promise-dot" />Pan-India delivery with tracking</li>
             </ul>
           </div>
@@ -407,6 +414,8 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
         <LastUpdatedDate date={LAST_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

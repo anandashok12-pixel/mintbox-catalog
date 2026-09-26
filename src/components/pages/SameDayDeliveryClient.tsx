@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -34,19 +37,16 @@ interface Product {
 
 const ZONES = [
   {
-    icon: '🏙',
     title: 'Central Bangalore',
     areas: ['Koramangala', 'Indiranagar', 'MG Road', 'UB City', 'Cunningham Road'],
     bg: 'cp-img-green',
   },
   {
-    icon: '💻',
     title: 'East & Tech Corridor',
     areas: ['Whitefield', 'Marathahalli', 'Varthur', 'KR Puram', 'Sarjapur Road'],
     bg: 'cp-img-gold',
   },
   {
-    icon: '🏢',
     title: 'South Bangalore',
     areas: ['Electronic City', 'HSR Layout', 'BTM Layout', 'Bannerghatta Road', 'Jayanagar'],
     bg: 'cp-img-warm',
@@ -136,7 +136,7 @@ export default function SameDayDeliveryClient({
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
@@ -148,6 +148,7 @@ export default function SameDayDeliveryClient({
         "priceRange": "₹₹"
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -261,9 +262,6 @@ export default function SameDayDeliveryClient({
           <div className="cp-cards-grid cp-cards-grid--3">
             {ZONES.map(zone => (
               <div key={zone.title} className="cp-card">
-                <div className={`cp-card-icon ${zone.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {zone.icon}
-                </div>
                 <div className="cp-card-title">{zone.title}</div>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {zone.areas.map(area => (
@@ -424,10 +422,10 @@ export default function SameDayDeliveryClient({
               { label: 'Bangalore', title: 'All Bangalore Corporate Gifting', href: '/bangalore-corporate-gifting' },
               { label: 'Bangalore', title: 'Bulk Gifting Bangalore', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { label: 'Drinkware', title: 'Branded Drinkware', href: '/collections/drinkware' },
+              { label: 'Bangalore', title: 'Where to Buy Corporate Gifts in Bangalore', href: '/bangalore-corporate-gifting/where-to-buy' },
               { label: 'Hampers', title: 'Corporate Hampers', href: '/collections/hampers' },
               { label: 'Budget Guide', title: 'Budget Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
-              { label: 'Bangalore Hub', title: 'Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting' },
+              { label: 'Occasions', title: 'Office Inauguration Gift Ideas', href: '/guides/office-inauguration-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -440,8 +438,10 @@ export default function SameDayDeliveryClient({
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

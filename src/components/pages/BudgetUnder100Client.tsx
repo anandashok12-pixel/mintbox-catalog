@@ -2,14 +2,18 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
 import InlineQuoteForm from '@/components/content/InlineQuoteForm'
 import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
-import LastUpdatedDate from '@/components/content/LastUpdatedDate'
+import LastUpdatedDate, { formatMonthYear } from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -35,7 +39,6 @@ interface Product {
 const PRICE_TIERS = [
   {
     label: '₹25–₹50',
-    icon: '✏️',
     price: 'From ₹25/unit',
     variant: 'cp-budget-card--subtle',
     labelVariant: 'cp-budget-label--dark',
@@ -48,7 +51,6 @@ const PRICE_TIERS = [
   },
   {
     label: '₹50–₹75',
-    icon: '📋',
     price: '₹50–₹75/unit',
     variant: 'cp-budget-card--mid',
     labelVariant: 'cp-budget-label--light',
@@ -61,7 +63,6 @@ const PRICE_TIERS = [
   },
   {
     label: '₹75–₹100',
-    icon: '💾',
     price: '₹75–₹100/unit',
     variant: 'cp-budget-card--premium',
     labelVariant: 'cp-budget-label--light',
@@ -99,7 +100,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What's the MOQ for gifts under ₹100?",
-    a: 'Most items have an MOQ of 100 units for printed orders. For very low-cost items like pens and badges, 250 units may be required to cover setup costs. Volume discounts kick in meaningfully at 500+.',
+    a: 'The minimum order is 10 units for every item, including printed orders. Volume discounts kick in meaningfully at 500+.',
   },
   {
     q: 'Can I get logo printing for gifts under ₹100?',
@@ -115,7 +116,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Can I mix products in a large event order?',
-    a: 'Yes. Mixed SKUs are welcome with a 100-unit minimum per product. Orders with 5+ SKUs may need an additional 2–3 days for coordination. A dedicated account manager is assigned for orders above ₹50,000.',
+    a: 'Yes. Mixed SKUs are welcome with a 10-unit minimum per product. Orders with 5+ SKUs may need an additional 2–3 days for coordination. A dedicated account manager is assigned for orders above ₹50,000.',
   },
 ]
 
@@ -126,6 +127,7 @@ const RELATED_LINKS = [
   { label: 'Collections', title: 'Stationery Collection', href: '/collections/stationery' },
   { label: 'Eco', title: 'Eco-Friendly Gifts', href: '/collections/eco-friendly-gifts' },
   { label: 'Bulk Gifting', title: 'Bulk Gifting Guide', href: '/bangalore-corporate-gifting/bulk-gifting' },
+  { label: 'Secret Santa', title: 'Secret Santa Gifts Under ₹500', href: '/guides/secret-santa-gifts-for-colleagues' },
 ]
 
 
@@ -145,13 +147,14 @@ export default function BudgetUnder100Client({ products, categories }: { product
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gifts Under ₹100: Affordable Bulk Ideas for 2026",
-        "description": "Best corporate gifts under ₹100 for large-scale events and giveaways. Pens, seed packets, badges, stickers - logo-printed from 100 units. Pan-India bulk delivery.",
+        "description": "Best corporate gifts under ₹100 for large-scale events and giveaways. Pens, seed packets, badges, stickers - logo-printed from 10 units. Pan-India bulk delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-under-100",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -166,7 +169,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
           </nav>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '60px', alignItems: 'center' }}>
             <div>
-              <div className="cp-hero-eyebrow">Budget Guide · Updated May 2026</div>
+              <div className="cp-hero-eyebrow">Budget Guide · Updated {formatMonthYear(PAGE_UPDATED)}</div>
               <h1 className="cp-hero-title">
                 Corporate Gifts Under ₹100:<br />
                 <em>Affordable Bulk Ideas for 2026</em>
@@ -174,7 +177,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
                 Impactful gifting at ₹25–₹100 per unit. Branded pens, seed packets, stickers, and more.
-                Ideal for large-scale events, conferences, and bulk giveaways from 100 units.
+                Ideal for large-scale events, conferences, and bulk giveaways from 10 units.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">See Products Under ₹100 ↓</a>
@@ -182,7 +185,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
               </div>
               <div className="cp-hero-badge-group">
                 <span className="cp-hero-badge">✓ From ₹25/unit</span>
-                <span className="cp-hero-badge">✓ MOQ from 100 units</span>
+                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
                 <span className="cp-hero-badge">✓ Logo printing included</span>
                 <span className="cp-hero-badge">✓ Pan-India delivery</span>
               </div>
@@ -213,7 +216,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
           />
           <EATSignal credentials={[
             'Gifts priced ₹25–₹100 per unit, bulk-ready',
-            'MOQ 100 units, volume discounts from 500+',
+            'MOQ 10 units, volume discounts from 500+',
             'Logo printing included in listed price at 100+ units',
             'Perfect for events, conferences, mass giveaways',
             'GST invoicing, transparent no-surprise pricing',
@@ -230,7 +233,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
               <div className="cp-stat-label">Starting price</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">100<span className="cp-stat-unit"> units</span></div>
+              <div className="cp-stat-value">10<span className="cp-stat-unit"> units</span></div>
               <div className="cp-stat-label">Minimum order quantity</div>
             </div>
             <div className="cp-stat-card">
@@ -386,12 +389,12 @@ export default function BudgetUnder100Client({ products, categories }: { product
             <h2 className="cp-cta-title">Get Bulk Pricing<br />Under ₹100</h2>
             <p className="cp-cta-sub">
               Tell us your quantity, products of interest, and timeline - we will send back
-              an itemised bulk quote within 4 hours.
+              an itemised bulk quote within {QUOTE_TIME}.
             </p>
           </div>
           <InlineQuoteForm
             title="Get Bulk Pricing Under ₹100"
-            subtitle="Tell us what you need and we will come back with a detailed quote within 4 hours."
+            subtitle="Tell us what you need and we will come back with a detailed quote within 24 hours."
             ctaLabel="Get Bulk Quote"
             defaultOccasion="corporate_event"
           />
@@ -429,8 +432,10 @@ export default function BudgetUnder100Client({ products, categories }: { product
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

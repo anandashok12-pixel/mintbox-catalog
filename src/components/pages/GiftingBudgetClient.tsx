@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -34,21 +38,18 @@ interface Product {
 
 const COMPANY_SIZE_CARDS = [
   {
-    icon: '🚀',
     bg: 'cp-img-green',
     title: 'Startups (10–50 employees)',
     budget: '₹25,000–₹1,50,000 / year',
     desc: 'Focus on onboarding kits (₹1,000–₹1,500/kit) and Diwali (₹500–₹800/head). Skip mass events; invest in meaningful onboarding.',
   },
   {
-    icon: '🏢',
     bg: 'cp-img-mid',
     title: 'Mid-size (50–500 employees)',
     budget: '₹1.5L–₹25L / year',
     desc: 'Occasions: Diwali (largest allocation), onboarding, work anniversaries. At 100+ units, bulk discounts reduce per-unit cost by 15–25%.',
   },
   {
-    icon: '🏛️',
     bg: 'cp-img-gold',
     title: 'Enterprise (500+ employees)',
     budget: '₹25L–₹2Cr+ / year',
@@ -121,11 +122,12 @@ export default function GiftingBudgetClient({ products, categories }: { products
         "headline": "Corporate Gifting Budget: How to Plan & Optimise Your Spend",
         "description": "How to plan a corporate gifting budget - by company size, occasion, and ROI. Includes budget templates, per-employee benchmarks, and bulk pricing guide.",
         "url": "https://themintbox.in/guides/corporate-gifting-budget",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -227,9 +229,6 @@ export default function GiftingBudgetClient({ products, categories }: { products
           <div className="cp-cards-grid cp-cards-grid--3">
             {COMPANY_SIZE_CARDS.map(card => (
               <div key={card.title} className="cp-card">
-                <div className={`cp-card-icon ${card.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {card.icon}
-                </div>
                 <div className="cp-card-title">{card.title}</div>
                 <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--forest-green,#1B4D3E)', marginBottom: '10px' }}>
                   {card.budget}
@@ -346,7 +345,7 @@ export default function GiftingBudgetClient({ products, categories }: { products
             <h2 className="cp-cta-title">Plan Your<br />Gifting Budget</h2>
             <p className="cp-cta-sub">
               Tell us your headcount, occasions, and budget range - we will send back a
-              structured gifting plan with product recommendations and bulk pricing within 4 hours.
+              structured gifting plan with product recommendations and bulk pricing within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -384,7 +383,7 @@ export default function GiftingBudgetClient({ products, categories }: { products
               { label: 'Planning Guide', title: 'How to Choose Corporate Gifts', href: '/guides/how-to-choose-corporate-gifts' },
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Seasonal', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
-              { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
+              { label: 'Compliance', title: 'GST on Corporate Gifts', href: '/guides/gst-on-corporate-gifts' },
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
@@ -398,8 +397,10 @@ export default function GiftingBudgetClient({ products, categories }: { products
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

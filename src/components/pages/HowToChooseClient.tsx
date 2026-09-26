@@ -2,14 +2,18 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
 import InlineQuoteForm from '@/components/content/InlineQuoteForm'
 import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
-import LastUpdatedDate from '@/components/content/LastUpdatedDate'
+import LastUpdatedDate, { formatMonthYear } from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -71,37 +75,31 @@ const AVOID_TABLE = [
 
 const OCCASION_CARDS = [
   {
-    icon: '🎒',
     bg: 'cp-img-green',
     title: 'Onboarding Kit',
     desc: 'Notebook + bottle + tee + card. Budget ₹750–₹1,500.',
   },
   {
-    icon: '🪔',
     bg: 'cp-img-gold',
     title: 'Diwali Gifting',
     desc: 'Hamper with drinkware + sweets + packaging. ₹500–₹2,000.',
   },
   {
-    icon: '🏆',
     bg: 'cp-img-warm',
     title: 'Work Anniversary',
     desc: 'Engraved bottle or pen. Personal, lasting. ₹500–₹1,500.',
   },
   {
-    icon: '🤝',
     bg: 'cp-img-mid',
     title: 'Client Appreciation',
     desc: 'Premium curated hamper. Quality over quantity. ₹1,500–₹5,000.',
   },
   {
-    icon: '🎤',
     bg: 'cp-img-green',
     title: 'Conference Giveaway',
     desc: 'Branded tote + pen + notebook. ₹200–₹500.',
   },
   {
-    icon: '🎉',
     bg: 'cp-img-warm',
     title: 'Team Celebration',
     desc: 'Swag box with tee + mug + note. ₹600–₹1,200.',
@@ -135,7 +133,7 @@ const FAQS = [
   },
   {
     q: 'Can I request samples before placing a bulk order?',
-    a: 'Yes. Physical samples are available for orders above ₹25,000. Sample delivery takes 2–3 days. We strongly recommend sampling for first-time orders - it eliminates surprises on quality, print placement, and colour accuracy.',
+    a: 'Yes. Physical samples are available for orders of 100+ units. Sample delivery takes 2–3 days. We strongly recommend sampling for first-time orders - it eliminates surprises on quality, print placement, and colour accuracy.',
   },
 ]
 
@@ -158,11 +156,12 @@ export default function HowToChooseClient({ products, categories }: { products: 
         "headline": "How to Choose Corporate Gifts: A Practical 2026 Guide",
         "description": "Step-by-step guide to picking the right corporate gifts - by occasion, recipient, budget, and customisation. Avoid common mistakes. 200+ options from MintBox.",
         "url": "https://themintbox.in/guides/how-to-choose-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -177,7 +176,7 @@ export default function HowToChooseClient({ products, categories }: { products: 
           </nav>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '60px', alignItems: 'center' }}>
             <div>
-              <div className="cp-hero-eyebrow">Gift Selection Guide · Updated May 2026</div>
+              <div className="cp-hero-eyebrow">Gift Selection Guide · Updated {formatMonthYear(PAGE_UPDATED)}</div>
               <h1 className="cp-hero-title">
                 How to Choose Corporate Gifts:<br />
                 <em>A Practical 2026 Guide</em>
@@ -226,7 +225,7 @@ export default function HowToChooseClient({ products, categories }: { products: 
             '500+ companies guided through gift selection',
             'Dedicated gifting consultants for every order',
             '200+ products curated for every occasion and budget',
-            'Sample approval before production',
+            'Sample approval before production on 100+ unit orders',
             '96% client satisfaction rate',
           ]} />
         </div>
@@ -351,9 +350,6 @@ export default function HowToChooseClient({ products, categories }: { products: 
           <div className="cp-cards-grid cp-cards-grid--3">
             {OCCASION_CARDS.map(card => (
               <div key={card.title} className="cp-card">
-                <div className={`cp-card-icon ${card.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {card.icon}
-                </div>
                 <div className="cp-card-title">{card.title}</div>
                 <p className="cp-card-desc">{card.desc}</p>
               </div>
@@ -383,14 +379,14 @@ export default function HowToChooseClient({ products, categories }: { products: 
             <h2 className="cp-cta-title">Get a Free<br />Gift Consultation</h2>
             <p className="cp-cta-desc">
               Tell us your recipient, occasion, and budget and we will send back a curated
-              shortlist of three options with real pricing - within 4 hours.
+              shortlist of three options with real pricing - within {QUOTE_TIME}.
             </p>
             <div className="cp-cta-promises">
               {[
                 'Personalised shortlist for your occasion',
-                'Samples available before bulk order',
-                'No obligation, no minimum',
-                'Response within 4 business hours',
+                'Samples before bulk orders of 100+ units',
+                'No obligation, 10-unit minimum',
+                'Response within 2 hours',
               ].map(p => (
                 <div key={p} className="cp-cta-promise">
                   <span className="cp-cta-promise-dot" />
@@ -428,12 +424,12 @@ export default function HowToChooseClient({ products, categories }: { products: 
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides & Collections</h2>
           <div className="cp-related-grid">
             {[
-              { label: 'Collections', title: 'All Collections', href: '/collections/corporate-gifts' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
               { label: 'Gifting Guide', title: 'Budget Corporate Gifts', href: '/guides/budget-corporate-gifts' },
               { label: 'Personalisation', title: 'Personalised Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Budget Guide', title: 'Under ₹500 Gifts', href: '/guides/corporate-gifts-under-500' },
               { label: 'Seasonal', title: 'Diwali Gifts', href: '/guides/diwali-corporate-gifts' },
-              { label: 'Collections', title: 'Hampers', href: '/collections/hampers' },
+              { label: 'Directory', title: 'Top Corporate Gifting Companies in India', href: '/guides/top-corporate-gifting-companies-india' },
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
@@ -447,8 +443,10 @@ export default function HowToChooseClient({ products, categories }: { products: 
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

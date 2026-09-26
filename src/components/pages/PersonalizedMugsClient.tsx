@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -53,9 +57,9 @@ const PERSONALISATION_OPTIONS = [
 ]
 
 const FAQ_ITEMS = [
-  { q: "What types of personalized mugs does MintBox offer?", a: "MintBox offers ceramic mugs, enamel mugs, stainless steel travel mugs, and double-wall glass mugs. All can be branded with your logo via sublimation printing, laser engraving, or screen printing. MOQ from 25 units." },
-  { q: "Can mugs be personalized with individual employee names?", a: "Yes. Individual name personalisation is available for orders of 25+ units. Each mug can have a unique name printed or engraved alongside your company logo. This is popular for onboarding kits and appreciation gifts." },
-  { q: "What is the minimum order for personalized coffee mugs?", a: "The minimum order quantity is 25 units. Volume pricing applies from 100 units. For mixed personalisation (different names), no extra MOQ is required." },
+  { q: "What types of personalized mugs does MintBox offer?", a: "MintBox offers ceramic mugs, enamel mugs, stainless steel travel mugs, and double-wall glass mugs. All can be branded with your logo via sublimation printing, laser engraving, or screen printing. MOQ from 10 units." },
+  { q: "Can mugs be personalized with individual employee names?", a: "Yes. Individual name personalisation is available for orders of 10+ units. Each mug can have a unique name printed or engraved alongside your company logo. This is popular for onboarding kits and appreciation gifts." },
+  { q: "What is the minimum order for personalized coffee mugs?", a: "The minimum order quantity is 10 units. Volume pricing applies from 100 units. For mixed personalisation (different names), no extra MOQ is required." },
   { q: "How long does production take for branded mugs?", a: "Standard orders are ready in 7–10 business days from artwork approval. For ceramic sublimation, allow an extra 2–3 business days. Rush Bangalore delivery is available for in-stock items." },
   { q: "What file format do I need for mug logo printing?", a: "We accept AI, EPS, or high-resolution PNG files (300 DPI+). For sublimation, SVG or vector formats give the sharpest results. Our design team can prepare a free mockup before production." },
 ]
@@ -66,6 +70,7 @@ const RELATED = [
   { href: '/customization/personalized-corporate-gifts', label: 'Personalized Corporate Gifts' },
   { href: '/collections/corporate-gifts', label: 'All Corporate Gifts' },
   { href: '/guides/corporate-gifts-under-1000', label: 'Budget' },
+  { href: '/guides/secret-santa-gifts-for-colleagues', label: 'Secret Santa' },
 ]
 
 
@@ -82,6 +87,7 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -98,7 +104,7 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
             <h1 className="cp-hero-title">Personalized Coffee Mugs for Corporate Gifting</h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Logo-branded mugs your team will use every day - ceramic, enamel, and steel. MOQ 25 units.
+              Logo-branded mugs your team will use every day - ceramic, enamel, and steel. MOQ 10 units.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Mugs</a>
@@ -123,11 +129,11 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox offers personalized corporate coffee mugs - ceramic, enamel, stainless steel, and glass - with logo printing or employee name personalisation. MOQ from 25 units. Price from ₹150. Turnaround 7–10 business days."
+            content="MintBox offers personalized corporate coffee mugs - ceramic, enamel, stainless steel, and glass - with logo printing or employee name personalisation. MOQ from 10 units. Price from ₹150. Turnaround 7–10 business days."
           />
           <EATSignal credentials={[
             "4 mug types: ceramic, enamel, stainless steel, and glass",
-            "Individual employee name printing from 25 units",
+            "Individual employee name printing from 10 units",
             "Full-colour sublimation, laser engraving, and screen print options",
             "Free digital mockup within 24 hours of artwork submission",
             "Pan-India delivery in 7–10 business days",
@@ -247,7 +253,7 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
             <h2 className="cp-cta-title">Ready to Order<br />Personalized Mugs?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, mug type, and logo. We will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, mug type, and logo. We will respond with pricing and a free digital mockup within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -291,9 +297,11 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
 
       {/* 11. LAST UPDATED */}
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

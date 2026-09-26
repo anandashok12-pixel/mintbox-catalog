@@ -11,6 +11,8 @@ import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
 
+const PAGE_UPDATED = '2026-05-26'
+
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
   id: string; name: string; price: number; emoji?: string | null
@@ -47,11 +49,11 @@ const GIFT_TIERS = [
 ]
 
 const WHAT_CLIENTS_NOTICE = [
-  { icon: "🎁", title: "Packaging Quality", desc: "Clients see the box before the gift. A premium rigid box with tissue and ribbon signals that you value the relationship." },
-  { icon: "✍️", title: "Personalised Note", desc: "A hand-written or printed note from the account manager or CEO is the single highest-impact element - more than the gift itself." },
-  { icon: "🏷️", title: "Brand Coherence", desc: "Your gift should feel like it comes from your brand. Colour palette, tone, and materials should reflect your company identity." },
-  { icon: "⏱️", title: "Timing", desc: "Early Diwali gifting (before Dhanteras) signals premium positioning. Late gifts feel like afterthoughts." },
-  { icon: "🌏", title: "Cultural Sensitivity", desc: "Avoid alcohol, leather, and food with undisclosed ingredients. When in doubt, go with drinkware, stationery, or hampers with labelled contents." },
+  { title: "Packaging Quality", desc: "Clients see the box before the gift. A premium rigid box with tissue and ribbon signals that you value the relationship." },
+  { title: "Personalised Note", desc: "A hand-written or printed note from the account manager or CEO is the single highest-impact element - more than the gift itself." },
+  { title: "Brand Coherence", desc: "Your gift should feel like it comes from your brand. Colour palette, tone, and materials should reflect your company identity." },
+  { title: "Timing", desc: "Early Diwali gifting (before Dhanteras) signals premium positioning. Late gifts feel like afterthoughts." },
+  { title: "Cultural Sensitivity", desc: "Avoid alcohol, leather, and food with undisclosed ingredients. When in doubt, go with drinkware, stationery, or hampers with labelled contents." },
 ]
 
 const CLIENT_GIFT_IDEAS = [
@@ -89,19 +91,19 @@ export default function ClientGiftsClient({ products, categories }: Props) {
         "headline": "Corporate Gifts for Clients: Premium Ideas That Build Relationships",
         "description": "Impress clients with premium corporate gifts. Personalised, branded, and GST-compliant gifting from MintBox - hampers, drinkware, and custom sets.",
         "url": "https://themintbox.in/guides/corporate-gifts-for-clients",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
-      <main>
+      <main id="main">
         {/* Hero */}
         <section className="cp-hero">
           <div className="cp-hero-bg cp-img-green" aria-hidden="true" />
           <div className="cp-container">
-            <div className="cp-breadcrumb">
+            <nav className="cp-breadcrumb" aria-label="Breadcrumb">
               <a href="/">Home</a> › <a href="/guides/corporate-gifting-handbook">Guides</a> › Corporate Gifts for Clients
-            </div>
+            </nav>
             <h1 className="cp-hero-title">Corporate Gifts for Clients: Premium Ideas That Build Relationships</h1>
             <p className="cp-hero-subtitle">
               Impress your most important clients with premium, personalised, and GST-compliant gifts - delivered on time across India.
@@ -170,7 +172,6 @@ export default function ClientGiftsClient({ products, categories }: Props) {
             <div className="cp-cards-grid">
               {WHAT_CLIENTS_NOTICE.map((item, i) => (
                 <div key={i} className="cp-card">
-                  <div style={{ fontSize: '32px', marginBottom: '12px' }}>{item.icon}</div>
                   <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>{item.title}</h3>
                   <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>{item.desc}</p>
                 </div>
@@ -258,26 +259,28 @@ export default function ClientGiftsClient({ products, categories }: Props) {
             <h2 className="cp-section-title">Related Guides</h2>
             <div className="cp-related-grid">
               <a href="/guides/corporate-gift-ideas-2026" className="cp-related-card">
-                <span className="cp-related-emoji">💡</span>
                 <span className="cp-related-title">Corporate Gift Ideas 2026</span>
               </a>
               <a href="/guides/unique-corporate-gifts" className="cp-related-card">
-                <span className="cp-related-emoji">✨</span>
                 <span className="cp-related-title">Unique Corporate Gifts</span>
               </a>
               <a href="/guides/corporate-gifting-etiquette" className="cp-related-card">
-                <span className="cp-related-emoji">📋</span>
                 <span className="cp-related-title">Corporate Gifting Etiquette</span>
               </a>
               <a href="/collections/hampers" className="cp-related-card">
-                <span className="cp-related-emoji">🎁</span>
                 <span className="cp-related-title">Hampers Collection</span>
+              </a>
+              <a href="/guides/luxury-corporate-gifts" className="cp-related-card">
+                <span className="cp-related-title">Luxury Corporate Gifts</span>
+              </a>
+              <a href="/guides/diwali-gifts-for-clients" className="cp-related-card">
+                <span className="cp-related-title">Diwali Gift Ideas for Clients</span>
               </a>
             </div>
           </div>
         </section>
 
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </main>
       <Footer />
       <WhatsAppFloat />

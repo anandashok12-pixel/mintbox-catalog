@@ -41,6 +41,6 @@ export const DIWALI_HUB_FAQS: DiwaliFaq[] = [
   },
   {
     q: 'Can we see a sample before placing a bulk Diwali order?',
-    a: 'Yes. Physical samples of shortlisted hampers can be arranged in Bengaluru, and a branding mockup is shared with every quote so you can see how your logo will look on the box before you confirm.',
+    a: 'Yes, on orders of 100+ units: physical samples of shortlisted hampers can be arranged in Bengaluru. A branding mockup is shared with every quote so you can see how your logo will look on the box before you confirm.',
   },
 ]

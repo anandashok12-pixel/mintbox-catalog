@@ -2,14 +2,18 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
 import InlineQuoteForm from '@/components/content/InlineQuoteForm'
 import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
-import LastUpdatedDate from '@/components/content/LastUpdatedDate'
+import LastUpdatedDate, { formatMonthYear } from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -35,8 +39,7 @@ interface Product {
 const PRICE_TIERS = [
   {
     label: 'Under ₹100',
-    icon: '✏️',
-    price: 'From ₹25/unit',
+    price: 'From ₹35/unit',
     variant: 'cp-budget-card--subtle',
     labelVariant: 'cp-budget-label--dark',
     priceVariant: 'cp-budget-price--dark',
@@ -48,7 +51,6 @@ const PRICE_TIERS = [
   },
   {
     label: '₹100–₹250',
-    icon: '📓',
     price: '₹100–₹250/unit',
     variant: 'cp-budget-card--mid',
     labelVariant: 'cp-budget-label--light',
@@ -61,7 +63,6 @@ const PRICE_TIERS = [
   },
   {
     label: '₹250–₹500',
-    icon: '💧',
     price: '₹250–₹500/unit',
     variant: 'cp-budget-card--premium',
     labelVariant: 'cp-budget-label--light',
@@ -103,7 +104,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What's the minimum order quantity (MOQ) for budget gifts?",
-    a: 'MOQ is 50 units for most items in the sub-₹500 range. Some items (pens, seed packets) can go as low as 100 units for printed orders. Orders under 50 units carry a small setup fee.',
+    a: 'MOQ is 10 units for every item in the sub-₹500 range, including printed orders. Orders under 50 units carry a small setup fee.',
   },
   {
     q: 'How long does production take?',
@@ -111,7 +112,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Can I mix different products in one order?',
-    a: 'Yes. Mixed orders are available with a 100-unit minimum per product. Each SKU needs its own logo file and production run, so lead times may extend by 2–3 days for mixed orders.',
+    a: 'Yes. Mixed orders are available with a 10-unit minimum per product. Each SKU needs its own logo file and production run, so lead times may extend by 2–3 days for mixed orders.',
   },
   {
     q: 'Are GST invoices provided?',
@@ -122,10 +123,11 @@ const FAQ_ITEMS = [
 const RELATED_LINKS = [
   { label: 'Budget Guide', title: 'Corporate Gifts Under ₹100', href: '/guides/corporate-gifts-under-100' },
   { label: 'Budget Guide', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
-  { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
+  { label: 'Secret Santa', title: 'Secret Santa Gifts Under ₹500', href: '/guides/secret-santa-gifts-for-colleagues' },
   { label: 'Bulk Gifting', title: 'Bulk Gifting Guide', href: '/bangalore-corporate-gifting/bulk-gifting' },
   { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
   { label: 'Eco', title: 'Eco-Friendly Gifts', href: '/collections/eco-friendly-gifts' },
+  { label: 'Occasions', title: 'Farewell Gift Ideas for Colleagues', href: '/guides/farewell-gifts-for-colleagues' },
 ]
 
 
@@ -145,13 +147,14 @@ export default function BudgetUnder500Client({ products, categories }: { product
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gifts Under ₹500: Best Budget Picks for 2026",
-        "description": "Quality corporate gifts under ₹500 with logo printing. Budget picks from ₹75/unit - notebooks, bottles, eco kits. Bulk pricing from 50 units. Pan-India delivery.",
+        "description": "Quality corporate gifts under ₹500 with logo printing. Budget picks from ₹35/unit - notebooks, bottles, eco kits. Bulk pricing from 10 units. Pan-India delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-under-500",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -166,14 +169,14 @@ export default function BudgetUnder500Client({ products, categories }: { product
           </nav>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '60px', alignItems: 'center' }}>
             <div>
-              <div className="cp-hero-eyebrow">Budget Guide · Updated May 2026</div>
+              <div className="cp-hero-eyebrow">Budget Guide · Updated {formatMonthYear(PAGE_UPDATED)}</div>
               <h1 className="cp-hero-title">
                 Corporate Gifts Under ₹500:<br />
                 <em>Best Budget Picks for 2026</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                High-impact gifting at ₹75–₹500 per unit. Logo printing, eco options, and bulk discounts
+                High-impact gifting at ₹35–₹500 per unit. Logo printing and eco options from 10 units, bulk discounts
                 from 50 units. Ideal for events, onboarding, and year-round recognition.
               </p>
               <div className="cp-hero-ctas">
@@ -182,8 +185,8 @@ export default function BudgetUnder500Client({ products, categories }: { product
               </div>
               <div className="cp-hero-badge-group">
                 <span className="cp-hero-badge">✓ All under ₹500/unit</span>
-                <span className="cp-hero-badge">✓ Logo printing from 50 units</span>
-                <span className="cp-hero-badge">✓ MOQ from 50 units</span>
+                <span className="cp-hero-badge">✓ Logo printing from 10 units</span>
+                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
                 <span className="cp-hero-badge">✓ GST invoicing</span>
               </div>
             </div>
@@ -213,7 +216,7 @@ export default function BudgetUnder500Client({ products, categories }: { product
           />
           <EATSignal credentials={[
             'All listed products priced ≤ ₹500 per unit',
-            'Logo printing from 50 units - no setup fee at 100+',
+            'Logo printing from 10 units - no setup fee at 100+',
             '150+ budget-friendly SKUs across 6 categories',
             '7–10 day production, Pan-India delivery',
             'GST-compliant invoicing, transparent pricing',
@@ -230,11 +233,11 @@ export default function BudgetUnder500Client({ products, categories }: { product
               <div className="cp-stat-label">Products under ₹500</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">₹75<span className="cp-stat-unit">/unit</span></div>
+              <div className="cp-stat-value">₹35<span className="cp-stat-unit">/unit</span></div>
               <div className="cp-stat-label">Starting price</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">50<span className="cp-stat-unit"> units</span></div>
+              <div className="cp-stat-value">10<span className="cp-stat-unit"> units</span></div>
               <div className="cp-stat-label">Minimum order quantity</div>
             </div>
           </div>
@@ -383,12 +386,12 @@ export default function BudgetUnder500Client({ products, categories }: { product
             <h2 className="cp-cta-title">Get Bulk Pricing<br />Under ₹500</h2>
             <p className="cp-cta-sub">
               Tell us your quantity, products of interest, and timeline - we will send back
-              an itemised bulk quote within 4 hours.
+              an itemised bulk quote within {QUOTE_TIME}.
             </p>
           </div>
           <InlineQuoteForm
             title="Get Bulk Pricing Under ₹500"
-            subtitle="Tell us what you need and we will come back with a detailed quote within 4 hours."
+            subtitle="Tell us what you need and we will come back with a detailed quote within 24 hours."
             ctaLabel="Get Bulk Quote"
             defaultOccasion="corporate_event"
           />
@@ -426,8 +429,10 @@ export default function BudgetUnder500Client({ products, categories }: { product
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

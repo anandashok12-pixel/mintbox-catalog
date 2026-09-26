@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Product {
   id: string
@@ -27,25 +30,21 @@ interface Product {
 
 const WHY_BULK = [
   {
-    icon: '📊',
     bg: 'cp-img-green',
     title: 'Transparent Pricing',
     desc: 'Published bulk pricing, no hidden setup fees, no surprise invoices. What you see is what you pay.',
   },
   {
-    icon: '👤',
     bg: 'cp-img-gold',
     title: 'Dedicated Account Manager',
     desc: 'Single point of contact for quotes, samples, production updates, and delivery coordination.',
   },
   {
-    icon: '✅',
     bg: 'cp-img-warm',
     title: 'Quality Assurance',
     desc: 'Every batch inspected before dispatch. Photo proof of the full batch shared before delivery.',
   },
   {
-    icon: '🚚',
     bg: 'cp-img-mid',
     title: 'Flexible Delivery',
     desc: 'Multi-city, multi-address, staggered dispatch - all from one purchase order and one invoice.',
@@ -93,7 +92,7 @@ const ORDER_STEPS = [
   {
     num: '03',
     title: 'Approve Sample',
-    desc: 'A physical sample is couriered to you. Approval or feedback turnaround is 1–2 weeks.',
+    desc: 'For orders of 100+ units, a physical sample is couriered to you. Approval or feedback turnaround is 1–2 weeks.',
   },
   {
     num: '04',
@@ -127,7 +126,7 @@ const FAQS = [
   },
   {
     q: 'Can I order multiple products under one purchase order?',
-    a: 'Yes. Mixed-product bulk orders are common - for example, 500 bottles + 500 notebooks under one PO with one invoice. Each product has its own MOQ (typically 50–100 units per SKU for bulk runs). A coordinator manages the parallel production tracks.',
+    a: 'Yes. Mixed-product bulk orders are common - for example, 500 bottles + 500 notebooks under one PO with one invoice. Every product carries the same 10-unit minimum. A coordinator manages the parallel production tracks.',
   },
   {
     q: 'Do you provide GST invoicing for bulk corporate orders?',
@@ -160,7 +159,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
@@ -172,6 +171,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
         "priceRange": "₹₹"
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -283,9 +283,6 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
           <div className="cp-cards-grid cp-cards-grid--2">
             {WHY_BULK.map(item => (
               <div key={item.title} className="cp-card">
-                <div className={`cp-card-icon ${item.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {item.icon}
-                </div>
                 <div className="cp-card-title">{item.title}</div>
                 <div className="cp-card-desc">{item.desc}</div>
               </div>
@@ -449,11 +446,11 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
             {[
               { label: 'Bangalore', title: 'Same-Day Delivery Bangalore', href: '/bangalore-corporate-gifting/same-day-delivery' },
               { label: 'Bangalore', title: 'All Bangalore Corporate Gifting', href: '/bangalore-corporate-gifting' },
-              { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
               { label: 'Guides', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
               { label: 'Customisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Guides', title: 'Budget Corporate Gifts', href: '/guides/budget-corporate-gifts' },
-              { label: 'Bangalore Hub', title: 'Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting' },
+              { label: 'Bangalore', title: 'Top 10 Corporate Gifting Companies in Bangalore', href: '/bangalore-corporate-gifting/top-companies' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -466,8 +463,10 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

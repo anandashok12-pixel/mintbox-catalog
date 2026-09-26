@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { SHOWCASE_POPULATE, SHOWCASE_PRODUCT_SELECT } from '@/lib/showcaseQuery'
 import BulkGiftingClient from '@/components/pages/BulkGiftingClient'
 import '../../content-pages.css'
 
@@ -28,6 +29,8 @@ export default async function BulkGiftingPage() {
       sort: 'order',
       limit: 500,
       depth: 1,
+    select: SHOWCASE_PRODUCT_SELECT,
+    populate: SHOWCASE_POPULATE,
     })
     products = productsResult.docs
   } catch (err) {

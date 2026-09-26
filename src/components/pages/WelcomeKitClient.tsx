@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Product {
   id: string
@@ -27,37 +30,31 @@ interface Product {
 
 const KIT_COMPONENTS = [
   {
-    icon: '📓',
     bg: 'cp-img-green',
     title: 'Branded Notebook',
     desc: 'A5 hardcover with custom cover print and branded inside pages.',
   },
   {
-    icon: '🍶',
     bg: 'cp-img-gold',
     title: 'Stainless Bottle',
     desc: '350–500ml insulated bottle, logo engraved or printed for daily visibility.',
   },
   {
-    icon: '👕',
     bg: 'cp-img-warm',
     title: 'Company Tee or Hoodie',
     desc: 'Printed with your logo, available in sizes S–3XL. Signals belonging from day one.',
   },
   {
-    icon: '💌',
     bg: 'cp-img-mid',
     title: 'Welcome Card',
     desc: 'Personalised with the employee name and a message from the team.',
   },
   {
-    icon: '🍫',
     bg: 'cp-img-green',
     title: 'Snack Pack',
     desc: 'Local treats, individually wrapped, FSSAI-certified. A warm touch for the first day.',
   },
   {
-    icon: '🛍',
     bg: 'cp-img-gold',
     title: 'Branded Tote or Pouch',
     desc: 'Outer carry bag printed with your logo - practical and memorable.',
@@ -157,6 +154,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -269,9 +267,6 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
           <div className="cp-cards-grid cp-cards-grid--3">
             {KIT_COMPONENTS.map(item => (
               <div key={item.title} className="cp-card">
-                <div className={`cp-card-icon ${item.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {item.icon}
-                </div>
                 <div className="cp-card-title">{item.title}</div>
                 <div className="cp-card-desc">{item.desc}</div>
               </div>
@@ -408,7 +403,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
               { label: 'Industry', title: 'Gifting for Tech Companies', href: '/industry-solutions/tech-companies' },
               { label: 'Customisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'Corporate Hampers', href: '/collections/hampers' },
-              { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
+              { label: 'Onboarding', title: 'Employee Joining Kit Checklist', href: '/guides/employee-joining-kit' },
               { label: 'Guides', title: 'How to Choose Corporate Gifts', href: '/guides/how-to-choose-corporate-gifts' },
               { label: 'New Hires', title: 'Corporate Gifts for New Employees', href: '/guides/corporate-gifts-for-new-employees' },
             ].map(link => (
@@ -423,8 +418,10 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

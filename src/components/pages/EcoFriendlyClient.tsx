@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -34,42 +38,36 @@ interface Product {
 
 const ECO_CATEGORIES = [
   {
-    icon: '🌱',
     bg: 'cp-img-green',
     title: 'Seed Paper Items',
     desc: 'Notebooks, note cards, and pens that grow into plants when planted.',
     price: '₹80–₹200',
   },
   {
-    icon: '🎋',
     bg: 'cp-img-mid',
     title: 'Bamboo Products',
     desc: 'Pens, pen holders, trays, frames - sustainable and premium-looking.',
     price: '₹80–₹350',
   },
   {
-    icon: '👜',
     bg: 'cp-img-warm',
     title: 'Jute & Natural Fibre',
     desc: 'Tote bags, pouches, wine bags - reusable and biodegradable.',
     price: '₹120–₹400',
   },
   {
-    icon: '📋',
     bg: 'cp-img-green',
     title: 'Recycled Paper Stationery',
     desc: 'Notebooks and pads made from post-consumer waste.',
     price: '₹100–₹300',
   },
   {
-    icon: '🪴',
     bg: 'cp-img-mid',
     title: 'Plant Kits',
     desc: 'Desk plants, succulent sets, herb growing kits.',
     price: '₹200–₹600',
   },
   {
-    icon: '♻️',
     bg: 'cp-img-warm',
     title: 'Organic & Reusable',
     desc: 'Beeswax wraps, organic cotton bags, reusable straws.',
@@ -78,12 +76,12 @@ const ECO_CATEGORIES = [
 ]
 
 const OCCASIONS_TABLE = [
-  { occasion: 'Earth Day Events', gift: 'Seed paper kit + jute bag', price: '₹300–₹500', moq: '50' },
-  { occasion: 'Onboarding', gift: 'Eco kit: bamboo pen + recycled notebook + tote', price: '₹400–₹700', moq: '25' },
-  { occasion: 'ESG Report Launch', gift: 'Plant kit + seed paper notebook', price: '₹400–₹800', moq: '25' },
+  { occasion: 'Earth Day Events', gift: 'Seed paper kit + jute bag', price: '₹300–₹500', moq: '10' },
+  { occasion: 'Onboarding', gift: 'Eco kit: bamboo pen + recycled notebook + tote', price: '₹400–₹700', moq: '10' },
+  { occasion: 'ESG Report Launch', gift: 'Plant kit + seed paper notebook', price: '₹400–₹800', moq: '10' },
   { occasion: 'Client Appreciation', gift: 'Premium bamboo set + plant', price: '₹600–₹1,500', moq: '10' },
-  { occasion: 'Conference', gift: 'Seed paper pad + bamboo pen', price: '₹150–₹300', moq: '100' },
-  { occasion: 'All-Company Diwali', gift: 'Eco hamper: jute bag + candle + plant', price: '₹600–₹1,200', moq: '25' },
+  { occasion: 'Conference', gift: 'Seed paper pad + bamboo pen', price: '₹150–₹300', moq: '10' },
+  { occasion: 'All-Company Diwali', gift: 'Eco hamper: jute bag + candle + plant', price: '₹600–₹1,200', moq: '10' },
 ]
 
 const BULK_TIERS = [
@@ -134,6 +132,7 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -186,14 +185,14 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Eco-friendly corporate gifts include seed paper notebooks, bamboo pens, jute tote bags, recycled stationery kits, and plant-your-own sets - all branded with your logo. Budget range: ₹150–₹1,500 per unit. Ideal for ESG-focused companies, sustainability events, and environmentally conscious clients. MOQ is 25 units."
+            content="Eco-friendly corporate gifts include seed paper notebooks, bamboo pens, jute tote bags, recycled stationery kits, and plant-your-own sets - all branded with your logo. Budget range: ₹150–₹1,500 per unit. Ideal for ESG-focused companies, sustainability events, and environmentally conscious clients. MOQ is 10 units."
           />
           <EATSignal credentials={[
             '100% sustainable and recycled materials',
             'ESG-documentation available for procurement',
             'Branded items without compromise on sustainability',
             'Perfect for green companies, B-corps, and ESG initiatives',
-            'MOQ 50 units, competitive bulk pricing',
+            'MOQ 10 units, competitive bulk pricing',
           ]} />
         </div>
       </div>
@@ -212,7 +211,7 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
               <div className="cp-stat-label">starting price</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">50<span className="cp-stat-unit"> units</span></div>
+              <div className="cp-stat-value">10<span className="cp-stat-unit"> units</span></div>
               <div className="cp-stat-label">minimum order quantity</div>
             </div>
             <div className="cp-stat-card">
@@ -235,9 +234,6 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
           <div className="cp-cards-grid cp-cards-grid--3">
             {ECO_CATEGORIES.map(cat => (
               <div key={cat.title} className="cp-card">
-                <div className={`cp-card-icon ${cat.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {cat.icon}
-                </div>
                 <div className="cp-card-title">{cat.title}</div>
                 <p className="cp-card-desc">{cat.desc}</p>
                 <span className="cp-card-tag">{cat.price}</span>
@@ -351,7 +347,7 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
             <h2 className="cp-cta-title">Build Your Eco<br />Gifting Programme</h2>
             <p className="cp-cta-sub">
               Tell us your occasion, quantity, and sustainability goals - we will recommend
-              the right eco gift mix with branding options and ESG documentation within 4 hours.
+              the right eco gift mix with branding options and ESG documentation within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -385,9 +381,9 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
           <div className="cp-related-grid">
             {[
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { label: 'Collections', title: 'Stationery', href: '/collections/stationery' },
+              { label: 'Bangalore', title: 'Famous Bangalore Gifts for Hampers', href: '/bangalore-corporate-gifting/famous-bangalore-gifts' },
               { label: 'Budget Guide', title: 'Corporate Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
-              { label: 'Industry', title: 'Gifting for Startups', href: '/industry-solutions/startups' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Planning Guide', title: 'How to Choose Corporate Gifts', href: '/guides/how-to-choose-corporate-gifts' },
               { label: 'Sustainable', title: 'Sustainable Corporate Gifts Guide', href: '/guides/sustainable-corporate-gifts' },
@@ -403,8 +399,10 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

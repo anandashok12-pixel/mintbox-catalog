@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { SHOWCASE_CATEGORY_SELECT, SHOWCASE_POPULATE, SHOWCASE_PRODUCT_SELECT } from '@/lib/showcaseQuery'
 import TechGiftsCollectionClient from '@/components/pages/TechGiftsCollectionClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
   title: 'Corporate Tech Gifts: Gadgets & Accessories for Teams | MintBox',
   description:
-    'Branded corporate tech gifts - wireless chargers, cable kits, laptop accessories, USB drives, and more. Logo engraving from 25 units. Premium gifting for IT teams.',
+    'Branded corporate tech gifts - wireless chargers, cable kits, laptop accessories, USB drives, and more. Logo engraving from 10 units. Premium gifting for IT teams.',
   alternates: { canonical: 'https://themintbox.in/collections/tech-gifts' },
   openGraph: {
     title: 'Corporate Tech Gifts: Gadgets & Accessories for Teams - MintBox',
@@ -24,13 +25,15 @@ export default async function TechGiftsPage() {
   try {
     const payload = await getPayload({ config: configPromise })
     const [catsResult, productsResult] = await Promise.all([
-      payload.find({ collection: 'categories', sort: 'order', limit: 100 }),
+      payload.find({ collection: 'categories', sort: 'order', limit: 100, select: SHOWCASE_CATEGORY_SELECT }),
       payload.find({
         collection: 'products',
         where: { inStock: { equals: true } },
         sort: 'order',
         limit: 500,
         depth: 1,
+      select: SHOWCASE_PRODUCT_SELECT,
+      populate: SHOWCASE_POPULATE,
       }),
     ])
     categories = catsResult.docs

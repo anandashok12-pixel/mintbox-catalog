@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -143,11 +147,12 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
         "headline": "Christmas Corporate Gifts for Employees & Clients",
         "description": "Corporate Christmas gifts for Indian businesses - curated hampers, branded gifts, and festive sets. Order early, pan-India delivery from MintBox.",
         "url": "https://themintbox.in/guides/christmas-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -232,7 +237,7 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
             </div>
             <div className="cp-stat-card">
               <div className="cp-stat-value">48hr</div>
-              <div className="cp-stat-label">Turnaround</div>
+              <div className="cp-stat-label">Express Turnaround</div>
             </div>
           </div>
         </div>
@@ -347,7 +352,7 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
             <h2 className="cp-cta-title">Plan Your<br />Christmas Gifting</h2>
             <p className="cp-cta-sub">
               Tell us your headcount, budget per head, and delivery cities - we will come back
-              with a curated Christmas proposal and mockup within 4 hours.
+              with a curated Christmas proposal and mockup within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -385,6 +390,8 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
               { label: 'Ideas', title: 'Unique Corporate Gifts', href: '/guides/unique-corporate-gifts' },
               { label: 'Etiquette', title: 'Corporate Gifting Etiquette', href: '/guides/corporate-gifting-etiquette' },
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
+              { label: 'Secret Santa', title: 'Secret Santa Gifts Under ₹500', href: '/guides/secret-santa-gifts-for-colleagues' },
+              { label: 'Seasonal', title: 'New Year Corporate Gifts', href: '/guides/new-year-corporate-gifts' },
             ].map((link) => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -397,9 +404,11 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

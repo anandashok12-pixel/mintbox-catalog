@@ -11,6 +11,8 @@ import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
 
+const PAGE_UPDATED = '2026-05-26'
+
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
   id: string; name: string; price: number; emoji?: string | null
@@ -92,19 +94,19 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
         "headline": "Corporate Gifts for New Employees: Welcome Kits That Make an Impression",
         "description": "Create the perfect new employee welcome kit. Branded onboarding gifts from ₹500 that make a strong first impression. Bulk from 10 units, pan-India delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-for-new-employees",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
-      <main>
+      <main id="main">
         {/* Hero */}
         <section className="cp-hero">
           <div className="cp-hero-bg cp-img-green" aria-hidden="true" />
           <div className="cp-container">
-            <div className="cp-breadcrumb">
+            <nav className="cp-breadcrumb" aria-label="Breadcrumb">
               <a href="/">Home</a> › <a href="/guides/corporate-gifting-handbook">Guides</a> › Corporate Gifts for New Employees
-            </div>
+            </nav>
             <h1 className="cp-hero-title">Corporate Gifts for New Employees: Welcome Kits That Make an Impression</h1>
             <p className="cp-hero-subtitle">
               Make new employees feel valued from day one with a branded welcome kit that communicates culture, care, and belonging.
@@ -135,7 +137,7 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
               <div className="cp-stat"><span className="cp-stat-num">200+</span><span className="cp-stat-label">Corporate Clients</span></div>
               <div className="cp-stat"><span className="cp-stat-num">50,000+</span><span className="cp-stat-label">Gifts Delivered</span></div>
               <div className="cp-stat"><span className="cp-stat-num">6+</span><span className="cp-stat-label">Years Experience</span></div>
-              <div className="cp-stat"><span className="cp-stat-num">48hr</span><span className="cp-stat-label">Turnaround</span></div>
+              <div className="cp-stat"><span className="cp-stat-num">48hr</span><span className="cp-stat-label">Express Turnaround</span></div>
             </div>
           </div>
         </section>
@@ -244,30 +246,25 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
             <h2 className="cp-section-title">Related Guides</h2>
             <div className="cp-related-grid">
               <a href="/guides/what-to-gift-employees" className="cp-related-card">
-                <span className="cp-related-emoji">👥</span>
                 <span className="cp-related-title">What to Gift Employees</span>
               </a>
               <a href="/collections/employee-welcome-kit" className="cp-related-card">
-                <span className="cp-related-emoji">🎁</span>
                 <span className="cp-related-title">Employee Welcome Kit Collection</span>
               </a>
               <a href="/guides/corporate-gifting-etiquette" className="cp-related-card">
-                <span className="cp-related-emoji">📋</span>
                 <span className="cp-related-title">Corporate Gifting Etiquette</span>
               </a>
               <a href="/guides/corporate-gifts-under-1000" className="cp-related-card">
-                <span className="cp-related-emoji">💰</span>
                 <span className="cp-related-title">Corporate Gifts Under ₹1,000</span>
               </a>
-              <a href="/guides/what-to-gift-employees" className="cp-related-card">
-                <span className="cp-related-emoji">🎁</span>
-                <span className="cp-related-title">What to Gift Employees</span>
+              <a href="/guides/employee-joining-kit" className="cp-related-card">
+                <span className="cp-related-title">Employee Joining Kit Checklist</span>
               </a>
             </div>
           </div>
         </section>
 
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </main>
       <Footer />
       <WhatsAppFloat />

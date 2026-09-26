@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -34,37 +38,31 @@ interface Product {
 
 const EMPLOYEE_LOVES = [
   {
-    icon: '🎁',
     bg: 'cp-img-gold',
     title: 'Branded Hamper',
     desc: 'Bottle + sweets + dry fruits - feels premium, stays home.',
   },
   {
-    icon: '🍬',
     bg: 'cp-img-warm',
     title: 'Sweet & Snacks Box',
     desc: 'Artisan mithai, chocolates, festive tins - family-friendly.',
   },
   {
-    icon: '🌿',
     bg: 'cp-img-green',
     title: 'Eco Diwali Set',
     desc: 'Plantable kit + bamboo stationery - guilt-free giving.',
   },
   {
-    icon: '💧',
     bg: 'cp-img-mid',
     title: 'Personalised Drinkware',
     desc: "Name on a copper bottle or tumbler - uniquely theirs.",
   },
   {
-    icon: '🎧',
     bg: 'cp-img-green',
     title: 'Premium Tech Gift',
     desc: 'Wireless charger or earbuds - for the practical colleague.',
   },
   {
-    icon: '🧘',
     bg: 'cp-img-warm',
     title: 'Wellness Kit',
     desc: 'Herbal teas + aroma candle + journal - thoughtful, calming.',
@@ -97,25 +95,21 @@ const BUDGET_CARDS = [
 
 const PLANNING_TIPS = [
   {
-    icon: '📅',
     bg: 'cp-img-gold',
     title: 'Order Early',
-    desc: 'Diwali 2026 is November 1. For 100+ gifts, order by September 30. Personalised orders need 2 weeks minimum.',
+    desc: 'Diwali 2026 is November 8. For 100+ gifts, order by September 30. Personalised orders need 2 weeks minimum.',
   },
   {
-    icon: '💌',
     bg: 'cp-img-warm',
     title: 'Include a Personal Note',
     desc: "A note card with the employee's name and a message from leadership is the most-impactful detail. Costs ₹5–₹20 per kit.",
   },
   {
-    icon: '🏠',
     bg: 'cp-img-green',
     title: 'Consider Remote Employees',
     desc: 'Ship to home addresses with personalised boxes. Remote employees especially appreciate the effort of a direct delivery.',
   },
   {
-    icon: '✅',
     bg: 'cp-img-mid',
     title: 'Use FSSAI-Certified Food',
     desc: 'If including sweets or dry fruits, ensure they are FSSAI-certified with proper labelling. MintBox sources only certified suppliers.',
@@ -168,11 +162,12 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
         "headline": "Diwali Gifts for Employees 2026: Ideas, Budget & Planning",
         "description": "Thoughtful Diwali gifts for employees - bulk hampers, personalised sets, and sweet kits from ₹400/head. Plan 3–4 weeks early. GST invoicing. Delivered across India.",
         "url": "https://themintbox.in/guides/diwali-gifts-for-employees",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -246,7 +241,7 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
               <div className="cp-stat-label">starting price</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">25<span className="cp-stat-unit"> units</span></div>
+              <div className="cp-stat-value">10<span className="cp-stat-unit"> units</span></div>
               <div className="cp-stat-label">minimum order quantity</div>
             </div>
             <div className="cp-stat-card">
@@ -274,9 +269,6 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
           <div className="cp-cards-grid cp-cards-grid--3">
             {EMPLOYEE_LOVES.map(card => (
               <div key={card.title} className="cp-card">
-                <div className={`cp-card-icon ${card.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {card.icon}
-                </div>
                 <div className="cp-card-title">{card.title}</div>
                 <p className="cp-card-desc">{card.desc}</p>
               </div>
@@ -356,9 +348,6 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
           <div className="cp-cards-grid cp-cards-grid--2">
             {PLANNING_TIPS.map(tip => (
               <div key={tip.title} className="cp-card">
-                <div className={`cp-card-icon ${tip.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
-                  {tip.icon}
-                </div>
                 <div className="cp-card-title">{tip.title}</div>
                 <p className="cp-card-desc">{tip.desc}</p>
               </div>
@@ -375,7 +364,7 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
             <h2 className="cp-cta-title">Plan Employee<br />Diwali Gifts</h2>
             <p className="cp-cta-sub">
               Tell us your team size, budget per head, and delivery preferences - we will
-              send a curated proposal with options and mockups within 4 hours.
+              send a curated proposal with options and mockups within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -413,8 +402,8 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
               { label: 'Budget Guide', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
-              { label: 'Collections', title: 'Employee Welcome Kit', href: '/collections/employee-welcome-kit' },
-              { label: 'Diwali', title: 'Diwali Corporate Gifts 2026', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Secret Santa', title: 'Secret Santa Gifts Under ₹500', href: '/guides/secret-santa-gifts-for-colleagues' },
+              { label: 'Hampers', title: 'Top Corporate Diwali Gift Hampers', href: '/guides/corporate-diwali-gift-hampers' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -427,8 +416,10 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

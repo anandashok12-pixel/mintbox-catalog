@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -38,12 +42,12 @@ interface Props {
 }
 
 const TREND_CARDS = [
-  { icon: "🌱", title: "Eco-Friendly Gifting", desc: "Seed kits, bamboo products, recycled stationery. Employees and clients notice when brands walk the talk on sustainability.", href: "/collections/eco-friendly-gifts" },
-  { icon: "💻", title: "Productivity Tech Gifts", desc: "Wireless chargers, cable organisers, laptop stands, and noise-cancelling earbuds. Remote-first culture drives demand for home office gear.", href: "/collections/tech-gifts" },
-  { icon: "🧘", title: "Wellness & Self-Care Kits", desc: "Herbal teas, aromatherapy sets, journals, and mindfulness accessories. Corporate wellness budgets are growing in 2026.", href: "/collections/hampers" },
-  { icon: "🎨", title: "Deep Personalisation", desc: "Beyond logo printing - name-engraved items, custom colour variants, handwritten notes. Personalisation is the top factor in gift satisfaction scores.", href: "/customization/personalized-corporate-gifts" },
-  { icon: "🍵", title: "Premium Drinkware", desc: "Copper bottles, insulated tumblers, artisan mugs. Drinkware with quality branding stays on desks for years - maximum brand visibility.", href: "/collections/drinkware" },
-  { icon: "📦", title: "Curated Hampers", desc: "Thoughtfully assembled gift boxes combining 3–5 items. Hampers outperform single-item gifts on emotional impact and perceived value.", href: "/collections/hampers" },
+  { title: "Eco-Friendly Gifting", desc: "Seed kits, bamboo products, recycled stationery. Employees and clients notice when brands walk the talk on sustainability.", href: "/collections/eco-friendly-gifts" },
+  { title: "Productivity Tech Gifts", desc: "Wireless chargers, cable organisers, laptop stands, and noise-cancelling earbuds. Remote-first culture drives demand for home office gear.", href: "/collections/tech-gifts" },
+  { title: "Wellness & Self-Care Kits", desc: "Herbal teas, aromatherapy sets, journals, and mindfulness accessories. Corporate wellness budgets are growing in 2026.", href: "/collections/hampers" },
+  { title: "Deep Personalisation", desc: "Beyond logo printing - name-engraved items, custom colour variants, handwritten notes. Personalisation is the top factor in gift satisfaction scores.", href: "/customization/personalized-corporate-gifts" },
+  { title: "Premium Drinkware", desc: "Copper bottles, insulated tumblers, artisan mugs. Drinkware with quality branding stays on desks for years - maximum brand visibility.", href: "/collections/drinkware" },
+  { title: "Curated Hampers", desc: "Thoughtfully assembled gift boxes combining 3–5 items. Hampers outperform single-item gifts on emotional impact and perceived value.", href: "/collections/hampers" },
 ]
 
 const BUDGET_IDEAS = [
@@ -79,13 +83,14 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gift Ideas 2026: Trends, Budgets & Top Picks",
-        "description": "Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 25 units.",
+        "description": "Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 10 units.",
         "url": "https://themintbox.in/guides/corporate-gift-ideas-2026",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -187,7 +192,6 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
           <div className="cp-card-grid cp-card-grid--3">
             {TREND_CARDS.map(card => (
               <div key={card.title} className="cp-card">
-                <div className="cp-card-icon">{card.icon}</div>
                 <div className="cp-card-title">{card.title}</div>
                 <p className="cp-card-desc">{card.desc}</p>
                 <a href={card.href} className="cp-card-link">Explore →</a>
@@ -275,7 +279,7 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
             <h2 className="cp-cta-title">Plan Your 2026<br />Corporate Gifting</h2>
             <p className="cp-cta-sub">
               Share your headcount, budget per head, and delivery timeline - we will
-              respond with a curated proposal within 4 hours.
+              respond with a curated proposal within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -312,6 +316,8 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
               { label: 'Clients', title: 'Corporate Gifts for Clients', href: '/guides/corporate-gifts-for-clients' },
               { label: 'Seasonal', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
+              { label: 'Office', title: 'Office Gift Ideas for Every Occasion', href: '/guides/office-gift-ideas' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -324,8 +330,10 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

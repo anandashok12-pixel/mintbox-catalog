@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -34,42 +38,36 @@ interface Product {
 
 const SUBCATEGORIES = [
   {
-    emoji: '📓',
     title: 'Notebooks & Journals',
     desc: 'A5/A4, hardcover/softcover, ruled and dotted options.',
     price: '₹100–₹500',
     bg: 'cp-img-green',
   },
   {
-    emoji: '🖊',
     title: 'Pens & Writing',
     desc: 'Ballpoints, gel pens, bamboo pens, and rollerball sets.',
     price: '₹25–₹400',
     bg: 'cp-img-warm',
   },
   {
-    emoji: '📅',
     title: 'Planners & Organisers',
     desc: 'Weekly/monthly, dated/undated, financial year options.',
     price: '₹200–₹700',
     bg: 'cp-img-mid',
   },
   {
-    emoji: '📝',
     title: 'Sticky Notes & Pads',
     desc: 'Mini and full-size, custom shapes and branded prints.',
     price: '₹45–₹120',
     bg: 'cp-img-gold',
   },
   {
-    emoji: '🖥',
     title: 'Desk Sets',
     desc: 'Pen holder + notepad + desk calendar combos, gift-ready.',
     price: '₹300–₹800',
     bg: 'cp-img-green',
   },
   {
-    emoji: '🌱',
     title: 'Eco Stationery',
     desc: 'Seed paper notebooks, recycled pads, bamboo pens - for ESG-conscious teams.',
     price: '₹80–₹350',
@@ -79,10 +77,10 @@ const SUBCATEGORIES = [
 
 const OCCASIONS_TABLE = [
   { occasion: 'Onboarding Kit', recommended: 'Notebook + pen + planner', budget: '₹350–₹700', moq: '10' },
-  { occasion: 'Conference Giveaway', recommended: 'Branded pen + notepad', budget: '₹80–₹200', moq: '100' },
+  { occasion: 'Conference Giveaway', recommended: 'Branded pen + notepad', budget: '₹80–₹200', moq: '10' },
   { occasion: 'Client Gift', recommended: 'Premium hardcover notebook + pen set', budget: '₹400–₹900', moq: '1' },
-  { occasion: 'Diwali', recommended: 'Elegant planner + pen in gift box', budget: '₹500–₹1,200', moq: '25' },
-  { occasion: 'Team Event', recommended: 'Branded sticky notes + pen', budget: '₹100–₹200', moq: '50' },
+  { occasion: 'Diwali', recommended: 'Elegant planner + pen in gift box', budget: '₹500–₹1,200', moq: '10' },
+  { occasion: 'Team Event', recommended: 'Branded sticky notes + pen', budget: '₹100–₹200', moq: '10' },
   { occasion: 'Work Anniversary', recommended: 'Premium leather-look journal', budget: '₹500–₹1,500', moq: '1' },
 ]
 
@@ -108,15 +106,15 @@ const FAQ_ITEMS = [
   },
   {
     q: "What's the minimum order for custom-printed notebooks?",
-    a: 'MOQ for custom-printed notebooks is 50 units. For standard logo printing on existing designs, 50 units is required. Custom interior layouts (goals pages, branded templates) require 100 units minimum.',
+    a: 'The minimum order is 10 units for everything, including custom-printed notebooks, standard logo printing on existing designs, and custom interior layouts (goals pages, branded templates).',
   },
   {
     q: 'Can I mix notebook sizes and types in one order?',
-    a: 'Yes, with a 50-unit minimum per SKU. Mixed orders with 3+ SKUs may take 2–3 extra days. A dedicated account manager will coordinate and ensure consistent branding across all items.',
+    a: 'Yes, with a 10-unit minimum per SKU. Mixed orders with 3+ SKUs may take 2–3 extra days. A dedicated account manager will coordinate and ensure consistent branding across all items.',
   },
   {
     q: 'Are planners available for the new financial year?',
-    a: 'Yes. Dated planners for the 2026–27 financial year (April–March) and calendar year (Jan–Dec) are available. Custom-dated planners with your company calendar, holidays, and branded monthly spreads require 100 units minimum and 15-day lead time.',
+    a: 'Yes. Dated planners for the 2026–27 financial year (April–March) and calendar year (Jan–Dec) are available. Custom-dated planners with your company calendar, holidays, and branded monthly spreads need a 15-day lead time (minimum order 10 units).',
   },
 ]
 
@@ -127,7 +125,7 @@ const RELATED = [
   { href: '/collections/eco-friendly-gifts', label: 'Eco-Friendly' },
   { href: '/customization/personalized-corporate-gifts', label: 'Personalised' },
   { href: '/collections/hampers', label: 'Hampers' },
-  { href: '/guides/corporate-gifting-handbook', label: 'Handbook' },
+  { href: '/guides/new-year-corporate-gifts', label: 'New Year Gifts' },
 ]
 
 
@@ -144,6 +142,7 @@ export default function StationeryCollectionClient({ products, categories }: { p
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -165,7 +164,7 @@ export default function StationeryCollectionClient({ products, categories }: { p
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
               Branded notebooks, quality pens, planners, sticky notes, and desk sets for offices,
-              onboarding kits, and client gifts. Logo printing from 50 units. Items employees
+              onboarding kits, and client gifts. Logo printing from 10 units. Items employees
               actually use daily.
             </p>
             <div className="cp-hero-ctas">
@@ -174,7 +173,7 @@ export default function StationeryCollectionClient({ products, categories }: { p
             </div>
             <div className="cp-hero-badge-group">
               <span className="cp-hero-badge">✓ 50+ stationery SKUs</span>
-              <span className="cp-hero-badge">✓ Logo printing from 50 units</span>
+              <span className="cp-hero-badge">✓ Logo printing from 10 units</span>
               <span className="cp-hero-badge">✓ Eco-friendly options</span>
               <span className="cp-hero-badge">✓ Starts at ₹25/unit</span>
             </div>
@@ -197,12 +196,12 @@ export default function StationeryCollectionClient({ products, categories }: { p
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Corporate stationery gifts include branded notebooks (₹100–₹500), quality pen sets (₹50–₹400), planners, sticky note pads, and complete desk sets. MOQ is 50 units. Stationery is ideal for onboarding kits, conference giveaways, and client appreciation - practical gifts that stay on desks and carry your logo daily."
+            content="Corporate stationery gifts include branded notebooks (₹100–₹500), quality pen sets (₹50–₹400), planners, sticky note pads, and complete desk sets. MOQ is 10 units. Stationery is ideal for onboarding kits, conference giveaways, and client appreciation - practical gifts that stay on desks and carry your logo daily."
           />
           <EATSignal credentials={[
             '50+ stationery SKUs from notebooks to desk organizers',
             'Eco-friendly options (recycled paper, bamboo pens)',
-            'Logo printing on all items from 50 units',
+            'Logo printing on all items from 10 units',
             'Perfect for onboarding, conferences, and client gifting',
             'Ships Pan-India in 7–10 days',
           ]} />
@@ -261,9 +260,6 @@ export default function StationeryCollectionClient({ products, categories }: { p
           <div className="cp-cards-grid cp-cards-grid--3">
             {SUBCATEGORIES.map(sub => (
               <div key={sub.title} className="cp-card">
-                <div className={`cp-img-placeholder ${sub.bg}`} style={{ height: '80px', borderRadius: '10px', marginBottom: '16px', fontSize: '32px' }}>
-                  {sub.emoji}
-                </div>
                 <div className="cp-card-title">{sub.title}</div>
                 <p className="cp-card-desc">{sub.desc}</p>
                 <span className="cp-card-tag">{sub.price}</span>
@@ -358,7 +354,7 @@ export default function StationeryCollectionClient({ products, categories }: { p
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
             <h2 className="cp-cta-title">Ready to Order<br />Branded Stationery?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -402,9 +398,11 @@ export default function StationeryCollectionClient({ products, categories }: { p
 
       {/* 12. LAST UPDATED */}
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

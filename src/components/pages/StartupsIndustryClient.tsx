@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -34,25 +38,21 @@ interface Product {
 
 const USE_CASES = [
   {
-    icon: '🎁',
     label: 'Employee Onboarding',
     sub: "Make Day 1 unforgettable. Welcome kits with notebooks, bottles, tees, and a handwritten card.",
     bg: 'cp-img-green',
   },
   {
-    icon: '👕',
     label: 'Team Swag',
     sub: 'Branded hoodies, totes, caps and mugs that the team actually wants to wear.',
     bg: 'cp-img-gold',
   },
   {
-    icon: '🤝',
     label: 'Investor & Client Gifting',
     sub: 'Premium hampers, curated kits for board meetings, demos, and partnership milestones.',
     bg: 'cp-img-warm',
   },
   {
-    icon: '🚀',
     label: 'Launch & Event Giveaways',
     sub: 'Conference bags, seed packets, tees, and USBs for product launches and meetups.',
     bg: 'cp-img-mid',
@@ -97,7 +97,7 @@ const STEPS = [
   {
     num: '03',
     title: 'Review Samples',
-    desc: 'We courier physical samples before production (2–3 days).',
+    desc: 'For orders of 100+ units, we courier physical samples before production (2–3 days).',
   },
   {
     num: '04',
@@ -112,7 +112,7 @@ const STEPS = [
 ]
 
 const COMPARISON_TABLE = [
-  { aspect: 'MOQ', startup: '10–25 units', enterprise: '100–500 units' },
+  { aspect: 'MOQ', startup: '10 units', enterprise: '100–500 units' },
   { aspect: 'Budget/head', startup: '₹250–₹1,500', enterprise: '₹500–₹5,000' },
   { aspect: 'Turnaround', startup: '7–10 days', enterprise: '14–21 days' },
   { aspect: 'Personalisation', startup: 'Team name/logo', enterprise: 'Individual names' },
@@ -123,7 +123,7 @@ const COMPARISON_TABLE = [
 const FAQS = [
   {
     q: "What's the minimum order for startup gifting?",
-    a: 'Most items have an MOQ of 10–25 units, designed for startups doing rolling onboarding or small team gifting. Some premium items (custom hoodies, hardcover notebooks) require 50 units minimum. Volume discounts start at 50+ units.',
+    a: 'The MOQ is 10 units for every item, designed for startups doing rolling onboarding or small team gifting. Volume discounts start at 50+ units.',
   },
   {
     q: "What's a good budget per head for startup onboarding kits?",
@@ -172,11 +172,12 @@ export default function StartupsIndustryClient({
         "headline": "Corporate Gifts for Startups: Build Culture, Not Just Swag",
         "description": "Startup-specific corporate gifting - onboarding kits, team swag, investor gifts. Budget-conscious, brand-forward, and fast. MOQ from 10 units. Bangalore & Pan-India.",
         "url": "https://themintbox.in/industry-solutions/startups",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -289,9 +290,6 @@ export default function StartupsIndustryClient({
           <div className="cp-occasion-grid">
             {USE_CASES.map(uc => (
               <div key={uc.label} className="cp-occasion-card">
-                <div className={`cp-img-placeholder ${uc.bg}`} style={{ height: '120px', borderRadius: '8px 8px 0 0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '36px' }}>
-                  {uc.icon}
-                </div>
                 <div className="cp-occasion-overlay">
                   <div className="cp-occasion-label">{uc.label}</div>
                   <div className="cp-occasion-sub">{uc.sub}</div>
@@ -432,13 +430,13 @@ export default function StartupsIndustryClient({
             <h2 className="cp-cta-title">Build Your Startup<br />Gifting Programme</h2>
             <p className="cp-cta-sub">
               Share your occasion, team size, and budget. We will come back with 3 curated options
-              and a quote within 4 hours.
+              and a quote within {QUOTE_TIME}.
             </p>
             <div className="cp-quote-form-panel" />
           </div>
           <InlineQuoteForm
             title="Build Your Startup Gifting Programme"
-            subtitle="MOQ from 10 units. Tell us your occasion, team size, and budget - we'll curate and quote within 4 hours."
+            subtitle="MOQ from 10 units. Tell us your occasion, team size, and budget - we'll curate and quote within 24 hours."
             ctaLabel="Get Startup Quote"
             defaultOccasion="welcome_kit"
           />
@@ -469,9 +467,9 @@ export default function StartupsIndustryClient({
               { label: 'Collections', title: 'Employee Welcome Kit', href: '/collections/employee-welcome-kit' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Bangalore', title: 'Same-Day Delivery Bangalore', href: '/bangalore-corporate-gifting/same-day-delivery' },
-              { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
+              { label: 'Onboarding', title: 'Employee Joining Kit Checklist', href: '/guides/employee-joining-kit' },
               { label: 'Budget Guide', title: 'Budget Gifts Under ₹500', href: '/guides/corporate-gifts-under-500' },
-              { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
+              { label: 'Occasions', title: 'Office Inauguration Gift Ideas', href: '/guides/office-inauguration-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -484,8 +482,10 @@ export default function StartupsIndustryClient({
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

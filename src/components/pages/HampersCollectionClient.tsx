@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -34,42 +38,36 @@ interface Product {
 
 const HAMPER_THEMES = [
   {
-    emoji: '🎉',
     title: 'Onboarding Welcome Kit',
     desc: 'Notebook + bottle + tee + welcome card - a memorable day-one experience.',
     price: '₹1,000–₹2,500',
     bg: 'cp-img-green',
   },
   {
-    emoji: '🪔',
     title: 'Diwali Celebration',
     desc: 'Drinkware + sweets + dry fruits + candle in festive packaging.',
     price: '₹1,200–₹3,000',
     bg: 'cp-img-gold',
   },
   {
-    emoji: '🤝',
     title: 'Client Appreciation',
     desc: 'Premium bottle + notebook + gourmet snacks for key accounts.',
     price: '₹1,500–₹5,000',
     bg: 'cp-img-warm',
   },
   {
-    emoji: '🏆',
     title: 'Work Anniversary',
     desc: 'Engraved bottle or pen + planner + personal note card.',
     price: '₹800–₹2,000',
     bg: 'cp-img-mid',
   },
   {
-    emoji: '🌿',
     title: 'Team Wellness',
     desc: 'Herbal teas + bottle + stress kit + journal - for a healthier team.',
     price: '₹1,000–₹2,500',
     bg: 'cp-img-green',
   },
   {
-    emoji: '♻️',
     title: 'Eco-Conscious Set',
     desc: 'Bamboo pen + seed notebook + jute bag + plant kit - for purpose-led brands.',
     price: '₹800–₹1,800',
@@ -78,7 +76,7 @@ const HAMPER_THEMES = [
 ]
 
 const OCCASIONS_TABLE = [
-  { occasion: 'Diwali', recommended: 'Drinkware + sweets + gift box', budget: '₹1,000–₹3,000', moq: '25' },
+  { occasion: 'Diwali', recommended: 'Drinkware + sweets + gift box', budget: '₹1,000–₹3,000', moq: '10' },
   { occasion: 'Onboarding', recommended: '4–5 item welcome kit', budget: '₹1,000–₹2,500', moq: '10' },
   { occasion: 'Client Appreciation', recommended: 'Premium 3-item set', budget: '₹1,500–₹5,000', moq: '1' },
   { occasion: 'Work Anniversary', recommended: 'Personalised 3-item set', budget: '₹800–₹2,000', moq: '1' },
@@ -127,8 +125,8 @@ const RELATED = [
   { href: '/guides/diwali-corporate-gifts', label: 'Diwali Gifts' },
   { href: '/collections/eco-friendly-gifts', label: 'Eco-Friendly' },
   { href: '/customization/personalized-corporate-gifts', label: 'Personalised' },
-  { href: '/collections/employee-welcome-kit', label: 'Welcome Kit' },
-  { href: '/guides/diwali-corporate-gifts', label: 'Diwali' },
+  { href: '/guides/corporate-diwali-gift-hampers', label: 'Diwali Hampers' },
+  { href: '/bangalore-corporate-gifting/gift-hampers', label: 'Bangalore Hampers' },
 ]
 
 
@@ -145,6 +143,7 @@ export default function HampersCollectionClient({ products, categories }: { prod
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -198,13 +197,13 @@ export default function HampersCollectionClient({ products, categories }: { prod
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Corporate gift hampers are curated sets of 3–6 branded items in premium packaging - typically combining drinkware, stationery, snacks, and a personalised note. Popular for Diwali (₹800–₹3,000), onboarding (₹1,000–₹2,500), and client appreciation (₹1,500–₹5,000). MOQ is 25 units; single hampers available for VIP gifting."
+            content="Corporate gift hampers are curated sets of 3–6 branded items in premium packaging - typically combining drinkware, stationery, snacks, and a personalised note. Popular for Diwali (₹800–₹3,000), onboarding (₹1,000–₹2,500), and client appreciation (₹1,500–₹5,000). MOQ is 10 units; single hampers available for VIP gifting."
           />
           <EATSignal credentials={[
             '30+ curated hamper themes',
             'Premium packaging included in every hamper',
             'Branding on all items, not just the box',
-            'MOQ 25 units, single pieces available for VIPs',
+            'MOQ 10 units, single pieces available for VIPs',
             'Pan-India delivery with tracking',
           ]} />
         </div>
@@ -261,9 +260,6 @@ export default function HampersCollectionClient({ products, categories }: { prod
           <div className="cp-cards-grid cp-cards-grid--3">
             {HAMPER_THEMES.map(theme => (
               <div key={theme.title} className="cp-card">
-                <div className={`cp-img-placeholder ${theme.bg}`} style={{ height: '80px', borderRadius: '10px', marginBottom: '16px', fontSize: '32px' }}>
-                  {theme.emoji}
-                </div>
                 <div className="cp-card-title">{theme.title}</div>
                 <p className="cp-card-desc">{theme.desc}</p>
                 <span className="cp-card-tag">{theme.price}</span>
@@ -358,7 +354,7 @@ export default function HampersCollectionClient({ products, categories }: { prod
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
             <h2 className="cp-cta-title">Ready to Curate<br />Your Corporate Hamper?</h2>
             <p className="cp-cta-sub">
-              Tell us your occasion, quantity, and budget - we will come back with a curated hamper proposal and mockup within 4 hours.
+              Tell us your occasion, quantity, and budget - we will come back with a curated hamper proposal and mockup within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -402,9 +398,11 @@ export default function HampersCollectionClient({ products, categories }: { prod
 
       {/* 12. LAST UPDATED */}
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

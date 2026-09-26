@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -34,42 +38,36 @@ interface Product {
 
 const SUBCATEGORIES = [
   {
-    emoji: '🍶',
     title: 'Stainless Steel Bottles',
     desc: '350ml–1L, insulated, double-wall vacuum construction.',
     price: '₹200–₹600',
     bg: 'cp-img-green',
   },
   {
-    emoji: '☕',
     title: 'Ceramic Mugs',
     desc: '300ml–500ml, custom colour, sublimation print options.',
     price: '₹120–₹350',
     bg: 'cp-img-warm',
   },
   {
-    emoji: '🥤',
     title: 'Travel Tumblers',
     desc: 'Spill-proof, car-compatible, insulated for hot and cold.',
     price: '₹350–₹800',
     bg: 'cp-img-mid',
   },
   {
-    emoji: '💧',
     title: 'Glass Bottles',
     desc: 'BPA-free glass with protective sleeve - eco-friendly choice.',
     price: '₹250–₹500',
     bg: 'cp-img-gold',
   },
   {
-    emoji: '☕',
     title: 'French Press Kits',
     desc: '2-cup and 4-cup, branded with logo - premium client gift.',
     price: '₹400–₹900',
     bg: 'cp-img-green',
   },
   {
-    emoji: '🏺',
     title: 'Copper Bottles',
     desc: 'Ayurvedic-style copper bottles for premium gifting occasions.',
     price: '₹350–₹700',
@@ -79,12 +77,12 @@ const SUBCATEGORIES = [
 
 const OCCASIONS_TABLE = [
   { occasion: 'Employee Onboarding', recommended: 'Stainless bottle + mug combo', budget: '₹350–₹700', moq: '10' },
-  { occasion: 'Diwali Gifting', recommended: 'Copper bottle or tumbler in gift box', budget: '₹400–₹900', moq: '25' },
+  { occasion: 'Diwali Gifting', recommended: 'Copper bottle or tumbler in gift box', budget: '₹400–₹900', moq: '10' },
   { occasion: 'Work Anniversary', recommended: 'Engraved premium bottle', budget: '₹500–₹1,200', moq: '1' },
   { occasion: 'Client Appreciation', recommended: 'French press or luxury tumbler', budget: '₹600–₹1,500', moq: '1' },
-  { occasion: 'Conference Giveaway', recommended: 'Branded ceramic mug', budget: '₹150–₹300', moq: '50' },
+  { occasion: 'Conference Giveaway', recommended: 'Branded ceramic mug', budget: '₹150–₹300', moq: '10' },
   { occasion: 'Remote Team', recommended: 'Individual bottles shipped directly', budget: '₹300–₹600', moq: '10' },
-  { occasion: 'Sports / Wellness', recommended: 'BPA-free large bottle (750ml+)', budget: '₹250–₹500', moq: '25' },
+  { occasion: 'Sports / Wellness', recommended: 'BPA-free large bottle (750ml+)', budget: '₹250–₹500', moq: '10' },
 ]
 
 const BULK_TIERS = [
@@ -101,7 +99,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Can I get custom logo printing on all drinkware?',
-    a: 'Yes. Screen printing, pad printing, and laser engraving are available on most items. Ceramic mugs support full-wrap sublimation printing (all-over colour). Metal items use laser engraving or pad print. Minimum order is 25 units for printing.',
+    a: 'Yes. Screen printing, pad printing, and laser engraving are available on most items. Ceramic mugs support full-wrap sublimation printing (all-over colour). Metal items use laser engraving or pad print. Minimum order is 10 units for printing.',
   },
   {
     q: 'Are the bottles BPA-free and food-safe?',
@@ -128,7 +126,7 @@ const RELATED = [
   { href: '/collections/hampers', label: 'Hampers' },
   { href: '/guides/corporate-gifts-under-500', label: 'Under ₹500' },
   { href: '/customization/personalized-corporate-gifts', label: 'Personalised Gifts' },
-  { href: '/guides/corporate-gifting-handbook', label: 'Handbook' },
+  { href: '/guides/corporate-gift-items-list', label: 'Gift Items List' },
 ]
 
 
@@ -145,6 +143,7 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -166,7 +165,7 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
               Premium branded drinkware for corporate gifting - insulated stainless steel bottles,
-              ceramic mugs, travel tumblers, and French press kits. Logo printing from 25 units.
+              ceramic mugs, travel tumblers, and French press kits. Logo printing from 10 units.
               Used every day; seen by colleagues every day.
             </p>
             <div className="cp-hero-ctas">
@@ -175,7 +174,7 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
             </div>
             <div className="cp-hero-badge-group">
               <span className="cp-hero-badge">✓ 40+ drinkware SKUs</span>
-              <span className="cp-hero-badge">✓ Logo printing from 25 units</span>
+              <span className="cp-hero-badge">✓ Logo printing from 10 units</span>
               <span className="cp-hero-badge">✓ BPA-free &amp; food-safe</span>
               <span className="cp-hero-badge">✓ Starts at ₹150/unit</span>
             </div>
@@ -198,12 +197,12 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Corporate drinkware gifts include branded stainless steel bottles (₹150–₹600), ceramic mugs (₹120–₹350), insulated tumblers (₹300–₹800), and travel cups - all available with logo printing or laser engraving. MOQ is 25 units. Drinkware is the most-gifted corporate category because recipients use it daily, keeping your brand visible."
+            content="Corporate drinkware gifts include branded stainless steel bottles (₹150–₹600), ceramic mugs (₹120–₹350), insulated tumblers (₹300–₹800), and travel cups - all available with logo printing or laser engraving. MOQ is 10 units. Drinkware is the most-gifted corporate category because recipients use it daily, keeping your brand visible."
           />
           <EATSignal credentials={[
             '40+ drinkware SKUs in stock',
             'BPA-free, food-safe materials',
-            'Logo printing included from 25 units',
+            'Logo printing included from 10 units',
             'Insulated options for hot and cold beverages',
             'Delivered Pan-India in 7–10 days',
           ]} />
@@ -262,9 +261,6 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
           <div className="cp-cards-grid cp-cards-grid--3">
             {SUBCATEGORIES.map(sub => (
               <div key={sub.title} className="cp-card">
-                <div className={`cp-img-placeholder ${sub.bg}`} style={{ height: '80px', borderRadius: '10px', marginBottom: '16px', fontSize: '32px' }}>
-                  {sub.emoji}
-                </div>
                 <div className="cp-card-title">{sub.title}</div>
                 <p className="cp-card-desc">{sub.desc}</p>
                 <span className="cp-card-tag">{sub.price}</span>
@@ -359,7 +355,7 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
             <h2 className="cp-cta-title">Ready to Order<br />Branded Drinkware?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -403,9 +399,11 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
 
       {/* 12. LAST UPDATED */}
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

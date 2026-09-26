@@ -13,7 +13,7 @@ export default function ComingSoonPage() {
   return (
     <>
       <Navbar />
-      <main style={{
+      <main id="main" style={{
         minHeight: '70vh',
         display: 'flex',
         alignItems: 'center',
@@ -48,7 +48,7 @@ export default function ComingSoonPage() {
             margin: '0 0 2rem',
           }}>
             We&rsquo;re still setting this up. In the meantime, browse the catalogue or send us a
-            message - we reply within four working hours.
+            message - we reply within 2 hours.
           </p>
           <div style={{
             display: 'flex',

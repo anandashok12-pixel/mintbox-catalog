@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -34,25 +37,21 @@ interface Product {
 
 const METHODS = [
   {
-    icon: '🖨',
     title: 'Digital & Screen Printing',
     desc: 'Full-colour logos on mugs, bottles, bags and boxes. Sharp edges, vibrant colours, fade-resistant.',
     tag: 'Most popular',
   },
   {
-    icon: '✒️',
     title: 'Laser Engraving',
     desc: 'Permanent, premium-feel engraving on metal drinkware, pens and desk accessories. Zero colour fade.',
     tag: 'Premium look',
   },
   {
-    icon: '🧵',
     title: 'Embroidery',
     desc: 'Raised, textured logo application on apparel, tote bags and caps. Ideal for a luxury brand feel.',
     tag: 'Apparel & bags',
   },
   {
-    icon: '📦',
     title: 'Custom Packaging',
     desc: 'Branded boxes, tissue paper, ribbons and personalised gift cards - even without product customisation.',
     tag: 'Always free',
@@ -68,28 +67,28 @@ const HOW_IT_WORKS = [
 ]
 
 const MOQ_TABLE = [
-  { product: 'Ceramic / Travel Mugs', moq: '50 units', method: 'Print', cost: '₹0 at 50+' },
-  { product: 'Steel Water Bottles', moq: '50 units', method: 'Engrave / Print', cost: '₹0 at 50+' },
-  { product: 'Notebooks & Diaries', moq: '25 units', method: 'Print / Foil', cost: '₹0 at 25+' },
-  { product: 'Tote Bags', moq: '50 units', method: 'Print / Embroidery', cost: '₹0 at 50+' },
-  { product: 'Pens (metal)', moq: '50 units', method: 'Engrave / Print', cost: '₹0 at 100+' },
+  { product: 'Ceramic / Travel Mugs', moq: '10 units', method: 'Print', cost: '₹0 at 50+' },
+  { product: 'Steel Water Bottles', moq: '10 units', method: 'Engrave / Print', cost: '₹0 at 50+' },
+  { product: 'Notebooks & Diaries', moq: '10 units', method: 'Print / Foil', cost: '₹0 at 25+' },
+  { product: 'Tote Bags', moq: '10 units', method: 'Print / Embroidery', cost: '₹0 at 50+' },
+  { product: 'Pens (metal)', moq: '10 units', method: 'Engrave / Print', cost: '₹0 at 100+' },
   { product: 'T-Shirts / Polos', moq: '30 units', method: 'Embroidery / Print', cost: '₹0 at 30+' },
-  { product: 'Custom Gift Boxes', moq: '25 units', method: 'Full-wrap Print', cost: '₹0 at 25+' },
-  { product: 'Power Banks', moq: '50 units', method: 'Print / Engrave', cost: '₹25–₹50 below 50' },
+  { product: 'Custom Gift Boxes', moq: '10 units', method: 'Full-wrap Print', cost: '₹0 at 25+' },
+  { product: 'Power Banks', moq: '10 units', method: 'Print / Engrave', cost: '₹25–₹50 below 50' },
 ]
 
 const GALLERY = [
-  { emoji: '☕', bg: 'cp-img-green', label: 'Branded mugs' },
-  { emoji: '📓', bg: 'cp-img-warm', label: 'Custom notebooks' },
-  { emoji: '💧', bg: 'cp-img-mid', label: 'Engraved bottles' },
-  { emoji: '👜', bg: 'cp-img-gold', label: 'Logo tote bags' },
-  { emoji: '📦', bg: 'cp-img-green', label: 'Gift boxes' },
+  { bg: 'cp-img-green', label: 'Branded mugs' },
+  { bg: 'cp-img-warm', label: 'Custom notebooks' },
+  { bg: 'cp-img-mid', label: 'Engraved bottles' },
+  { bg: 'cp-img-gold', label: 'Logo tote bags' },
+  { bg: 'cp-img-green', label: 'Gift boxes' },
 ]
 
 const FAQS = [
   {
     q: 'What is the minimum order for personalised gifts?',
-    a: 'Most products require a minimum of 50 units for logo printing or engraving. Notebooks and custom boxes start from 25 units. We occasionally accommodate smaller batches (20–49 units) for a small setup fee - <a href="/contact">contact us</a> to check availability.',
+    a: 'The minimum order is 10 units for every product, including logo printing and engraving. Orders under 50 units carry a small setup fee - <a href="/contact">contact us</a> for exact pricing.',
   },
   {
     q: 'How long does the mockup process take?',
@@ -113,7 +112,7 @@ const FAQS = [
   },
   {
     q: 'Can I see a physical sample before placing a bulk order?',
-    a: 'Yes, we can arrange a printed sample for most products. Sample cost (₹200–₹500) is adjusted against the bulk order value if you proceed.',
+    a: 'Yes, for orders of 100+ units we can arrange a printed sample for most products. Sample cost (₹200–₹500) is adjusted against the bulk order value if you proceed.',
   },
   {
     q: 'Is GST invoicing available?',
@@ -138,13 +137,14 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Personalised Corporate Gifts: Make Every Gift On-Brand",
-        "description": "Custom-branded corporate gifts with logo printing, laser engraving, and embroidery. Minimum 50 units. Free mockup in 24 hours. Bangalore-based, Pan-India delivery.",
+        "description": "Custom-branded corporate gifts with logo printing, laser engraving, and embroidery. Minimum 10 units. Free mockup in 24 hours. Bangalore-based, Pan-India delivery.",
         "url": "https://themintbox.in/customization/personalized-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* ── HERO ── */}
       <section className="cp-hero">
@@ -176,7 +176,7 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
             </div>
             <div className="cp-hero-badge-group">
               <span className="cp-hero-badge">✓ Free digital mockups</span>
-              <span className="cp-hero-badge">✓ MOQ from 25 units</span>
+              <span className="cp-hero-badge">✓ MOQ from 10 units</span>
               <span className="cp-hero-badge">✓ GST invoicing</span>
               <span className="cp-hero-badge">✓ Pan-India delivery</span>
             </div>
@@ -204,7 +204,7 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Personalised corporate gifts are branded items - bottles, notebooks, apparel - with your company logo or employee names. MOQ starts at 25 units; free digital mockups within 24 hours. Logo printing is included at no extra cost for orders of 50+ units. Production takes 7–10 business days; Pan-India delivery 3–5 days after dispatch."
+            content="Personalised corporate gifts are branded items - bottles, notebooks, apparel - with your company logo or employee names. MOQ starts at 10 units; free digital mockups within 24 hours. Logo printing is included at no extra cost for orders of 50+ units. Production takes 7–10 business days; Pan-India delivery 3–5 days after dispatch."
           />
           <EATSignal credentials={[
             '200+ customisable products across 6 categories',
@@ -249,7 +249,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
           <div className="cp-cards-grid">
             {METHODS.map(m => (
               <div key={m.title} className="cp-card">
-                <div className="cp-card-icon">{m.icon}</div>
                 <div className="cp-card-title">{m.title}</div>
                 <p className="cp-card-desc">{m.desc}</p>
                 <span className="cp-card-tag">{m.tag}</span>
@@ -327,7 +326,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
                   className={`cp-img-placeholder ${g.bg}`}
                   style={{ minHeight: i === 0 ? '412px' : '200px', borderRadius: '12px', flexDirection: 'column', gap: '12px' }}
                 >
-                  <span style={{ fontSize: i === 0 ? '56px' : '40px' }}>{g.emoji}</span>
                   <span style={{ fontSize: '12px', color: 'rgba(245,240,230,0.4)', fontFamily: 'Satoshi, sans-serif', fontWeight: 300 }}>{g.label}</span>
                 </div>
               </div>
@@ -438,7 +436,7 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
               { label: 'Onboarding', title: 'Employee Welcome & Joining Kits', href: '/collections/employee-welcome-kit' },
               { label: 'Hampers', title: 'Corporate Gift Hampers - Curated & Delivered', href: '/collections/hampers' },
               { label: 'Bangalore', title: 'Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting' },
-              { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
+              { label: 'Awards', title: 'Corporate Memento & Award Ideas', href: '/guides/corporate-memento-ideas' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -451,8 +449,10 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

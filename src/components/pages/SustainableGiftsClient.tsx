@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -39,42 +42,36 @@ interface Props {
 
 const ECO_CATEGORIES = [
   {
-    icon: "🌱",
     title: "Seed Paper Products",
     desc: "Notebooks, cards, and packaging made from seed-embedded paper. Plant and grow after use - compostable and zero-waste.",
     tag: "Zero Waste",
     href: "/collections/eco-friendly-gifts",
   },
   {
-    icon: "🎋",
     title: "Bamboo Accessories",
     desc: "Pens, phone stands, desk organisers, and notebooks made from fast-growing bamboo. Durable, biodegradable, and premium-feel.",
     tag: "Biodegradable",
     href: "/collections/stationery",
   },
   {
-    icon: "♻️",
     title: "Recycled Stationery",
     desc: "Notebooks and journals made from recycled paper and post-consumer waste. GSM quality matches virgin paper - no compromise on look or feel.",
     tag: "Recycled",
     href: "/collections/stationery",
   },
   {
-    icon: "🪴",
     title: "Indoor Plant Kits",
     desc: "Succulents, ZZ plants, or air purifiers in branded pots. Long-lasting, air-cleaning, and a daily brand reminder on the desk.",
     tag: "Wellness",
     href: "/collections/eco-friendly-gifts",
   },
   {
-    icon: "🧴",
     title: "Natural Wellness Kits",
     desc: "Herbal teas, organic honey, natural soaps, and aromatherapy items in kraft paper packaging. Chemical-free, allergen-labelled.",
     tag: "Organic",
     href: "/collections/hampers",
   },
   {
-    icon: "🔋",
     title: "Durable Drinkware",
     desc: "Stainless steel and copper bottles replace hundreds of plastic bottles per year per employee. The most impactful sustainable swap.",
     tag: "Longevity",
@@ -95,7 +92,7 @@ const ESG_CHECKLIST = [
 const FAQ_ITEMS = [
   {
     q: "What are sustainable corporate gift options for Indian companies?",
-    a: "The best sustainable corporate gifts are seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, natural wellness hampers, and stainless steel or copper drinkware. All are available with logo branding from MintBox, MOQ from 25 units.",
+    a: "The best sustainable corporate gifts are seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, natural wellness hampers, and stainless steel or copper drinkware. All are available with logo branding from MintBox, MOQ from 10 units.",
   },
   {
     q: "Are eco-friendly corporate gifts more expensive?",
@@ -111,7 +108,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Can I get eco-friendly corporate gifts with company logo?",
-    a: "Yes. All MintBox eco-friendly products are available with logo branding - laser engraving on bamboo and drinkware, UV or screen printing on notebooks, and custom labels on packaging. Minimum order 25 units. Zero-waste packaging available on request.",
+    a: "Yes. All MintBox eco-friendly products are available with logo branding - laser engraving on bamboo and drinkware, UV or screen printing on notebooks, and custom labels on packaging. Minimum order 10 units. Zero-waste packaging available on request.",
   },
 ]
 
@@ -133,11 +130,12 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
         "headline": "Sustainable Corporate Gifts for ESG-Conscious Companies",
         "description": "Eco-friendly and sustainable corporate gifts for ESG-conscious companies. Bamboo, seed kits, recycled stationery, and more. Bulk orders, pan-India delivery.",
         "url": "https://themintbox.in/guides/sustainable-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -166,7 +164,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
               <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
             </div>
             <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ MOQ 25 units</span>
+              <span className="cp-hero-badge">✓ MOQ 10 units</span>
               <span className="cp-hero-badge">✓ Plastic-free packaging</span>
               <span className="cp-hero-badge">✓ Logo branding available</span>
               <span className="cp-hero-badge">✓ GST invoicing</span>
@@ -190,7 +188,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Sustainable corporate gifts include seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, and stainless steel drinkware. All available with logo branding from MOQ 25 units. 10–20% price premium over conventional gifts - closing fast as demand grows."
+            content="Sustainable corporate gifts include seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, and stainless steel drinkware. All available with logo branding from MOQ 10 units. 10–20% price premium over conventional gifts - closing fast as demand grows."
           />
           <EATSignal
             credentials={[
@@ -236,12 +234,11 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
           <h2 className="cp-section-title">Sustainable Corporate Gift Categories</h2>
           <p className="cp-section-sub">
             Six categories of eco-friendly gifts - each available with logo branding from MOQ
-            25 units.
+            10 units.
           </p>
           <div className="cp-card-grid cp-card-grid--3">
             {ECO_CATEGORIES.map((cat) => (
               <div key={cat.title} className="cp-card">
-                <div style={{ fontSize: '2rem', marginBottom: '8px' }}>{cat.icon}</div>
                 <div className="cp-card-title">{cat.title}</div>
                 <span
                   style={{
@@ -403,7 +400,8 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
               { label: 'Ideas', title: 'Unique Corporate Gifts', href: '/guides/unique-corporate-gifts' },
               { label: 'Trends', title: 'Corporate Gifting Trends 2026', href: '/guides/corporate-gifting-trends-2026' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
-              { label: 'Eco Gifts', title: 'Eco-Friendly Corporate Gifts', href: '/collections/eco-friendly-gifts' },
+              { label: 'Occasions', title: 'Office Inauguration Gift Ideas', href: '/guides/office-inauguration-gifts' },
+              { label: 'Ideas', title: 'Corporate Gift Items List: 50 Ideas', href: '/guides/corporate-gift-items-list' },
             ].map((link) => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -416,9 +414,11 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

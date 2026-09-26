@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,8 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+
+const PAGE_UPDATED = '2026-05-26'
 
 interface Category {
   id: string
@@ -140,11 +143,12 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
         "headline": "Work Anniversary Gifts for Employees: Ideas by Milestone",
         "description": "Celebrate work anniversaries with memorable corporate gifts. Ideas by milestone year from MintBox - personalised, branded, and GST-compliant.",
         "url": "https://themintbox.in/guides/work-anniversary-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -174,7 +178,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
             </div>
             <div className="cp-hero-badge-group">
               <span className="cp-hero-badge">✓ Year 1 to 15+ covered</span>
-              <span className="cp-hero-badge">✓ MOQ 25 units</span>
+              <span className="cp-hero-badge">✓ MOQ 10 units</span>
               <span className="cp-hero-badge">✓ Name engraving available</span>
               <span className="cp-hero-badge">✓ GST invoicing</span>
             </div>
@@ -229,7 +233,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
             </div>
             <div className="cp-stat-card">
               <div className="cp-stat-value">48hr</div>
-              <div className="cp-stat-label">Turnaround</div>
+              <div className="cp-stat-label">Express Turnaround</div>
             </div>
           </div>
         </div>
@@ -381,7 +385,8 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
               { label: 'Onboarding', title: 'Corporate Gifts for New Employees', href: '/guides/corporate-gifts-for-new-employees' },
               { label: 'Etiquette', title: 'Corporate Gifting Etiquette', href: '/guides/corporate-gifting-etiquette' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { label: 'New Hires', title: 'Corporate Gifts for New Employees', href: '/guides/corporate-gifts-for-new-employees' },
+              { label: 'Appreciation', title: 'Employee Appreciation Gifts', href: '/guides/employee-appreciation-gifts' },
+              { label: 'Awards', title: 'Corporate Memento & Award Ideas', href: '/guides/corporate-memento-ideas' },
             ].map((link) => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -394,9 +399,11 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

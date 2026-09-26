@@ -11,6 +11,8 @@ import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
 
+const PAGE_UPDATED = '2026-05-26'
+
 interface Category { id: string; name: string; emoji?: string | null; slug: string }
 interface Product {
   id: string; name: string; price: number; emoji?: string | null
@@ -93,19 +95,19 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
         "headline": "Corporate Gifting Etiquette in India: The Complete Guide",
         "description": "Learn corporate gifting etiquette for India: timing, budgets, personalisation, cultural dos and don'ts. A practical guide for HR, admin, and procurement teams.",
         "url": "https://themintbox.in/guides/corporate-gifting-etiquette",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
       <Navbar />
-      <main>
+      <main id="main">
         {/* Hero */}
         <section className="cp-hero">
           <div className="cp-hero-bg cp-img-green" aria-hidden="true" />
           <div className="cp-container">
-            <div className="cp-breadcrumb">
+            <nav className="cp-breadcrumb" aria-label="Breadcrumb">
               <a href="/">Home</a> › <a href="/guides/corporate-gifting-handbook">Guides</a> › Etiquette
-            </div>
+            </nav>
             <h1 className="cp-hero-title">Corporate Gifting Etiquette in India: The Complete Guide</h1>
             <p className="cp-hero-subtitle">
               Timing, budgets, cultural dos and don'ts - everything HR and admin teams need to gift with confidence.
@@ -270,30 +272,28 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
             <h2 className="cp-section-title">Related Guides</h2>
             <div className="cp-related-grid">
               <a href="/guides/corporate-gifting-handbook" className="cp-related-card">
-                <span className="cp-related-emoji">📖</span>
                 <span className="cp-related-title">Corporate Gifting Handbook</span>
               </a>
               <a href="/guides/what-to-gift-employees" className="cp-related-card">
-                <span className="cp-related-emoji">👥</span>
                 <span className="cp-related-title">What to Gift Employees</span>
               </a>
               <a href="/guides/corporate-gifts-under-1000" className="cp-related-card">
-                <span className="cp-related-emoji">💰</span>
                 <span className="cp-related-title">Gifts Under ₹1,000</span>
               </a>
               <a href="/guides/diwali-corporate-gifts" className="cp-related-card">
-                <span className="cp-related-emoji">🪔</span>
                 <span className="cp-related-title">Diwali Corporate Gifts</span>
               </a>
-              <a href="/guides/corporate-gifting-handbook" className="cp-related-card">
-                <span className="cp-related-emoji">📖</span>
-                <span className="cp-related-title">The Corporate Gifting Handbook</span>
+              <a href="/guides/gst-on-corporate-gifts" className="cp-related-card">
+                <span className="cp-related-title">GST on Corporate Gifts</span>
+              </a>
+              <a href="/guides/luxury-corporate-gifts" className="cp-related-card">
+                <span className="cp-related-title">Luxury Corporate Gifts</span>
               </a>
             </div>
           </div>
         </section>
 
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </main>
       <Footer />
       <WhatsAppFloat />

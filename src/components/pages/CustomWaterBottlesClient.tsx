@@ -2,6 +2,7 @@
 
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import ContentProductShowcase from '@/components/content/ContentProductShowcase'
 import FAQSection from '@/components/content/FAQSection'
@@ -10,6 +11,9 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import { QUOTE_TIME } from '@/lib/businessFacts'
+
+const PAGE_UPDATED = '2026-05-25'
 
 interface Category {
   id: string
@@ -45,15 +49,15 @@ const BOTTLE_TYPES = [
 ]
 
 const CUSTOMISATION_STEPS = [
-  { num: "1", title: "Choose Bottle Type & Quantity", desc: "Select from stainless steel, copper, or insulated. Share quantity (MOQ: 25 units). Volume discounts from 100+ units." },
+  { num: "1", title: "Choose Bottle Type & Quantity", desc: "Select from stainless steel, copper, or insulated. Share quantity (MOQ: 10 units). Volume discounts from 100+ units." },
   { num: "2", title: "Share Your Artwork", desc: "Send your logo in AI, EPS, or high-res PNG. We handle colour matching and placement preview." },
   { num: "3", title: "Approve Mockup", desc: "We send a digital mockup within 24 hours. Physical sample available for orders of 100+." },
   { num: "4", title: "Production & Delivery", desc: "7–10 business days for standard runs. Same-day Bangalore delivery for in-stock items. Pan-India tracked shipping." },
 ]
 
 const FAQ_ITEMS = [
-  { q: "What types of customized water bottles does MintBox offer?", a: "MintBox offers stainless steel bottles, copper bottles, insulated tumblers, and BPA-free sippers. All can be branded with your logo via laser engraving, UV printing, or full-wrap printing. MOQ is 25 units." },
-  { q: "What is the minimum order quantity for custom water bottles?", a: "The minimum order is 25 units for most bottle types. For bulk orders of 500+ units, we offer additional volume pricing and priority production slots." },
+  { q: "What types of customized water bottles does MintBox offer?", a: "MintBox offers stainless steel bottles, copper bottles, insulated tumblers, and BPA-free sippers. All can be branded with your logo via laser engraving, UV printing, or full-wrap printing. MOQ is 10 units." },
+  { q: "What is the minimum order quantity for custom water bottles?", a: "The minimum order is 10 units for every bottle type. For bulk orders of 500+ units, we offer additional volume pricing and priority production slots." },
   { q: "How is branding applied to water bottles?", a: "We use laser engraving for a premium permanent finish, UV printing for full-colour logos, and screen printing for text-heavy designs. The method depends on the bottle material and your artwork." },
   { q: "How long does it take to produce customized water bottles?", a: "Standard orders are ready in 7–10 business days from artwork approval. Rush orders may be accommodated for Bangalore deliveries - contact us to check availability." },
   { q: "Can I get a sample before placing a bulk order?", a: "Yes. Physical samples are available for orders of 100+ units. For smaller orders, we provide a digital mockup within 24 hours of receiving your artwork." },
@@ -65,6 +69,7 @@ const RELATED = [
   { href: '/customization/personalized-corporate-gifts', label: 'Personalized Corporate Gifts' },
   { href: '/collections/corporate-gifts', label: 'All Corporate Gifts' },
   { href: '/guides/corporate-gifts-under-1000', label: 'Budget' },
+  { href: '/guides/corporate-gift-items-list', label: 'Gift Items List' },
 ]
 
 
@@ -81,6 +86,7 @@ export default function CustomWaterBottlesClient({ products, categories }: Props
         ]
       }) }} />
       <Navbar />
+      <main id="main">
 
       {/* 1. HERO */}
       <section className="cp-hero">
@@ -97,7 +103,7 @@ export default function CustomWaterBottlesClient({ products, categories }: Props
             <h1 className="cp-hero-title">Customized Water Bottles for Corporate Gifting</h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Logo-branded bottles for your team - stainless steel, copper, and insulated. MOQ 25 units, pan-India delivery.
+              Logo-branded bottles for your team - stainless steel, copper, and insulated. MOQ 10 units, pan-India delivery.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Bottles</a>
@@ -122,11 +128,11 @@ export default function CustomWaterBottlesClient({ products, categories }: Props
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox offers customized stainless steel, copper, and insulated water bottles with logo engraving or UV printing. MOQ from 25 units. Price from ₹200 per unit. Turnaround 7–10 business days. Pan-India delivery."
+            content="MintBox offers customized stainless steel, copper, and insulated water bottles with logo engraving or UV printing. MOQ from 10 units. Price from ₹200 per unit. Turnaround 7–10 business days. Pan-India delivery."
           />
           <EATSignal credentials={[
             "4 bottle types: stainless steel, copper, insulated, and sipper",
-            "MOQ from 25 units with volume discounts at 100+",
+            "MOQ from 10 units with volume discounts at 100+",
             "Laser engraving, UV printing, and full-wrap print options",
             "Digital mockup within 24 hours of artwork submission",
             "Pan-India delivery in 7–10 business days",
@@ -247,7 +253,7 @@ export default function CustomWaterBottlesClient({ products, categories }: Props
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
             <h2 className="cp-cta-title">Ready to Order<br />Customized Water Bottles?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, bottle type, and logo. We will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, bottle type, and logo. We will respond with pricing and a free digital mockup within {QUOTE_TIME}.
             </p>
           </div>
           <div className="cp-quote-form-panel">
@@ -291,9 +297,11 @@ export default function CustomWaterBottlesClient({ products, categories }: Props
 
       {/* 11. LAST UPDATED */}
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-25" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
 
+      <GoogleReviews theme="light" initialCount={3} />
+      </main>
       <Footer />
       <WhatsAppFloat />
     </div>

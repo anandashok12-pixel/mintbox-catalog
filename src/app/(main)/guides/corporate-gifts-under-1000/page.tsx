@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { SHOWCASE_CATEGORY_SELECT, SHOWCASE_POPULATE, SHOWCASE_PRODUCT_SELECT } from '@/lib/showcaseQuery'
 import BudgetGiftsClient from '@/components/pages/BudgetGiftsClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
   title: 'Corporate Gifts Under ₹1000: Best Budget Options for 2026 | MintBox',
   description:
-    'Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 50 units, logo customisation included. Pan-India delivery.',
+    'Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 10 units, logo customisation included. Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifts-under-1000' },
   openGraph: {
     title: 'Corporate Gifts Under ₹1000 - MintBox',
@@ -24,7 +25,7 @@ export default async function BudgetGiftsPage() {
   try {
     const payload = await getPayload({ config: configPromise })
     const [catsResult, productsResult] = await Promise.all([
-      payload.find({ collection: 'categories', sort: 'order', limit: 100 }),
+      payload.find({ collection: 'categories', sort: 'order', limit: 100, select: SHOWCASE_CATEGORY_SELECT }),
       payload.find({
         collection: 'products',
         where: {
@@ -36,6 +37,8 @@ export default async function BudgetGiftsPage() {
         sort: 'price',
         limit: 200,
         depth: 1,
+      select: SHOWCASE_PRODUCT_SELECT,
+      populate: SHOWCASE_POPULATE,
       }),
     ])
     categories = catsResult.docs
