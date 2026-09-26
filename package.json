@@ -14,6 +14,7 @@
     "set-usbc-hub-image": "node --env-file=.env.local --require tsx/cjs scripts/set-usbc-hub-image.ts",
     "payload": "payload",
     "import-diwali-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-boxes.ts",
+    "import-diwali-2026-catalog": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-2026-catalog.ts",
     "backfill-phone-e164": "node --env-file=.env.local --require tsx/cjs scripts/backfill-phone-e164.ts",
     "backfill-crm-from-leads": "node --env-file=.env.local --require tsx/cjs scripts/backfill-crm-from-leads.ts"
   },
