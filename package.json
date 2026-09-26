@@ -13,7 +13,8 @@
     "import-from-csv": "node --env-file=.env.local --require tsx/cjs scripts/import-from-csv.ts",
     "set-usbc-hub-image": "node --env-file=.env.local --require tsx/cjs scripts/set-usbc-hub-image.ts",
     "payload": "payload",
-    "import-diwali-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-boxes.ts"
+    "import-diwali-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-boxes.ts",
+    "backfill-phone-e164": "node --env-file=.env.local --require tsx/cjs scripts/backfill-phone-e164.ts"
   },
   "dependencies": {
     "@payloadcms/db-vercel-postgres": "^3.80.0",

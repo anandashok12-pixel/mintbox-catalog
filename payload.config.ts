@@ -5,11 +5,16 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Categories } from './src/collections/Categories'
 import { Products } from './src/collections/Products'
 import { Leads } from './src/collections/Leads'
+import { Contacts } from './src/collections/Contacts'
+import { Deals } from './src/collections/Deals'
+import { Messages } from './src/collections/Messages'
+import { Activities } from './src/collections/Activities'
 import { Media } from './src/collections/Media'
 import { Users } from './src/collections/Users'
 import { AboutPage } from './src/globals/AboutPage'
 import { ContactPage } from './src/globals/ContactPage'
 import { FAQPage } from './src/globals/FAQPage'
+import { WhatsappSession } from './src/globals/WhatsappSession'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -33,8 +38,8 @@ export default buildConfig({
       },
     },
   },
-  collections: [Categories, Products, Leads, Media, Users],
-  globals: [AboutPage, ContactPage, FAQPage],
+  collections: [Categories, Products, Leads, Contacts, Deals, Messages, Activities, Media, Users],
+  globals: [AboutPage, ContactPage, FAQPage, WhatsappSession],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

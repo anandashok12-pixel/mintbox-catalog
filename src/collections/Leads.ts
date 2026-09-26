@@ -1,4 +1,6 @@
 import type { CollectionConfig } from 'payload'
+import { normalizePhone } from '@/lib/phone'
+import { fanOutLeadToCrm } from './hooks/fanOutLeadToCrm'
 
 export const Leads: CollectionConfig = {
   slug: 'leads',
@@ -21,9 +23,19 @@ export const Leads: CollectionConfig = {
         if (operation === 'create') {
           data.referenceCode = 'MB-' + Date.now().toString(36).toUpperCase().slice(-6)
         }
+        // Normalise on every save (not just create) so editing `phone` in the
+        // admin keeps phoneE164 in sync - it's the join key every other
+        // channel matches against.
+        if (typeof data.phone === 'string' && data.phone.trim()) {
+          data.phoneE164 = normalizePhone(data.phone) ?? undefined
+        }
         return data
       },
     ],
+    // Fans a new lead out into a contact + deal + activity. Runs after the
+    // lead itself is committed, so a fan-out failure never blocks the form
+    // submission the customer is waiting on.
+    afterChange: [fanOutLeadToCrm],
   },
   fields: [
     {
@@ -55,6 +67,16 @@ export const Leads: CollectionConfig = {
       // here because that adds NOT NULL and older leads have no phone.
       name: 'phone',
       type: 'text',
+    },
+    {
+      name: 'phoneE164',
+      type: 'text',
+      index: true,
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        description: 'Normalised from phone. The key the CRM fan-out joins contacts on.',
+      },
     },
     {
       name: 'occasion',
