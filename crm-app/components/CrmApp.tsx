@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ApiError, getCurrentUser, getDeals, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateDeal } from '@/lib/payload'
 import type { Deal, Message, Stage, User, WhatsappSession } from '@/lib/types'
-import { BoardIcon, LogOutIcon, PlusIcon, QueueIcon, RefreshIcon, SearchIcon, WhatsAppIcon } from './Icons'
+import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, QueueIcon, RefreshIcon, SearchIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
 import { QueueView } from './QueueView'
 import { BoardView } from './BoardView'
 import { DealDrawer } from './DealDrawer'
 import { WhatsappView } from './WhatsappView'
 import { NewDealModal } from './NewDealModal'
+import { AnalyticsView } from './AnalyticsView'
 
 const TOKEN_KEY = 'mintbox-crm-token'
 
@@ -18,7 +19,7 @@ export function CrmApp() {
   const [user, setUser] = useState<User | null>(null)
   const [deals, setDeals] = useState<Deal[]>([])
   const [selectedDealId, setSelectedDealId] = useState<string | number | null>(null)
-  const [view, setView] = useState<'queue' | 'board' | 'whatsapp'>('board')
+  const [view, setView] = useState<'queue' | 'board' | 'whatsapp' | 'analytics'>('board')
   const [search, setSearch] = useState('')
   const [whatsappSession, setWhatsappSession] = useState<WhatsappSession | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
@@ -156,6 +157,7 @@ export function CrmApp() {
     board: { title: 'Deals', subtitle: `${filteredDeals.length} records` },
     queue: { title: 'Priority queue', subtitle: 'Work that needs attention' },
     whatsapp: { title: 'WhatsApp mirror', subtitle: `${messages.length} captured messages` },
+    analytics: { title: 'Analytics', subtitle: 'Pipeline and activity' },
   }[view]
 
   return (
@@ -169,6 +171,7 @@ export function CrmApp() {
             <WhatsAppIcon /><span>WhatsApp</span>
             {whatsappSession?.status !== 'connected' && <i className="nav-alert" />}
           </button>
+          <button className={view === 'analytics' ? 'active' : ''} onClick={() => setView('analytics')} title="Analytics"><AnalyticsIcon /><span>Analytics</span></button>
         </nav>
         <button className="sidebar-user" title={user.email}>{(user.name || user.email).slice(0, 1).toUpperCase()}</button>
       </aside>
@@ -190,9 +193,10 @@ export function CrmApp() {
           {view === 'queue' && <QueueView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />}
           {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
           {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} />}
+          {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
         </main>
       </div>
-      <DealDrawer deal={selectedDeal} onClose={() => setSelectedDealId(null)} />
+      <DealDrawer key={selectedDeal?.id ?? 'none'} deal={selectedDeal} onClose={() => setSelectedDealId(null)} onPatch={(patch) => selectedDeal ? patchDeal(selectedDeal, patch) : Promise.resolve()} />
       {showNewDeal && token && <NewDealModal token={token} onClose={() => setShowNewDeal(false)} onCreated={dealCreated} />}
     </div>
   )

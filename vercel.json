@@ -16,6 +16,10 @@
     {
       "path": "/api/cron/crm-digest",
       "schedule": "30 3 * * *"
+    },
+    {
+      "path": "/api/cron/crm-nightly-summary",
+      "schedule": "30 16 * * *"
     }
   ]
 }

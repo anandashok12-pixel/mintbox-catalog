@@ -269,6 +269,47 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .tag-list span { padding: 5px 7px; border: 1px solid var(--border); border-radius: 4px; background: #f7f8fa; color: #565c68; font-size: 9px; }
 .blockers-section ul { margin: 9px 0 0; padding-left: 16px; color: #9c3939; font-size: 11px; line-height: 1.6; }
 
+/* To-dos, remarks, nightly digest */
+.task-list { margin: 9px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.task-list li { min-height: 30px; padding: 4px 2px; display: flex; align-items: center; gap: 9px; }
+.task-list span { flex: 1; font-size: 12px; }
+.task-list time { color: var(--faint); font-size: 9px; }
+.task-done span { color: var(--muted); text-decoration: line-through; }
+.task-check { width: 18px; height: 18px; flex: none; padding: 0; border: 1px solid var(--border-strong); border-radius: 4px; display: grid; place-items: center; background: white; color: white; cursor: pointer; }
+.task-check svg { width: 12px; }
+.task-done .task-check { border-color: #2f8f55; background: #2f8f55; }
+.task-empty { padding: 4px 2px; color: var(--faint); font-size: 11px; }
+.task-add { margin-top: 9px; display: flex; gap: 6px; }
+.task-add input { flex: 1; height: 32px; padding: 0 10px; border: 1px solid var(--border); border-radius: 5px; background: white; color: var(--text); font-size: 12px; }
+.task-add input:focus { border-color: var(--blue); outline: 2px solid rgba(47, 111, 237, .13); }
+.task-add .icon-button { width: 32px; height: 32px; }
+.remarks-input { width: 100%; margin-top: 9px; padding: 9px 10px; border: 1px solid var(--border); border-radius: 6px; background: white; color: var(--text); font-size: 12px; line-height: 1.6; font-family: inherit; resize: vertical; }
+.remarks-input:focus { border-color: var(--blue); outline: 2px solid rgba(47, 111, 237, .13); }
+.digest-list { margin: 9px 0 0; padding-left: 16px; color: #3f4550; font-size: 12px; line-height: 1.7; }
+
+/* Analytics */
+.analytics-tiles { margin-bottom: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 9px; }
+.stat-tile { padding: 14px; border: 1px solid var(--border); border-radius: 7px; background: white; display: grid; gap: 4px; }
+.stat-tile span { color: var(--muted); font-size: 10px; font-weight: 650; text-transform: uppercase; letter-spacing: .02em; }
+.stat-tile strong { font-size: 22px; line-height: 1.2; }
+.stat-tile small { color: var(--faint); font-size: 10px; }
+.analytics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+.analytics-card { padding: 16px; border: 1px solid var(--border); border-radius: 7px; background: white; }
+.analytics-card h3 { margin: 0 0 12px; font-size: 12px; font-weight: 650; }
+.analytics-empty { margin: 0; color: var(--faint); font-size: 11px; }
+.analytics-bar-row { margin-bottom: 9px; display: grid; grid-template-columns: 108px 1fr 96px; align-items: center; gap: 9px; }
+.analytics-bar-row:last-child { margin-bottom: 0; }
+.analytics-bar-label { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.analytics-bar-track { height: 8px; border-radius: 4px; background: var(--column); overflow: hidden; }
+.analytics-bar-fill { height: 100%; border-radius: 4px; background: var(--blue); }
+.analytics-bar-value { color: var(--text); font-size: 11px; font-weight: 600; text-align: right; }
+.analytics-facts { margin: 0; display: grid; gap: 11px; }
+.analytics-facts div { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.analytics-facts dt { color: var(--muted); font-size: 11px; }
+.analytics-facts dd { margin: 0; font-size: 12px; font-weight: 650; }
+.status-good { color: var(--green); }
+.status-warn { color: #b4552b; }
+
 /* New deal form */
 .new-deal-button { border-color: #235ed4; background: var(--blue); color: white; }
 .new-deal-button:hover { background: #255fcf; border-color: #235ed4; color: white; }
@@ -316,6 +357,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .new-deal-button span { display: none; }
   .new-deal-button { width: 34px; padding: 0; justify-content: center; }
   .form-row { grid-template-columns: 1fr; }
+  .analytics-grid { grid-template-columns: 1fr; }
+  .analytics-bar-row { grid-template-columns: 82px 1fr 72px; }
   .view, .whatsapp-view { padding-inline: 10px; }
   .view-toolbar, .whatsapp-statusbar { align-items: flex-start; flex-wrap: wrap; }
   .toolbar-actions { width: 100%; justify-content: space-between; }

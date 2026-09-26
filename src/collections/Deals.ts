@@ -218,6 +218,50 @@ export const Deals: CollectionConfig = {
       },
     },
     {
+      name: 'remarks',
+      type: 'textarea',
+      admin: {
+        description: 'Free-form notes, editable any time - distinct from `summary`, which the extractor overwrites.',
+      },
+    },
+    {
+      name: 'nightlySummary',
+      label: 'Nightly digest',
+      type: 'textarea',
+      admin: {
+        readOnly: true,
+        description: 'Bulleted recap written every night at 10pm IST from WhatsApp messages + remarks. See src/lib/nightlySummary.ts.',
+      },
+    },
+    {
+      name: 'nightlySummaryAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'When the nightly digest last ran for this deal.',
+      },
+    },
+    {
+      name: 'tasks',
+      type: 'array',
+      admin: {
+        description: 'To-dos for this deal, e.g. "Send proposal", "Follow up on quote".',
+      },
+      fields: [
+        { name: 'label', type: 'text', required: true },
+        { name: 'done', type: 'checkbox', defaultValue: false },
+        {
+          type: 'row',
+          fields: [
+            { name: 'dueDate', type: 'date', admin: { width: '50%' } },
+            { name: 'doneAt', type: 'date', admin: { width: '50%', readOnly: true } },
+          ],
+        },
+      ],
+    },
+    {
       name: 'nextAction',
       type: 'text',
     },

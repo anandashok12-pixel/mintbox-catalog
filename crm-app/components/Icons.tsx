@@ -19,3 +19,4 @@ export const MenuIcon = (props: IconProps) => <IconBase {...props}><path d="M5 7
 export const CheckIcon = (props: IconProps) => <IconBase {...props}><path d="m5 12 4 4L19 6"/></IconBase>
 export const AlertIcon = (props: IconProps) => <IconBase {...props}><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></IconBase>
 export const PlusIcon = (props: IconProps) => <IconBase {...props}><path d="M12 5v14M5 12h14"/></IconBase>
+export const AnalyticsIcon = (props: IconProps) => <IconBase {...props}><path d="M4 19V9M11 19V5M18 19v-7"/></IconBase>

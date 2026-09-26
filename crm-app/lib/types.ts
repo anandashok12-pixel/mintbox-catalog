@@ -54,6 +54,14 @@ export interface LabelItem {
   label?: string | null
 }
 
+export interface DealTask {
+  id?: string | number | null
+  label: string
+  done?: boolean | null
+  dueDate?: string | null
+  doneAt?: string | null
+}
+
 export interface Deal {
   id: string | number
   title: string
@@ -71,10 +79,15 @@ export interface Deal {
   productInterest?: LabelItem[] | null
   blockers?: LabelItem[] | null
   summary?: string | null
+  remarks?: string | null
+  nightlySummary?: string | null
+  nightlySummaryAt?: string | null
+  tasks?: DealTask[] | null
   nextAction?: string | null
   nextActionAt?: string | null
   awaitingWhom?: 'us' | 'them' | 'nobody' | null
   quoteSentAt?: string | null
+  wonValue?: number | null
   source?: string | null
   leadSource?: LeadSource | null
   contactChannel?: ContactChannel | null
