@@ -35,6 +35,11 @@ function startHeartbeat() {
 async function connect(): Promise<void> {
   const { state, saveCreds } = await usePostgresAuthState(SESSION_ID)
   const { version } = await fetchLatestBaileysVersion()
+  // Captured before this attempt touches the socket: distinguishes "an
+  // already-paired session dropped" (worth retrying) from "registration/
+  // pairing itself failed" (WhatsApp's abuse detection territory - retrying
+  // automatically just burns more attempts on the same signal, see PRD).
+  const wasRegisteredBeforeThisAttempt = state.creds?.registered === true
 
   const sock: WASocket = makeWASocket({
     auth: state,
@@ -92,6 +97,16 @@ async function connect(): Promise<void> {
       }
 
       await postToWebhook({ type: 'connection', status: 'disconnected', reason: String(lastDisconnect?.error) })
+
+      if (!wasRegisteredBeforeThisAttempt) {
+        // Never auto-retry a failed pairing attempt - that's what turned one
+        // bad attempt into a burst of them before. Surface it and stop; a
+        // human restarts the worker for the next single clean attempt.
+        logger.error(
+          `Registration attempt failed (status ${statusCode}) before pairing completed. Not auto-retrying - restart the worker manually for another one-shot attempt.`,
+        )
+        return
+      }
 
       reconnectAttempts += 1
       const delay = Math.min(MAX_RECONNECT_DELAY_MS, 1000 * 2 ** reconnectAttempts)
