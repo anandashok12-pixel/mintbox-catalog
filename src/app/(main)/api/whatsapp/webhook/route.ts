@@ -198,10 +198,57 @@ export async function POST(req: NextRequest) {
           mediaIds = [mediaDoc.id]
         }
 
+        // A contact can have several deals (repeat enquiries, different
+        // occasions). A raw chat message has no explicit deal reference, so
+        // attach it to whichever open deal was touched most recently - a
+        // reasonable default that keeps the queue's activity timestamps
+        // current for the common case. Two genuinely simultaneous open
+        // enquiries with the same contact is the one case this gets wrong,
+        // and it's a manual-merge situation either way (see the PRD).
+        const activeDeal = await payload.find({
+          collection: 'deals',
+          where: { and: [{ contact: { equals: contactId } }, { stage: { not_in: ['won', 'lost'] } }] },
+          sort: '-updatedAt',
+          limit: 1,
+          depth: 0,
+        })
+        let dealId = activeDeal.docs[0]?.id
+
+        // Most of MintBox's volume is inbound-first on WhatsApp: someone
+        // messages before ever filling a form. Without a deal to attach to,
+        // that enquiry is invisible to the queue entirely - exactly the
+        // "so many leads, don't know which to prioritise" problem this
+        // whole phase exists to fix. So a first inbound message with no
+        // open deal seeds a bare one; the extraction pass fills it in.
+        if (!dealId && !event.fromMe) {
+          const contactDoc = await payload.findByID({ collection: 'contacts', id: contactId, depth: 0 })
+          const created = await payload.create({
+            collection: 'deals',
+            data: {
+              title: `${contactDoc.company || contactDoc.name} - WhatsApp enquiry`,
+              contact: contactId,
+              stage: 'new',
+              source: 'whatsapp',
+              awaitingWhom: 'us',
+            },
+          })
+          dealId = created.id
+          await payload.create({
+            collection: 'activities',
+            data: {
+              contact: contactId,
+              deal: dealId,
+              type: 'deal_opened',
+              summary: 'Deal opened from a first inbound WhatsApp message',
+            },
+          })
+        }
+
         await payload.create({
           collection: 'messages',
           data: {
             contact: contactId,
+            deal: dealId,
             channel: 'whatsapp',
             direction: event.fromMe ? 'outbound' : 'inbound',
             body: event.text || undefined,

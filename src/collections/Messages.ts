@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { updateDealActivity } from './hooks/updateDealActivity'
 
 export const Messages: CollectionConfig = {
   slug: 'messages',
@@ -90,6 +91,7 @@ export const Messages: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [updateDealActivity],
   },
   timestamps: true,
 }

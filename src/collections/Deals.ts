@@ -233,6 +233,46 @@ export const Deals: CollectionConfig = {
         readOnly: true,
       },
     },
+    {
+      name: 'lastMessageAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'Maintained by a Messages hook. Any direction, any channel.',
+      },
+    },
+    {
+      name: 'lastInboundMessageAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'Last message FROM the customer. Drives "waiting on you" duration and the extraction debounce.',
+      },
+    },
+    {
+      name: 'lastOutboundMessageAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'Last message we sent (from the phone, mirrored in). If this is after lastInboundMessageAt, we’re not waiting on anything.',
+      },
+    },
+    {
+      name: 'lastExtractedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'When the extraction pass last ran on this deal. Messages after this point are what the next pass reads.',
+      },
+    },
   ],
   timestamps: true,
 }

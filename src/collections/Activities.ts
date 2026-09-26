@@ -31,6 +31,7 @@ export const Activities: CollectionConfig = {
       required: true,
       options: [
         { label: 'Form submitted', value: 'form_submitted' },
+        { label: 'Deal opened from WhatsApp', value: 'deal_opened' },
         { label: 'Quote sent', value: 'quote_sent' },
         { label: 'Stage changed', value: 'stage_changed' },
         { label: 'Digest sent', value: 'digest_sent' },

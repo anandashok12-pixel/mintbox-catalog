@@ -24,6 +24,14 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  // Payload's cookie-auth strategy checks the request's Origin against this
+  // list for any state-changing request (POST/PATCH/DELETE) - GET requests
+  // aren't gated the same way, which is why this only bites you on writes.
+  // .env.local here is pulled from Vercel and carries the production
+  // NEXT_PUBLIC_URL, so serverURL above resolves to themintbox.in even
+  // when running locally - without this, a real logged-in session can read
+  // the admin fine but every write silently 403s in local dev.
+  csrf: [process.env.NEXT_PUBLIC_URL || 'http://localhost:3000', 'http://localhost:3000'],
   sharp,
   admin: {
     user: Users.slug,
@@ -34,6 +42,14 @@ export default buildConfig({
       views: {
         dashboard: {
           Component: '@/components/AdminDashboard#AdminDashboard',
+        },
+        queue: {
+          Component: '@/components/QueueView#QueueView',
+          path: '/queue',
+        },
+        board: {
+          Component: '@/components/BoardView#BoardView',
+          path: '/board',
         },
       },
     },
