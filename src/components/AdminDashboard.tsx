@@ -23,6 +23,8 @@ const GLOBALS = [
 ]
 
 export function AdminDashboard() {
+  const crmAppUrl = process.env.NEXT_PUBLIC_CRM_APP_URL || 'http://localhost:3001'
+
   return (
     <div style={{ padding: '2rem', maxWidth: '900px' }}>
       <h1 style={{ marginBottom: '0.5rem', fontSize: '1.75rem', fontWeight: 700 }}>
@@ -33,8 +35,8 @@ export function AdminDashboard() {
       </p>
 
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '2.5rem' }}>
-        <Link
-          href="/admin/queue"
+        <a
+          href={crmAppUrl}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -45,32 +47,13 @@ export function AdminDashboard() {
             textDecoration: 'none',
             color: 'inherit',
             gap: '0.3rem',
-            maxWidth: 260,
+            width: 320,
           }}
         >
-          <span style={{ fontSize: '1.75rem' }}>📥</span>
-          <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>Today&apos;s queue</span>
-          <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>Who to chase today, ranked</span>
-        </Link>
-        <Link
-          href="/admin/board"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '1.25rem 1.5rem',
-            borderRadius: '0.5rem',
-            border: '2px solid rgba(184,151,46,0.35)',
-            background: 'rgba(184,151,46,0.06)',
-            textDecoration: 'none',
-            color: 'inherit',
-            gap: '0.3rem',
-            maxWidth: 260,
-          }}
-        >
-          <span style={{ fontSize: '1.75rem' }}>🗂️</span>
-          <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>Pipeline board</span>
-          <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>Drag deals between stages</span>
-        </Link>
+          <span style={{ fontSize: '1.75rem' }}>↗</span>
+          <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>Open MintBox CRM</span>
+          <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>Priority queue and pipeline in the standalone app</span>
+        </a>
       </div>
 
       <h2 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.4, marginBottom: '0.75rem' }}>

@@ -45,7 +45,7 @@ function reason(row: QueueRow): string {
   }
 }
 
-function digestHtml(rows: QueueRow[], totalOpen: number, queueUrl: string): string {
+function digestHtml(rows: QueueRow[], totalOpen: number, queueUrl: string, payloadAdminUrl: string): string {
   const groups = new Map<Bucket, QueueRow[]>()
   for (const row of rows) {
     const group = groups.get(row.bucket) || []
@@ -62,7 +62,7 @@ function digestHtml(rows: QueueRow[], totalOpen: number, queueUrl: string): stri
         </h2>
         ${bucketRows.map((row) => {
           const name = row.contactCompany || row.contactName
-          const dealUrl = `${queueUrl.replace(/\/admin\/queue$/, '')}/admin/collections/deals/${row.id}`
+          const dealUrl = `${payloadAdminUrl}/admin/collections/deals/${row.id}`
           const nextAction = row.nextAction
             ? `<div style="margin-top:6px;color:#24352e;"><strong>Next:</strong> ${escapeHtml(row.nextAction)}</div>`
             : ''
@@ -115,7 +115,11 @@ export async function GET(req: NextRequest) {
     ? process.env.NOTIFY_EMAIL.split(',').map((email) => email.trim()).filter(Boolean)
     : ['anand@themintbox.in']
   const appUrl = (process.env.NEXT_PUBLIC_URL || 'https://themintbox.in').replace(/\/$/, '')
-  const queueUrl = `${appUrl}/admin/queue`
+  const queueUrl = (
+    process.env.CRM_APP_URL ||
+    process.env.NEXT_PUBLIC_CRM_APP_URL ||
+    `${appUrl}/admin/collections/deals`
+  ).replace(/\/$/, '')
   const digestDate = indiaDate()
 
   const sendResult = await getResend().emails.send({
@@ -124,7 +128,7 @@ export async function GET(req: NextRequest) {
     subject: daily.length === 0
       ? 'MintBox CRM: queue clear'
       : `MintBox CRM: ${daily.length} deal${daily.length === 1 ? '' : 's'} need attention`,
-    html: digestHtml(daily, totalOpen, queueUrl),
+    html: digestHtml(daily, totalOpen, queueUrl, appUrl),
   }, { idempotencyKey: `mintbox-crm-digest-${digestDate}` })
 
   if (sendResult.error) {

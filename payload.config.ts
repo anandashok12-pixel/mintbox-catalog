@@ -21,9 +21,19 @@ import sharp from 'sharp'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const serverURL = (process.env.NEXT_PUBLIC_URL || 'http://localhost:3000').replace(/\/$/, '')
+const crmAppURL = (
+  process.env.CRM_APP_URL ||
+  process.env.NEXT_PUBLIC_CRM_APP_URL ||
+  'http://localhost:3001'
+).replace(/\/$/, '')
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  serverURL,
+  // The CRM is a separate browser app. It authenticates with Payload's JWT
+  // and sends it as an Authorization: Bearer header, so CSRF cookie checks do
+  // not participate; CORS only needs to admit the CRM's deployment origin.
+  cors: [serverURL, crmAppURL],
   // Payload's cookie-auth strategy checks the request's Origin against this
   // list for any state-changing request (POST/PATCH/DELETE) - GET requests
   // aren't gated the same way, which is why this only bites you on writes.
@@ -31,7 +41,7 @@ export default buildConfig({
   // NEXT_PUBLIC_URL, so serverURL above resolves to themintbox.in even
   // when running locally - without this, a real logged-in session can read
   // the admin fine but every write silently 403s in local dev.
-  csrf: [process.env.NEXT_PUBLIC_URL || 'http://localhost:3000', 'http://localhost:3000'],
+  csrf: [serverURL, 'http://localhost:3000'],
   sharp,
   admin: {
     user: Users.slug,
@@ -42,14 +52,6 @@ export default buildConfig({
       views: {
         dashboard: {
           Component: '@/components/AdminDashboard#AdminDashboard',
-        },
-        queue: {
-          Component: '@/components/QueueView#QueueView',
-          path: '/queue',
-        },
-        board: {
-          Component: '@/components/BoardView#BoardView',
-          path: '/board',
         },
       },
     },
