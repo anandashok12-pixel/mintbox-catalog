@@ -105,12 +105,17 @@ export async function extractDealContext(
   if (deal.stage === 'won' || deal.stage === 'lost') return { skipped: 'deal_closed' }
 
   const since = deal.lastExtractedAt
+  // Use the start of the pass as its high-water mark. A message captured
+  // while the model is working remains newer than this timestamp and will be
+  // picked up next time instead of falling into the completion-time gap.
+  const extractionStartedAt = new Date().toISOString()
   const messagesResult = await payload.find({
     collection: 'messages',
     where: {
       and: [
         { deal: { equals: dealId } },
         ...(since ? [{ createdAt: { greater_than: since } }] : []),
+        { createdAt: { less_than_equal: extractionStartedAt } },
       ],
     },
     sort: 'sentAt',
@@ -190,7 +195,7 @@ export async function extractDealContext(
       suggestedStage: result.suggestedStage,
       estimatedValue,
       estimatedValueConfidence,
-      lastExtractedAt: new Date().toISOString(),
+      lastExtractedAt: extractionStartedAt,
     },
   })
 

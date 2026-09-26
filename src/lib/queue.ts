@@ -3,6 +3,7 @@ import configPromise from '@payload-config'
 import { buildQueue, type QueuedDeal, type ScorableDeal } from './scoring'
 
 export interface QueueRow extends QueuedDeal {
+  contactId: string | number
   contactName: string
   contactCompany?: string | null
   contactPhoneE164?: string | null
@@ -27,10 +28,11 @@ export async function buildDailyQueue(): Promise<{ daily: QueueRow[]; dormant: Q
     depth: 1, // pulls contact so we get name/company/phone without a second query per row
   })
 
-  const scorable: (ScorableDeal & { contactName: string; contactCompany?: string | null; contactPhoneE164?: string | null; nextAction?: string | null })[] = docs.map((deal) => {
+  const scorable: (ScorableDeal & { contactId: string | number; contactName: string; contactCompany?: string | null; contactPhoneE164?: string | null; nextAction?: string | null })[] = docs.map((deal) => {
     const contact = typeof deal.contact === 'object' && deal.contact ? deal.contact : null
     return {
       id: deal.id,
+      contactId: contact?.id || deal.contact,
       stage: deal.stage,
       awaitingWhom: deal.awaitingWhom,
       deadlineDate: deal.deadlineDate,

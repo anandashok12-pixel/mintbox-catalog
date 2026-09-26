@@ -8,6 +8,14 @@
     {
       "path": "/api/cron/whatsapp-health",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/crm-extract",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/crm-digest",
+      "schedule": "30 3 * * *"
     }
   ]
 }

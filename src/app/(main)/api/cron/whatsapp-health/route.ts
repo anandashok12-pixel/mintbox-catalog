@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Resend } from 'resend'
+import { isAuthorizedCronRequest } from '@/lib/cronAuth'
 
 // Vercel Cron hits this on a schedule (see vercel.json). A silently dead
 // mirror is worse than no mirror at all - the queue looks calm while
@@ -25,11 +26,7 @@ export async function GET(req: NextRequest) {
   // Vercel Cron sends this header on scheduled invocations; a manual check
   // still needs the same secret /api/db-push and /api/leads-adjacent
   // internal routes use, so this can also be curled by hand.
-  const authHeader = req.headers.get('authorization')
-  const isVercelCron = authHeader === `Bearer ${process.env.CRON_SECRET}`
-  const { searchParams } = new URL(req.url)
-  const isManual = process.env.SEED_SECRET && searchParams.get('secret') === process.env.SEED_SECRET
-  if (!isVercelCron && !isManual) {
+  if (!isAuthorizedCronRequest(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
