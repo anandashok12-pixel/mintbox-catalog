@@ -5,7 +5,7 @@
   "description": "Read-only Baileys mirror. Never sends a message - only observes what the phone app sends/receives and posts it to the CRM webhook. Runs on its own always-on host (not Vercel: it holds a long-lived socket).",
   "type": "module",
   "scripts": {
-    "start": "node --env-file=.env --import tsx src/index.ts",
+    "start": "node --import tsx src/index.ts",
     "dev": "node --env-file=.env --import tsx --watch src/index.ts"
   },
   "dependencies": {
