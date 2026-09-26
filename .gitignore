@@ -49,3 +49,6 @@ dist
 .claude/
 .codex/
 
+
+# personal calorie tracker (contains an API key — never commit)
+calorie-tracker/

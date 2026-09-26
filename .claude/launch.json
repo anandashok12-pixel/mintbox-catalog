@@ -7,6 +7,26 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "calorie-tracker",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "python3 -m http.server \"${PORT:-8787}\" -d calorie-tracker"],
+      "port": 8787,
+      "autoPort": true
+    },
+    {
+      "name": "crm",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd crm-app && npm run dev"],
+      "port": 3001
+    },
+    {
+      "name": "diwali-2026-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd ../mintbox-catalog-diwali && npm run dev -- -p 3010"],
+      "port": 3010,
+      "autoPort": true
     }
   ]
 }

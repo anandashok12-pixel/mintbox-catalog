@@ -14,8 +14,12 @@
     "set-usbc-hub-image": "node --env-file=.env.local --require tsx/cjs scripts/set-usbc-hub-image.ts",
     "payload": "payload",
     "import-diwali-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-diwali-boxes.ts",
+    "build-gift-set-images": "node --require tsx/cjs scripts/build-gift-set-images.ts",
+    "import-gift-sets": "node --env-file=.env.local --require tsx/cjs scripts/import-gift-sets.ts",
     "backfill-phone-e164": "node --env-file=.env.local --require tsx/cjs scripts/backfill-phone-e164.ts",
-    "backfill-crm-from-leads": "node --env-file=.env.local --require tsx/cjs scripts/backfill-crm-from-leads.ts"
+    "backfill-crm-from-leads": "node --env-file=.env.local --require tsx/cjs scripts/backfill-crm-from-leads.ts",
+    "import-regular-dryfruit-boxes": "node --env-file=.env.local --require tsx/cjs scripts/import-regular-dryfruit-boxes.ts",
+    "import-thenga-products": "node --env-file=.env.local --require tsx/cjs scripts/import-thenga-products.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",
@@ -26,7 +30,7 @@
     "@payloadcms/next": "^3.80.0",
     "@payloadcms/richtext-lexical": "^3.80.0",
     "@payloadcms/storage-vercel-blob": "^3.80.0",
-    "drizzle-kit": "^0.31.7",
+    "drizzle-kit": "^0.31.11",
     "gsap": "^3.14.2",
     "next": "16.2.1",
     "payload": "^3.80.0",
