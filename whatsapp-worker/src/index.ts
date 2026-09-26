@@ -1,10 +1,11 @@
-import makeWASocket, {
-  DisconnectReason,
-  fetchLatestBaileysVersion,
-  Browsers,
-  downloadMediaMessage,
-  type WASocket,
-} from '@whiskeysockets/baileys'
+// See authState.ts for why this is a default-import + runtime destructure
+// rather than named imports - Baileys is CJS-only, so Node's native ESM
+// loader hands us the whole `module.exports` object as the default import
+// (not just the makeWASocket function), and can't statically resolve
+// named exports reliably at all.
+import baileysPkg from '@whiskeysockets/baileys'
+import type { WASocket } from '@whiskeysockets/baileys'
+const { makeWASocket, DisconnectReason, fetchLatestBaileysVersion, Browsers, downloadMediaMessage } = baileysPkg as any
 import { Boom } from '@hapi/boom'
 import pino from 'pino'
 import QRCode from 'qrcode'

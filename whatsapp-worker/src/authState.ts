@@ -1,4 +1,11 @@
-import { proto, initAuthCreds, BufferJSON, type AuthenticationState } from '@whiskeysockets/baileys'
+// Baileys is CommonJS-only (no "exports" map). Node's native ESM loader
+// can't statically resolve its named exports reliably, so import the
+// namespace as default and destructure at runtime instead - the only
+// robust way to interop with a plain CJS package from a "type":"module"
+// entrypoint.
+import baileysPkg from '@whiskeysockets/baileys'
+import type { AuthenticationState } from '@whiskeysockets/baileys'
+const { proto, initAuthCreds, BufferJSON } = baileysPkg as any
 import { pool, ensureAuthTable } from './db.js'
 
 /**
