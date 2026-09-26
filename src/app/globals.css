@@ -28,20 +28,39 @@
   font-display: swap;
 }
 
+/* ── Design tokens ──────────────────────────────────────────
+   The ONE :root for the site. landing.css used to redeclare
+   --gold / --cream / --cream-dark (and won, since it loads after
+   this file), so the values below are the ones the live site
+   already rendered. Contrast ratios are WCAG 2.x.
+   ─────────────────────────────────────────────────────────── */
 :root {
+  color-scheme: light;
+
+  /* Brand */
+  --forest-green: #1B4D3E;
+  --forest-deep: #122E25;
+  --gold: #B8972E;          /* fills, rules, and text on dark green only (5.20:1 on --forest-deep) */
+  --gold-text: #7D6218;     /* gold used as TEXT on light: 5.78 on #fff, 5.16 on --cream, 4.72 on --cream-dark */
+  --gold-light: #E8C97A;
+  --gold-pale: #F5E8C0;
+  --cream: #f2f2f2;
+  --cream-dark: #e8e8e8;
+  --cream-mid: #E4DDD0;
+  --white: #FFFFFF;
+
+  /* Ink */
+  --near-black: #1A1A18;    /* 17.43 on #fff, 15.57 on --cream */
+  --ink-muted: #4A4A45;     /* was #1A1A18 (alias). 8.91 on #fff, 7.96 on --cream, 7.27 on --cream-dark */
+  --ink-faint: #5F5F59;     /* was #1A1A18 (alias). 6.43 on #fff, 5.74 on --cream, 5.24 on --cream-dark */
+
+  /* Catalog (legacy names, kept for existing rules) */
   --green-dark: #0D3D2B;
   --green-mid: #1A5C40;
   --green-light: #2A7A57;
-  --gold: #C9A84C;
-  --gold-light: #E8C97A;
-  --gold-pale: #F5E8C0;
-  --cream: #F8F4ED;
-  --cream-dark: #EDE7DA;
-  --cream-mid: #E4DDD0;
-  --white: #FFFFFF;
   --text-dark: #1a1a1a;
   --text-mid: #444444;
-  --text-light: #777777;
+  --text-light: #595959;    /* was #777777 (4.48 on #fff, fail). Now 7.00 on #fff, 6.26 on --cream */
   --border: #ddd8ce;
   --shadow-sm: 0 2px 8px rgba(13, 61, 43, 0.08);
   --shadow-md: 0 4px 20px rgba(13, 61, 43, 0.12);
@@ -49,6 +68,14 @@
   --radius: 10px;
   --radius-sm: 6px;
   --transition: 200ms ease;
+
+  /* Type */
+  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: var(--font-libre-baskerville), 'Libre Baskerville', Georgia, serif;
+
+  /* Browser surfaces */
+  accent-color: var(--forest-green);
+  caret-color: var(--forest-green);
 }
 
 /* ── Reset ── */
@@ -58,12 +85,14 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   color: var(--text-dark);
   background: var(--cream);
@@ -71,7 +100,7 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 600;
 }
 
@@ -124,7 +153,7 @@ img {
 }
 
 .site-logo {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 700;
   color: var(--cream);
@@ -138,7 +167,7 @@ img {
 
 .site-tagline {
   font-size: 12px;
-  color: rgba(248, 244, 237, 0.5);
+  color: rgba(248, 244, 237, 0.72);
   letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 400;
@@ -201,7 +230,7 @@ img {
 }
 
 .sidebar-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -441,7 +470,7 @@ img {
   right: 8px;
   background: var(--gold);
   color: var(--green-dark);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   padding: 3px 8px;
   border-radius: 20px;
@@ -476,13 +505,14 @@ img {
 }
 
 .product-card-moq-text {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-light);
   margin-bottom: 10px;
 }
 
 .btn-add-cart {
   width: 100%;
+  min-height: 44px;
   padding: 8px;
   background: var(--green-dark);
   color: var(--cream);
@@ -503,6 +533,21 @@ img {
   text-align: center;
   color: var(--text-light);
   font-size: 15px;
+}
+
+/* ── Catalog load error (DB/query failure, not just an empty filter) ── */
+.catalog-load-error {
+  max-width: 480px;
+  margin: 100px auto;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--text-mid);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.catalog-load-error a {
+  color: var(--green-dark);
+  text-decoration: underline;
 }
 
 /* ============================================================
@@ -721,11 +766,11 @@ img {
 .cart-total strong {
   font-size: 18px;
   color: var(--green-dark);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
 }
 
 .cart-disclaimer {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-light);
   margin-bottom: 14px;
 }
@@ -879,13 +924,13 @@ img {
   font-size: 24px;
   font-weight: 600;
   color: var(--green-dark);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
 }
 
 .product-modal-unit {
   font-size: 14px;
   color: var(--text-light);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
 }
 
@@ -1077,6 +1122,10 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* The typeable quantity field is wide; give the product name its own row. */
+.lead-pack-chip { flex-wrap: wrap; }
+.lead-pack-chip .chip-name { flex-basis: 100%; }
+.lead-pack-chip .chip-price { margin-left: auto; }
 
 .chip-qty-control {
   display: flex;
@@ -1268,7 +1317,7 @@ img {
 
 .success-ref strong {
   font-size: 24px;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   color: var(--green-dark);
   letter-spacing: 3px;
 }
@@ -1481,4 +1530,713 @@ img {
     border-color: var(--green-dark);
   }
   .mobile-cat-chip-emoji { font-size: 14px; line-height: 1; }
+}
+
+/* ============================================================
+   CATALOGUE + PACK HARDENING (bulk buyers)
+   Typeable quantities, set-all, full-height mobile pack sheet,
+   real-button product cards, incremental sections, sort.
+   Kept together so the overrides above stay untouched.
+   ============================================================ */
+:root {
+  /* FAB offset (90px) + FAB height (~48px) + breathing room. */
+  --pack-fab-clearance: calc(162px + env(safe-area-inset-bottom, 0px));
+}
+
+.catalog-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Filter bar ── */
+.search-input::-webkit-search-cancel-button,
+.search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search-wrap:focus-within {
+  border-color: var(--green-dark);
+}
+.search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: -6px -6px -6px 0;
+  border-radius: 999px;
+}
+.search-clear:focus-visible,
+.sort-select:focus-visible,
+.price-slider:focus-visible {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 2px;
+}
+.sort-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sort-select {
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sidebar-item:disabled,
+.mobile-cat-chip:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.sidebar-item:disabled:hover {
+  background: none;
+  color: var(--text-mid);
+}
+
+/* ── Product card: the name is the real button, stretched over the card ── */
+.product-card {
+  position: relative;
+}
+.product-card-name {
+  font-family: inherit;
+}
+.product-card-open {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  padding: 0;
+}
+.product-card-open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.product-card-open:focus-visible {
+  outline: none;
+}
+.product-card:has(.product-card-open:focus-visible) {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 2px;
+}
+.btn-add-cart {
+  position: relative;
+  z-index: 1;
+  min-height: 36px;
+  font-variant-numeric: tabular-nums;
+}
+.btn-add-cart.in-pack {
+  background: var(--gold-pale);
+  color: var(--green-dark);
+}
+.btn-add-cart.in-pack:hover {
+  background: var(--gold-light);
+}
+.btn-add-cart:focus-visible {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 2px;
+}
+
+/* ── Incremental sections ── */
+.cat-section-more {
+  display: flex;
+  justify-content: center;
+  padding-top: 18px;
+}
+.btn-show-more {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--green-dark);
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color var(--transition), background var(--transition);
+}
+.btn-show-more:hover {
+  border-color: var(--gold);
+  background: var(--cream);
+}
+
+/* ── Empty search ── */
+.no-results-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+  overflow-wrap: anywhere;
+}
+.no-results-sub {
+  font-size: 14px;
+  color: var(--text-mid);
+  margin-bottom: 18px;
+}
+.no-results-clear {
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--green-dark);
+  color: var(--cream);
+  font-size: 14px;
+  font-weight: 600;
+}
+.no-results-clear:hover {
+  background: var(--green-mid);
+}
+
+/* ── Quantity field (cart + product modal) ── */
+.qty-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.qty-selector {
+  display: inline-flex;
+  width: max-content;
+}
+.qty-btn {
+  width: 28px;
+  height: 28px;
+}
+.qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.qty-btn:disabled:hover {
+  background: var(--cream);
+  color: var(--text-dark);
+  border-color: var(--border);
+}
+.qty-btn:focus-visible,
+.qty-input:focus-visible {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+.qty-input {
+  width: 6ch;
+  min-width: 48px;
+  font-variant-numeric: tabular-nums;
+}
+.qty-field--sm .qty-selector {
+  gap: 2px;
+  padding: 2px;
+}
+.qty-field--sm .qty-input {
+  font-size: 14px;
+}
+.qty-hint {
+  font-size: 11px;
+  font-weight: 500;
+  color: #8a5300;
+}
+.qty-hint:empty {
+  display: none;
+}
+.btn-add-pack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1.2;
+}
+.btn-add-pack-sub {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.8;
+  font-variant-numeric: tabular-nums;
+}
+.product-modal-actions {
+  flex-wrap: wrap;
+}
+
+/* ── Pack panel ── */
+.cart-header {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+.cart-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cart-header-row .cart-item-count {
+  margin-left: auto;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.cart-explainer {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-mid);
+}
+.cart-empty-sub {
+  line-height: 1.45;
+  max-width: 32ch;
+}
+
+.cart-bulk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--cream);
+  flex-shrink: 0;
+}
+.cart-bulk-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-mid);
+}
+.cart-bulk-input {
+  width: 76px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--green-dark);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.cart-bulk-input:focus-visible {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 1px;
+}
+.cart-bulk-unit {
+  font-size: 12px;
+  color: var(--text-light);
+}
+.cart-bulk-apply {
+  margin-left: auto;
+  min-height: 32px;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--green-dark);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 600;
+}
+.cart-bulk-apply:hover {
+  background: var(--green-mid);
+}
+.cart-bulk-note {
+  flex-basis: 100%;
+  font-size: 11px;
+  color: var(--text-mid);
+}
+.cart-bulk-note:empty {
+  display: none;
+}
+
+.cart-item-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.cart-item-top .cart-item-name {
+  flex: 1;
+  min-width: 0;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cart-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: -6px -6px 0 0;
+  padding: 0;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.cart-remove:focus-visible {
+  outline: 2px solid var(--green-dark);
+}
+.cart-item-controls {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.cart-item-controls .cart-item-subtotal {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.cart-total strong {
+  font-variant-numeric: tabular-nums;
+}
+.btn-request-pricing:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ── Touch: 44px targets, 16px inputs (stops iOS focus zoom) ── */
+@media (pointer: coarse) {
+  .qty-btn,
+  .cart-remove,
+  .search-clear {
+    width: 44px;
+    height: 44px;
+  }
+  .cart-remove,
+  .search-clear {
+    margin: -10px -10px -10px 0;
+  }
+  .qty-input,
+  .qty-field--sm .qty-input,
+  .cart-bulk-input,
+  .search-input,
+  .sort-select {
+    font-size: 16px;
+  }
+  .cart-bulk-input,
+  .cart-bulk-apply {
+    min-height: 44px;
+  }
+  .btn-add-cart {
+    min-height: 44px;
+  }
+}
+
+/* ── Mobile / tablet: FAB clearance + full-height pack sheet ── */
+@media (max-width: 1100px) {
+  .main-content {
+    padding-bottom: var(--pack-fab-clearance);
+  }
+  .mobile-cart-fab {
+    bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+    min-height: 48px;
+  }
+  /* The sheet is full height now, so it must sit above the floating navbar (1000). */
+  .mobile-cart-overlay {
+    z-index: 1001;
+  }
+  .mobile-cart-drawer {
+    inset: 0;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .mobile-cart-drawer .cart-panel {
+    display: flex !important;
+    flex: 1;
+    min-height: 0;
+    height: auto;
+  }
+  .cart-panel--sheet .cart-panel-inner {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+  }
+  .cart-panel--sheet .cart-items {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .cart-panel--sheet .cart-footer {
+    position: sticky;
+    bottom: 0;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 16px rgba(13, 61, 43, 0.06);
+  }
+  .mobile-cart-close {
+    position: static;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    margin: -8px -8px -8px 4px;
+  }
+}
+
+/* ── Content-page showcases (ContentProductShowcase / Diwali hub) ── */
+.cp-product-open {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.cp-product-open:focus-visible {
+  outline: 2px solid var(--forest-green);
+  outline-offset: -2px;
+}
+.cp-product-open .cp-product-cat,
+.cp-product-open .cp-product-name,
+.cp-product-open .cp-product-price,
+.cp-product-open .cp-product-moq {
+  display: block;
+}
+.cp-showcase-more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 20px;
+  padding: 20px 24px;
+  background: var(--white);
+  border-top: 1px solid rgba(27, 77, 62, 0.08);
+}
+.cp-showcase-more-btn {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid rgba(27, 77, 62, 0.2);
+  border-radius: 999px;
+  color: var(--forest-green);
+  font-size: 14px;
+  font-weight: 500;
+}
+.cp-showcase-more-btn:hover {
+  border-color: var(--gold);
+}
+.cp-showcase-more-link {
+  color: var(--forest-green);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+button.cp-pack-bar {
+  font: inherit;
+  text-align: left;
+  color: inherit;
+}
+.cp-pack-bar-label,
+.cp-pack-bar-sub {
+  display: block;
+}
+.cp-pack-bar:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   ACCESSIBILITY LAYER — focus, selection, skip link, tap targets,
+   reduced motion. Loaded before landing.css / page CSS, so
+   selectors here are only as specific as they need to be.
+   ============================================================ */
+
+/* ── Focus ring ──
+   One visible ring for keyboard users. Outline follows each
+   element's own border-radius, so no radius override is needed.
+   --gold-text on light: 5.78:1 on #fff, 5.16:1 on --cream. */
+:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 3px;
+}
+
+/* Dark surfaces: bright gold ring (5.20:1 on --forest-deep,
+   3.45:1 on --forest-green; non-text minimum is 3:1). */
+:where(
+  #navbar, .mobile-nav, #footer, #testimonials, #why-mintbox, .cta-left,
+  .quote-form-card, .occasion-card, .va-card, .site-header,
+  .page-nav, .page-mobile-nav, .page-footer, .page-hero,
+  .contact-founder, .contact-band, .faq-search-bar, .faq-still-qs,
+  .journal-hero-left, .journal-featured, .journal-newsletter-strip,
+  .cp-hero, .cp-section--dark, .cp-section--green, .cp-stats-band,
+  .cp-cta-section, .cp-quote-band, .cp-pack-bar, .cp-midcta,
+  .cp-showcase-header, .cp-budget-card--mid, .cp-budget-card--premium,
+  .cp-tier-cell--featured, .cp-occasion-card,
+  .ab-hero, .ab-broke, .ab-values, .ab-founder-card, .ab-cta
+) :focus-visible {
+  outline-color: var(--gold);
+}
+
+/* Catalog controls that set `outline: none`: border + ring
+   replacement, >=3:1 on white/cream. (.search-input, .qty-input and
+   .price-slider already get rings in the CATALOGUE + PACK HARDENING
+   block above.) */
+.chip-qty-input:focus-visible,
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 2px;
+}
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible,
+.chip-qty-input:focus-visible {
+  border-color: var(--forest-green);
+  box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.18);
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--forest-green);
+  color: #F5F0E6;              /* 9.1:1 */
+}
+:where(
+  #navbar, .mobile-nav, #footer, #testimonials, #why-mintbox, .cta-left,
+  .page-hero, .page-footer, .cp-hero, .cp-section--dark, .cp-section--green,
+  .cp-stats-band, .cp-cta-section, .cp-quote-band, .cp-midcta,
+  .contact-band, .faq-still-qs, .journal-featured, .journal-newsletter-strip,
+  .ab-hero, .ab-broke, .ab-values, .ab-cta
+) ::selection {
+  background: var(--gold);
+  color: var(--forest-deep);   /* 5.20:1 */
+}
+:where(
+  .quote-form-card, .cp-quote-form-panel, .newsletter-form,
+  .page-footer-nl-form, .faq-search-inner, .journal-newsletter-strip
+) :is(input, textarea, select) {
+  caret-color: var(--gold);
+}
+
+/* ── Skip link ── (markup: <a href="#main" class="skip-link">) */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10000;              /* above #navbar (1000) and .mobile-nav (999) */
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: var(--forest-green);
+  color: #F5F0E6;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: none;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ── Tap targets / iOS input zoom (inputs under 16px zoom on focus) ── */
+@media (max-width: 768px) {
+  .form-input,
+  .form-select,
+  .form-textarea,
+  .chip-qty-input,
+  .search-input,
+  .qty-input {
+    font-size: 16px;
+  }
+}
+
+/* ── Reduced motion ──
+   Targets the site's actual animations rather than a blanket
+   `* { animation-duration: 0 }`. Colour/opacity feedback stays;
+   movement goes. */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  :root .ab-broke-track {
+    scroll-behavior: auto;
+  }
+
+  /* Infinite loops: hamper marquee, hero pattern drift.
+     The strip becomes a normal horizontal scroller instead. */
+  :root .hamper-track,
+  :root #hero .geo-overlay {
+    animation: none;
+  }
+  :root .hamper-strip {
+    overflow-x: auto;
+  }
+
+  /* Scroll reveals: visible immediately, no slide-in */
+  :root .reveal,
+  :root .reveal.visible,
+  :root .ab-broke-card,
+  :root .ab-broke-card-last {
+    opacity: 1;
+    transform: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  /* Testimonial parallax is driven by inline styles from JS */
+  :root .testi-hero-image img,
+  :root .testi-hero-content,
+  :root .testi-hero-quote-mark {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none;
+  }
+
+  /* Hover lifts, zooms and nudges */
+  :root .product-card:hover,
+  :root .occasion-card:hover,
+  :root .occasion-card:hover .occasion-arrow,
+  :root .hiw-card:hover,
+  :root .scorecard-row:hover,
+  :root .hamper-card:hover img,
+  :root .va-card:hover img,
+  :root #wa-float:hover,
+  :root .wa-float:hover,
+  :root .cp-hero-cta-primary:hover,
+  :root .cp-card:hover,
+  :root .cp-occasion-card:hover,
+  :root .cp-budget-card:hover,
+  :root .cp-form-submit:hover,
+  :root .cp-product-card:hover .cp-product-image img,
+  :root .cp-related-card:hover,
+  :root .cp-related-card:hover .cp-related-card-arrow,
+  :root .cp-btn-primary:hover,
+  :root .dh-card:hover,
+  :root .dh-card:hover .dh-card-media img {
+    transform: none;
+  }
+  :root .cp-pack-bar:hover {
+    transform: translateX(-50%);
+  }
+
+  /* Reveal-on-hover card details: show without sliding */
+  :root .va-card-pill {
+    transform: none;
+    transition: opacity 0.15s ease;
+  }
+  :root .va-card-desc {
+    transition: opacity 0.15s ease;
+  }
+
+  /* Accordions and state changes: keep, but fast */
+  :root .pillar-line,
+  :root .cp-faq-answer,
+  :root .cp-faq-chevron,
+  :root .faq-chevron svg,
+  :root .dh-inside summary::after,
+  :root .ab-val-row::before,
+  :root .ab-val-arrow,
+  :root .ab-val-body,
+  :root .ab-val-head-title,
+  :root .mobile-nav,
+  :root .page-mobile-nav {
+    transition-duration: 0.12s;
+    transition-delay: 0s;
+  }
 }

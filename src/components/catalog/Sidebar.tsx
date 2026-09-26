@@ -1,5 +1,7 @@
 'use client'
 
+import { scrollToCategory } from './catalogScroll'
+
 interface Category {
   id: string
   name: string
@@ -10,51 +12,48 @@ interface Category {
 interface SidebarProps {
   categories: Category[]
   // Slug of the category currently in view (driven by scroll-spy in the
-  // parent). Sidebar clicks only navigate - they don't filter the grid.
+  // parent; null while a search is active). Sidebar clicks only navigate -
+  // they don't filter the grid.
   activeCat: string | null
+  /** Category names that currently have a rendered section (filters can hide some). */
+  visibleCatNames?: Set<string>
 }
 
-export default function Sidebar({ categories, activeCat }: SidebarProps) {
-  // Sticky navbar is 96px; offset the scroll so the section header lands
-  // just below the navbar instead of being hidden behind it.
-  const NAVBAR_OFFSET = 96
-
-  const scrollTo = (catName?: string) => {
-    if (!catName) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      return
-    }
-    const el = document.getElementById(`cat-${catName}`)
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
-
+export default function Sidebar({ categories, activeCat, visibleCatNames }: SidebarProps) {
   return (
     <aside className="sidebar">
-      <div className="sidebar-inner">
+      <nav className="sidebar-inner" aria-label="Categories">
         <p className="sidebar-label">Categories</p>
         <ul className="sidebar-list">
           <li>
             <button
+              type="button"
               className={`sidebar-item${!activeCat ? ' active' : ''}`}
-              onClick={() => scrollTo()}
+              aria-current={!activeCat ? 'true' : undefined}
+              onClick={() => scrollToCategory()}
             >
               <span>All Products</span>
             </button>
           </li>
-          {categories.map((cat) => (
-            <li key={cat.id}>
-              <button
-                className={`sidebar-item${activeCat === cat.slug ? ' active' : ''}`}
-                onClick={() => scrollTo(cat.name)}
-              >
-                <span>{cat.name}</span>
-              </button>
-            </li>
-          ))}
+          {categories.map((cat) => {
+            const hidden = visibleCatNames ? !visibleCatNames.has(cat.name) : false
+            return (
+              <li key={cat.id}>
+                <button
+                  type="button"
+                  className={`sidebar-item${activeCat === cat.slug ? ' active' : ''}`}
+                  aria-current={activeCat === cat.slug ? 'true' : undefined}
+                  disabled={hidden}
+                  title={hidden ? 'No products match the current filters' : undefined}
+                  onClick={() => scrollToCategory(cat.name)}
+                >
+                  <span>{cat.name}</span>
+                </button>
+              </li>
+            )
+          })}
         </ul>
-      </div>
+      </nav>
     </aside>
   )
 }

@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
+import { MIN_ORDER_UNITS } from '@/lib/businessFacts'
+import QuantityInput from '@/components/cart/QuantityInput'
 
 interface Feature {
   feature: string
@@ -40,57 +42,66 @@ interface ProductModalProps {
 }
 
 export default function ProductModal({ product, onClose }: ProductModalProps) {
-  const [qty, setQty] = useState(1)
+  // If the product is already in the pack, open on its current quantity and
+  // make the action an update rather than silently stacking another batch.
+  const existingQty = useCartStore((s) => s.items.find((i) => i.id === product.id)?.quantity)
+  const [qty, setQty] = useState(existingQty ?? MIN_ORDER_UNITS)
   const addItem = useCartStore((s) => s.addItem)
+  const updateQty = useCartStore((s) => s.updateQty)
+  const titleId = useId()
+  const closeRef = useRef<HTMLButtonElement>(null)
+  // Callers pass inline closures; keep the latest without re-running the
+  // focus/keydown effect (which would steal focus back to the close button).
+  const onCloseRef = useRef(onClose)
+  useEffect(() => {
+    onCloseRef.current = onClose
+  })
 
   const cat = typeof product.category === 'object' ? product.category : null
   const imageUrl = product.image?.sizes?.card?.url || product.image?.url || null
 
-  const handleAddToPack = () => {
-    const itemBase = {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      emoji: product.emoji || undefined,
-      imageUrl: imageUrl || undefined,
-      categoryName: cat?.name || '',
+  useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCloseRef.current()
     }
-    // Add qty times (or set qty directly)
-    for (let i = 0; i < qty; i++) {
-      addItem(itemBase)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      previouslyFocused?.focus?.()
     }
-    // Reset qty to avoid duplicating; store dedups by id so it just increments
-    onClose()
-  }
+  }, [])
 
-  // Actually, the store increments by 1 each addItem call - so for qty > 1 we use updateQty after
-  const handleAddToPack2 = () => {
-    const { items, updateQty, addItem: add } = useCartStore.getState()
-    const existing = items.find((i) => i.id === product.id)
-    const imageUrlVal = imageUrl || undefined
-    if (existing) {
-      updateQty(product.id, existing.quantity + qty)
+  const handleAddToPack = () => {
+    if (existingQty !== undefined) {
+      updateQty(product.id, qty)
     } else {
-      add({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        emoji: product.emoji || undefined,
-        imageUrl: imageUrlVal,
-        categoryName: cat?.name || '',
-      })
-      if (qty > 1) {
-        updateQty(product.id, qty)
-      }
+      addItem(
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          emoji: product.emoji || undefined,
+          imageUrl: imageUrl || undefined,
+          categoryName: cat?.name || '',
+        },
+        qty,
+      )
     }
     onClose()
   }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="product-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
-
+      <div
+        className="product-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button ref={closeRef} type="button" className="modal-close" onClick={onClose} aria-label="Close product details">×</button>
         <div className="product-modal-image-pane" style={{ position: 'relative' }}>
           {imageUrl ? (
             <Image
@@ -98,6 +109,9 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 600px"
+              fetchPriority="high"
+              // Image Optimization quota is exhausted (402); serve the Blob original.
+              unoptimized
               style={{ objectFit: 'contain' }}
             />
           ) : (
@@ -115,16 +129,14 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             )}
           </div>
 
-          <h2 className="product-modal-name">{product.name}</h2>
+          <h2 id={titleId} className="product-modal-name">{product.name}</h2>
 
           <p className="product-modal-price">
             ₹{product.price.toLocaleString('en-IN')}
             <span className="product-modal-unit"> per unit</span>
           </p>
 
-          {product.moq && (
-            <p className="product-modal-moq">Minimum order: {product.moq} units</p>
-          )}
+          <p className="product-modal-moq">Minimum order: {MIN_ORDER_UNITS} units</p>
 
           <p className="product-modal-description">{product.description}</p>
 
@@ -142,26 +154,12 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
           )}
 
           <div className="product-modal-actions">
-            <div className="qty-selector">
-              <button
-                className="qty-btn"
-                onClick={() => setQty(Math.max(1, qty - 1))}
-              >
-                −
-              </button>
-              <input
-                type="number"
-                className="qty-input"
-                value={qty}
-                min={1}
-                onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
-              />
-              <button className="qty-btn" onClick={() => setQty(qty + 1)}>
-                +
-              </button>
-            </div>
-            <button className="btn-add-pack" onClick={handleAddToPack2}>
-              Add to Pack
+            <QuantityInput value={qty} onCommit={setQty} productName={product.name} />
+            <button type="button" className="btn-add-pack" onClick={handleAddToPack}>
+              {existingQty !== undefined ? 'Update pack' : 'Add to Pack'}
+              <span className="btn-add-pack-sub">
+                {qty.toLocaleString('en-IN')} units · ₹{(qty * product.price).toLocaleString('en-IN')}
+              </span>
             </button>
           </div>
         </div>
