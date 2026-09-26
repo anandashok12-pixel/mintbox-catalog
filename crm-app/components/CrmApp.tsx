@@ -1,13 +1,14 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { ApiError, getCurrentUser, getDeals, login as payloadLogin, updateDeal } from '@/lib/payload'
-import type { Deal, Stage, User } from '@/lib/types'
-import { BoardIcon, LogOutIcon, QueueIcon, RefreshIcon } from './Icons'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ApiError, getCurrentUser, getDeals, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateDeal } from '@/lib/payload'
+import type { Deal, Message, Stage, User, WhatsappSession } from '@/lib/types'
+import { BoardIcon, LogOutIcon, QueueIcon, RefreshIcon, SearchIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
 import { QueueView } from './QueueView'
 import { BoardView } from './BoardView'
 import { DealDrawer } from './DealDrawer'
+import { WhatsappView } from './WhatsappView'
 
 const TOKEN_KEY = 'mintbox-crm-token'
 
@@ -16,7 +17,12 @@ export function CrmApp() {
   const [user, setUser] = useState<User | null>(null)
   const [deals, setDeals] = useState<Deal[]>([])
   const [selectedDealId, setSelectedDealId] = useState<string | number | null>(null)
-  const [view, setView] = useState<'queue' | 'board'>('queue')
+  const [view, setView] = useState<'queue' | 'board' | 'whatsapp'>('board')
+  const [search, setSearch] = useState('')
+  const [whatsappSession, setWhatsappSession] = useState<WhatsappSession | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [whatsappError, setWhatsappError] = useState('')
+  const [whatsappLoading, setWhatsappLoading] = useState(false)
   const [booting, setBooting] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState('')
@@ -26,6 +32,8 @@ export function CrmApp() {
     setToken(null)
     setUser(null)
     setDeals([])
+    setMessages([])
+    setWhatsappSession(null)
     setSelectedDealId(null)
   }, [])
 
@@ -41,6 +49,24 @@ export function CrmApp() {
     }
   }, [logout])
 
+  const loadWhatsapp = useCallback(async (activeToken: string) => {
+    setWhatsappLoading(true)
+    try {
+      const [session, rows] = await Promise.all([
+        getWhatsappSession(activeToken),
+        getWhatsappMessages(activeToken),
+      ])
+      setWhatsappSession(session)
+      setMessages(rows)
+      setWhatsappError('')
+    } catch (cause) {
+      if (cause instanceof ApiError && cause.status === 401) logout()
+      else setWhatsappError(cause instanceof Error ? cause.message : 'Could not load WhatsApp status')
+    } finally {
+      setWhatsappLoading(false)
+    }
+  }, [logout])
+
   useEffect(() => {
     async function restoreSession() {
       const stored = sessionStorage.getItem(TOKEN_KEY)
@@ -53,6 +79,7 @@ export function CrmApp() {
         setToken(stored)
         setUser(currentUser)
         setDeals(rows)
+        void loadWhatsapp(stored)
       } catch {
         sessionStorage.removeItem(TOKEN_KEY)
       } finally {
@@ -61,20 +88,20 @@ export function CrmApp() {
     }
 
     void restoreSession()
-  }, [])
+  }, [loadWhatsapp])
 
   async function handleLogin(email: string, password: string) {
     const result = await payloadLogin(email, password)
     sessionStorage.setItem(TOKEN_KEY, result.token)
     setToken(result.token)
     setUser(result.user)
-    await loadDeals(result.token)
+    await Promise.all([loadDeals(result.token), loadWhatsapp(result.token)])
   }
 
   async function refresh() {
     if (!token) return
     setRefreshing(true)
-    try { await loadDeals(token) } finally { setRefreshing(false) }
+    try { await Promise.all([loadDeals(token), loadWhatsapp(token)]) } finally { setRefreshing(false) }
   }
 
   async function patchDeal(deal: Deal, patch: Partial<Deal>) {
@@ -102,32 +129,60 @@ export function CrmApp() {
     })
   }
 
+  const filteredDeals = useMemo(() => {
+    const query = search.trim().toLowerCase()
+    if (!query) return deals
+    return deals.filter((deal) => {
+      const contact = typeof deal.contact === 'object' ? deal.contact : null
+      return [deal.title, contact?.name, contact?.company, contact?.email, contact?.phoneE164, deal.occasion]
+        .some((value) => value?.toLowerCase().includes(query))
+    })
+  }, [deals, search])
+
   if (booting) return <div className="boot-screen"><span className="brand-mark">M</span><p>Preparing your desk</p></div>
   if (!token || !user) return <LoginScreen onLogin={handleLogin} />
 
   const selectedDeal = selectedDealId == null ? null : deals.find((deal) => deal.id === selectedDealId) || null
 
+  const viewMeta = {
+    board: { title: 'Deals', subtitle: `${filteredDeals.length} records` },
+    queue: { title: 'Priority queue', subtitle: 'Work that needs attention' },
+    whatsapp: { title: 'WhatsApp mirror', subtitle: `${messages.length} captured messages` },
+  }[view]
+
   return (
     <div className="app-shell">
-      <header className="app-header">
-        <div className="app-brand"><span className="brand-mark">M</span><div><strong>MintBox</strong><small>Sales desk</small></div></div>
-        <nav className="view-tabs" aria-label="CRM views">
-          <button className={view === 'queue' ? 'active' : ''} onClick={() => setView('queue')}><QueueIcon /><span>Queue</span></button>
-          <button className={view === 'board' ? 'active' : ''} onClick={() => setView('board')}><BoardIcon /><span>Pipeline</span></button>
+      <aside className="app-sidebar">
+        <div className="sidebar-logo" title="MintBox CRM">MB</div>
+        <nav aria-label="CRM sections">
+          <button className={view === 'board' ? 'active' : ''} onClick={() => setView('board')} title="Deals"><BoardIcon /><span>Deals</span></button>
+          <button className={view === 'queue' ? 'active' : ''} onClick={() => setView('queue')} title="Priority queue"><QueueIcon /><span>Queue</span></button>
+          <button className={view === 'whatsapp' ? 'active' : ''} onClick={() => setView('whatsapp')} title="WhatsApp mirror">
+            <WhatsAppIcon /><span>WhatsApp</span>
+            {whatsappSession?.status !== 'connected' && <i className="nav-alert" />}
+          </button>
         </nav>
-        <div className="header-actions">
-          <button className={`icon-button ${refreshing ? 'spinning' : ''}`} onClick={refresh} disabled={refreshing} aria-label="Refresh data"><RefreshIcon /></button>
-          <div className="user-chip"><span>{(user.name || user.email).slice(0, 1).toUpperCase()}</span><div><strong>{user.name || 'MintBox admin'}</strong><small>{user.email}</small></div></div>
-          <button className="icon-button" onClick={logout} aria-label="Sign out"><LogOutIcon /></button>
-        </div>
-      </header>
+        <button className="sidebar-user" title={user.email}>{(user.name || user.email).slice(0, 1).toUpperCase()}</button>
+      </aside>
 
-      {error && <div className="error-banner" role="alert"><span>{error}</span><button onClick={() => setError('')}>Dismiss</button></div>}
-      <main className="app-main">
-        {view === 'queue'
-          ? <QueueView deals={deals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />
-          : <BoardView deals={deals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
-      </main>
+      <div className="app-workspace">
+        <header className="app-header">
+          <div className="header-title"><h1>{viewMeta.title}</h1><span>{viewMeta.subtitle}</span></div>
+          <label className="global-search"><SearchIcon /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search deals and contacts" /><kbd>⌘ K</kbd></label>
+          <div className="header-actions">
+            <button className={`icon-button ${refreshing ? 'spinning' : ''}`} onClick={refresh} disabled={refreshing} aria-label="Refresh data"><RefreshIcon /></button>
+            <div className="user-chip"><span>{(user.name || user.email).slice(0, 1).toUpperCase()}</span><div><strong>{user.name || 'Admin'}</strong><small>{user.email}</small></div></div>
+            <button className="icon-button" onClick={logout} aria-label="Sign out"><LogOutIcon /></button>
+          </div>
+        </header>
+
+        {error && <div className="error-banner" role="alert"><span>{error}</span><button onClick={() => setError('')}>Dismiss</button></div>}
+        <main className="app-main">
+          {view === 'queue' && <QueueView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />}
+          {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
+          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} />}
+        </main>
+      </div>
       <DealDrawer deal={selectedDeal} onClose={() => setSelectedDealId(null)} />
     </div>
   )

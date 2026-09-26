@@ -15,6 +15,38 @@ export interface Contact {
   email?: string | null
 }
 
+export interface PayloadMedia {
+  id: string | number
+  url?: string | null
+  filename?: string | null
+  alt?: string | null
+}
+
+export interface WhatsappSession {
+  status: 'never_connected' | 'needs_qr' | 'connecting' | 'connected' | 'disconnected' | 'logged_out'
+  qrMedia?: PayloadMedia | string | number | null
+  qrGeneratedAt?: string | null
+  lastHeartbeatAt?: string | null
+  lastConnectionEventAt?: string | null
+  lastError?: string | null
+  updatedAt?: string | null
+}
+
+export interface Message {
+  id: string | number
+  contact: Contact | string | number
+  deal?: Deal | string | number | null
+  channel: 'whatsapp' | 'email' | 'form'
+  direction: 'inbound' | 'outbound'
+  body?: string | null
+  preview?: string | null
+  media?: (PayloadMedia | string | number)[] | null
+  providerId?: string | null
+  sentAt: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface LabelItem {
   id?: string | number | null
   label?: string | null
@@ -41,6 +73,7 @@ export interface Deal {
   nextActionAt?: string | null
   awaitingWhom?: 'us' | 'them' | 'nobody' | null
   quoteSentAt?: string | null
+  source?: string | null
   lastMessageAt?: string | null
   lastInboundMessageAt?: string | null
   lastOutboundMessageAt?: string | null

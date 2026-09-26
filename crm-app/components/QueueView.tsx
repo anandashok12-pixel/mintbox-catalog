@@ -59,12 +59,8 @@ export function QueueView({ deals, onOpen, onSnooze }: QueueProps) {
 
   return (
     <div className="view queue-view">
-      <header className="view-heading queue-heading">
-        <div>
-          <span className="eyebrow">Your working list</span>
-          <h1>Today’s desk</h1>
-          <p>Attention before activity. The first item is the next item.</p>
-        </div>
+      <header className="view-toolbar queue-toolbar">
+        <div className="toolbar-group"><div><strong>Today’s priorities</strong><small>Ordered by urgency, then deal value</small></div></div>
         <div className="queue-tally" aria-label={`${daily.length} priorities, ${waitingCount} waiting on you`}>
           <div><strong>{daily.length}</strong><span>priorities</span></div>
           <div><strong>{waitingCount}</strong><span>waiting on you</span></div>
@@ -73,7 +69,7 @@ export function QueueView({ deals, onOpen, onSnooze }: QueueProps) {
       </header>
 
       {daily.length === 0 ? (
-        <div className="empty-state"><span>✓</span><h2>The desk is clear.</h2><p>No open deal needs attention right now.</p></div>
+        <div className="empty-state"><span>✓</span><h2>No follow-ups due</h2><p>No open deal needs attention right now.</p></div>
       ) : (
         <div className="queue-groups">
           {BUCKET_ORDER.filter((bucket) => bucket !== 'dormant').map((bucket) => {

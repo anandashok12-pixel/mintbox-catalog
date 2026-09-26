@@ -28,7 +28,11 @@ function contactFor(deal: Deal) {
 }
 
 function money(value?: number | null) {
-  return value == null ? 'Value unknown' : `₹${Math.round(value).toLocaleString('en-IN')}`
+  return value == null ? '—' : `₹${Math.round(value).toLocaleString('en-IN')}`
+}
+
+function shortDate(value: string) {
+  return new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short' }).format(new Date(value))
 }
 
 function DealCard({ deal, overlay = false, reasonOpen, onOpen, onReason }: { deal: Deal; overlay?: boolean; reasonOpen?: boolean; onOpen?: () => void; onReason?: (reason: string) => void }) {
@@ -45,8 +49,9 @@ function DealCard({ deal, overlay = false, reasonOpen, onOpen, onReason }: { dea
     <div ref={setNodeRef} className={`board-card ${overlay ? 'board-card-overlay' : ''} ${isDragging ? 'board-card-dragging' : ''}`} style={{ ...style, '--accent': score ? BUCKET_ACCENT[score.bucket] : '#D8D2C5' } as React.CSSProperties} {...listeners} {...attributes}>
       <button className="board-card-body" onClick={onOpen}>
         <span className="drag-grip" aria-hidden="true"><i /><i /><i /><i /></span>
-        <strong>{contact?.company || contact?.name || deal.title}</strong>
-        {contact?.company && <small>{contact.name}</small>}
+        <strong>{contact?.company || deal.title}</strong>
+        <small>{contact?.name || deal.title}</small>
+        <div className="board-card-date">Updated {shortDate(deal.updatedAt)}</div>
         <div className="board-card-meta"><span>{money(deal.estimatedValue)}</span>{score && score.bucket !== 'open_no_next_action' && <em>{score.bucket.replaceAll('_', ' ')}</em>}</div>
         {deal.nextAction && <p>{deal.nextAction}</p>}
         {deal.suggestedStage && deal.suggestedStage !== deal.stage && <div className="stage-suggestion">Suggests {deal.suggestedStage}</div>}
@@ -83,8 +88,16 @@ function Column({ stage, deals, pendingReason, onOpen, onReason }: { stage: type
 export function BoardView({ deals, onOpen, onMove }: BoardProps) {
   const [activeDeal, setActiveDeal] = useState<Deal | null>(null)
   const [pendingReason, setPendingReason] = useState<string | number | null>(null)
+  const [showClosed, setShowClosed] = useState(false)
+  const [sort, setSort] = useState<'updated' | 'created' | 'value'>('updated')
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 7 } }))
-  const byStage = useMemo(() => new Map(STAGES.map((stage) => [stage.value, deals.filter((deal) => deal.stage === stage.value)])), [deals])
+  const visibleStages = showClosed ? STAGES : STAGES.filter((stage) => stage.value !== 'won' && stage.value !== 'lost')
+  const byStage = useMemo(() => new Map(STAGES.map((stage) => [stage.value, deals
+    .filter((deal) => deal.stage === stage.value)
+    .sort((a, b) => {
+      if (sort === 'value') return (b.estimatedValue || 0) - (a.estimatedValue || 0)
+      return new Date(sort === 'created' ? b.createdAt : b.updatedAt).getTime() - new Date(sort === 'created' ? a.createdAt : a.updatedAt).getTime()
+    })])), [deals, sort])
   const openValue = deals.filter((deal) => deal.stage !== 'won' && deal.stage !== 'lost').reduce((sum, deal) => sum + (deal.estimatedValue || 0), 0)
 
   function dragStart(event: DragStartEvent) {
@@ -109,13 +122,25 @@ export function BoardView({ deals, onOpen, onMove }: BoardProps) {
 
   return (
     <div className="view board-view">
-      <header className="view-heading board-heading">
-        <div><span className="eyebrow">Every live opportunity</span><h1>Pipeline</h1><p>Move the work with your hand. Every drag is a human decision.</p></div>
-        <div className="board-total"><span>Open potential</span><strong>{money(openValue)}</strong></div>
+      <header className="view-toolbar board-toolbar">
+        <div className="toolbar-group">
+          <span className="pipeline-icon"><i /><i /><i /></span>
+          <div><strong>Sales pipeline</strong><small>{deals.length} deals · {money(openValue)} open value</small></div>
+        </div>
+        <div className="toolbar-actions">
+          <label>Sort by
+            <select value={sort} onChange={(event) => setSort(event.target.value as typeof sort)}>
+              <option value="updated">Last updated</option>
+              <option value="created">Deal created</option>
+              <option value="value">Deal value</option>
+            </select>
+          </label>
+          <button className={showClosed ? 'active' : ''} onClick={() => setShowClosed((current) => !current)}>{showClosed ? 'Hide closed deals' : 'Show closed deals'}</button>
+        </div>
       </header>
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={dragStart} onDragEnd={dragEnd}>
         <div className="board-scroll">
-          {STAGES.map((stage) => <Column key={stage.value} stage={stage} deals={byStage.get(stage.value) || []} pendingReason={pendingReason} onOpen={onOpen} onReason={setLostReason} />)}
+          {visibleStages.map((stage) => <Column key={stage.value} stage={stage} deals={byStage.get(stage.value) || []} pendingReason={pendingReason} onOpen={onOpen} onReason={setLostReason} />)}
         </div>
         <DragOverlay>{activeDeal ? <DealCard deal={activeDeal} overlay /> : null}</DragOverlay>
       </DndContext>

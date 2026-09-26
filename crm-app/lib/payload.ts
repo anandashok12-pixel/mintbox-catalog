@@ -1,4 +1,4 @@
-import type { Deal, PaginatedResponse, User } from './types'
+import type { Deal, Message, PaginatedResponse, User, WhatsappSession } from './types'
 
 const apiBase = '/payload-api'
 const payloadAdminBase = (process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://themintbox.in').replace(/\/$/, '')
@@ -49,6 +49,25 @@ export async function getDeals(token: string): Promise<Deal[]> {
     token,
   )
   return result.docs
+}
+
+export async function getWhatsappSession(token: string): Promise<WhatsappSession> {
+  return request('/api/globals/whatsapp-session?depth=1', { cache: 'no-store' }, token)
+}
+
+export async function getWhatsappMessages(token: string): Promise<Message[]> {
+  const result = await request<PaginatedResponse<Message>>(
+    '/api/messages?where[channel][equals]=whatsapp&limit=500&depth=1&sort=-sentAt',
+    { cache: 'no-store' },
+    token,
+  )
+  return result.docs
+}
+
+export function payloadFileUrl(url?: string | null): string | null {
+  if (!url) return null
+  if (/^https?:\/\//.test(url)) return url
+  return `${payloadAdminBase}${url.startsWith('/') ? '' : '/'}${url}`
 }
 
 export async function updateDeal(
