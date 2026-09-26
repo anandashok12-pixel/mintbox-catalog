@@ -1,0 +1,373 @@
+/* ===========================================================
+   HOMEPAGE PREVIEW (post-critique, Sept 2026)
+   Scoped under .lpv so the live homepage is unaffected.
+   Base styles come from ../landing.css and ../../globals.css.
+   =========================================================== */
+
+.lpv {
+  /* Text tokens, every one ≥4.5:1 on #f2f2f2 and #fff */
+  --lpv-ink-2: #4a4a45;          /* secondary text, 7.9:1 on #f2f2f2 */
+  --lpv-gold-text: #7a6118;      /* gold as small text on light, 5.3:1 on #f2f2f2 */
+  --lpv-cream-2: rgba(245, 240, 230, 0.78); /* secondary text on forest-deep, 9:1 */
+  --lpv-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lpv .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Browser surfaces ---------- */
+.lpv ::selection { background: rgba(184, 151, 46, 0.32); color: var(--near-black); }
+.lpv input,
+.lpv select { caret-color: var(--forest-green); accent-color: var(--forest-green); }
+.lpv a:focus-visible,
+.lpv button:focus-visible,
+.lpv input:focus-visible,
+.lpv select:focus-visible {
+  outline: 2px solid var(--forest-green);
+  outline-offset: 3px;
+}
+.lpv .cta-left a:focus-visible,
+.lpv .lpv-season a:focus-visible { outline-color: var(--gold); }
+
+/* ---------- Hero ---------- */
+/* Visible from first paint: no JS-gated reveal on the LCP content. */
+.lpv #hero .hero-content { padding-bottom: 48px; }
+.lpv .hero-sub {
+  color: var(--lpv-ink-2);
+  font-weight: 400;
+  text-wrap: pretty;
+}
+.lpv .hero-headline { text-wrap: balance; }
+.lpv .hero-btn-primary,
+.lpv .hero-btn-secondary {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+}
+.lpv .hero-btn-secondary { color: var(--near-black); border-color: rgba(26, 26, 24, 0.32); }
+
+.lpv .lpv-proofline {
+  margin-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 12px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(26, 26, 24, 0.06), 0 6px 20px rgba(27, 77, 62, 0.07);
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  color: var(--lpv-ink-2);
+  text-decoration: none;
+  transition: box-shadow 0.3s var(--lpv-ease-out), transform 0.3s var(--lpv-ease-out);
+}
+.lpv .lpv-proofline strong { color: var(--near-black); font-weight: 700; }
+.lpv .lpv-proofline:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px rgba(26, 26, 24, 0.06), 0 10px 28px rgba(27, 77, 62, 0.12);
+}
+.lpv .lpv-proofline-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.lpv .lpv-stars {
+  width: 82px;
+  height: 15px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ---------- Hamper strip ---------- */
+.lpv .lpv-strip { position: relative; }
+.lpv .hamper-track.is-paused,
+.lpv .lpv-strip:focus-within .hamper-track { animation-play-state: paused; }
+.lpv .lpv-strip-toggle {
+  position: absolute;
+  right: 24px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(26, 26, 24, 0.18);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--near-black);
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.lpv .lpv-strip-toggle:hover { border-color: var(--near-black); }
+@media (prefers-reduced-motion: reduce) {
+  .lpv .hamper-track { animation: none; }
+  .lpv .hamper-strip { overflow-x: auto; }
+  .lpv .lpv-strip-toggle { display: none; }
+}
+
+/* ---------- Diwali season band ---------- */
+.lpv .lpv-season {
+  background: var(--forest-deep);
+  color: var(--cream);
+  padding: 40px 60px;
+}
+.lpv .lpv-season-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 48px;
+  flex-wrap: wrap;
+}
+.lpv .lpv-season-title {
+  font-family: var(--font-libre-baskerville), serif;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  color: #f5f0e6;
+}
+.lpv .lpv-season-title em { color: var(--gold); }
+.lpv .lpv-season-sub {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  color: var(--lpv-cream-2);
+  margin: 0;
+}
+.lpv .lpv-season-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--forest-deep);
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.lpv .lpv-season-cta svg { transition: transform 0.3s var(--lpv-ease-out); }
+.lpv .lpv-season-cta:hover { background: #cfae4a; }
+.lpv .lpv-season-cta:hover svg { transform: translateX(3px); }
+
+/* ---------- Facts ---------- */
+.lpv #trust-bar { padding: 28px 24px; }
+.lpv .lpv-facts {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.lpv .lpv-fact {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  text-align: center;
+  padding: 4px 16px;
+  position: relative;
+}
+.lpv .lpv-fact + .lpv-fact::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: rgba(184, 151, 46, 0.45);
+}
+.lpv .lpv-fact dd {
+  margin: 0;
+  font-family: var(--font-libre-baskerville), serif;
+  font-size: 24px;
+  color: var(--forest-deep);
+  line-height: 1.1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.lpv .lpv-fact dt {
+  margin-top: 6px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  color: var(--lpv-ink-2);
+}
+
+/* ---------- Occasions / Edit ---------- */
+.lpv .collections-sub { color: var(--lpv-ink-2); font-weight: 400; font-size: 16px; }
+.lpv .view-all-link { color: var(--forest-deep); }
+.lpv .lpv-edit-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.lpv .product-desc { color: var(--lpv-ink-2); font-weight: 400; }
+.lpv .product-moq {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--lpv-ink-2);
+}
+
+/* ---------- Process ---------- */
+.lpv .lpv-process {
+  background: #fff;
+  padding: 100px 60px;
+}
+.lpv .lpv-process-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.lpv .lpv-process-title {
+  max-width: 16ch;
+  margin: 0 0 56px;
+  text-wrap: balance;
+}
+.lpv .lpv-process-title em { font-style: italic; color: var(--forest-green); }
+.lpv .lpv-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(27, 77, 62, 0.18);
+}
+.lpv .lpv-step {
+  padding: 28px 28px 0 0;
+  position: relative;
+}
+.lpv .lpv-step::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.lpv .lpv-step-when {
+  display: block;
+  font-family: var(--font-libre-baskerville), serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--forest-green);
+  margin-bottom: 14px;
+}
+.lpv .lpv-step-title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--near-black);
+  margin: 0 0 8px;
+}
+.lpv .lpv-step-desc {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--lpv-ink-2);
+  margin: 0;
+  max-width: 32ch;
+}
+
+/* ---------- Quote panel ---------- */
+.lpv .cta-left-quote { margin: auto 0; }
+.lpv .cta-left-quote .lpv-stars { width: 96px; height: 18px; margin-bottom: 20px; }
+.lpv .cta-left-text { font-size: 21px; }
+.lpv .cta-left-wordmark { color: var(--lpv-cream-2); }
+.lpv .cta-left-role,
+.lpv .cta-left-role a { color: var(--lpv-cream-2); font-weight: 400; }
+.lpv .cta-left-role a { text-underline-offset: 3px; }
+.lpv .cta-left-role a:hover { color: #f5f0e6; }
+.lpv .cta-left-stats { margin: 0; }
+.lpv .cta-stat {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+.lpv .cta-stat-num { margin: 0 0 4px; }
+.lpv .cta-stat-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--lpv-cream-2);
+  text-transform: none;
+}
+.lpv .cta-right-headline { margin-top: 0; }
+.lpv .cta-right-sub { color: var(--lpv-ink-2); font-weight: 400; }
+.lpv .lpv-form-note {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: var(--lpv-ink-2);
+  margin: 0 0 16px;
+}
+.lpv .form-required { color: #9b2c1f; }
+.lpv .lpv-optional { font-weight: 400; color: var(--lpv-ink-2); }
+.lpv .cta-form-group label { font-size: 14px; }
+.lpv .cta-form input,
+.lpv .cta-form select {
+  font-size: 16px;
+  min-height: 48px;
+}
+.lpv .lpv-field-error {
+  display: block;
+  color: #9b2c1f;
+  font-size: 14px;
+}
+.lpv .cta-submit { min-height: 52px; }
+.lpv .cta-wa-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--forest-green);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .lpv .lpv-steps { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+}
+@media (max-width: 768px) {
+  .lpv .lpv-season { padding: 32px 20px; }
+  .lpv .lpv-season-cta { width: 100%; justify-content: center; }
+  .lpv .lpv-facts { grid-template-columns: repeat(2, 1fr); row-gap: 20px; }
+  .lpv .lpv-fact:nth-child(3)::before { display: none; }
+  .lpv .lpv-fact dd { font-size: 22px; }
+  .lpv .lpv-process { padding: 64px 20px; }
+  .lpv .lpv-process-title { margin-bottom: 36px; }
+  .lpv .lpv-strip { padding-bottom: 72px; }
+  .lpv .lpv-strip-toggle { right: 50%; transform: translateX(50%); bottom: 16px; }
+  .lpv .lpv-proofline { border-radius: 16px; font-size: 14px; }
+}
+@media (max-width: 560px) {
+  .lpv .lpv-steps { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid rgba(27, 77, 62, 0.18); row-gap: 32px; }
+  .lpv .lpv-step { padding: 0 0 0 24px; }
+  .lpv .lpv-step::before { top: 6px; left: -5px; }
+  .lpv .lpv-proofline-sep { display: none; }
+}
+
+/* The reviews heading carries itself; drop the label above it here. */
+.lpv .gr-eyebrow { display: none; }
+.lpv .view-all-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

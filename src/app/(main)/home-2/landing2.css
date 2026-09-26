@@ -1,0 +1,214 @@
+/* ===========================================================
+   HOMEPAGE 2 — design refresh overrides
+   Everything is scoped under .lp2 so the live homepage (and any
+   page this stylesheet lingers on after client navigation) is
+   unaffected. Base styles still come from ../landing.css.
+   =========================================================== */
+
+.lp2 {
+  /* Text tokens, all ≥4.5:1 on --cream (#f2f2f2) */
+  --ink-2: #4f4f4a;        /* secondary text, 7.4:1 */
+  --ink-3: #66665f;        /* tertiary / de-emphasised, 5.2:1 */
+  --gold-text: #7d6418;    /* gold for small text on light, 5.1:1 */
+  --cream-2: rgba(245, 240, 230, 0.72); /* secondary text on forest, 7:1 */
+}
+
+/* ===========================
+   2. CONTRAST & SMALL TYPE
+=========================== */
+
+/* Secondary copy: 300 weight at 45–50% opacity → solid, readable grey */
+.lp2 .hero-sub { color: var(--ink-2); font-weight: 400; }
+.lp2 .hiw-sub,
+.lp2 .scorecard-sub,
+.lp2 .collections-sub,
+.lp2 .hiw-card-desc,
+.lp2 .cta-right-sub {
+  color: var(--ink-2);
+  font-weight: 400;
+}
+
+/* Eyebrows & step labels: 10px pale gold → 12px dark gold */
+.lp2 .hiw-eyebrow,
+.lp2 .hiw-card-step,
+.lp2 .cta-right-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: var(--gold-text);
+}
+
+/* How-it-works mockups */
+.lp2 .brand-section-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.lp2 .brand-color-label,
+.lp2 .hiw-delivery-text { font-size: 13px; color: var(--ink-3); }
+.lp2 .hiw-check-badge,
+.lp2 .hiw-delivery-badge { font-size: 12px; }
+.lp2 .brand-product-check {
+  display: inline-flex;
+  color: var(--forest-green);
+}
+.lp2 .brand-product-check svg { width: 16px; height: 16px; }
+
+/* Scorecard: vendor column stays muted but legible */
+.lp2 .scorecard-header { font-size: 12px; color: var(--ink-3); }
+.lp2 .scorecard-vendor-col { color: var(--ink-3); font-weight: 400; }
+.lp2 .scorecard-x { opacity: 1; }
+.lp2 .scorecard-x path { stroke: var(--ink-3); }
+.lp2 .scorecard-logo { height: 40px; }
+
+/* Collections: full descriptions, price leads */
+.lp2 .product-desc {
+  -webkit-line-clamp: unset;
+  display: block;
+  color: var(--ink-2);
+  font-weight: 400;
+  font-size: 15px;
+}
+.lp2 .product-price {
+  font-size: 17px;
+  font-weight: 600;
+}
+.lp2 .product-moq {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+/* Occasion cards */
+.lp2 .occasion-desc { color: var(--cream-2); }
+
+/* Quote form */
+.lp2 .cta-form-group label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.lp2 .form-required { font-size: 12px; color: var(--gold-text); }
+.lp2 .cta-form-group input,
+.lp2 .cta-form-group select { font-size: 16px; font-weight: 400; } /* 16px also stops iOS zoom-on-focus */
+.lp2 .cta-form-group input::placeholder { color: rgba(26, 26, 24, 0.45); }
+.lp2 .form-error { font-size: 13px; }
+.lp2 .cta-left-role { color: var(--cream-2); }
+.lp2 .cta-stat-label { font-size: 12px; font-weight: 400; color: var(--cream-2); }
+.lp2 .cta-wa-link { font-size: 15px; font-weight: 500; color: var(--forest-green); }
+
+/* Footer small labels */
+.lp2 .footer-sub-label { font-size: 12px; color: rgba(245, 240, 230, 0.6); }
+.lp2 .footer-bottom-links a,
+.lp2 .footer-bottom-text { color: rgba(245, 240, 230, 0.6); }
+
+/* Same-background sections were stacking 100px + 100px of padding */
+.lp2 #occasions { padding-bottom: 56px; }
+.lp2 #how-it-works { padding-top: 32px; }
+
+/* ===========================
+   4. ONE BUTTON SYSTEM
+   primary pill · secondary pill · text link — all sentence case
+=========================== */
+
+.lp2 .hero-btn-primary,
+.lp2 .cta-submit {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  background: var(--near-black);
+  color: var(--cream);
+  border-radius: 999px;
+}
+.lp2 .cta-submit { padding: 15px 26px; }
+.lp2 .hero-btn-primary:hover,
+.lp2 .cta-submit:hover { background: var(--forest-green); }
+
+.lp2 .hero-btn-secondary,
+.lp2 .btn-outlined {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  background: transparent;
+  color: var(--near-black);
+  border: 1px solid rgba(26, 26, 24, 0.25);
+  padding: 12px 26px;
+  border-radius: 999px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.lp2 .hero-btn-secondary:hover,
+.lp2 .btn-outlined:hover {
+  border-color: var(--near-black);
+  background: rgba(26, 26, 24, 0.04);
+  color: var(--near-black);
+}
+
+.lp2 .view-all-link {
+  display: table; /* shrink-wrap so only the text is clickable, still centred */
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--forest-deep);
+  text-decoration: underline;
+  text-decoration-color: rgba(18, 46, 37, 0.3);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease;
+}
+.lp2 .view-all-link:hover {
+  color: var(--forest-deep);
+  text-decoration-color: currentColor;
+}
+
+/* ===========================
+   3. MOBILE
+=========================== */
+
+@media (max-width: 768px) {
+  /* Slimmer nav that gets out of the way while reading */
+  .lp2 #navbar {
+    height: 56px;
+    top: 12px;
+    transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+  }
+  .lp2 #navbar.nav-hidden { transform: translate(-50%, calc(-100% - 16px)); }
+  .lp2 .nav-logo-img { height: 40px; }
+
+  .lp2 #hero .hero-content { padding: 96px 24px 40px; }
+  .lp2 .hero-headline { margin-bottom: 20px; }
+  .lp2 .hero-sub { margin-bottom: 28px; }
+
+  /* Keep the floating WhatsApp button off the last lines of the footer */
+  .lp2 #footer { padding-bottom: 72px; }
+}
+
+@media (max-width: 480px) {
+  .lp2 .hero-sub-more { display: none; }
+  .lp2 .hero-btn-primary,
+  .lp2 .hero-btn-secondary { padding: 13px 24px; }
+
+  /* Occasions: 2-up grid instead of six full-width squares */
+  .lp2 .occasions-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .lp2 .occasion-card { aspect-ratio: 4 / 5; }
+  .lp2 .occasion-card-overlay { padding: 10px 12px; }
+  .lp2 .occasion-name { font-size: 15px; }
+  .lp2 .occasion-desc,
+  .lp2 .occasion-arrow { display: none; }
+  .lp2 .view-all-link { margin-top: 28px; }
+
+  /* Scorecard: less cramped three-column rows */
+  .lp2 .scorecard-header { font-size: 11px; }
+  .lp2 .scorecard-feature-col { font-size: 14px; }
+  .lp2 .scorecard-mintbox-col,
+  .lp2 .scorecard-vendor-col { font-size: 13px; }
+  .lp2 .scorecard-vendor-col .scorecard-x { display: none; }
+  .lp2 .scorecard-logo { height: 26px; }
+
+  /* Collections: base CSS drops desc to 13px on phones */
+  .lp2 .product-desc { font-size: 15px; }
+  .lp2 .cta-right-sub { font-size: 15px; }
+}
