@@ -49,3 +49,7 @@ dist
 .claude/
 .codex/
 
+# supplier reference data (internal only, never ships)
+scripts/supplier-data/raw/
+scripts/supplier-data/screenshots/
+

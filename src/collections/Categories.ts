@@ -50,6 +50,15 @@ export const Categories: CollectionConfig = {
       },
     },
     {
+      name: 'parent',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: false,
+      admin: {
+        description: 'Parent category, for subcategories (e.g. Hampers & Boxes / Products under Diwali Gifting). Leave empty for a top-level category.',
+      },
+    },
+    {
       name: 'order',
       type: 'number',
       defaultValue: 0,
