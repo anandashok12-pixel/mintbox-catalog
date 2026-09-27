@@ -5,7 +5,7 @@ import BangaloreCorporateGiftingClient from '@/components/pages/BangaloreCorpora
 import '../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifting in Bangalore: Bulk & Same-Day Delivery | MintBox',
+  title: 'Corporate Gifting in Bangalore: Bulk & Fast Delivery | MintBox',
   description:
     'Corporate gifting in Bangalore - same-day delivery across Koramangala, Whitefield, HSR Layout & Electronic City. Bulk from 25 units, logo customisation included.',
   alternates: { canonical: 'https://themintbox.in/bangalore-corporate-gifting' },

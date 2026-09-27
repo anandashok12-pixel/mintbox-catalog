@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { LegalPage } from '@/components/LegalPage'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - MintBox',
+  title: 'Privacy Policy - How MintBox Handles Your Data | MintBox',
   description:
     'How MintBox collects, uses, and protects your information when you request a quote, browse the catalogue, or contact us.',
 }

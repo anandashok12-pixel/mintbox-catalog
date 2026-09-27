@@ -5,7 +5,7 @@ import DiwaliCorporateClient from '@/components/pages/DiwaliCorporateClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Diwali Corporate Gifts 2026: Best Ideas for Every Budget | MintBox',
+  title: 'Diwali Corporate Gifts 2026: Ideas for Every Budget | MintBox',
   description:
     'Best Diwali corporate gifts for 2026 - hampers, drinkware, sweets kits, and eco sets. Budget ₹500–₹3,000 per head. Order early to avoid delays. Pan-India.',
   alternates: { canonical: 'https://themintbox.in/guides/diwali-corporate-gifts' },
