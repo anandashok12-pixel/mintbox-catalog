@@ -40,7 +40,13 @@ export default function FestivePage({ config, sections }: Props) {
     { id: 'quote', label: 'Get a quote' },
   ]
 
-  const firstAnchor = sections[0] ? `#picks-${sections[0].id}` : config.ideas ? `#${config.ideas.id}` : '#faq'
+  const firstAnchor = sections[0]
+    ? `#picks-${sections[0].id}`
+    : config.ideas
+      ? `#${config.ideas.id}`
+      : config.table
+        ? `#${config.table.id}`
+        : '#faq'
   const productCount = sections.reduce((n, s) => n + s.products.length, 0)
 
   return (

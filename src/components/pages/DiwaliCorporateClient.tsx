@@ -168,7 +168,8 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
             <p className="cp-hero-sub">
               Gift ideas by budget, a planning timeline and ordering deadlines for Diwali 2026 (Sunday,
               8 November). Ready to order? See all 120{' '}
-              <a href="/diwali-corporate-gifts">corporate Diwali gift hampers</a> with full contents and per-unit prices.
+              <a href="/diwali-corporate-gifts">corporate Diwali gift hampers</a> with full contents and per-unit prices,
+              or <a href="#products">browse this guide's own picks below</a>.
             </p>
             <div className="cp-hero-ctas">
               <a href="/diwali-corporate-gifts" className="cp-hero-cta-primary">See 120 Diwali Hampers →</a>

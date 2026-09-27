@@ -21,13 +21,6 @@ const nextConfig: NextConfig = {
         destination: 'https://themintbox.in/:path*',
         permanent: true,
       },
-      // Draft "Top 12 Corporate Diwali Gift Hampers" page was replaced by the
-      // dry fruit gift box guide so it no longer competes with the hub.
-      {
-        source: '/guides/corporate-diwali-gift-hampers',
-        destination: '/guides/diwali-dry-fruit-gift-boxes',
-        permanent: true,
-      },
     ]
   },
   images: {
