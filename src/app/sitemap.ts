@@ -145,6 +145,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Industry solutions
     {
+      url: `${SITE_URL}/industry-solutions`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/industry-solutions/startups`,
       lastModified,
       changeFrequency: 'monthly',
@@ -158,6 +164,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // Guides
+    {
+      url: `${SITE_URL}/guides`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     {
       url: `${SITE_URL}/guides/diwali-corporate-gifts`,
       lastModified,

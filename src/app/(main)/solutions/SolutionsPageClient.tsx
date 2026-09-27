@@ -46,7 +46,7 @@ export default function SolutionsPageClient() {
               <path d="M34 13C37 10,39 9,40 9C41 9,43 10,46 13C43 16,41 16,40 16C39 16,37 16,34 13Z" stroke="#B8972E" strokeWidth="1.1" fill="none" />
               <path d="M40 16L38 24M40 16L42 24" stroke="#B8972E" strokeWidth="0.9" strokeLinecap="round" />
             </svg>
-            <div className="sl-hero-title">MintBox is built<br />for the person<br />reading this.</div>
+            <h1 className="sl-hero-title">MintBox is built<br />for the person<br />reading this.</h1>
             <div className="sl-hero-sub">Whether you&apos;re running HR for a unicorn, closing deals for a SaaS company, or building culture from scratch - MintBox works the way you work.</div>
             <div className="sl-hero-ctas">
               <button className="sl-btn-primary" onClick={() => switchTab('hr')}>I&apos;m in HR &amp; People Ops →</button>
