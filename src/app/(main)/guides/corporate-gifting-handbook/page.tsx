@@ -6,7 +6,7 @@ import CorporateGiftingHandbookClient from '@/components/pages/CorporateGiftingH
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifting Handbook: Complete India Guide for 2026 | MintBox',
+  title: 'Corporate Gifting Handbook: India Guide for 2026 | MintBox',
   description:
     'The complete corporate gifting guide for Indian businesses - budgeting, choosing gifts, bulk ordering, customisation, and occasion planning. Updated for 2026.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifting-handbook' },

@@ -6,7 +6,7 @@ import DiwaliEmployeesClient from '@/components/pages/DiwaliEmployeesClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Diwali Gifts for Employees 2026: Ideas, Budget & Planning | MintBox',
+  title: 'Diwali Gifts for Employees 2026: Ideas & Planning | MintBox',
   description:
     'Thoughtful Diwali gifts for employees - bulk hampers, personalised sets, and sweet kits from ₹400/head. Plan 3–4 weeks early. GST invoicing. Delivered across India.',
   alternates: { canonical: 'https://themintbox.in/guides/diwali-gifts-for-employees' },
