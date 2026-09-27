@@ -104,5 +104,22 @@ export const Products: CollectionConfig = {
         description: 'Sort order within category (lower = first)',
       },
     },
+    {
+      name: 'tier',
+      type: 'select',
+      options: ['Executive', 'Premium', 'Team'],
+      admin: {
+        description: 'Gifting tier this product is pitched at (optional)',
+      },
+    },
+    {
+      name: 'tags',
+      type: 'select',
+      hasMany: true,
+      options: ['diwali', 'travel', 'onboarding', 'wfh', 'made-in-india', 'home'],
+      admin: {
+        description: 'Marketing tags for this product (optional)',
+      },
+    },
   ],
 }
