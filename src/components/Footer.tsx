@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { isPublished } from '@/lib/publishGate'
 
 export function Footer() {
   return (
@@ -42,6 +43,8 @@ export function Footer() {
             <li><a href="/guides/diwali-gifts-for-employees">Diwali Gifts for Employees</a></li>
             <li><a href="/guides/diwali-gifts-for-clients">Diwali Gifts for Clients</a></li>
             <li><a href="/guides/diwali-dry-fruit-gift-boxes">Diwali Dry Fruit Gift Boxes</a></li>
+            {isPublished('2026-09-27') && <li><a href="/guides/diwali-gifts-for-employees-by-budget">Diwali Gifts by Budget</a></li>}
+            {isPublished('2026-09-29') && <li><a href="/guides/diwali-hampers-for-employees-vs-clients">Hampers by Recipient</a></li>}
             <li><a href="/guides/christmas-corporate-gifts">Christmas Corporate Gifts</a></li>
             <li><a href="/guides/secret-santa-gifts-for-colleagues">Secret Santa Gifts</a></li>
             <li><a href="/guides/new-year-corporate-gifts">New Year Corporate Gifts</a></li>
@@ -60,6 +63,7 @@ export function Footer() {
             <li><a href="/guides/what-to-gift-employees">What to Gift Employees</a></li>
             <li><a href="/guides/corporate-gifts-for-clients">Gifts for Clients</a></li>
             <li><a href="/guides/top-corporate-gifting-companies-india">Gifting Companies Compared</a></li>
+            {isPublished('2026-10-02') && <li><a href="/guides/corporate-gifts-by-occasion">Gifts by Occasion</a></li>}
             <li><a href="/guides/unique-corporate-gifts">Unique Corporate Gifts</a></li>
             <li><a href="/guides/sustainable-corporate-gifts">Sustainable Gifts</a></li>
             <li><a href="/guides/corporate-gifting-trends-2026">Gifting Trends 2026</a></li>

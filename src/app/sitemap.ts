@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { isPublished } from '@/lib/publishGate'
 
 const SITE_URL = 'https://themintbox.in'
 
@@ -331,6 +332,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+
+    // Guides - scheduled go-live (excluded from the sitemap until their publish date)
+    ...(isPublished('2026-09-27') ? [{
+      url: `${SITE_URL}/guides/diwali-gifts-for-employees-by-budget`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }] : []),
+    ...(isPublished('2026-09-29') ? [{
+      url: `${SITE_URL}/guides/diwali-hampers-for-employees-vs-clients`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }] : []),
+    ...(isPublished('2026-10-02') ? [{
+      url: `${SITE_URL}/guides/corporate-gifts-by-occasion`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }] : []),
 
     // Legal
     {
