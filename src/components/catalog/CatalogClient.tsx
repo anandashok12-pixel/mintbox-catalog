@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Sidebar, { DIWALI_PARENT_SLUG } from './Sidebar'
 import ProductGrid from './ProductGrid'
 import CartPanel from '../cart/CartPanel'
@@ -51,7 +51,15 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
   // activeCat tracks which category section is currently in view (scroll-spy).
   // The sidebar uses it for highlight only - it does NOT filter the grid.
   const [activeCat, setActiveCat] = useState<string | null>(null)
-  const [maxPrice, setMaxPrice] = useState(10000)
+  // Slider ceiling used to hardcode 10000, which silently hid any product
+  // priced above it with no way to raise the slider. Derive it from the
+  // actual catalog instead, rounded up to the nearest 1000, so it never
+  // clips a real price again.
+  const priceCeiling = useMemo(() => {
+    const highest = products.reduce((max, p) => Math.max(max, p.price ?? 0), 0)
+    return Math.max(10000, Math.ceil(highest / 1000) * 1000)
+  }, [products])
+  const [maxPrice, setMaxPrice] = useState(priceCeiling)
   const [activeProduct, setActiveProduct] = useState<Product | null>(null)
   const [leadOpen, setLeadOpen] = useState(false)
   // Mobile-only: cart drawer toggle. Desktop renders the cart as a sticky side
@@ -176,7 +184,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
               <input
                 type="range"
                 min={100}
-                max={10000}
+                max={priceCeiling}
                 step={100}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
