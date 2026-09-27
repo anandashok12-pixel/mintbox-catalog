@@ -8,12 +8,12 @@ import type { DiwaliProduct } from '@/components/content/DiwaliHamperShowcase'
 import '../content-pages.css'
 
 const PAGE_URL = 'https://themintbox.in/diwali-corporate-gifts'
-// "Diwali Gifting" groups two subcategories (Hampers & Boxes, Products) under
-// one parent. LEGACY_CATEGORY_SLUG is the pre-restructure flat category
-// (kept as the Hampers & Boxes slug after rename) - falls back to it if the
-// parent category doesn't exist yet, so this page never goes blank mid-migration.
-const PARENT_SLUG = 'diwali-gifting'
-const LEGACY_CATEGORY_SLUG = 'diwali-gift-boxes'
+// "Diwali Gifting" is a display-only grouping of two flat categories - there
+// is no parent field in the data model. A self-referencing relationship field
+// was tried and broke schema push against production Postgres (2026-09-26,
+// column never created, took down the whole Payload API), so this fetches
+// both known category slugs directly instead.
+const DIWALI_CATEGORY_SLUGS = ['diwali-gift-boxes', 'diwali-2026-products']
 // Premium copper hamper: the strongest share image in the collection.
 const OG_PRODUCT_ID = '475'
 const FALLBACK_OG_IMAGE = 'https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/diwali-dk16.jpg'
@@ -27,32 +27,13 @@ const getDiwaliProducts = cache(async () => {
   try {
     const payload = await getPayload({ config: configPromise })
 
-    const parentRes = await payload.find({
+    const catsRes = await payload.find({
       collection: 'categories',
-      where: { slug: { equals: PARENT_SLUG } },
-      limit: 1,
+      where: { slug: { in: DIWALI_CATEGORY_SLUGS } },
+      limit: 10,
     })
-    const parent = parentRes.docs[0]
-
-    let categoryIds: number[]
-    if (parent) {
-      const childrenRes = await payload.find({
-        collection: 'categories',
-        where: { parent: { equals: parent.id } },
-        limit: 50,
-      })
-      categoryIds = childrenRes.docs.map(d => d.id as number)
-      if (categoryIds.length === 0) categoryIds = [parent.id as number]
-    } else {
-      const legacyRes = await payload.find({
-        collection: 'categories',
-        where: { slug: { equals: LEGACY_CATEGORY_SLUG } },
-        limit: 1,
-      })
-      const legacy = legacyRes.docs[0]
-      if (!legacy) return []
-      categoryIds = [legacy.id as number]
-    }
+    const categoryIds = catsRes.docs.map(d => d.id as number)
+    if (categoryIds.length === 0) return []
 
     const result = await payload.find({
       collection: 'products',
