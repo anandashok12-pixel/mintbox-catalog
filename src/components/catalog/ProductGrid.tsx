@@ -38,6 +38,7 @@ interface ProductGridProps {
   products: Product[]
   categories: Category[]
   search: string
+  minPrice: number
   maxPrice: number
   onProductClick: (product: Product) => void
 }
@@ -46,6 +47,7 @@ export default function ProductGrid({
   products,
   categories,
   search,
+  minPrice,
   maxPrice,
   onProductClick,
 }: ProductGridProps) {
@@ -53,6 +55,7 @@ export default function ProductGrid({
 
   const filtered = products.filter((p) => {
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false
+    if (p.price < minPrice) return false
     if (p.price > maxPrice) return false
     return true
   })

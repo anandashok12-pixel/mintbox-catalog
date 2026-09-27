@@ -59,6 +59,8 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
     const highest = products.reduce((max, p) => Math.max(max, p.price ?? 0), 0)
     return Math.max(10000, Math.ceil(highest / 1000) * 1000)
   }, [products])
+  const priceStep = 100
+  const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(priceCeiling)
   const [activeProduct, setActiveProduct] = useState<Product | null>(null)
   const [leadOpen, setLeadOpen] = useState(false)
@@ -178,18 +180,39 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
               )}
             </div>
             <div className="price-filter">
-              <label className="price-label">
-                Max Price: <strong>₹{maxPrice.toLocaleString('en-IN')}</strong>
-              </label>
-              <input
-                type="range"
-                min={100}
-                max={priceCeiling}
-                step={100}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="price-slider"
-              />
+              <div className="price-label">
+                Price: <strong>₹{minPrice.toLocaleString('en-IN')}</strong> – <strong>₹{maxPrice.toLocaleString('en-IN')}{maxPrice >= priceCeiling ? '+' : ''}</strong>
+              </div>
+              <div className="price-range-track">
+                <div className="price-range-rail" />
+                <div
+                  className="price-range-fill"
+                  style={{
+                    left: `${(minPrice / priceCeiling) * 100}%`,
+                    right: `${100 - (maxPrice / priceCeiling) * 100}%`,
+                  }}
+                />
+                <input
+                  type="range"
+                  min={0}
+                  max={priceCeiling}
+                  step={priceStep}
+                  value={minPrice}
+                  aria-label="Minimum price"
+                  onChange={(e) => setMinPrice(Math.min(Number(e.target.value), maxPrice - priceStep))}
+                  className="price-slider price-slider-min"
+                />
+                <input
+                  type="range"
+                  min={0}
+                  max={priceCeiling}
+                  step={priceStep}
+                  value={maxPrice}
+                  aria-label="Maximum price"
+                  onChange={(e) => setMaxPrice(Math.max(Number(e.target.value), minPrice + priceStep))}
+                  className="price-slider price-slider-max"
+                />
+              </div>
             </div>
           </div>
 
@@ -197,6 +220,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
             products={products}
             categories={categories}
             search={search}
+            minPrice={minPrice}
             maxPrice={maxPrice}
             onProductClick={setActiveProduct}
           />
