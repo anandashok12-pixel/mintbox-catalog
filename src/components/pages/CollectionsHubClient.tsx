@@ -46,7 +46,7 @@ const OCCASIONS = [
     label: 'Diwali Gifting',
     title: 'Celebrate With the Whole Team',
     desc: "India's biggest gifting moment, done with taste and scale.",
-    href: '/guides/diwali-corporate-gifts',
+    href: '/diwali-corporate-gifts',
     bg: 'cp-img-gold',
   },
   {

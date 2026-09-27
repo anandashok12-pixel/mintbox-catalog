@@ -408,7 +408,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
               { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
-              { label: 'Diwali', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Diwali', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
               { label: 'Trends', title: 'Corporate Gifting Trends 2026', href: '/guides/corporate-gifting-trends-2026' },
               { label: 'Personalised', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
             ].map(link => (

@@ -450,7 +450,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
               { label: 'Bangalore', title: 'Same-Day Delivery Bangalore', href: '/bangalore-corporate-gifting/same-day-delivery' },
               { label: 'Bangalore', title: 'All Bangalore Corporate Gifting', href: '/bangalore-corporate-gifting' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { label: 'Guides', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Guides', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
               { label: 'Customisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Guides', title: 'Budget Corporate Gifts', href: '/guides/budget-corporate-gifts' },
               { label: 'Bangalore Hub', title: 'Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting' },

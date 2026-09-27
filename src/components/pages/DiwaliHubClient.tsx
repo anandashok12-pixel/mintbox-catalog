@@ -48,7 +48,7 @@ const COMPARISON = [
 
 
 const RELATED = [
-  { label: 'Seasonal Guide', title: 'Diwali Corporate Gifts: Ideas for Every Budget', href: '/guides/diwali-corporate-gifts' },
+  { label: 'Seasonal Guide', title: 'Diwali Corporate Gift Ideas: Planning Guide by Budget', href: '/guides/diwali-corporate-gifts' },
   { label: 'Employees', title: 'Diwali Gifts for Employees', href: '/guides/diwali-gifts-for-employees' },
   { label: 'Collection', title: 'Corporate Gift Hampers', href: '/collections/hampers' },
   { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },

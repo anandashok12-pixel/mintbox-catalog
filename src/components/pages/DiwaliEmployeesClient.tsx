@@ -408,13 +408,13 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[
-              { label: 'Seasonal', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Shop', title: 'Corporate Diwali Gift Hampers 2026', href: '/diwali-corporate-gifts' },
               { label: 'Collections', title: 'Gift Hampers', href: '/collections/hampers' },
               { label: 'Budget Guide', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'Employee Welcome Kit', href: '/collections/employee-welcome-kit' },
-              { label: 'Diwali', title: 'Diwali Corporate Gifts 2026', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Diwali', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>

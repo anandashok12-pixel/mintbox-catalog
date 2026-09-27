@@ -245,9 +245,9 @@ export default function WhatToGiftClient({ products, categories }: Props) {
                 <span className="cp-related-emoji">💰</span>
                 <span className="cp-related-title">Corporate Gifts Under ₹1,000</span>
               </a>
-              <a href="/guides/diwali-corporate-gifts" className="cp-related-card">
+              <a href="/diwali-corporate-gifts" className="cp-related-card">
                 <span className="cp-related-emoji">🪔</span>
-                <span className="cp-related-title">Diwali Corporate Gifts</span>
+                <span className="cp-related-title">Corporate Diwali Gifts</span>
               </a>
             </div>
           </div>

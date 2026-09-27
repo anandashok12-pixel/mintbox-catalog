@@ -124,11 +124,11 @@ const FAQ_ITEMS = [
 const RELATED = [
   { href: '/collections/corporate-gifts', label: 'All Collections' },
   { href: '/collections/drinkware', label: 'Drinkware' },
-  { href: '/guides/diwali-corporate-gifts', label: 'Diwali Gifts' },
+  { href: '/diwali-corporate-gifts', label: 'Diwali Gifts' },
   { href: '/collections/eco-friendly-gifts', label: 'Eco-Friendly' },
   { href: '/customization/personalized-corporate-gifts', label: 'Personalised' },
   { href: '/collections/employee-welcome-kit', label: 'Welcome Kit' },
-  { href: '/guides/diwali-corporate-gifts', label: 'Diwali' },
+  { href: '/diwali-corporate-gifts', label: 'Diwali' },
 ]
 
 
