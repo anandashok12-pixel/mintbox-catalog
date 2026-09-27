@@ -5,7 +5,7 @@ import DiwaliCorporateClient from '@/components/pages/DiwaliCorporateClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Diwali Corporate Gift Ideas & Planning Guide 2026 | MintBox',
+  title: 'Diwali Corporate Gifts 2026: Ideas for Every Budget | MintBox',
   description:
     'Diwali corporate gift ideas for 2026 by budget, with a planning timeline. Diwali is Sun 8 Nov; confirm by 24 Oct for guaranteed delivery. MOQ 10 units, GST invoice.',
   alternates: { canonical: 'https://themintbox.in/guides/diwali-corporate-gifts' },

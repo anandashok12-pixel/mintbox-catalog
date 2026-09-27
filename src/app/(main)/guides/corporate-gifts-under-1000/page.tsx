@@ -5,7 +5,7 @@ import BudgetGiftsClient from '@/components/pages/BudgetGiftsClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifts Under ₹1000: Best Budget Options for 2026 | MintBox',
+  title: 'Corporate Gifts Under ₹1000: Budget Options for 2026 | MintBox',
   description:
     'Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 50 units, logo customisation included. Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifts-under-1000' },

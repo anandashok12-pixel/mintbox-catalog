@@ -5,12 +5,12 @@ import BudgetCorporateGiftsClient from '@/components/pages/BudgetCorporateGiftsC
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Budget Corporate Gifts: Smart Gifting Without Overspending | MintBox',
+  title: 'Budget Corporate Gifts: Smart Gifting, No Overspend | MintBox',
   description:
     'How to buy quality corporate gifts on a budget. Compare price tiers (₹100–₹2,000), see what\'s achievable at each level, and get bulk pricing. Free quote in 24 hours.',
   alternates: { canonical: 'https://themintbox.in/guides/budget-corporate-gifts' },
   openGraph: {
-    title: 'Budget Corporate Gifts: Smart Gifting Without Overspending | MintBox',
+    title: 'Budget Corporate Gifts: Smart Gifting, No Overspend | MintBox',
     description:
       'How to buy quality corporate gifts on a budget. Compare price tiers (₹100–₹2,000), see what\'s achievable at each level, and get bulk pricing. Free quote in 24 hours.',
   },
