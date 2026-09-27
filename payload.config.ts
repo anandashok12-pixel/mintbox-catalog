@@ -73,8 +73,20 @@ export default buildConfig({
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 5000,
     },
-    // Auto-push schema to DB on startup (creates tables if they don't exist)
-    push: true,
+    // Auto-push schema to DB on startup (creates tables if they don't exist).
+    // Only on Vercel: drizzle-kit's push-introspection query (a parameterized
+    // pg_constraint lookup) throws "there is no parameter $1" when run from a
+    // plain local Node process, regardless of pooled vs. direct connection or
+    // Postgres driver - a drizzle-kit 0.31.7 bug, not specific to this setup.
+    // Schema is already established in the (single, shared) DB, so skipping
+    // push locally costs nothing; it only disables auto-create-on-first-run,
+    // which never worked here anyway.
+    //
+    // Check VERCEL_REGION, not VERCEL: .env.local is a `vercel env pull`
+    // snapshot that includes VERCEL="1" even for local runs, since that's a
+    // configured project env var. VERCEL_REGION is only ever injected by the
+    // actual serverless runtime, so it reliably tells local and deployed apart.
+    push: !!process.env.VERCEL_REGION,
   }),
   plugins: [
     vercelBlobStorage({
