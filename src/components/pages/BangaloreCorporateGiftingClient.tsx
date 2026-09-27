@@ -409,7 +409,7 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
               { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
               { label: 'Diwali', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
-              { label: 'Trends', title: 'Corporate Gifting Trends 2026', href: '/guides/corporate-gifting-trends-2026' },
+              { label: 'Hampers', title: 'Corporate Gift Hampers in Bangalore', href: '/bangalore-corporate-gifting/gift-hampers' },
               { label: 'Personalised', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">

@@ -30,6 +30,8 @@ export function Footer() {
             <li><a href="/guides/corporate-gifts-under-100">Gifts Under ₹100</a></li>
             <li><a href="/guides/corporate-gifts-under-500">Gifts Under ₹500</a></li>
             <li><a href="/guides/corporate-gifts-under-1000">Gifts Under ₹1,000</a></li>
+            <li><a href="/guides/diwali-gifts-for-employees-under-500">Diwali Gifts Under ₹500</a></li>
+            <li><a href="/guides/diwali-gifts-for-employees-under-1000">Diwali Gifts Under ₹1,000</a></li>
             <li><a href="/guides/budget-corporate-gifts">Budget Gifting</a></li>
             <li><a href="/guides/corporate-gifting-budget">Gifting Budget Guide</a></li>
           </ul>
@@ -38,7 +40,11 @@ export function Footer() {
             <li><a href="/diwali-corporate-gifts">Diwali Gift Hampers 2026</a></li>
             <li><a href="/guides/diwali-corporate-gifts">Diwali Gift Ideas & Planning Guide</a></li>
             <li><a href="/guides/diwali-gifts-for-employees">Diwali Gifts for Employees</a></li>
+            <li><a href="/guides/diwali-gifts-for-clients">Diwali Gifts for Clients</a></li>
+            <li><a href="/guides/diwali-dry-fruit-gift-boxes">Diwali Dry Fruit Gift Boxes</a></li>
             <li><a href="/guides/christmas-corporate-gifts">Christmas Corporate Gifts</a></li>
+            <li><a href="/guides/secret-santa-gifts-for-colleagues">Secret Santa Gifts</a></li>
+            <li><a href="/guides/new-year-corporate-gifts">New Year Corporate Gifts</a></li>
             <li><a href="/guides/work-anniversary-gifts">Work Anniversary Gifts</a></li>
             <li><a href="/guides/corporate-gifts-for-new-employees">New Employee Gifts</a></li>
           </ul>
@@ -53,6 +59,7 @@ export function Footer() {
             <li><a href="/guides/corporate-gifting-etiquette">Gifting Etiquette</a></li>
             <li><a href="/guides/what-to-gift-employees">What to Gift Employees</a></li>
             <li><a href="/guides/corporate-gifts-for-clients">Gifts for Clients</a></li>
+            <li><a href="/guides/top-corporate-gifting-companies-india">Gifting Companies Compared</a></li>
             <li><a href="/guides/unique-corporate-gifts">Unique Corporate Gifts</a></li>
             <li><a href="/guides/sustainable-corporate-gifts">Sustainable Gifts</a></li>
             <li><a href="/guides/corporate-gifting-trends-2026">Gifting Trends 2026</a></li>

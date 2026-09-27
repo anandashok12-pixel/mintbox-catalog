@@ -66,7 +66,7 @@ const PLANNING_STEPS = [
   },
   {
     num: '2',
-    title: 'By Friday, 24 October',
+    title: 'By Saturday, 24 October',
     desc: 'Approve the mockup and confirm the order. Orders confirmed by this date are guaranteed to arrive before Diwali with full logo branding.',
   },
   {
@@ -99,15 +99,15 @@ const GIFT_IDEAS_TABLE = [
 const FAQS = [
   {
     q: 'When should I order Diwali 2026 corporate gifts?',
-    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by Friday, 24 October are guaranteed to arrive before Diwali with full logo branding, and dispatch takes 7 to 10 working days after confirmation. Orders confirmed between 25 and 31 October are fulfilled from ready stock with a printed insert card. From 1 November, only Bengaluru rush orders from available stock are possible.',
+    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by Saturday, 24 October are guaranteed to arrive before Diwali with full logo branding, and dispatch takes 7 to 10 working days after confirmation. Orders confirmed between 25 and 31 October are fulfilled from ready stock with a printed insert card. From 1 November, only Bengaluru rush orders from available stock are possible.',
   },
   {
     q: "What's the most popular Diwali corporate gift?",
-    a: 'Drinkware + sweets hampers (stainless bottle or copper bottle with artisan sweets and dry fruits) are the most-ordered Diwali gifts. Premium packaging (rigid gift box, tissue, ribbon) is essential - Diwali is the one occasion where packaging matters as much as the gift.',
+    a: 'Drinkware + sweets hampers (stainless bottle or copper bottle with artisan sweets and dry fruits) are among the most common Diwali gifts in Indian offices. Premium packaging (rigid gift box, tissue, ribbon) is essential - Diwali is the one occasion where packaging matters as much as the gift.',
   },
   {
     q: 'Are FSSAI-certified food items available for Diwali hampers?',
-    a: 'Yes. All sweet and food items in MintBox hampers are FSSAI-certified and come with appropriate shelf life and allergen labelling. We source from vetted food suppliers. Certificates are available on request.',
+    a: 'Yes. All sweet and food items in MintBox hampers are FSSAI-certified and come with appropriate shelf life and allergen labelling. Certificates are available on request.',
   },
   {
     q: 'Can I include alcohol in Diwali hampers?',
@@ -398,7 +398,9 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
               { label: 'Shop', title: 'Corporate Diwali Gift Hampers 2026', href: '/diwali-corporate-gifts' },
               { label: 'Seasonal', title: 'Diwali Gifts for Employees', href: '/guides/diwali-gifts-for-employees' },
               { label: 'Collections', title: 'Gift Hampers', href: '/collections/hampers' },
-              { label: 'Budget Guide', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
+              { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹500', href: '/guides/diwali-gifts-for-employees-under-500' },
+              { label: 'Clients', title: 'Diwali Gifts for Clients', href: '/guides/diwali-gifts-for-clients' },
+              { label: 'Dry fruits', title: 'Diwali Dry Fruit Gift Boxes', href: '/guides/diwali-dry-fruit-gift-boxes' },
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },

@@ -21,7 +21,7 @@ import DiwaliHamperShowcase, {
 } from '@/components/content/DiwaliHamperShowcase'
 
 const DIWALI_DATE_LABEL = 'Sunday, 8 November 2026'
-const ORDER_BY_LABEL = 'Friday, 24 October 2026'
+const ORDER_BY_LABEL = 'Saturday, 24 October 2026'
 
 // Product IDs used for the hero visual, in preference order. Falls back to the
 // first products in catalogue order if any are missing.
@@ -48,10 +48,14 @@ const COMPARISON = [
 
 
 const RELATED = [
-  { label: 'Seasonal Guide', title: 'Diwali Corporate Gift Ideas: Planning Guide by Budget', href: '/guides/diwali-corporate-gifts' },
+  { label: 'Seasonal Guide', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
   { label: 'Employees', title: 'Diwali Gifts for Employees', href: '/guides/diwali-gifts-for-employees' },
-  { label: 'Collection', title: 'Corporate Gift Hampers', href: '/collections/hampers' },
-  { label: 'Budget', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
+  { label: 'Clients', title: 'Diwali Gifts for Clients', href: '/guides/diwali-gifts-for-clients' },
+  { label: 'Dry fruits', title: 'Diwali Dry Fruit Gift Boxes', href: '/guides/diwali-dry-fruit-gift-boxes' },
+  { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹500', href: '/guides/diwali-gifts-for-employees-under-500' },
+  { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹1,000', href: '/guides/diwali-gifts-for-employees-under-1000' },
+  { label: 'Tech', title: 'Electronic Diwali Gifts for Employees', href: '/guides/electronic-diwali-gifts-for-employees' },
+  { label: 'Bengaluru', title: 'Corporate Gift Hampers in Bangalore', href: '/bangalore-corporate-gifting/gift-hampers' },
   { label: 'Bengaluru', title: 'Bulk Corporate Gifting in Bangalore', href: '/bangalore-corporate-gifting/bulk-gifting' },
   { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
   { label: 'Sustainable', title: 'Eco-Friendly Corporate Gifts', href: '/collections/eco-friendly-gifts' },

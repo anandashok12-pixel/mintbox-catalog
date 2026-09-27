@@ -382,7 +382,8 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
             {[
               { label: 'Seasonal', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
               { label: 'Client Gifts', title: 'Corporate Gifts for Clients', href: '/guides/corporate-gifts-for-clients' },
-              { label: 'Ideas', title: 'Unique Corporate Gifts', href: '/guides/unique-corporate-gifts' },
+              { label: 'Christmas', title: 'Secret Santa Gifts for Colleagues', href: '/guides/secret-santa-gifts-for-colleagues' },
+              { label: 'New Year', title: 'New Year Corporate Gifts for 2027', href: '/guides/new-year-corporate-gifts' },
               { label: 'Etiquette', title: 'Corporate Gifting Etiquette', href: '/guides/corporate-gifting-etiquette' },
               { label: 'Handbook', title: 'The Corporate Gifting Handbook', href: '/guides/corporate-gifting-handbook' },
             ].map((link) => (
