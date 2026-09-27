@@ -3,7 +3,7 @@ import configPromise from '@payload-config'
 import CatalogClient from '@/components/catalog/CatalogClient'
 
 export const metadata = {
-  title: 'Catalogue - MintBox',
+  title: 'Corporate Gifting Catalogue: Browse All Products | MintBox',
   description:
     'Browse the MintBox corporate gifting catalogue — sweets and mithai, gourmet hampers, drinkware, tech, apparel and eco-friendly gifts. Build a pack and request a quote.',
   alternates: { canonical: 'https://themintbox.in/catalog' },

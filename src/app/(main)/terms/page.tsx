@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { LegalPage } from '@/components/LegalPage'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - MintBox',
+  title: 'Terms of Service - MintBox Corporate Gifting Policies',
   description:
     'The terms that govern your use of themintbox.in, our quotation process, and any corporate gifting orders you place with MintBox.',
 }

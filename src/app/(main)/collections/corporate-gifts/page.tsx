@@ -5,7 +5,7 @@ import CollectionsHubClient from '@/components/pages/CollectionsHubClient'
 import '../../content-pages.css'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gift Collections: Hampers, Kits & Curated Sets | MintBox',
+  title: 'Corporate Gift Collections: Hampers & Curated Sets | MintBox',
   description:
     'Browse 200+ corporate gifts - drinkware, stationery, tech gadgets, hampers, eco-friendly gifts and apparel. Filter by category, occasion, and budget.',
   alternates: { canonical: 'https://themintbox.in/collections/corporate-gifts' },
