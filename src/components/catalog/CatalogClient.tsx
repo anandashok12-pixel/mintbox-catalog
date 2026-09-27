@@ -41,6 +41,10 @@ interface Product {
   category: Category | string
 }
 
+const PRICE_FLOOR = 0
+const PRICE_CEILING = 10000
+const PRICE_STEP = 100
+
 interface CatalogClientProps {
   categories: Category[]
   products: Product[]
@@ -51,7 +55,8 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
   // activeCat tracks which category section is currently in view (scroll-spy).
   // The sidebar uses it for highlight only - it does NOT filter the grid.
   const [activeCat, setActiveCat] = useState<string | null>(null)
-  const [maxPrice, setMaxPrice] = useState(10000)
+  const [minPrice, setMinPrice] = useState(PRICE_FLOOR)
+  const [maxPrice, setMaxPrice] = useState(PRICE_CEILING)
   const [activeProduct, setActiveProduct] = useState<Product | null>(null)
   const [leadOpen, setLeadOpen] = useState(false)
   // Mobile-only: cart drawer toggle. Desktop renders the cart as a sticky side
@@ -170,18 +175,39 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
               )}
             </div>
             <div className="price-filter">
-              <label className="price-label">
-                Max Price: <strong>₹{maxPrice.toLocaleString('en-IN')}</strong>
-              </label>
-              <input
-                type="range"
-                min={100}
-                max={10000}
-                step={100}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="price-slider"
-              />
+              <div className="price-label">
+                Price: <strong>₹{minPrice.toLocaleString('en-IN')}</strong> – <strong>₹{maxPrice.toLocaleString('en-IN')}{maxPrice >= PRICE_CEILING ? '+' : ''}</strong>
+              </div>
+              <div className="price-range-track">
+                <div className="price-range-rail" />
+                <div
+                  className="price-range-fill"
+                  style={{
+                    left: `${((minPrice - PRICE_FLOOR) / (PRICE_CEILING - PRICE_FLOOR)) * 100}%`,
+                    right: `${100 - ((maxPrice - PRICE_FLOOR) / (PRICE_CEILING - PRICE_FLOOR)) * 100}%`,
+                  }}
+                />
+                <input
+                  type="range"
+                  min={PRICE_FLOOR}
+                  max={PRICE_CEILING}
+                  step={PRICE_STEP}
+                  value={minPrice}
+                  aria-label="Minimum price"
+                  onChange={(e) => setMinPrice(Math.min(Number(e.target.value), maxPrice - PRICE_STEP))}
+                  className="price-slider price-slider-min"
+                />
+                <input
+                  type="range"
+                  min={PRICE_FLOOR}
+                  max={PRICE_CEILING}
+                  step={PRICE_STEP}
+                  value={maxPrice}
+                  aria-label="Maximum price"
+                  onChange={(e) => setMaxPrice(Math.max(Number(e.target.value), minPrice + PRICE_STEP))}
+                  className="price-slider price-slider-max"
+                />
+              </div>
             </div>
           </div>
 
@@ -189,6 +215,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
             products={products}
             categories={categories}
             search={search}
+            minPrice={minPrice}
             maxPrice={maxPrice}
             onProductClick={setActiveProduct}
           />

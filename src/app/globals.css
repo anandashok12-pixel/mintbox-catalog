@@ -340,7 +340,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 200px;
+  min-width: 240px;
 }
 
 .price-label {
@@ -352,15 +352,54 @@ img {
   color: var(--green-dark);
 }
 
-.price-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
+/* Two native range inputs stacked on the same track. Each input is fully
+   transparent and has pointer-events disabled except on its own thumb, so
+   both handles stay independently draggable even when they overlap. The
+   visible track (rail + gold fill between the two values) is drawn by the
+   sibling divs underneath. */
+.price-range-track {
+  position: relative;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.price-range-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
   height: 4px;
   background: var(--cream-dark);
   border-radius: 2px;
+}
+
+.price-range-fill {
+  position: absolute;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+.price-slider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
   outline: none;
-  cursor: pointer;
+  pointer-events: none;
+}
+
+.price-slider::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.price-slider::-moz-range-track {
+  background: transparent;
+  border: none;
 }
 
 .price-slider::-webkit-slider-thumb {
@@ -372,6 +411,27 @@ img {
   background: var(--gold);
   cursor: pointer;
   border: 2px solid var(--green-dark);
+  pointer-events: auto;
+}
+
+.price-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 2px solid var(--green-dark);
+  pointer-events: auto;
+}
+
+.price-slider:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 2px;
+}
+
+.price-slider:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 2px;
 }
 
 /* ── Category Sections ── */
