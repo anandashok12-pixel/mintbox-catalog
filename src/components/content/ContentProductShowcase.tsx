@@ -46,7 +46,7 @@ export default function ContentProductShowcase({
   products,
   categories,
   heading = 'Browse Products',
-  maxPrice = 10000,
+  maxPrice,
   onlyCustomisable = false,
   filterCategoryId,
   showPriceFilter = true,
@@ -54,7 +54,17 @@ export default function ContentProductShowcase({
 }: ContentProductShowcaseProps) {
   const [activeCat, setActiveCat] = useState('all')
   const [search, setSearch] = useState('')
-  const [priceMax, setPriceMax] = useState(maxPrice)
+  // Ceiling used to default to a hardcoded 10000, which silently hid any
+  // product priced above it with no way to raise the slider (same bug as
+  // CatalogClient's, fixed in 8b07a09). Derive it from the products actually
+  // passed in instead, rounded up to the nearest 100, so it never clips a
+  // real price. Callers can still pass an explicit maxPrice to override.
+  const priceCeiling = useMemo(() => {
+    if (maxPrice !== undefined) return maxPrice
+    const highest = products.reduce((max, p) => Math.max(max, p.price ?? 0), 0)
+    return Math.max(1000, Math.ceil(highest / 100) * 100)
+  }, [products, maxPrice])
+  const [priceMax, setPriceMax] = useState(priceCeiling)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [showLeadModal, setShowLeadModal] = useState(false)
 
@@ -155,7 +165,7 @@ export default function ContentProductShowcase({
                 type="range"
                 className="cp-price-slider"
                 min={100}
-                max={maxPrice}
+                max={priceCeiling}
                 step={100}
                 value={priceMax}
                 onChange={e => setPriceMax(Number(e.target.value))}
@@ -167,7 +177,7 @@ export default function ContentProductShowcase({
         {/* Product grid */}
         {filtered.length === 0 ? (
           <div className="cp-showcase-empty">
-            No products match your filters. <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--forest-green,#1B4D3E)', fontFamily: 'inherit', fontSize: 'inherit', textDecoration: 'underline' }} onClick={() => { setActiveCat('all'); setSearch(''); setPriceMax(maxPrice) }}>Reset filters</button>
+            No products match your filters. <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--forest-green,#1B4D3E)', fontFamily: 'inherit', fontSize: 'inherit', textDecoration: 'underline' }} onClick={() => { setActiveCat('all'); setSearch(''); setPriceMax(priceCeiling) }}>Reset filters</button>
           </div>
         ) : (
           <div className="cp-showcase-grid">

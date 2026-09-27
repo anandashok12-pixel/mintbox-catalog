@@ -226,7 +226,6 @@ export default function CollectionsHubClient({ products, categories }: { product
             products={products}
             categories={categories}
             heading="All Corporate Gifts"
-            maxPrice={10000}
             showPriceFilter={true}
             showSearch={true}
           />

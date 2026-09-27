@@ -475,7 +475,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
             products={products}
             categories={categories}
             heading="All Corporate Gifts"
-            maxPrice={5000}
             showPriceFilter={true}
             showSearch={true}
           />

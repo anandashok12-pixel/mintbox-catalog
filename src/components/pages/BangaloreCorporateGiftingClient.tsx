@@ -309,7 +309,6 @@ export default function BangaloreCorporateGiftingClient({ products, categories }
             products={products}
             categories={categories}
             heading="Available Gifts"
-            maxPrice={5000}
             showPriceFilter={true}
             showSearch={true}
           />

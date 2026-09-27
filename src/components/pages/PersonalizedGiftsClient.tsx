@@ -273,7 +273,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
             categories={categories}
             heading="Customisable Products"
             onlyCustomisable={true}
-            maxPrice={10000}
           />
         </div>
       </section>
