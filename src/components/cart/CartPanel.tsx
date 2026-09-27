@@ -40,6 +40,8 @@ export default function CartPanel({ onRequestPricing }: CartPanelProps) {
                         height={44}
                         style={{ objectFit: 'cover' }}
                       />
+                    ) : item.emoji ? (
+                      <span className="cart-item-emoji" aria-hidden="true">{item.emoji}</span>
                     ) : (
                       <span className="cart-item-placeholder" aria-hidden="true" />
                     )}

@@ -101,7 +101,9 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               style={{ objectFit: 'contain' }}
             />
           ) : (
-            <div className="product-modal-emoji-fallback" aria-hidden="true" />
+            <div className="product-modal-emoji-fallback" aria-hidden="true">
+              {product.emoji && <span>{product.emoji}</span>}
+            </div>
           )}
         </div>
 

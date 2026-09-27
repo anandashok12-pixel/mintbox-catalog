@@ -128,6 +128,8 @@ export default function ProductGrid({
                         unoptimized
                         style={{ objectFit: 'cover' }}
                       />
+                    ) : product.emoji ? (
+                      <span className="product-card-emoji" aria-hidden="true">{product.emoji}</span>
                     ) : (
                       <span className="product-card-placeholder" aria-hidden="true" />
                     )}
