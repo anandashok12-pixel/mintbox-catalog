@@ -4,7 +4,13 @@ import { Footer } from '@/components/Footer'
 import { GoogleReviews } from '@/components/GoogleReviews'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import { QUOTE_TIME } from '@/lib/businessFacts'
+import { isPublished } from '@/lib/publishGate'
 import '../content-pages.css'
+
+// Guides below are embargoed until their scheduled go-live (see each guide's
+// own PUBLISH_AT); revalidate hourly so the hub picks up each unlock without
+// a redeploy.
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Corporate Gifting Guides | Tips, Ideas & Strategies | MintBox',
@@ -126,6 +132,20 @@ const OCCASION_GUIDES = [
     title: 'Office Inauguration Gifts',
     desc: 'What to gift for a new office opening — décor, pooja-day essentials, and attendee gifts.',
   },
+  ...[
+    {
+      publishAt: '2026-09-27T00:00:00+05:30',
+      href: '/guides/diwali-gifts-for-employees-by-budget',
+      title: 'Diwali Gifts for Employees, by Budget',
+      desc: '15 Diwali gift ideas for employees sorted into three budget bands — from festive diyas to premium self-care sets.',
+    },
+    {
+      publishAt: '2026-09-29T00:00:00+05:30',
+      href: '/guides/diwali-hampers-for-employees-vs-clients',
+      title: 'Diwali Hampers: Employees vs Clients',
+      desc: 'Budget corporate Diwali hampers by recipient — employees, regular clients, and VIP or leadership.',
+    },
+  ].filter((g) => isPublished(g.publishAt)),
 ]
 
 const STRATEGY_GUIDES = [
@@ -199,6 +219,14 @@ const STRATEGY_GUIDES = [
     title: 'Memento & Award Ideas',
     desc: '12 memento ideas for annual days, sales awards, and milestones — with engraving copy that works.',
   },
+  ...[
+    {
+      publishAt: '2026-10-02T00:00:00+05:30',
+      href: '/guides/corporate-gifts-by-occasion',
+      title: 'Corporate Gifts by Occasion',
+      desc: 'Match the right corporate gift to onboarding, festivals or client appreciation, with budget tiers and a procurement checklist.',
+    },
+  ].filter((g) => isPublished(g.publishAt)),
 ]
 
 const BUYING_GUIDES = [

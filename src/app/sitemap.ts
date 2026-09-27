@@ -1,6 +1,12 @@
 import type { MetadataRoute } from 'next'
+import { isPublished } from '@/lib/publishGate'
 
 const SITE_URL = 'https://themintbox.in'
+
+// A few guide URLs below are embargoed until a scheduled go-live date (see
+// each guide's own PUBLISH_AT); revalidate hourly so the sitemap doesn't
+// advertise a URL that still 404s.
+export const revalidate = 3600
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
@@ -301,6 +307,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    ...(isPublished('2026-09-27T00:00:00+05:30') ? [{
+      url: `${SITE_URL}/guides/diwali-gifts-for-employees-by-budget`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }] : []),
+    ...(isPublished('2026-09-29T00:00:00+05:30') ? [{
+      url: `${SITE_URL}/guides/diwali-hampers-for-employees-vs-clients`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }] : []),
+    ...(isPublished('2026-10-02T00:00:00+05:30') ? [{
+      url: `${SITE_URL}/guides/corporate-gifts-by-occasion`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }] : []),
     {
       url: `${SITE_URL}/guides/budget-corporate-gifts`,
       lastModified,
