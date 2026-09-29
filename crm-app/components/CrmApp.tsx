@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ApiError, getCurrentUser, getDeals, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateDeal } from '@/lib/payload'
-import type { Deal, Message, Stage, User, WhatsappSession } from '@/lib/types'
-import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, QueueIcon, RefreshIcon, SearchIcon, WhatsAppIcon } from './Icons'
+import { ApiError, createTask, deleteTask, getCurrentUser, getDeals, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateDeal, updateTask } from '@/lib/payload'
+import type { Deal, Message, Stage, Task, User, WhatsappSession } from '@/lib/types'
+import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, QueueIcon, RefreshIcon, SearchIcon, TaskIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
 import { QueueView } from './QueueView'
 import { BoardView } from './BoardView'
@@ -11,15 +11,22 @@ import { DealDrawer } from './DealDrawer'
 import { WhatsappView } from './WhatsappView'
 import { NewDealModal } from './NewDealModal'
 import { AnalyticsView } from './AnalyticsView'
+import { TaskView } from './TaskView'
 
 const TOKEN_KEY = 'mintbox-crm-token'
+
+function isTaskOverdue(task: Task) {
+  if (task.done || !task.dueDate) return false
+  return new Date(task.dueDate).getTime() < Date.now()
+}
 
 export function CrmApp() {
   const [token, setToken] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null)
   const [deals, setDeals] = useState<Deal[]>([])
+  const [tasks, setTasks] = useState<Task[]>([])
   const [selectedDealId, setSelectedDealId] = useState<string | number | null>(null)
-  const [view, setView] = useState<'queue' | 'board' | 'whatsapp' | 'analytics'>('board')
+  const [view, setView] = useState<'queue' | 'board' | 'whatsapp' | 'analytics' | 'tasks'>('board')
   const [search, setSearch] = useState('')
   const [whatsappSession, setWhatsappSession] = useState<WhatsappSession | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
@@ -35,6 +42,7 @@ export function CrmApp() {
     setToken(null)
     setUser(null)
     setDeals([])
+    setTasks([])
     setMessages([])
     setWhatsappSession(null)
     setSelectedDealId(null)
@@ -49,6 +57,15 @@ export function CrmApp() {
       if (cause instanceof ApiError && cause.status === 401) logout()
       else setError(cause instanceof Error ? cause.message : 'Could not load deals')
       throw cause
+    }
+  }, [logout])
+
+  const loadTasks = useCallback(async (activeToken: string) => {
+    try {
+      const rows = await getTasks(activeToken)
+      setTasks(rows)
+    } catch (cause) {
+      if (cause instanceof ApiError && cause.status === 401) logout()
     }
   }, [logout])
 
@@ -83,6 +100,7 @@ export function CrmApp() {
         setUser(currentUser)
         setDeals(rows)
         void loadWhatsapp(stored)
+        void loadTasks(stored)
       } catch {
         sessionStorage.removeItem(TOKEN_KEY)
       } finally {
@@ -91,20 +109,20 @@ export function CrmApp() {
     }
 
     void restoreSession()
-  }, [loadWhatsapp])
+  }, [loadWhatsapp, loadTasks])
 
   async function handleLogin(email: string, password: string) {
     const result = await payloadLogin(email, password)
     sessionStorage.setItem(TOKEN_KEY, result.token)
     setToken(result.token)
     setUser(result.user)
-    await Promise.all([loadDeals(result.token), loadWhatsapp(result.token)])
+    await Promise.all([loadDeals(result.token), loadWhatsapp(result.token), loadTasks(result.token)])
   }
 
   async function refresh() {
     if (!token) return
     setRefreshing(true)
-    try { await Promise.all([loadDeals(token), loadWhatsapp(token)]) } finally { setRefreshing(false) }
+    try { await Promise.all([loadDeals(token), loadWhatsapp(token), loadTasks(token)]) } finally { setRefreshing(false) }
   }
 
   async function patchDeal(deal: Deal, patch: Partial<Deal>) {
@@ -138,6 +156,43 @@ export function CrmApp() {
     })
   }
 
+  async function addTask(label: string, dueDate?: string | null) {
+    if (!token) return
+    try {
+      const created = await createTask(token, { label, dueDate: dueDate || null })
+      setTasks((current) => [created, ...current])
+    } catch (cause) {
+      if (cause instanceof ApiError && cause.status === 401) return logout()
+      setError(cause instanceof Error ? cause.message : 'Could not add the to-do')
+    }
+  }
+
+  async function toggleTask(task: Task) {
+    if (!token) return
+    const nextDone = !task.done
+    setTasks((current) => current.map((item) => item.id === task.id
+      ? { ...item, done: nextDone, doneAt: nextDone ? new Date().toISOString() : null }
+      : item))
+    try {
+      const updated = await updateTask(token, task.id, { done: nextDone })
+      setTasks((current) => current.map((item) => item.id === task.id ? updated : item))
+    } catch (cause) {
+      await loadTasks(token).catch(() => undefined)
+      setError(cause instanceof Error ? cause.message : 'Could not update the to-do')
+    }
+  }
+
+  async function removeTask(task: Task) {
+    if (!token) return
+    setTasks((current) => current.filter((item) => item.id !== task.id))
+    try {
+      await deleteTask(token, task.id)
+    } catch (cause) {
+      await loadTasks(token).catch(() => undefined)
+      setError(cause instanceof Error ? cause.message : 'Could not delete the to-do')
+    }
+  }
+
   const filteredDeals = useMemo(() => {
     const query = search.trim().toLowerCase()
     if (!query) return deals
@@ -152,12 +207,14 @@ export function CrmApp() {
   if (!token || !user) return <LoginScreen onLogin={handleLogin} />
 
   const selectedDeal = selectedDealId == null ? null : deals.find((deal) => deal.id === selectedDealId) || null
+  const overdueTaskCount = tasks.filter(isTaskOverdue).length
 
   const viewMeta = {
     board: { title: 'Deals', subtitle: `${filteredDeals.length} records` },
     queue: { title: 'Priority queue', subtitle: 'Work that needs attention' },
     whatsapp: { title: 'WhatsApp mirror', subtitle: `${messages.length} captured messages` },
     analytics: { title: 'Analytics', subtitle: 'Pipeline and activity' },
+    tasks: { title: 'To-dos', subtitle: `${tasks.filter((task) => !task.done).length} pending` },
   }[view]
 
   return (
@@ -172,6 +229,10 @@ export function CrmApp() {
             {whatsappSession?.status !== 'connected' && <i className="nav-alert" />}
           </button>
           <button className={view === 'analytics' ? 'active' : ''} onClick={() => setView('analytics')} title="Analytics"><AnalyticsIcon /><span>Analytics</span></button>
+          <button className={view === 'tasks' ? 'active' : ''} onClick={() => setView('tasks')} title="To-dos">
+            <TaskIcon /><span>To-dos</span>
+            {overdueTaskCount > 0 && <i className="nav-alert" />}
+          </button>
         </nav>
         <button className="sidebar-user" title={user.email}>{(user.name || user.email).slice(0, 1).toUpperCase()}</button>
       </aside>
@@ -194,6 +255,7 @@ export function CrmApp() {
           {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
           {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} />}
           {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
+          {view === 'tasks' && <TaskView tasks={tasks} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} />}
         </main>
       </div>
       <DealDrawer key={selectedDeal?.id ?? 'none'} deal={selectedDeal} onClose={() => setSelectedDealId(null)} onPatch={(patch) => selectedDeal ? patchDeal(selectedDeal, patch) : Promise.resolve()} />

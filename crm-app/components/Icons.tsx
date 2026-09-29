@@ -20,3 +20,5 @@ export const CheckIcon = (props: IconProps) => <IconBase {...props}><path d="m5 
 export const AlertIcon = (props: IconProps) => <IconBase {...props}><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></IconBase>
 export const PlusIcon = (props: IconProps) => <IconBase {...props}><path d="M12 5v14M5 12h14"/></IconBase>
 export const AnalyticsIcon = (props: IconProps) => <IconBase {...props}><path d="M4 19V9M11 19V5M18 19v-7"/></IconBase>
+export const TaskIcon = (props: IconProps) => <IconBase {...props}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m7 12 2.5 2.5L17 9"/></IconBase>
+export const TrashIcon = (props: IconProps) => <IconBase {...props}><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7"/></IconBase>

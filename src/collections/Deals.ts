@@ -6,6 +6,7 @@ import type { CollectionConfig } from 'payload'
 export const DEAL_STAGES = [
   { label: 'New', value: 'new' },
   { label: 'Qualified', value: 'qualified' },
+  { label: 'Sample', value: 'sample' },
   { label: 'Quoted', value: 'quoted' },
   { label: 'Negotiation', value: 'negotiation' },
   { label: 'Won', value: 'won' },

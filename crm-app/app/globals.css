@@ -287,6 +287,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .remarks-input:focus { border-color: var(--blue); outline: 2px solid rgba(47, 111, 237, .13); }
 .digest-list { margin: 9px 0 0; padding-left: 16px; color: #3f4550; font-size: 12px; line-height: 1.7; }
 
+/* Standalone to-dos */
+.todo-view { max-width: 860px; margin: 0 auto; }
+.todo-add { margin-bottom: 14px; padding: 10px; border: 1px solid var(--border); border-radius: 7px; display: flex; gap: 8px; background: white; }
+.todo-add input[type="text"], .todo-add input:not([type]) { flex: 1; height: 36px; padding: 0 10px; border: 1px solid var(--border); border-radius: 5px; background: white; color: var(--text); font-size: 12px; }
+.todo-add input[type="date"] { width: 148px; height: 36px; padding: 0 8px; border: 1px solid var(--border); border-radius: 5px; background: white; color: var(--muted); font-size: 11px; }
+.todo-add input:focus { border-color: var(--blue); outline: 2px solid rgba(47, 111, 237, .13); }
+.todo-add .icon-button { width: 36px; height: 36px; flex: none; }
+.todo-list li { padding: 8px 4px; border-bottom: 1px solid #eceef1; }
+.todo-list li:last-child { border-bottom: 0; }
+.task-remove { width: 24px; height: 24px; flex: none; padding: 0; border: 0; border-radius: 4px; display: grid; place-items: center; background: transparent; color: var(--faint); cursor: pointer; opacity: 0; transition: opacity .1s ease; }
+.todo-list li:hover .task-remove, .todo-list li:focus-within .task-remove { opacity: 1; }
+.task-remove:hover { background: #fff0f0; color: var(--red); }
+.task-remove svg { width: 13px; }
+
 /* Analytics */
 .analytics-tiles { margin-bottom: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 9px; }
 .stat-tile { padding: 14px; border: 1px solid var(--border); border-radius: 7px; background: white; display: grid; gap: 4px; }

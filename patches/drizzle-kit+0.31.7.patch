@@ -1,0 +1,34 @@
+diff --git a/node_modules/drizzle-kit/api.js b/node_modules/drizzle-kit/api.js
+index 1111111..2222222 100644
+--- a/node_modules/drizzle-kit/api.js
++++ b/node_modules/drizzle-kit/api.js
+@@ -166293,7 +166293,11 @@
+   );
+   const db2 = {
+     query: async (query, params) => {
+-      const res = await drizzleInstance.execute(sql3.raw(query));
++      const inlined = params && params.length ? query.replace(/\$(\d+)/g, (_m, idx) => {
++        const value = params[Number(idx) - 1];
++        return `'${String(value).replace(/'/g, "''")}'`;
++      }) : query;
++      const res = await drizzleInstance.execute(sql3.raw(inlined));
+       return res.rows;
+     }
+   };
+diff --git a/node_modules/drizzle-kit/api.mjs b/node_modules/drizzle-kit/api.mjs
+index 1111111..2222222 100644
+--- a/node_modules/drizzle-kit/api.mjs
++++ b/node_modules/drizzle-kit/api.mjs
+@@ -166272,7 +166272,11 @@
+   );
+   const db2 = {
+     query: async (query, params) => {
+-      const res = await drizzleInstance.execute(sql3.raw(query));
++      const inlined = params && params.length ? query.replace(/\$(\d+)/g, (_m, idx) => {
++        const value = params[Number(idx) - 1];
++        return `'${String(value).replace(/'/g, "''")}'`;
++      }) : query;
++      const res = await drizzleInstance.execute(sql3.raw(inlined));
+       return res.rows;
+     }
+   };

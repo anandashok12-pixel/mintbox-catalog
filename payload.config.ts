@@ -9,6 +9,7 @@ import { Contacts } from './src/collections/Contacts'
 import { Deals } from './src/collections/Deals'
 import { Messages } from './src/collections/Messages'
 import { Activities } from './src/collections/Activities'
+import { Tasks } from './src/collections/Tasks'
 import { Media } from './src/collections/Media'
 import { Users } from './src/collections/Users'
 import { AboutPage } from './src/globals/AboutPage'
@@ -56,7 +57,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Categories, Products, Leads, Contacts, Deals, Messages, Activities, Media, Users],
+  collections: [Categories, Products, Leads, Contacts, Deals, Messages, Activities, Tasks, Media, Users],
   globals: [AboutPage, ContactPage, FAQPage, WhatsappSession],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -75,6 +76,13 @@ export default buildConfig({
     },
     // Auto-push schema to DB on startup (creates tables if they don't exist)
     push: true,
+    // wa_auth_state is created directly by whatsapp-worker/src/db.ts, outside
+    // Payload's schema. Without this, drizzle-kit sees it as an unrecognized
+    // table on every push and, whenever a new Payload collection/table is
+    // added, can't tell "create the new table" from "rename wa_auth_state to
+    // it" - it prompts interactively to disambiguate, which hangs forever in
+    // a non-interactive dev server (no TTY to answer the prompt).
+    tablesFilter: ['!wa_auth_state'],
   }),
   plugins: [
     vercelBlobStorage({

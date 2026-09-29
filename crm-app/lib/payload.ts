@@ -1,4 +1,4 @@
-import type { Contact, Deal, Message, PaginatedResponse, User, WhatsappSession } from './types'
+import type { Contact, Deal, Message, PaginatedResponse, Task, User, WhatsappSession } from './types'
 
 const apiBase = '/payload-api'
 const payloadAdminBase = (process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://themintbox.in').replace(/\/$/, '')
@@ -80,6 +80,42 @@ export async function updateDeal(
     body: JSON.stringify(data),
   }, token)
   return 'doc' in result ? result.doc : result
+}
+
+export async function getTasks(token: string): Promise<Task[]> {
+  const result = await request<PaginatedResponse<Task>>(
+    '/api/tasks?limit=500&sort=-createdAt',
+    { cache: 'no-store' },
+    token,
+  )
+  return result.docs
+}
+
+export async function createTask(
+  token: string,
+  data: { label: string; dueDate?: string | null },
+): Promise<Task> {
+  const result = await request<{ doc: Task } | Task>('/api/tasks', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }, token)
+  return 'doc' in result ? result.doc : result
+}
+
+export async function updateTask(
+  token: string,
+  id: string | number,
+  data: Partial<Task>,
+): Promise<Task> {
+  const result = await request<{ doc: Task } | Task>(`/api/tasks/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  }, token)
+  return 'doc' in result ? result.doc : result
+}
+
+export async function deleteTask(token: string, id: string | number): Promise<void> {
+  await request(`/api/tasks/${id}`, { method: 'DELETE' }, token)
 }
 
 export function payloadAdminDealUrl(id: string | number): string {
