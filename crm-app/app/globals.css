@@ -295,6 +295,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .stage-suggest-banner { margin-bottom: 4px; padding: 10px 12px; border: 1px solid #d5def3; border-radius: 7px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f6f8fe; font-size: 12px; }
 .stage-suggest-banner span { flex: 1; min-width: 180px; }
 
+/* Conversation header actions */
+.chat-actions { display: flex; gap: 6px; flex: none; }
+
 /* WhatsApp pairing */
 .qr-note { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
 .qr-placeholder .toolbar-button { margin-top: 10px; }

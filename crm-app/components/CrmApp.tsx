@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, requestWhatsappQr, updateContact, updateDeal, updateTask } from '@/lib/payload'
+import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, requestWhatsappQr, createDeal, updateMessage, updateContact, updateDeal, updateTask } from '@/lib/payload'
 import type { Contact, Deal, GmailSyncState, Message, Stage, Task, User, WhatsappSession } from '@/lib/types'
 import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, MailIcon, QueueIcon, RefreshIcon, SearchIcon, TaskIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
@@ -220,6 +220,29 @@ export function CrmApp() {
     }
   }
 
+  /** Open a deal from a WhatsApp/email conversation and file its messages under it. */
+  async function turnIntoDeal(contact: Contact, source: 'whatsapp' | 'email') {
+    if (!token) return
+    try {
+      const deal = await createDeal(token, {
+        title: `${contact.company || contact.name} - ${source === 'whatsapp' ? 'WhatsApp' : 'Email'} enquiry`,
+        contact: contact.id,
+        stage: 'new',
+        source,
+        awaitingWhom: 'us',
+      })
+      const unfiled = [...messages, ...emails].filter((m) =>
+        (typeof m.contact === 'object' ? m.contact.id : m.contact) === contact.id && !m.deal)
+      await Promise.all(unfiled.map((m) => updateMessage(token, m.id, { deal: deal.id })))
+      setDeals((current) => [deal, ...current])
+      setSelectedDealId(deal.id)
+      void loadWhatsapp(token)
+      void loadEmail(token)
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Could not create the deal')
+    }
+  }
+
   async function snooze(deal: Deal, days: number) {
     await patchDeal(deal, { nextActionAt: new Date(Date.now() + days * 86_400_000).toISOString() })
   }
@@ -352,8 +375,8 @@ export function CrmApp() {
         <main className="app-main">
           {view === 'queue' && <QueueView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />}
           {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
-          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} onRequestQr={async () => { if (!token) return; await requestWhatsappQr(token); await loadWhatsapp(token) }} />}
-          {view === 'email' && <EmailView key={emailFocus?.nonce ?? 0} token={token} messages={emails} sync={gmailSync} loading={emailLoading} error={emailError} focus={emailFocus?.focus ?? null} onRefresh={() => loadEmail(token)} onSent={(message) => { void loadEmail(token); setEmails((current) => [message, ...current]) }} />}
+          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} deals={deals} onOpenDeal={(deal) => setSelectedDealId(deal.id)} onTurnIntoDeal={(contact) => turnIntoDeal(contact, 'whatsapp')} onRequestQr={async () => { if (!token) return; await requestWhatsappQr(token); await loadWhatsapp(token) }} />}
+          {view === 'email' && <EmailView key={emailFocus?.nonce ?? 0} token={token} messages={emails} sync={gmailSync} loading={emailLoading} error={emailError} focus={emailFocus?.focus ?? null} onRefresh={() => loadEmail(token)} onSent={(message) => { void loadEmail(token); setEmails((current) => [message, ...current]) }} deals={deals} onOpenDeal={(deal) => setSelectedDealId(deal.id)} onTurnIntoDeal={(contact) => turnIntoDeal(contact, 'email')} />}
           {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
           {view === 'tasks' && <TaskView tasks={tasks} deals={deals} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} onDue={rescheduleTask} onPatchDealTasks={(deal, next) => patchDeal(deal, { tasks: next }).catch(() => undefined)} onOpenDeal={(deal) => setSelectedDealId(deal.id)} />}
         </main>

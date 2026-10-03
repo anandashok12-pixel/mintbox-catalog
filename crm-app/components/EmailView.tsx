@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { draftEmail, getEmailSignatures, saveEmailSignatures, sendEmail, startGmailConnect, type EmailSignature } from '@/lib/payload'
-import type { Contact, GmailSyncState, Message } from '@/lib/types'
+import type { Contact, Deal, GmailSyncState, Message } from '@/lib/types'
+import { DealLink } from './DealLink'
 import { AlertIcon, BackIcon, CloseIcon, EyeIcon, MailIcon, PlusIcon, RefreshIcon, SendIcon } from './Icons'
 
 export const MAILBOXES = ['anand@themintbox.in', 'hello@themintbox.in', 'ashok.kumar@themintbox.in']
@@ -81,6 +82,9 @@ export function EmailView({
   focus,
   onRefresh,
   onSent,
+  deals,
+  onOpenDeal,
+  onTurnIntoDeal,
 }: {
   token: string
   messages: Message[]
@@ -90,6 +94,9 @@ export function EmailView({
   focus: EmailFocus | null
   onRefresh: () => Promise<void>
   onSent: (message: Message) => void
+  deals: Deal[]
+  onOpenDeal: (deal: Deal) => void
+  onTurnIntoDeal: (contact: Contact) => Promise<void>
 }) {
   const [mailboxFilter, setMailboxFilter] = useState<string>('all')
   const [selectedKey, setSelectedKey] = useState<string | null>(null)
@@ -319,7 +326,10 @@ export function EmailView({
                   )}
                 </span>
               </div>
-              {selected && <button className="toolbar-button" onClick={() => startReply(selected)}><SendIcon /> Reply</button>}
+              <div className="chat-actions">
+                {selected && <DealLink contact={selected.contact} deals={deals} onOpenDeal={onOpenDeal} onTurnIntoDeal={onTurnIntoDeal} />}
+                {selected && <button className="toolbar-button" onClick={() => startReply(selected)}><SendIcon /> Reply</button>}
+              </div>
             </header>
             <div className="message-timeline">
               {selected?.messages.map((m) => {

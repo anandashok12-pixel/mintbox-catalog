@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { payloadFileUrl } from '@/lib/payload'
-import type { Contact, Message, WhatsappSession } from '@/lib/types'
+import type { Contact, Deal, Message, WhatsappSession } from '@/lib/types'
+import { DealLink } from './DealLink'
 import { AlertIcon, BackIcon, RefreshIcon, WhatsAppIcon } from './Icons'
 
 function contactFor(message: Message): Contact | null {
@@ -51,6 +52,9 @@ export function WhatsappView({
   error,
   onRefresh,
   onRequestQr,
+  deals,
+  onOpenDeal,
+  onTurnIntoDeal,
 }: {
   session: WhatsappSession | null
   messages: Message[]
@@ -58,6 +62,9 @@ export function WhatsappView({
   error: string
   onRefresh: () => Promise<void>
   onRequestQr: () => Promise<void>
+  deals: Deal[]
+  onOpenDeal: (deal: Deal) => void
+  onTurnIntoDeal: (contact: Contact) => Promise<void>
 }) {
   const conversations = useMemo<Conversation[]>(() => {
     const grouped = new Map<string, Message[]>()
@@ -166,6 +173,7 @@ export function WhatsappView({
               <button type="button" className="back-button" onClick={() => setSelectedKey(null)} aria-label="Back to list"><BackIcon /></button>
               <div><strong>{selected?.contact?.company || selected?.contact?.name}</strong><span>{selected?.contact?.phoneE164}</span></div>
               <span className="message-count">{selected?.messages.length} messages</span>
+              <DealLink contact={selected?.contact || null} deals={deals} onOpenDeal={onOpenDeal} onTurnIntoDeal={onTurnIntoDeal} />
             </header>
             <div className="message-timeline">
               {selected?.messages.map((message) => (

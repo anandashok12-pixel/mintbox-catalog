@@ -143,6 +143,16 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ success: true, skipped: 'duplicate' })
         }
 
+        // A LID ("123@lid") is WhatsApp's private chat id, not a phone number;
+        // the worker resolves these, so one arriving here is skipped rather
+        // than saved as a fake number.
+        if (event.jid.endsWith('@lid')) {
+          payload.logger.warn(`WhatsApp message ${event.providerId} arrived with an unresolved LID: ${event.jid}`)
+          return NextResponse.json({ success: true, skipped: 'unresolved_lid' })
+        }
+        // On our own outgoing messages pushName is our name, never the customer's.
+        if (event.fromMe) event.pushName = undefined
+
         const phoneE164 = normalizeJid(event.jid)
         if (!phoneE164) {
           payload.logger.warn(`WhatsApp message ${event.providerId} has an unparseable JID: ${event.jid}`)
@@ -212,37 +222,11 @@ export async function POST(req: NextRequest) {
           limit: 1,
           depth: 0,
         })
-        let dealId = activeDeal.docs[0]?.id
+        const dealId = activeDeal.docs[0]?.id
 
-        // Most of MintBox's volume is inbound-first on WhatsApp: someone
-        // messages before ever filling a form. Without a deal to attach to,
-        // that enquiry is invisible to the queue entirely - exactly the
-        // "so many leads, don't know which to prioritise" problem this
-        // whole phase exists to fix. So a first inbound message with no
-        // open deal seeds a bare one; the extraction pass fills it in.
-        if (!dealId && !event.fromMe) {
-          const contactDoc = await payload.findByID({ collection: 'contacts', id: contactId, depth: 0 })
-          const created = await payload.create({
-            collection: 'deals',
-            data: {
-              title: `${contactDoc.company || contactDoc.name} - WhatsApp enquiry`,
-              contact: contactId,
-              stage: 'new',
-              source: 'whatsapp',
-              awaitingWhom: 'us',
-            },
-          })
-          dealId = created.id
-          await payload.create({
-            collection: 'activities',
-            data: {
-              contact: contactId,
-              deal: dealId,
-              type: 'deal_opened',
-              summary: 'Deal opened from a first inbound WhatsApp message',
-            },
-          })
-        }
+        // No automatic deals: a chat with no open deal is stored against the
+        // contact only. Friends, vendors and past customers write to this
+        // number too, so a person decides with "Turn into deal" in the CRM.
 
         await payload.create({
           collection: 'messages',

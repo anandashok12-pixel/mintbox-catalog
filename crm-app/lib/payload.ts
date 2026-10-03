@@ -159,6 +159,10 @@ export async function updateDeal(
   return 'doc' in result ? result.doc : result
 }
 
+export async function updateMessage(token: string, id: string | number, data: Partial<Message>): Promise<void> {
+  await request(`/api/messages/${id}`, { method: 'PATCH', body: JSON.stringify(data) }, token)
+}
+
 export async function getTasks(token: string): Promise<Task[]> {
   const result = await request<PaginatedResponse<Task>>(
     '/api/tasks?limit=500&sort=-createdAt',
