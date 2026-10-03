@@ -45,7 +45,10 @@ async function connect(): Promise<void> {
     auth: state,
     version,
     logger,
-    browser: Browsers.macOS('Desktop'),
+    // WhatsApp now rejects pairing (status 428 right after "attempting
+    // registration") for the macOS Desktop identity on current Baileys;
+    // Chrome on Linux pairs normally. Shows on the phone as "Chrome (Ubuntu)".
+    browser: Browsers.ubuntu('Chrome'),
 
     // --- Read-only posture. Every one of these matters (see the PRD). ---
     // Marking online steals notification delivery from the phone app -
