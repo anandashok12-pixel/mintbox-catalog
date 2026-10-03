@@ -1,0 +1,54 @@
+.dsl {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #1a1a18;
+  background: #fff;
+}
+.dsl-actions { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+.dsl-btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: #1B4D3E;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.dsl-btn--ghost { background: transparent; color: #1B4D3E; border: 1px solid rgba(27, 77, 62, 0.3); }
+.dsl-head { display: flex; align-items: center; gap: 20px; padding-bottom: 20px; border-bottom: 2px solid #B8972E; }
+.dsl-logo { height: 40px; width: auto; }
+.dsl-head h1 { font-size: 24px; margin: 0 0 4px; color: #1B4D3E; }
+.dsl-head p { margin: 0; font-size: 13px; color: rgba(26, 26, 24, 0.6); }
+.dsl-empty { margin-top: 32px; font-size: 15px; }
+.dsl-empty a { color: #1B4D3E; }
+.dsl-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14px; }
+.dsl-table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(26, 26, 24, 0.55); padding: 8px; border-bottom: 1px solid #ddd; }
+.dsl-table td { padding: 10px 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
+.dsl-table tfoot td { border-bottom: none; padding-top: 14px; font-size: 15px; }
+.dsl-num { text-align: right; white-space: nowrap; }
+.dsl-img-col { width: 72px; }
+.dsl-img-col img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; display: block; }
+.dsl-name { font-weight: 500; }
+.dsl-cat { font-size: 12px; color: rgba(26, 26, 24, 0.55); }
+.dsl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.dsl-notes { margin-top: 32px; font-size: 13px; line-height: 1.6; color: rgba(26, 26, 24, 0.8); }
+.dsl-notes h2 { font-size: 15px; color: #1B4D3E; margin: 0 0 8px; }
+.dsl-notes ul { padding-left: 18px; margin: 0 0 16px; }
+.dsl-contact { font-size: 12px; color: rgba(26, 26, 24, 0.6); border-top: 1px solid #eee; padding-top: 12px; }
+
+@media (max-width: 560px) {
+  .dsl-img-col { display: none; }
+  .dsl-actions { flex-direction: column; }
+}
+
+@media print {
+  .dsl-actions { display: none; }
+  .dsl { padding: 0; max-width: none; }
+  .dsl-table tr { break-inside: avoid; }
+  @page { margin: 16mm; }
+}

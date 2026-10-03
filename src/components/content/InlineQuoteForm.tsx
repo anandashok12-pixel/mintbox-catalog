@@ -116,7 +116,7 @@ export default function InlineQuoteForm({
         <div className="cp-form-row" style={{ marginBottom: '14px' }}>
           <div className="cp-form-group">
             <label htmlFor="iq-f1" className="cp-form-label">Your Name *</label>
-            <input id="iq-f1" autoComplete="name"
+            <input id="iq-f1" name="name" autoComplete="name"
               className="cp-form-input"
               type="text"
               placeholder="Priya Sharma"
@@ -127,7 +127,7 @@ export default function InlineQuoteForm({
           </div>
           <div className="cp-form-group">
             <label htmlFor="iq-f2" className="cp-form-label">Company *</label>
-            <input id="iq-f2" autoComplete="organization"
+            <input id="iq-f2" name="company" autoComplete="organization"
               className="cp-form-input"
               type="text"
               placeholder="Acme Corp"
@@ -141,7 +141,7 @@ export default function InlineQuoteForm({
         <div className="cp-form-row" style={{ marginBottom: '14px' }}>
           <div className="cp-form-group">
             <label htmlFor="iq-f3" className="cp-form-label">Work Email *</label>
-            <input id="iq-f3" autoComplete="email"
+            <input id="iq-f3" name="email" autoComplete="email"
               className="cp-form-input"
               type="email"
               placeholder="priya@acme.com"
@@ -152,7 +152,7 @@ export default function InlineQuoteForm({
           </div>
           <div className="cp-form-group">
             <label htmlFor="iq-f4" className="cp-form-label">Phone *</label>
-            <input id="iq-f4"
+            <input id="iq-f4" name="phone"
               className="cp-form-input"
               type="tel"
               placeholder="+91 98765 43210"
@@ -167,7 +167,7 @@ export default function InlineQuoteForm({
         <div className="cp-form-row" style={{ marginBottom: '14px' }}>
           <div className="cp-form-group">
             <label htmlFor="iq-f5" className="cp-form-label">Occasion</label>
-            <select id="iq-f5"
+            <select id="iq-f5" name="occasion"
               className="cp-form-select"
               value={occasion}
               onChange={e => setOccasion(e.target.value)}
@@ -180,7 +180,7 @@ export default function InlineQuoteForm({
           </div>
           <div className="cp-form-group">
             <label htmlFor="iq-f6" className="cp-form-label">Approx. Quantity</label>
-            <input id="iq-f6"
+            <input id="iq-f6" name="quantity"
               className="cp-form-input"
               type="text"
               placeholder="e.g. 200 units"
@@ -192,7 +192,7 @@ export default function InlineQuoteForm({
 
         <div className="cp-form-group" style={{ marginBottom: '16px' }}>
           <label htmlFor="iq-f7" className="cp-form-label">What are you looking for?</label>
-          <textarea id="iq-f7"
+          <textarea id="iq-f7" name="notes"
             className="cp-form-textarea"
             placeholder="Products, budget, delivery timeline, customisation needs…"
             value={notes}

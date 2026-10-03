@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cartStore'
 import { getAttribution } from '@/lib/attribution'
@@ -8,6 +8,8 @@ import { isValidPhone } from '@/lib/phone'
 
 interface LeadModalProps {
   onClose: () => void
+  /** Occasion pre-selected in the form, e.g. 'diwali' on the Diwali pages. */
+  defaultOccasion?: string
 }
 
 const OCCASIONS = [
@@ -21,24 +23,33 @@ const OCCASIONS = [
   { value: 'other', label: 'Other' },
 ]
 
-export default function LeadModal({ onClose }: LeadModalProps) {
+export default function LeadModal({ onClose, defaultOccasion = '' }: LeadModalProps) {
   const router = useRouter()
   const { items, clearCart } = useCartStore()
 
+  const minQty = (id: string) => items.find((i) => i.id === id)?.moq || 1
   const [quantities, setQuantities] = useState<Record<string, number>>(
-    Object.fromEntries(items.map((i) => [i.id, i.quantity])),
+    Object.fromEntries(items.map((i) => [i.id, Math.max(i.quantity, i.moq || 1)])),
   )
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [occasion, setOccasion] = useState('')
+  const [occasion, setOccasion] = useState(defaultOccasion)
   const [customOccasionType, setCustomOccasionType] = useState('')
   const [customOccasionLocation, setCustomOccasionLocation] = useState('')
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState<{ refCode: string; total: number; confirmationEmailSent: boolean } | null>(null)
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
 
   const estimatedTotal = items.reduce(
     (sum, item) => sum + item.price * (quantities[item.id] || item.quantity),
@@ -115,8 +126,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
   if (success) {
     return (
       <div className="modal-overlay" onClick={onClose}>
-        <div className="lead-modal" onClick={(e) => e.stopPropagation()}>
-          <button className="modal-close" onClick={onClose}>×</button>
+        <div className="lead-modal" role="dialog" aria-modal="true" aria-label="Request a quote" onClick={(e) => e.stopPropagation()}>
+          <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
           <div className="lead-modal-success">
             <div className="success-icon">✓</div>
             <h2>Request Received!</h2>
@@ -152,8 +163,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="lead-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
+      <div className="lead-modal" role="dialog" aria-modal="true" aria-label="Request a quote" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
 
         <div className="lead-modal-header">
           <h2>Request a quote</h2>
@@ -172,7 +183,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                       type="button"
                       className="qty-btn-sm"
                       onClick={() =>
-                        setQuantities((q) => ({ ...q, [item.id]: Math.max(1, (q[item.id] || 1) - 1) }))
+                        setQuantities((q) => ({ ...q, [item.id]: Math.max(minQty(item.id), (q[item.id] || 1) - 1) }))
                       }
                     >
                       −
@@ -181,11 +192,13 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                       type="number"
                       className="chip-qty-input"
                       value={quantities[item.id] || item.quantity}
-                      min={1}
+                      min={minQty(item.id)}
+                      name={`qty-${item.id}`}
+                      aria-label={`Quantity for ${item.name}`}
                       onChange={(e) =>
                         setQuantities((q) => ({
                           ...q,
-                          [item.id]: Math.max(1, parseInt(e.target.value) || 1),
+                          [item.id]: Math.max(minQty(item.id), parseInt(e.target.value) || 1),
                         }))
                       }
                     />
@@ -206,7 +219,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
               ))}
             </div>
             <p className="lead-estimated-total">
-              Estimated Total: <strong>₹{estimatedTotal.toLocaleString('en-IN')}</strong>
+              Estimated Total: <strong>₹{estimatedTotal.toLocaleString('en-IN')}</strong> <span className="lead-estimated-note">ex GST</span>
             </p>
           </div>
 
@@ -214,7 +227,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="lm-f1" className="form-label">Name *</label>
-                <input id="lm-f1" autoComplete="name"
+                <input id="lm-f1" name="name" autoComplete="name"
                   type="text"
                   className="form-input"
                   value={name}
@@ -225,7 +238,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
               </div>
               <div className="form-group">
                 <label htmlFor="lm-f2" className="form-label">Company *</label>
-                <input id="lm-f2" autoComplete="organization"
+                <input id="lm-f2" name="company" autoComplete="organization"
                   type="text"
                   className="form-input"
                   value={company}
@@ -239,7 +252,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="lm-f3" className="form-label">Email *</label>
-                <input id="lm-f3" autoComplete="email"
+                <input id="lm-f3" name="email" autoComplete="email"
                   type="email"
                   className="form-input"
                   value={email}
@@ -250,7 +263,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
               </div>
               <div className="form-group">
                 <label htmlFor="lm-f4" className="form-label">Phone *</label>
-                <input id="lm-f4"
+                <input id="lm-f4" name="phone"
                   type="tel"
                   className="form-input"
                   value={phone}
@@ -264,7 +277,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
 
             <div className="form-group">
               <label htmlFor="lm-f5" className="form-label">Occasion</label>
-              <select id="lm-f5"
+              <select id="lm-f5" name="occasion"
                 className="form-select"
                 value={occasion}
                 onChange={(e) => setOccasion(e.target.value)}
@@ -282,7 +295,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="lm-f6" className="form-label">Custom occasion type *</label>
-                  <input id="lm-f6"
+                  <input id="lm-f6" name="occasion_type"
                     type="text"
                     className="form-input"
                     value={customOccasionType}
@@ -293,7 +306,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                 </div>
                 <div className="form-group">
                   <label htmlFor="lm-f7" className="form-label">Location *</label>
-                  <input id="lm-f7"
+                  <input id="lm-f7" name="location"
                     type="text"
                     className="form-input"
                     value={customOccasionLocation}
@@ -307,7 +320,7 @@ export default function LeadModal({ onClose }: LeadModalProps) {
 
             <div className="form-group">
               <label htmlFor="lm-f8" className="form-label">Additional Notes</label>
-              <textarea id="lm-f8"
+              <textarea id="lm-f8" name="notes"
                 className="form-textarea"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}

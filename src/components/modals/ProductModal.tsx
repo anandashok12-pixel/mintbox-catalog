@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
 
@@ -40,7 +40,16 @@ interface ProductModalProps {
 }
 
 export default function ProductModal({ product, onClose }: ProductModalProps) {
-  const [qty, setQty] = useState(1)
+  const minQty = product.moq || 1
+  const [qty, setQty] = useState(minQty)
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
   const addItem = useCartStore((s) => s.addItem)
 
   const cat = typeof product.category === 'object' ? product.category : null
@@ -78,6 +87,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
         emoji: product.emoji || undefined,
         imageUrl: imageUrlVal,
         categoryName: cat?.name || '',
+        moq: product.moq || undefined,
       })
       if (qty > 1) {
         updateQty(product.id, qty)
@@ -88,8 +98,8 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="product-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
+      <div className="product-modal" role="dialog" aria-modal="true" aria-label={product.name} onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
 
         <div className="product-modal-image-pane" style={{ position: 'relative' }}>
           {imageUrl ? (
@@ -121,7 +131,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
 
           <p className="product-modal-price">
             ₹{product.price.toLocaleString('en-IN')}
-            <span className="product-modal-unit"> per unit</span>
+            <span className="product-modal-unit"> per unit · ex GST</span>
           </p>
 
           {product.moq && (
@@ -147,7 +157,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             <div className="qty-selector">
               <button
                 className="qty-btn"
-                onClick={() => setQty(Math.max(1, qty - 1))}
+                onClick={() => setQty(Math.max(minQty, qty - 1))}
               >
                 −
               </button>
@@ -155,8 +165,10 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 type="number"
                 className="qty-input"
                 value={qty}
-                min={1}
-                onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
+                min={minQty}
+                name="quantity"
+                aria-label="Quantity"
+                onChange={(e) => setQty(Math.max(minQty, parseInt(e.target.value) || 1))}
               />
               <button className="qty-btn" onClick={() => setQty(qty + 1)}>
                 +

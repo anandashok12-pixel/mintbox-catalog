@@ -10,6 +10,8 @@ export interface CartItem {
   emoji?: string
   imageUrl?: string
   categoryName: string
+  /** Minimum order quantity; the quote form won't go below it. */
+  moq?: number
   quantity: number
 }
 

@@ -3,7 +3,18 @@ import { cache } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import DiwaliHubClient from '@/components/pages/DiwaliHubClient'
-import { DIWALI_HUB_FAQS, LAST_UPDATED } from '@/components/pages/diwaliHubData'
+import {
+  GSTIN,
+  LAST_UPDATED,
+  LAST_WORKING_DAY_LABEL,
+  MOQ,
+  ORDER_BY,
+  catalogueLabel,
+  diwaliStats,
+  formatRange,
+  getDiwaliHubFaqs,
+  moqFor,
+} from '@/components/pages/diwaliHubData'
 import type { DiwaliProduct } from '@/components/content/DiwaliHamperShowcase'
 import '../content-pages.css'
 
@@ -52,29 +63,20 @@ const getDiwaliProducts = cache(async () => {
   }
 })
 
-const typicalRange = (prices: number[], fbMin: number, fbMax: number): [number, number] => {
-  if (!prices.length) return [fbMin, fbMax]
-  const s = [...prices].sort((a, b) => a - b)
-  const at = (q: number) => s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]
-  // Trim the extremes (single low-value add-ons and one-off luxury boxes) so the headline range is representative.
-  const round = (n: number, step: number) => Math.round(n / step) * step
-  return [round(at(0.05), 10), round(at(0.95), 50)]
-}
-
-const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
-
 export async function generateMetadata(): Promise<Metadata> {
   const products = await getDiwaliProducts()
-  const prices = products.map(p => Number(p.price)).filter(n => Number.isFinite(n))
-  const count = products.length || 55
-  const [min, max] = typicalRange(prices, 434, 2170)
+  const stats = diwaliStats(products)
   const ogImage =
     products.find(p => String(p.id) === OG_PRODUCT_ID && p.image?.url)?.image?.url ||
     products.find(p => p.image?.url)?.image?.url ||
     FALLBACK_OG_IMAGE
 
   const title = 'Corporate Diwali Gifts 2026: Hampers & Gift Boxes | MintBox'
-  const description = `${count} corporate Diwali gift hampers for employees & clients, ${formatPrice(min)}–${formatPrice(max)} per unit. Logo branding, MOQ 10, GST invoice, pan-India delivery before Diwali (8 Nov 2026).`
+  // Falls back to evergreen copy if the catalogue query failed, rather than
+  // publishing "0 hampers" or a stale hard-coded range.
+  const description = stats.total
+    ? `${stats.hampers} corporate Diwali hampers & gift boxes, ${formatRange(stats.hamperMin, stats.hamperMax)} per unit ex GST, plus ${stats.singles} add-on gifts. Logo branding, MOQ ${MOQ}, GST invoice. Confirm by ${ORDER_BY.day} for pan-India delivery.`
+    : `Corporate Diwali gift hampers and boxes for employees and clients. Logo branding, MOQ ${MOQ}, GST invoice. Confirm by ${ORDER_BY.day} for pan-India delivery before Diwali.`
 
   return {
     title,
@@ -99,16 +101,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const FAQ_SCHEMA_ITEMS = DIWALI_HUB_FAQS.map(item => ({
-  '@type': 'Question',
-  name: item.q,
-  acceptedAnswer: { '@type': 'Answer', text: item.a },
-}))
-
 export default async function DiwaliCorporateGiftsPage() {
   const products = await getDiwaliProducts()
-  const prices = products.map(p => Number(p.price)).filter(n => Number.isFinite(n))
-  const [min, max] = typicalRange(prices, 434, 2170)
+  const stats = diwaliStats(products)
 
   // Rendered from the server component so the structured data is always in the
   // initial HTML and is never re-rendered (and discarded) during hydration.
@@ -125,7 +120,7 @@ export default async function DiwaliCorporateGiftsPage() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Corporate Diwali Gifts 2026: Hampers & Gift Boxes',
-    description: `Corporate Diwali gift hampers and boxes for employees and clients, from ${formatPrice(min)} to ${formatPrice(max)} per unit. Logo branding, MOQ 10, GST invoice, pan-India delivery before Diwali.`,
+    description: `${catalogueLabel(stats)} for corporate Diwali 2026, ${formatRange(stats.min, stats.max)} per unit ex GST. Logo branding, MOQ ${MOQ}, GST invoice, pan-India delivery by ${LAST_WORKING_DAY_LABEL}.`,
     url: PAGE_URL,
     dateModified: `${LAST_UPDATED}T00:00:00+05:30`,
     inLanguage: 'en-IN',
@@ -135,10 +130,11 @@ export default async function DiwaliCorporateGiftsPage() {
       name: 'MintBox',
       url: 'https://themintbox.in',
       areaServed: 'IN',
+      taxID: GSTIN,
     },
     mainEntity: {
       '@type': 'ItemList',
-      name: 'Corporate Diwali Gift Hampers 2026',
+      name: 'Corporate Diwali Gifts 2026',
       numberOfItems: products.length,
       itemListElement: products.map((p, i) => ({
         '@type': 'ListItem',
@@ -158,7 +154,7 @@ export default async function DiwaliCorporateGiftsPage() {
             availability: 'https://schema.org/InStock',
             url: `${PAGE_URL}#product-${p.id}`,
             seller: { '@type': 'Organization', name: 'MintBox' },
-            eligibleQuantity: { '@type': 'QuantitativeValue', minValue: p.moq ?? 10, unitText: 'units' },
+            eligibleQuantity: { '@type': 'QuantitativeValue', minValue: moqFor(p), unitText: 'units' },
             priceSpecification: {
               '@type': 'UnitPriceSpecification',
               price: p.price,
@@ -174,7 +170,11 @@ export default async function DiwaliCorporateGiftsPage() {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_SCHEMA_ITEMS,
+    mainEntity: getDiwaliHubFaqs(stats).map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
   }
 
   return (

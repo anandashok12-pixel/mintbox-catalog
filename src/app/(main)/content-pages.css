@@ -2643,3 +2643,73 @@
     display: none;
   }
 }
+
+/* ── Diwali hub: pack bar, hero crops, logo mockup, procurement (Oct 2026) ── */
+/* Room for the fixed pack bar (bottom 80px + ~60px bar) so it never covers
+   the footer or the last form field. */
+body.has-pack-bar { padding-bottom: 150px; }
+@media (max-width: 768px) { body.has-pack-bar { padding-bottom: 140px; } }
+
+.dh-pack-bar {
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  max-width: calc(100% - 32px);
+}
+.dh-pack-bar .cp-pack-bar-label,
+.dh-pack-bar .cp-pack-bar-sub { display: block; }
+.dh-pack-bar:focus-visible { outline: 2px solid var(--gold, #B8972E); outline-offset: 3px; }
+
+.dh-showcase-foot-actions { display: inline-flex; flex-wrap: wrap; gap: 8px; }
+.dh-showcase-foot-actions .dh-btn-view { text-decoration: none; }
+
+/* Hero crops are pre-cut to the box contents, so cover never clips text. */
+.dh-hero-grid .cp-hero-visual-card { aspect-ratio: 1 / 1; }
+.dh-hero-grid .cp-hero-visual-card:first-child { aspect-ratio: auto; }
+.dh-hero-grid .cp-hero-img-actual { min-height: 0; height: 100%; }
+
+.dh-logo-figure { margin: 0; }
+.dh-logo-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+.dh-logo-figure figcaption {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(26, 26, 24, 0.55);
+}
+
+.dh-proc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.dh-proc-card {
+  background: white;
+  border: 0.5px solid rgba(27, 77, 62, 0.15);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+.dh-proc-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--forest-green, #1B4D3E);
+  margin: 0 0 8px;
+}
+.dh-proc-card p,
+.dh-proc-card li {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(26, 26, 24, 0.75);
+  margin: 0;
+}
+.dh-proc-card ul { margin: 0; padding-left: 18px; }
+.dh-proc-card a { color: var(--forest-green, #1B4D3E); }
+@media (max-width: 1024px) { .dh-proc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .dh-proc-grid { grid-template-columns: 1fr; } }

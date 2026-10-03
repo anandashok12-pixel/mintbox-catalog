@@ -1569,3 +1569,9 @@ img {
   }
   .mobile-cat-chip-emoji { font-size: 14px; line-height: 1; }
 }
+
+.lead-estimated-note {
+  display: block;
+  font-size: 11px;
+  color: var(--text-mid);
+}

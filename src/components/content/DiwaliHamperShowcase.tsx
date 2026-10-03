@@ -1,10 +1,11 @@
 'use client'
 
-import { useMemo, useState, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
 import ProductModal from '@/components/modals/ProductModal'
 import LeadModal from '@/components/modals/LeadModal'
+import { MOQ, TIERS, moqFor, formatPrice, formatRange, formatTierRange, tierFor, type Tier, type TierKey } from '@/components/pages/diwaliHubData'
 
 export interface DiwaliCategory {
   id: string
@@ -27,55 +28,8 @@ export interface DiwaliProduct {
   category: DiwaliCategory | string
 }
 
-export type TierKey = 'team' | 'manager' | 'leader'
-
-export interface Tier {
-  key: TierKey
-  label: string
-  title: string
-  range: string
-  min: number
-  max: number
-  desc: string
-  bestFor: string
-}
-
-export const TIERS: Tier[] = [
-  {
-    key: 'team',
-    label: 'Under ₹800',
-    title: 'Team tier',
-    range: '₹434–₹799',
-    min: 0,
-    max: 799,
-    desc: 'Dry-fruit boxes, eco desk sets and tote combos for all-staff gifting. Generous, useful, no filler.',
-    bestFor: 'Every employee, interns, support staff',
-  },
-  {
-    key: 'manager',
-    label: '₹800–₹1,299',
-    title: 'Manager tier',
-    range: '₹800–₹1,299',
-    min: 800,
-    max: 1299,
-    desc: 'Bottle-and-mug hampers with dry fruits, lamps or chocolates, in printed rigid boxes.',
-    bestFor: 'Managers, top performers, long-standing vendors',
-  },
-  {
-    key: 'leader',
-    label: '₹1,300 & above',
-    title: 'Leadership & client tier',
-    range: '₹1,300–₹2,170',
-    min: 1300,
-    max: Number.POSITIVE_INFINITY,
-    desc: 'Pure copper sets, 7-in-1 tech hampers and executive combos for the relationships you cannot get wrong.',
-    bestFor: 'Clients, partners, senior leadership',
-  },
-]
-
-export function tierFor(price: number): Tier {
-  return TIERS.find(t => price >= t.min && price <= t.max) ?? TIERS[TIERS.length - 1]
-}
+export { TIERS, tierFor }
+export type { Tier, TierKey }
 
 const THEMES: Array<{ key: string; label: string; re: RegExp }> = [
   { key: 'dryfruits', label: 'Dry fruits & sweets', re: /dry fruit|almond|cashew|pistachio|raisin|kishmish|chocolate|ferrero|brittle|cookie|wafer|hershey|sweet/i },
@@ -86,8 +40,6 @@ const THEMES: Array<{ key: string; label: string; re: RegExp }> = [
 ]
 
 type SortKey = 'curated' | 'price-asc' | 'price-desc'
-
-const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
 // Never changes: used only to give useSyncExternalStore a stable subscription
 // so it can distinguish the server snapshot from the client one.
@@ -101,11 +53,33 @@ interface Props {
   products: DiwaliProduct[]
   tier: TierKey | 'all'
   onTierChange: (t: TierKey | 'all') => void
+  /** Pre-selected occasion in the quote popup, e.g. 'diwali'. */
+  defaultOccasion?: string
+  /** 'addons' shows one flat, budget-free group for single add-on gifts. */
+  variant?: 'tiers' | 'addons'
+  /** Only one showcase per page should own the fixed pack bar. */
+  showPackBar?: boolean
 }
 
-export default function DiwaliHamperShowcase({ products, tier, onTierChange }: Props) {
+interface Group {
+  key: string
+  title: string
+  desc: string
+  bestFor?: string
+  items: DiwaliProduct[]
+}
+
+export default function DiwaliHamperShowcase({
+  products,
+  tier,
+  onTierChange,
+  defaultOccasion,
+  variant = 'tiers',
+  showPackBar = true,
+}: Props) {
+  const isAddons = variant === 'addons'
   const [theme, setTheme] = useState<string | null>(null)
-  const [sort, setSort] = useState<SortKey>('curated')
+  const [sort, setSort] = useState<SortKey>('price-asc')
   const [selected, setSelected] = useState<DiwaliProduct | null>(null)
   const [showLead, setShowLead] = useState(false)
   const [justAdded, setJustAdded] = useState<string | null>(null)
@@ -116,29 +90,45 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false)
 
   const addItem = useCartStore(s => s.addItem)
+  const updateQty = useCartStore(s => s.updateQty)
   const items = useCartStore(s => s.items)
   const storedCount = useCartStore(s => s.count())
   const storedTotal = useCartStore(s => s.total())
   const count = mounted ? storedCount : 0
+  const lines = mounted ? items.length : 0
+
+  // The fixed pack bar would otherwise sit on top of the last lines of the
+  // page (footer links, form submit). Reserve room for it while it shows.
+  useEffect(() => {
+    if (lines === 0) return
+    document.body.classList.add('has-pack-bar')
+    return () => document.body.classList.remove('has-pack-bar')
+  }, [lines])
   const total = mounted ? storedTotal : 0
 
   const filtered = useMemo(() => {
-    const t = TIERS.find(x => x.key === tier)
+    const t = isAddons ? undefined : TIERS.find(x => x.key === tier)
     const th = THEMES.find(x => x.key === theme)
     const list = products.filter(p => {
-      if (t && (p.price < t.min || p.price > t.max)) return false
+      if (t && tierFor(p.price).key !== t.key) return false
       if (th && !th.re.test(haystack(p))) return false
       return true
     })
     if (sort === 'price-asc') return [...list].sort((a, b) => a.price - b.price)
     if (sort === 'price-desc') return [...list].sort((a, b) => b.price - a.price)
     return list
-  }, [products, tier, theme, sort])
+  }, [products, tier, theme, sort, isAddons])
 
-  const groups = useMemo(
-    () => TIERS.map(t => ({ tier: t, items: filtered.filter(p => tierFor(p.price).key === t.key) })).filter(g => g.items.length > 0),
-    [filtered],
-  )
+  const groups = useMemo<Group[]>(() => {
+    if (isAddons) {
+      return filtered.length
+        ? [{ key: 'addons', title: 'Add-on gifts', desc: 'Single gifts to pair with a hamper, top up a budget or give on their own.', items: filtered }]
+        : []
+    }
+    return TIERS.map(t => ({ key: t.key, title: t.title, desc: t.desc, bestFor: t.bestFor, items: filtered.filter(p => tierFor(p.price).key === t.key) })).filter(
+      g => g.items.length > 0,
+    )
+  }, [filtered, isAddons])
 
   const tierCounts = useMemo(() => {
     const m: Record<string, number> = { all: products.length }
@@ -146,8 +136,18 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
     return m
   }, [products])
 
+  // Items go into the pack at the minimum order quantity, and each further
+  // click adds another MOQ's worth, so the estimate is a real order value.
   const handleAdd = (p: DiwaliProduct) => {
     const cat = typeof p.category === 'object' ? p.category : null
+    const moq = moqFor(p)
+    const existing = items.find(i => i.id === p.id)
+    if (existing) {
+      updateQty(p.id, existing.quantity + moq)
+      setJustAdded(p.id)
+      window.setTimeout(() => setJustAdded(prev => (prev === p.id ? null : prev)), 1600)
+      return
+    }
     addItem({
       id: p.id,
       name: p.name,
@@ -155,7 +155,9 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
       emoji: p.emoji || undefined,
       imageUrl: p.image?.sizes?.card?.url || p.image?.url || undefined,
       categoryName: cat?.name || 'Diwali Gift Boxes',
+      moq,
     })
+    updateQty(p.id, moq)
     setJustAdded(p.id)
     window.setTimeout(() => setJustAdded(prev => (prev === p.id ? null : prev)), 1600)
   }
@@ -167,7 +169,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
       <div className="dh-showcase">
         {/* Toolbar */}
         <div className="dh-toolbar" role="group" aria-label="Filter Diwali hampers">
-          <div className="dh-toolbar-row">
+          {!isAddons && <div className="dh-toolbar-row">
             <span className="dh-toolbar-label">Budget per unit</span>
             <div className="dh-segmented" role="tablist" aria-label="Budget tier">
               <button role="tab" aria-selected={tier === 'all'} className={`dh-seg${tier === 'all' ? ' active' : ''}`} onClick={() => onTierChange('all')}>
@@ -179,7 +181,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
                 </button>
               ))}
             </div>
-          </div>
+          </div>}
           <div className="dh-toolbar-row">
             <span className="dh-toolbar-label">Theme</span>
             <div className="dh-chips">
@@ -197,31 +199,36 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
             <label className="dh-sort">
               <span className="dh-toolbar-label">Sort</span>
               <select value={sort} onChange={e => setSort(e.target.value as SortKey)} aria-label="Sort hampers">
-                <option value="curated">Curated order</option>
                 <option value="price-asc">Price: low to high</option>
                 <option value="price-desc">Price: high to low</option>
+                <option value="curated">Curated order</option>
               </select>
             </label>
           </div>
           <div className="dh-toolbar-meta" aria-live="polite">
-            Showing <strong>{filtered.length}</strong> of {products.length} hampers · prices per unit, exclusive of GST · MOQ 10 units
+            Showing <strong>{filtered.length}</strong> of {products.length} {isAddons ? 'add-on gifts' : 'hampers & boxes'} · prices per unit, exclusive of GST · MOQ {MOQ} units
           </div>
         </div>
 
         {/* Groups */}
         {groups.length === 0 ? (
           <div className="cp-showcase-empty">
-            No hampers match these filters.{' '}
+            No gifts match these filters.{' '}
             <button className="dh-link-btn" onClick={() => { onTierChange('all'); setTheme(null) }}>Reset filters</button>
           </div>
         ) : (
           groups.map(g => (
-            <section key={g.tier.key} id={`tier-${g.tier.key}`} className="dh-group" aria-labelledby={`tier-${g.tier.key}-title`}>
+            <section key={g.key} id={`tier-${g.key}`} className="dh-group" aria-labelledby={`tier-${g.key}-title`}>
               <div className="dh-group-head">
-                <h3 id={`tier-${g.tier.key}-title`} className="dh-group-title">
-                  {g.tier.title} <span className="dh-group-range">{g.tier.range}</span>
+                <h3 id={`tier-${g.key}-title`} className="dh-group-title">
+                  {g.title}{' '}
+                  <span className="dh-group-range">
+                    {(isAddons ? formatRange : formatTierRange)(Math.min(...g.items.map(p => p.price)), Math.max(...g.items.map(p => p.price)))}
+                  </span>
                 </h3>
-                <p className="dh-group-desc">{g.tier.desc} <span className="dh-group-best">Best for: {g.tier.bestFor}.</span></p>
+                <p className="dh-group-desc">
+                  {g.desc} {g.bestFor && <span className="dh-group-best">Best for: {g.bestFor}.</span>}
+                </p>
               </div>
               <div className="dh-grid">
                 {g.items.map(p => {
@@ -246,7 +253,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
                         {p.customisable && <span className="cp-product-badge">Logo branding</span>}
                       </button>
                       <div className="dh-card-body">
-                        <div className="dh-card-tier">{g.tier.title}</div>
+                        <div className="dh-card-tier">{isAddons ? 'Add-on' : g.title}</div>
                         <h4 className="dh-card-name">{p.name}</h4>
                         <div className="dh-card-price">
                           {formatPrice(p.price)} <span>per unit · ex GST</span>
@@ -265,7 +272,11 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
                             className={`dh-btn-add${justAdded === p.id ? ' added' : ''}`}
                             onClick={() => handleAdd(p)}
                           >
-                            {justAdded === p.id ? '✓ Added to pack' : qty > 0 ? `+ Add another · ${qty} in pack` : '+ Add to pack'}
+                            {justAdded === p.id
+                              ? `✓ ${qty} units in pack`
+                              : qty > 0
+                                ? `+ ${moqFor(p)} more · ${qty} in pack`
+                                : `+ Add ${moqFor(p)} to pack`}
                           </button>
                           <button type="button" className="dh-btn-view" onClick={() => setSelected(p)}>Details</button>
                         </div>
@@ -279,28 +290,35 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
         )}
 
         <div className="dh-showcase-foot">
-          <span>Add hampers to your pack, then request one quote for everything. Mixed tiers in one order are fine.</span>
-          {count > 0 && (
-            <button className="dh-btn-quote" onClick={() => setShowLead(true)}>
-              Request quote ({count} item{count !== 1 ? 's' : ''})
-            </button>
+          <span>Add gifts to your pack, then request one quote for everything. Mixed tiers in one order are fine.</span>
+          {lines > 0 && (
+            <span className="dh-showcase-foot-actions">
+              <a className="dh-btn-view" href="/diwali-corporate-gifts/shortlist">
+                Download shortlist (PDF)
+              </a>
+              <button className="dh-btn-quote" onClick={() => setShowLead(true)}>
+                Request quote ({lines} item{lines !== 1 ? 's' : ''})
+              </button>
+            </span>
           )}
         </div>
       </div>
 
-      {count > 0 && (
-        <div className="cp-pack-bar" onClick={() => setShowLead(true)} role="button" tabIndex={0} onKeyDown={e => e.key === 'Enter' && setShowLead(true)}>
-          <div className="cp-pack-bar-icon" aria-hidden="true">🛍</div>
-          <div className="cp-pack-bar-text">
-            <div className="cp-pack-bar-label">{count} item{count !== 1 ? 's' : ''} in your pack</div>
-            <div className="cp-pack-bar-sub">Est. {formatPrice(total)} · MOQ applies</div>
-          </div>
+      {showPackBar && lines > 0 && (
+        <button type="button" className="cp-pack-bar dh-pack-bar" onClick={() => setShowLead(true)}>
+          <span className="cp-pack-bar-icon" aria-hidden="true">🛍</span>
+          <span className="cp-pack-bar-text">
+            <span className="cp-pack-bar-label">
+              {lines} item{lines !== 1 ? 's' : ''} · {count} units in your pack
+            </span>
+            <span className="cp-pack-bar-sub">Est. {formatPrice(total)} ex GST</span>
+          </span>
           <span className="cp-pack-bar-cta">Request a quote →</span>
-        </div>
+        </button>
       )}
 
-      {selected && <ProductModal product={selected} onClose={() => setSelected(null)} />}
-      {showLead && <LeadModal onClose={() => setShowLead(false)} />}
+      {selected && <ProductModal product={{ ...selected, moq: moqFor(selected) }} onClose={() => setSelected(null)} />}
+      {showLead && <LeadModal onClose={() => setShowLead(false)} defaultOccasion={defaultOccasion} />}
     </>
   )
 }
