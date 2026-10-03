@@ -146,6 +146,9 @@ export async function POST(req: NextRequest) {
         // A LID ("123@lid") is WhatsApp's private chat id, not a phone number;
         // the worker resolves these, so one arriving here is skipped rather
         // than saved as a fake number.
+        if (!/@(s\.whatsapp\.net|c\.us|lid)$/.test(event.jid)) {
+          return NextResponse.json({ success: true, skipped: 'not_a_personal_chat' })
+        }
         if (event.jid.endsWith('@lid')) {
           payload.logger.warn(`WhatsApp message ${event.providerId} arrived with an unresolved LID: ${event.jid}`)
           return NextResponse.json({ success: true, skipped: 'unresolved_lid' })

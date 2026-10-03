@@ -164,6 +164,9 @@ async function connect(): Promise<void> {
         }
         jid = mapped
       }
+      // Only 1:1 chats with a real number: channels/newsletters ("@newsletter"),
+      // communities and anything else non-personal are out of scope.
+      if (!jid.endsWith('@s.whatsapp.net')) continue
 
       if (!msg.message) continue // protocol messages, reactions-only, etc. - nothing to extract
 
