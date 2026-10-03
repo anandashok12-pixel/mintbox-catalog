@@ -139,7 +139,6 @@ async function ingestOne(
 
   // Who is the customer? For inbound it's the sender; for outbound the first external recipient.
   let counterpartyEmail: string
-  let counterpartyName = ''
   if (outbound) {
     const external = everyone.find((e) => !internal.has(e))
     if (!external) return 'skipped' // purely internal mail
@@ -147,11 +146,14 @@ async function ingestOne(
   } else {
     if (email.isBulk || AUTOMATED_SENDER.test(email.from.email)) return 'skipped'
     counterpartyEmail = email.from.email
-    counterpartyName = email.from.name
   }
 
-  const contactId = await resolveContact(payload, counterpartyEmail, counterpartyName, email.sentAt, outbound)
-  const dealId = await resolveDeal(payload, contactId, email.threadId, outbound, email.subject)
+  // Email only files mail for people already in the CRM; it never creates
+  // contacts or deals. Unknown senders (cold pitches, vendors, newsletters
+  // that slip the filters) stay in Gmail.
+  const contactId = await findContact(payload, counterpartyEmail, email.sentAt)
+  if (contactId == null) return 'skipped'
+  const dealId = await findDeal(payload, contactId, email.threadId)
 
   await payload.create({
     collection: 'messages',
@@ -175,13 +177,7 @@ async function ingestOne(
   return 'synced'
 }
 
-async function resolveContact(
-  payload: Payload,
-  email: string,
-  name: string,
-  sentAt: string,
-  outbound: boolean,
-): Promise<string | number> {
+async function findContact(payload: Payload, email: string, sentAt: string): Promise<string | number | null> {
   // Payload's `like` is a substring, case-insensitive match; narrow to exact in JS.
   const found = await payload.find({
     collection: 'contacts',
@@ -190,29 +186,12 @@ async function resolveContact(
     depth: 0,
   })
   const exact = found.docs.find((c) => c.email?.toLowerCase() === email)
-  if (exact) {
-    await payload.update({ collection: 'contacts', id: exact.id, data: { lastActivityAt: sentAt } })
-    return exact.id
-  }
-  const created = await payload.create({
-    collection: 'contacts',
-    data: {
-      name: name || email.split('@')[0],
-      email,
-      nameSource: outbound ? 'manual' : 'form',
-      lastActivityAt: sentAt,
-    },
-  })
-  return created.id
+  if (!exact) return null
+  await payload.update({ collection: 'contacts', id: exact.id, data: { lastActivityAt: sentAt } })
+  return exact.id
 }
 
-async function resolveDeal(
-  payload: Payload,
-  contactId: string | number,
-  threadId: string,
-  outbound: boolean,
-  subject: string,
-): Promise<string | number | undefined> {
+async function findDeal(payload: Payload, contactId: string | number, threadId: string): Promise<string | number | undefined> {
   // A reply in a thread we've already filed stays on that deal.
   const sameThread = await payload.find({
     collection: 'messages',
@@ -231,24 +210,5 @@ async function resolveDeal(
     limit: 1,
     depth: 0,
   })
-  if (open.docs[0]) return open.docs[0].id
-
-  // Mirror the WhatsApp rule: only a first inbound message opens a deal.
-  if (outbound) return undefined
-  const contact = await payload.findByID({ collection: 'contacts', id: contactId, depth: 0 })
-  const deal = await payload.create({
-    collection: 'deals',
-    data: {
-      title: `${contact.company || contact.name} - ${subject.slice(0, 80)}`,
-      contact: contactId,
-      stage: 'new',
-      source: 'email',
-      awaitingWhom: 'us',
-    },
-  })
-  await payload.create({
-    collection: 'activities',
-    data: { contact: contactId, deal: deal.id, type: 'deal_opened', summary: 'Deal opened from a first inbound email' },
-  })
-  return deal.id
+  return open.docs[0]?.id
 }
