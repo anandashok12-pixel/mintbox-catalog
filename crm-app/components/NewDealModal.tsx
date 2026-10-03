@@ -21,7 +21,7 @@ export function NewDealModal({ token, onClose, onCreated }: NewDealModalProps) {
   const [email, setEmail] = useState('')
   const [occasion, setOccasion] = useState('')
   const [quantity, setQuantity] = useState('')
-  const [estimatedValue, setEstimatedValue] = useState('')
+  const [unitValue, setUnitValue] = useState('')
   const [leadSource, setLeadSource] = useState('')
   const [contactChannel, setContactChannel] = useState('')
   const [attribution, setAttribution] = useState('')
@@ -61,7 +61,9 @@ export function NewDealModal({ token, onClose, onCreated }: NewDealModalProps) {
         stage: 'new',
         occasion: occasion || undefined,
         quantity: quantity ? Number(quantity) : undefined,
-        estimatedValue: estimatedValue ? Number(estimatedValue) : undefined,
+        unitBudgetMin: unitValue ? Number(unitValue) : undefined,
+        unitBudgetMax: unitValue ? Number(unitValue) : undefined,
+        estimatedValue: quantity && unitValue ? Number(quantity) * Number(unitValue) : undefined,
         leadSource: (leadSource || undefined) as Deal['leadSource'],
         contactChannel: (contactChannel || undefined) as Deal['contactChannel'],
         attribution: attribution.trim() || undefined,
@@ -134,9 +136,12 @@ export function NewDealModal({ token, onClose, onCreated }: NewDealModalProps) {
               </label>
             </div>
             <label>
-              <span>Estimated value (₹)</span>
-              <input type="number" min={0} value={estimatedValue} onChange={(event) => setEstimatedValue(event.target.value)} placeholder="Optional" />
+              <span>Value per hamper (₹)</span>
+              <input type="number" min={0} value={unitValue} onChange={(event) => setUnitValue(event.target.value)} placeholder="Optional" />
             </label>
+            {quantity && unitValue && (
+              <p className="field-hint">Total estimated: {Number(quantity).toLocaleString('en-IN')} × ₹{Number(unitValue).toLocaleString('en-IN')} = ₹{(Number(quantity) * Number(unitValue)).toLocaleString('en-IN')}</p>
+            )}
           </section>
 
           <section className="form-section">

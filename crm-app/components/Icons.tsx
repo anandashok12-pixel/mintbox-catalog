@@ -11,6 +11,7 @@ export const BoardIcon = (props: IconProps) => <IconBase {...props}><rect x="3" 
 export const RefreshIcon = (props: IconProps) => <IconBase {...props}><path d="M20 6v5h-5"/><path d="M18.5 15a7 7 0 1 1-.8-7.8L20 11"/></IconBase>
 export const LogOutIcon = (props: IconProps) => <IconBase {...props}><path d="M10 17l5-5-5-5M15 12H3"/><path d="M14 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></IconBase>
 export const ArrowIcon = (props: IconProps) => <IconBase {...props}><path d="M5 12h14M14 7l5 5-5 5"/></IconBase>
+export const PhoneIcon = (props: IconProps) => <IconBase {...props}><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></IconBase>
 export const BackIcon = (props: IconProps) => <IconBase {...props}><path d="M15 18l-6-6 6-6"/></IconBase>
 export const CloseIcon = (props: IconProps) => <IconBase {...props}><path d="M6 6l12 12M18 6L6 18"/></IconBase>
 export const WhatsAppIcon = (props: IconProps) => <IconBase {...props}><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.7A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="M8.2 7.8c.3-.6.6-.6.9-.6h.4c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.7c-.2.2-.2.4-.1.6.5 1 1.3 1.8 2.3 2.3.2.1.4.1.6-.1l.8-1c.2-.2.4-.3.7-.2l1.8.8c.3.1.4.3.4.5 0 .3-.1 1.3-.8 1.8-.6.5-1.4.8-2.3.5-1-.3-2.3-.8-3.9-2.2-1.3-1.2-2.2-2.6-2.5-3.6-.3-1 0-1.8.4-2.2Z"/></IconBase>

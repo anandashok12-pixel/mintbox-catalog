@@ -3,9 +3,10 @@
 import { KeyboardEvent, useState } from 'react'
 import type { Contact, Deal, DealTask, Message, Stage } from '@/lib/types'
 import { payloadAdminDealUrl } from '@/lib/payload'
-import { CONTACT_CHANNELS, LEAD_SOURCES, STAGES } from '@/lib/constants'
-import { CheckIcon, CloseIcon, ExternalIcon, MailIcon, PlusIcon, WhatsAppIcon } from './Icons'
+import { CONTACT_CHANNELS, LEAD_SOURCES, OCCASIONS, STAGES } from '@/lib/constants'
+import { CheckIcon, CloseIcon, ExternalIcon, MailIcon, PhoneIcon, PlusIcon, WhatsAppIcon } from './Icons'
 import { involves, openLabel, type EmailFocus } from './EmailView'
+import { DueBadge, DuePicker, dueBucket, fromDateKey, inDays } from './DueDate'
 
 function contactFor(deal: Deal) {
   return typeof deal.contact === 'object' ? deal.contact : null
@@ -112,6 +113,7 @@ interface DealDrawerProps {
 export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchContact }: DealDrawerProps) {
   const [remarks, setRemarks] = useState(deal?.remarks || '')
   const [newTask, setNewTask] = useState('')
+  const [newTaskDue, setNewTaskDue] = useState(inDays(1))
   const [openThread, setOpenThread] = useState<string | null>(null)
 
   if (!deal) return null
@@ -153,10 +155,25 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
 
   function addTask() {
     const label = newTask.trim()
-    if (!label) return
-    void onPatch({ tasks: [...tasks, { label, done: false }] })
+    const dueDate = fromDateKey(newTaskDue)
+    if (!label || !dueDate) return
+    void onPatch({ tasks: [...tasks, { label, done: false, dueDate }] })
     setNewTask('')
+    setNewTaskDue(inDays(1))
   }
+
+  function setTaskDue(index: number, dueDate: string) {
+    void onPatch({ tasks: tasks.map((task, i) => i === index ? { ...task, dueDate } : task) })
+  }
+
+  const firstName = contact?.name?.split(' ')[0] || 'them'
+  const quickTasks = [`Follow up with ${firstName}`, 'Send quote', `Call ${firstName}`, 'Send samples']
+  // Open to-dos soonest first; done ones sink to the bottom.
+  const orderedTasks = tasks
+    .map((task, index) => ({ task, index }))
+    .sort((a, b) => Number(!!a.task.done) - Number(!!b.task.done) ||
+      (a.task.dueDate ? new Date(a.task.dueDate).getTime() : Infinity) - (b.task.dueDate ? new Date(b.task.dueDate).getTime() : Infinity))
+  const overdueTasks = tasks.filter((task) => !task.done && dueBucket(task.dueDate) === 'overdue').length
 
   function addTaskOnEnter(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
@@ -187,6 +204,7 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
 
         <div className="drawer-actions">
           {phone && <a className="action-button action-button-strong" href={`https://wa.me/${phone.replace('+', '')}`} target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp</a>}
+          {phone && <a className="action-button action-button-call" href={`tel:${phone}`}><PhoneIcon /> Call</a>}
           <a className="action-button" href={payloadAdminDealUrl(deal.id)} target="_blank" rel="noreferrer"><ExternalIcon /> Full record</a>
         </div>
 
@@ -205,7 +223,9 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
           <div className="edit-grid">
             <TextField wide label="Deal title" value={deal.title} onSave={(title) => title && save({ title })} />
             <SelectField label="Stage" value={deal.stage} options={STAGES} onSave={(stage) => stage && save({ stage: stage as Stage, stageSetManually: true })} />
+            <SelectField label="Occasion" value={deal.occasion || ''} options={OCCASIONS} onSave={(v) => save({ occasion: v || null })} />
             <TextField label="Deadline" type="date" value={deal.deadlineDate ? deal.deadlineDate.slice(0, 10) : ''} onSave={(d) => save({ deadlineDate: d ? new Date(d).toISOString() : null })} />
+            <SelectField label="Waiting on" value={deal.awaitingWhom || ''} options={AWAITING} onSave={(v) => save({ awaitingWhom: (v || null) as Deal['awaitingWhom'] })} />
             <NumberField label="Quantity" value={quantity} onSave={saveQuantity} />
             <NumberField label="Value per hamper" prefix="₹" value={perHamper} onSave={savePerHamper} />
             <NumberField label="Total estimated" prefix="₹" value={deal.estimatedValue} onSave={(estimatedValue) => save({ estimatedValue })} />
@@ -214,7 +234,6 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
                 ? `${quantity.toLocaleString('en-IN')} × ₹${perHamper.toLocaleString('en-IN')} = ₹${(quantity * perHamper).toLocaleString('en-IN')}`
                 : 'Enter quantity and value per hamper to calculate the total.'}
             </div>
-            <SelectField label="Waiting on" value={deal.awaitingWhom || ''} options={AWAITING} onSave={(v) => save({ awaitingWhom: (v || null) as Deal['awaitingWhom'] })} />
             <SelectField label="Lead source" value={deal.leadSource || ''} options={LEAD_SOURCES} onSave={(v) => save({ leadSource: (v || null) as Deal['leadSource'] })} />
             <SelectField label="Contacted via" value={deal.contactChannel || ''} options={CONTACT_CHANNELS} onSave={(v) => save({ contactChannel: (v || null) as Deal['contactChannel'] })} />
             <TextField wide label="Next move" value={deal.nextAction || ''} onSave={(nextAction) => save({ nextAction })} placeholder="Nothing concrete is scheduled" />
@@ -269,22 +288,28 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
         </section>
 
         <section className="drawer-section tasks-section">
-          <span className="eyebrow">To-dos</span>
+          <span className="eyebrow">To-dos{overdueTasks ? <em className="eyebrow-alert"> · {overdueTasks} overdue</em> : null}</span>
           <ul className="task-list">
-            {tasks.map((task, index) => (
+            {orderedTasks.map(({ task, index }) => (
               <li key={task.id ?? index} className={task.done ? 'task-done' : ''}>
                 <button type="button" className="task-check" onClick={() => toggleTask(index)} aria-pressed={!!task.done} aria-label={task.done ? 'Mark not done' : 'Mark done'}>
                   {task.done && <CheckIcon />}
                 </button>
                 <span>{task.label}</span>
-                {task.dueDate && <time>{formatDate(task.dueDate)}</time>}
+                <DueBadge dueDate={task.dueDate} done={task.done} onChange={task.done ? undefined : (iso) => setTaskDue(index, iso)} />
               </li>
             ))}
-            {tasks.length === 0 && <li className="task-empty">No to-dos yet.</li>}
+            {tasks.length === 0 && <li className="task-empty">No to-dos yet. Add the next follow-up below.</li>}
           </ul>
-          <div className="task-add">
-            <input value={newTask} onChange={(event) => setNewTask(event.target.value)} onKeyDown={addTaskOnEnter} placeholder='e.g. "Send proposal"' />
-            <button type="button" className="icon-button" onClick={addTask} aria-label="Add to-do"><PlusIcon /></button>
+          <div className="task-compose">
+            <div className="task-quick">
+              {quickTasks.map((label) => <button key={label} type="button" onClick={() => setNewTask(label)}>{label}</button>)}
+            </div>
+            <div className="task-add">
+              <input value={newTask} onChange={(event) => setNewTask(event.target.value)} onKeyDown={addTaskOnEnter} placeholder='e.g. "Send proposal"' />
+              <button type="button" className="icon-button" onClick={addTask} disabled={!newTask.trim()} aria-label="Add to-do"><PlusIcon /></button>
+            </div>
+            <DuePicker value={newTaskDue} onChange={setNewTaskDue} />
           </div>
         </section>
 

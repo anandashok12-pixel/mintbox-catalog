@@ -269,6 +269,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .tag-list span { padding: 5px 7px; border: 1px solid var(--border); border-radius: 4px; background: #f7f8fa; color: #565c68; font-size: 9px; }
 .blockers-section ul { margin: 9px 0 0; padding-left: 16px; color: #9c3939; font-size: 11px; line-height: 1.6; }
 
+/* Due dates */
+.due-picker { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+.due-picker button { height: 28px; padding: 0 10px; border: 1px solid var(--border); border-radius: 14px; background: white; color: #4f5561; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; }
+.due-picker button.active { border-color: #aebce0; background: var(--blue-soft); color: #2455b4; }
+.due-picker input[type="date"] { height: 28px; padding: 0 8px; border: 1px solid var(--border); border-radius: 14px; background: white; color: var(--text); font: inherit; font-size: 11px; }
+.due-badge { position: relative; flex: none; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 650; white-space: nowrap; cursor: pointer; background: #eef2fd; color: #2455b4; }
+.due-badge input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.due-badge::-webkit-calendar-picker-indicator { display: none; }
+.due-overdue { background: #fdeceb; color: #b23b3b; }
+.due-today { background: #fdf2e3; color: #a3600f; }
+.due-no_date { background: #f1f2f4; color: var(--muted); }
+.due-done { background: transparent; color: var(--faint); cursor: default; }
+.task-compose { margin-top: 10px; display: grid; gap: 8px; }
+.task-compose .task-add { margin-top: 0; }
+.task-quick { display: flex; flex-wrap: wrap; gap: 5px; }
+.task-quick button { height: 26px; padding: 0 9px; border: 1px dashed var(--border-strong); border-radius: 13px; background: transparent; color: #4f5561; font: inherit; font-size: 10px; cursor: pointer; }
+.task-quick button:hover { border-style: solid; background: #f7f8fa; }
+.eyebrow-alert { color: #b23b3b; font-style: normal; }
+.todo-copy { display: grid; gap: 2px; min-width: 0; }
+.todo-deal { justify-self: start; padding: 0; border: 0; background: none; color: #2455b4; font: inherit; font-size: 10px; cursor: pointer; text-align: left; }
+.todo-deal:hover { text-decoration: underline; }
+
+/* Call button beside WhatsApp in the deal drawer */
+.action-button-call { border-color: #b9c8ee; background: var(--blue-soft); color: #2455b4; }
+
 /* Deal drawer email threads */
 .email-thread-toggle { width: 100%; padding: 0; border: 0; background: none; display: grid; gap: 2px; text-align: left; font: inherit; color: inherit; cursor: pointer; }
 .email-thread { margin: 8px 0 2px; padding: 0; list-style: none; display: grid; gap: 6px; }
@@ -310,7 +335,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* Standalone to-dos */
 .todo-view { max-width: 860px; margin: 0 auto; }
-.todo-add { margin-bottom: 14px; padding: 10px; border: 1px solid var(--border); border-radius: 7px; display: flex; gap: 8px; background: white; }
+.todo-add { margin-bottom: 14px; padding: 10px; border: 1px solid var(--border); border-radius: 7px; display: grid; gap: 8px; background: white; }
+.todo-add .task-add { margin-top: 0; }
+.todo-add > small { color: var(--faint); font-size: 10px; }
 .todo-add input[type="text"], .todo-add input:not([type]) { flex: 1; height: 36px; padding: 0 10px; border: 1px solid var(--border); border-radius: 5px; background: white; color: var(--text); font-size: 12px; }
 .todo-add input[type="date"] { width: 148px; height: 36px; padding: 0 8px; border: 1px solid var(--border); border-radius: 5px; background: white; color: var(--muted); font-size: 11px; }
 .todo-add input:focus { border-color: var(--blue); outline: 2px solid rgba(47, 111, 237, .13); }
@@ -480,17 +507,37 @@ button.mailbox-chip:disabled { cursor: wait; opacity: .7; }
   /* Header: title + actions, search on its own row. */
   .app-header { height: auto; min-height: 56px; padding: calc(8px + env(safe-area-inset-top)) 12px 8px; grid-template-columns: 1fr auto; row-gap: 8px; }
   .header-actions { gap: 6px; }
-  .global-search { display: flex; grid-column: 1 / -1; height: 40px; }
+  .header-title { grid-column: 1; grid-row: 1; }
+  .header-actions { grid-column: 2; grid-row: 1; }
+  .global-search { display: flex; grid-column: 1 / -1; grid-row: 2; height: 40px; }
+  /* Board: one column per swipe, snapping into place. */
+  .board-scroll { scroll-snap-type: x mandatory; scroll-padding-inline: 10px; }
+  .board-column { width: calc(100vw - 48px); min-width: calc(100vw - 48px); scroll-snap-align: start; }
   .app-main { min-height: auto; }
 
   /* 16px inputs stop iOS from zooming the page on focus. */
   input, select, textarea, .global-search input, .edit-field input, .edit-field select, .compose-card input, .compose-card select, .compose-card textarea, .task-add input, .remarks-input { font-size: 16px; }
   .edit-field input, .edit-field select { height: 40px; }
+  .due-picker button, .due-picker input[type="date"] { height: 36px; font-size: 13px; }
+  .task-quick button { height: 32px; font-size: 12px; }
+  .due-badge { padding: 5px 10px; font-size: 12px; }
+  .task-remove { opacity: 1; }
+  .task-check { width: 26px; height: 26px; border-radius: 6px; }
+  .task-check svg { width: 16px; }
+  .task-list li { min-height: 44px; }
+  .email-thread-toggle { min-height: 40px; align-content: center; }
+  .task-remove { width: 36px; height: 36px; }
+  .queue-actions button, .queue-actions a { min-height: 38px; padding-inline: 12px; font-size: 12px; }
+  .mailbox-filter button { height: 34px; padding: 0 12px; font-size: 12px; border-radius: 17px; }
+  .view-toolbar select { min-height: 38px; }
+  .todo-deal { padding: 6px 0; font-size: 12px; }
 
   /* Deal drawer and composer take the whole screen. */
   .drawer-layer { justify-content: stretch; }
-  .deal-drawer { width: 100vw; padding: calc(16px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom)); box-shadow: none; }
+  .deal-drawer { position: fixed; inset: 0; width: 100%; max-width: none; padding: calc(16px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom)); box-shadow: none; }
   .drawer-header .icon-button { width: 40px; height: 40px; }
+  .drawer-actions { flex-wrap: wrap; }
+  .drawer-actions .action-button { min-height: 44px; padding: 0 14px; font-size: 13px; flex: 1; justify-content: center; }
   .compose-layer { place-items: stretch; }
   .compose-card { width: 100vw; max-height: none; height: 100dvh; border-radius: 0; padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); align-content: start; }
   .compose-actions { flex-wrap: wrap; }

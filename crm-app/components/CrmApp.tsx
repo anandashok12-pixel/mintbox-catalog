@@ -8,6 +8,7 @@ import { LoginScreen } from './LoginScreen'
 import { QueueView } from './QueueView'
 import { BoardView } from './BoardView'
 import { DealDrawer } from './DealDrawer'
+import { dueBucket } from './DueDate'
 import { WhatsappView } from './WhatsappView'
 import { EmailView, type EmailFocus } from './EmailView'
 import { NewDealModal } from './NewDealModal'
@@ -31,9 +32,8 @@ const tokenStore = {
   },
 }
 
-function isTaskOverdue(task: Task) {
-  if (task.done || !task.dueDate) return false
-  return new Date(task.dueDate).getTime() < Date.now()
+function isTaskOverdue(task: { done?: boolean | null; dueDate?: string | null }) {
+  return !task.done && dueBucket(task.dueDate) === 'overdue'
 }
 
 export function CrmApp() {
@@ -255,6 +255,18 @@ export function CrmApp() {
     }
   }
 
+  async function rescheduleTask(task: Task, dueDate: string) {
+    if (!token) return
+    setTasks((current) => current.map((item) => item.id === task.id ? { ...item, dueDate } : item))
+    try {
+      const updated = await updateTask(token, task.id, { dueDate })
+      setTasks((current) => current.map((item) => item.id === task.id ? updated : item))
+    } catch (cause) {
+      await loadTasks(token).catch(() => undefined)
+      setError(cause instanceof Error ? cause.message : 'Could not change the date')
+    }
+  }
+
   async function removeTask(task: Task) {
     if (!token) return
     setTasks((current) => current.filter((item) => item.id !== task.id))
@@ -280,7 +292,7 @@ export function CrmApp() {
   if (!token || !user) return <LoginScreen onLogin={handleLogin} />
 
   const selectedDeal = selectedDealId == null ? null : deals.find((deal) => deal.id === selectedDealId) || null
-  const overdueTaskCount = tasks.filter(isTaskOverdue).length
+  const overdueTaskCount = tasks.filter(isTaskOverdue).length + deals.reduce((n, deal) => n + (deal.tasks || []).filter(isTaskOverdue).length, 0)
 
   const viewMeta = {
     board: { title: 'Deals', subtitle: `${filteredDeals.length} records` },
@@ -288,7 +300,7 @@ export function CrmApp() {
     email: { title: 'Email', subtitle: `${emails.length} synced messages` },
     whatsapp: { title: 'WhatsApp mirror', subtitle: `${messages.length} captured messages` },
     analytics: { title: 'Analytics', subtitle: 'Pipeline and activity' },
-    tasks: { title: 'To-dos', subtitle: `${tasks.filter((task) => !task.done).length} pending` },
+    tasks: { title: 'To-dos', subtitle: `${tasks.filter((task) => !task.done).length + deals.reduce((n, deal) => n + (deal.tasks || []).filter((task) => !task.done).length, 0)} pending` },
   }[view]
 
   return (
@@ -334,7 +346,7 @@ export function CrmApp() {
           {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} />}
           {view === 'email' && <EmailView key={emailFocus?.nonce ?? 0} token={token} messages={emails} sync={gmailSync} loading={emailLoading} error={emailError} focus={emailFocus?.focus ?? null} onRefresh={() => loadEmail(token)} onSent={(message) => { void loadEmail(token); setEmails((current) => [message, ...current]) }} />}
           {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
-          {view === 'tasks' && <TaskView tasks={tasks} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} />}
+          {view === 'tasks' && <TaskView tasks={tasks} deals={deals} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} onDue={rescheduleTask} onPatchDealTasks={(deal, next) => patchDeal(deal, { tasks: next }).catch(() => undefined)} onOpenDeal={(deal) => setSelectedDealId(deal.id)} />}
         </main>
       </div>
       <DealDrawer key={selectedDeal?.id ?? 'none'} deal={selectedDeal} emails={emails} onCompose={(focus) => { setEmailFocus({ focus, nonce: Date.now() }); setSelectedDealId(null); setView('email') }} onClose={() => setSelectedDealId(null)} onPatch={(patch) => selectedDeal ? patchDeal(selectedDeal, patch) : Promise.resolve()} onPatchContact={(patch) => selectedDeal ? patchContact(selectedDeal, patch) : Promise.resolve()} />
