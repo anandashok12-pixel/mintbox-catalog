@@ -54,6 +54,10 @@ export function CrmApp() {
   const [emailLoading, setEmailLoading] = useState(false)
   const [emailFocus, setEmailFocus] = useState<{ focus: EmailFocus; nonce: number } | null>(null)
   const [booting, setBooting] = useState(true)
+  // Set when the saved session couldn't be checked (offline, server slow) -
+  // as opposed to rejected - so we offer a retry instead of signing out.
+  const [bootError, setBootError] = useState('')
+  const [bootAttempt, setBootAttempt] = useState(0)
   const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState('')
   const [showNewDeal, setShowNewDeal] = useState(false)
@@ -133,7 +137,12 @@ export function CrmApp() {
         return
       }
       try {
-        stored = (await refreshSession(stored).catch(() => null)) || stored
+        // Renewing is a nice-to-have: never let a slow refresh block opening the app.
+        const renewed = await Promise.race([
+          refreshSession(stored).catch(() => null),
+          new Promise<null>((resolve) => window.setTimeout(() => resolve(null), 5000)),
+        ])
+        stored = renewed || stored
         tokenStore.set(stored)
         const [currentUser, rows] = await Promise.all([getCurrentUser(stored), getDeals(stored)])
         setToken(stored)
@@ -142,15 +151,18 @@ export function CrmApp() {
         void loadWhatsapp(stored)
         void loadEmail(stored)
         void loadTasks(stored)
-      } catch {
-        tokenStore.clear()
+      } catch (cause) {
+        // Only a definite "not signed in" ends the session; a network blip or
+        // a slow server must not sign someone out of the installed app.
+        if (cause instanceof ApiError && (cause.status === 401 || cause.status === 403)) tokenStore.clear()
+        else setBootError(navigator.onLine ? 'The CRM server is not responding.' : 'You are offline.')
       } finally {
         setBooting(false)
       }
     }
 
     void restoreSession()
-  }, [loadWhatsapp, loadEmail, loadTasks])
+  }, [loadWhatsapp, loadEmail, loadTasks, bootAttempt])
 
   // While pairing, WhatsApp swaps the QR every ~20s: keep the tab fresh so the
   // code on screen is always the live one.
@@ -321,6 +333,15 @@ export function CrmApp() {
   }, [deals, search])
 
   if (booting) return <div className="boot-screen"><span className="brand-mark">M</span><p>Preparing your desk</p></div>
+  if (bootError && !token) {
+    return (
+      <div className="boot-screen">
+        <span className="brand-mark">M</span>
+        <p>{bootError} You are still signed in.</p>
+        <button type="button" className="toolbar-button primary" onClick={() => { setBootError(''); setBooting(true); setBootAttempt((n) => n + 1) }}>Retry</button>
+      </div>
+    )
+  }
   if (!token || !user) return <LoginScreen onLogin={handleLogin} />
 
   const selectedDeal = selectedDealId == null ? null : deals.find((deal) => deal.id === selectedDealId) || null
