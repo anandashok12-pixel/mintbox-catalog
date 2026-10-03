@@ -11,6 +11,7 @@ import pino from 'pino'
 import QRCode from 'qrcode'
 import { usePostgresAuthState, clearAuthState } from './authState.js'
 import { postToWebhook } from './webhook.js'
+import { pool } from './db.js'
 import { extractMessageContent } from './extract.js'
 
 const SESSION_ID = process.env.WHATSAPP_SESSION_ID || 'mintbox-main'
@@ -96,18 +97,29 @@ async function connect(): Promise<void> {
         logger.warn('Logged out - clearing session, a fresh QR scan is required')
         await clearAuthState(SESSION_ID)
         await postToWebhook({ type: 'connection', status: 'logged_out', reason: String(lastDisconnect?.error) })
+        waitForQrRequest()
         return // do not reconnect automatically after a logout
       }
 
       await postToWebhook({ type: 'connection', status: 'disconnected', reason: String(lastDisconnect?.error) })
+
+      // 515 straight after a successful scan is WhatsApp telling a freshly
+      // paired client to reconnect with its new credentials - it is the last
+      // step of pairing, not a failure.
+      if (statusCode === DisconnectReason.restartRequired) {
+        logger.info('Pairing complete - reconnecting with the new session')
+        connect().catch((err) => logger.error({ err }, 'post-pairing reconnect failed'))
+        return
+      }
 
       if (!wasRegisteredBeforeThisAttempt) {
         // Never auto-retry a failed pairing attempt - that's what turned one
         // bad attempt into a burst of them before. Surface it and stop; a
         // human restarts the worker for the next single clean attempt.
         logger.error(
-          `Registration attempt failed (status ${statusCode}) before pairing completed. Not auto-retrying - restart the worker manually for another one-shot attempt.`,
+          `Registration attempt failed (status ${statusCode}) before pairing completed. Not auto-retrying - waiting for "Get a new QR code" in the CRM.`,
         )
+        waitForQrRequest()
         return
       }
 
@@ -172,6 +184,31 @@ async function connect(): Promise<void> {
   //   sock.readMessages(...)        - would mark chats read on the phone, hiding unread state
   //   sock.sendPresenceUpdate(...)  - would broadcast online/typing status
   // This socket only listens.
+}
+
+/**
+ * After a failed/expired pairing or a logout the worker goes idle rather than
+ * retrying on its own. A person asks for one more attempt with the CRM's
+ * "Get a new QR code" button, which stamps whatsapp_session.qr_requested_at;
+ * we poll for a stamp newer than the moment we went idle.
+ */
+let qrWaitTimer: ReturnType<typeof setInterval> | undefined
+function waitForQrRequest() {
+  if (qrWaitTimer) return
+  const idleSince = new Date()
+  qrWaitTimer = setInterval(async () => {
+    try {
+      const { rows } = await pool.query('SELECT qr_requested_at FROM whatsapp_session LIMIT 1')
+      const requested = rows[0]?.qr_requested_at as Date | null | undefined
+      if (!requested || requested <= idleSince) return
+      clearInterval(qrWaitTimer)
+      qrWaitTimer = undefined
+      logger.info('New QR requested from the CRM - starting one pairing attempt')
+      connect().catch((err) => logger.error({ err }, 'requested connect failed'))
+    } catch (err) {
+      logger.error({ err }, 'checking for a QR request failed')
+    }
+  }, 10_000)
 }
 
 startHeartbeat()
