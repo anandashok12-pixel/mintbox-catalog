@@ -16,6 +16,9 @@ import { AboutPage } from './src/globals/AboutPage'
 import { ContactPage } from './src/globals/ContactPage'
 import { FAQPage } from './src/globals/FAQPage'
 import { WhatsappSession } from './src/globals/WhatsappSession'
+import { GmailSync } from './src/globals/GmailSync'
+import { GmailTokens } from './src/globals/GmailTokens'
+import { EmailSettings } from './src/globals/EmailSettings'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -58,7 +61,7 @@ export default buildConfig({
     },
   },
   collections: [Categories, Products, Leads, Contacts, Deals, Messages, Activities, Tasks, Media, Users],
-  globals: [AboutPage, ContactPage, FAQPage, WhatsappSession],
+  globals: [AboutPage, ContactPage, FAQPage, WhatsappSession, GmailSync, GmailTokens, EmailSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

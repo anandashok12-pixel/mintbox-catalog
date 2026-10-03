@@ -10,6 +10,10 @@
       "schedule": "*/5 * * * *"
     },
     {
+      "path": "/api/cron/gmail-sync",
+      "schedule": "*/5 * * * *"
+    },
+    {
       "path": "/api/cron/crm-extract",
       "schedule": "*/5 * * * *"
     },

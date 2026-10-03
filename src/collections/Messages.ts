@@ -81,6 +81,50 @@ export const Messages: CollectionConfig = {
       required: true,
       admin: { date: { pickerAppearance: 'dayAndTime' } },
     },
+    // ---- Email-only fields (channel = 'email') ----
+    {
+      name: 'mailbox',
+      type: 'text',
+      index: true,
+      admin: { description: 'Which of our mailboxes this message was read from / sent through.' },
+    },
+    {
+      name: 'threadId',
+      type: 'text',
+      index: true,
+      admin: { description: 'Gmail thread id. Groups a conversation and keeps replies threaded.' },
+    },
+    {
+      name: 'rfcMessageId',
+      type: 'text',
+      admin: { description: 'RFC 5322 Message-ID header, used for In-Reply-To / References when replying.' },
+    },
+    { name: 'subject', type: 'text' },
+    { name: 'fromEmail', type: 'text' },
+    { name: 'toEmails', type: 'text', admin: { description: 'Comma separated To addresses.' } },
+    { name: 'ccEmails', type: 'text', admin: { description: 'Comma separated Cc addresses.' } },
+    {
+      name: 'trackingToken',
+      type: 'text',
+      unique: true,
+      index: true,
+      admin: { description: 'Random token in the open-tracking pixel URL. Outbound CRM-sent mail only.' },
+    },
+    {
+      name: 'openedAt',
+      type: 'date',
+      admin: {
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'First time the tracking pixel loaded. A soft signal: image proxies and blockers skew it.',
+      },
+    },
+    {
+      name: 'lastOpenedAt',
+      type: 'date',
+      admin: { readOnly: true, date: { pickerAppearance: 'dayAndTime' } },
+    },
+    { name: 'openCount', type: 'number', defaultValue: 0, admin: { readOnly: true } },
   ],
   hooks: {
     beforeChange: [
