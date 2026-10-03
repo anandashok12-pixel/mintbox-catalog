@@ -3,7 +3,7 @@ import './social-proof.css'
 // Logos are official artwork: Wikimedia Commons (public domain) for most,
 // the company's own site for Epsilon and JumpCloud. `h` evens out the
 // visual weight of wide wordmarks against square marks.
-const CLIENTS = [
+export const CLIENTS = [
   { name: 'Quixta', src: '/clients/quixta.png', h: 46 },
   { name: 'Target', src: '/clients/target.svg', h: 48 },
   { name: 'HP Inc', src: '/clients/hp.svg', h: 36 },
