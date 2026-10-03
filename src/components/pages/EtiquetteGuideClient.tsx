@@ -281,9 +281,9 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
                 <span className="cp-related-emoji">💰</span>
                 <span className="cp-related-title">Gifts Under ₹1,000</span>
               </a>
-              <a href="/guides/diwali-corporate-gifts" className="cp-related-card">
+              <a href="/diwali-corporate-gifts" className="cp-related-card">
                 <span className="cp-related-emoji">🪔</span>
-                <span className="cp-related-title">Diwali Corporate Gifts</span>
+                <span className="cp-related-title">Corporate Diwali Gifts</span>
               </a>
               <a href="/guides/corporate-gifting-handbook" className="cp-related-card">
                 <span className="cp-related-emoji">📖</span>

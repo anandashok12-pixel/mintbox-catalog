@@ -273,7 +273,7 @@ export function EmployeeGiftsGuide() {
                   September. Decide whether gifts go to one office for distribution or ship directly
                   to employees’ homes, which is increasingly common for hybrid teams. MintBox handles
                   branding, packing, GST invoicing and delivery across Bengaluru. Full detail is in
-                  the <a href="/guides/diwali-corporate-gifts">Diwali corporate gifts guide</a>.
+                  the <a href="/guides/diwali-corporate-gifts">Diwali gift ideas and planning guide</a>.
                 </p>
               </div>
             </section>

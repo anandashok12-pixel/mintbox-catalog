@@ -11,6 +11,8 @@ import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
 
+const PAGE_UPDATED = '2026-09-27'
+
 interface Category {
   id: string
   name: string
@@ -34,24 +36,24 @@ interface Product {
 
 const BUDGET_CARDS = [
   {
-    label: '₹500–₹800',
-    title: 'Standard Diwali',
-    desc: 'Ceramic mug + sweets box + branded card. Good for large all-staff gifting.',
-    href: '/guides/corporate-gifts-under-1000',
+    label: '₹434–₹799',
+    title: 'Team tier',
+    desc: 'Dry-fruit boxes, eco desk sets and tote combos. Good for all-staff gifting.',
+    href: '/diwali-corporate-gifts#hampers',
     featured: false,
   },
   {
-    label: '₹800–₹1,500',
-    title: 'Premium Diwali',
-    desc: 'Stainless bottle + dry fruits + sweets + packaging. The sweet spot for 50–200 employees.',
-    href: '/collections/hampers',
+    label: '₹800–₹1,299',
+    title: 'Manager tier',
+    desc: 'Bottle and mug hampers with dry fruits, lamps or chocolates. The sweet spot for managers and top performers.',
+    href: '/diwali-corporate-gifts#hampers',
     featured: true,
   },
   {
-    label: '₹1,500–₹3,000',
-    title: 'Luxury Diwali',
-    desc: 'Copper bottle or tumbler + premium dry fruits + artisan sweets + rigid gift box. For clients and senior leadership.',
-    href: '/collections/hampers',
+    label: '₹1,300–₹2,170',
+    title: 'Leadership & client tier',
+    desc: 'Pure copper sets, 7-in-1 tech hampers and executive combos. For clients and senior leadership.',
+    href: '/diwali-corporate-gifts#hampers',
     featured: false,
   },
 ]
@@ -59,53 +61,53 @@ const BUDGET_CARDS = [
 const PLANNING_STEPS = [
   {
     num: '1',
-    title: 'August–September',
-    desc: 'Decide on budget per head, quantity, and gift theme. Share brand guidelines.',
+    title: 'Now to mid-October',
+    desc: 'Fix headcount, budget per head and delivery cities. Shortlist hampers and share your logo for a branding mockup.',
   },
   {
     num: '2',
-    title: 'September 30 (deadline)',
-    desc: 'Place order for 200+ units. Production slots start filling. Delay beyond this risks delays.',
+    title: 'By Saturday, 24 October',
+    desc: 'Approve the mockup and confirm the order. Orders confirmed by this date are guaranteed to arrive before Diwali with full logo branding.',
   },
   {
     num: '3',
-    title: 'October 1–10',
-    desc: 'Final sampling, mockup approval, and order confirmation for 25–200 unit orders.',
+    title: '7–10 working days after confirmation',
+    desc: 'Assembly, quality checks and dispatch from Bengaluru to one office or many cities, with tracking shared on WhatsApp.',
   },
   {
     num: '4',
-    title: 'October 15–20',
-    desc: 'Production window for most orders. Packaging and assembly.',
+    title: '25–31 October',
+    desc: 'Ready-stock hampers with a printed insert card. Logo-printed boxes depend on print slot availability.',
   },
   {
     num: '5',
-    title: 'October 25–31',
-    desc: 'Dispatch. Bangalore delivery by Oct 29; Pan-India by Nov 1.',
+    title: '1 November onward',
+    desc: 'Bengaluru rush orders from available stock only. Confirm on WhatsApp before ordering. Diwali is Sunday, 8 November 2026.',
   },
 ]
 
 const GIFT_IDEAS_TABLE = [
-  { gift: 'Sweets + Mug Kit', includes: 'Artisan sweets + ceramic mug + card', price: '₹500–₹800', moq: '25' },
-  { gift: 'Diwali Hamper (standard)', includes: 'Bottle + dry fruits + sweets + box', price: '₹800–₹1,500', moq: '25' },
-  { gift: 'Diwali Hamper (premium)', includes: 'Copper bottle + premium sweets + rigid box', price: '₹1,500–₹2,500', moq: '25' },
-  { gift: 'Eco Diwali Set', includes: 'Bamboo pen + seed notebook + plant kit', price: '₹600–₹1,000', moq: '50' },
-  { gift: 'Drinkware Gift Set', includes: 'Tumbler or insulated bottle + box', price: '₹700–₹1,500', moq: '25' },
-  { gift: 'Luxury Gifting', includes: 'Curated 5-item hamper + premium packaging', price: '₹2,500–₹5,000', moq: '10' },
+  { gift: 'Dry fruit combo box', includes: '4 or 6 dry fruits in a printed rigid box', price: '₹280–₹2,015', moq: '10' },
+  { gift: 'Eco Diwali set', includes: 'Husk mug, seed stationery, wooden desk set or jute tote', price: '₹434–₹1,211', moq: '10' },
+  { gift: 'Diyas, candles & urli sets', includes: 'Scented candles, urlis, diyas and diffusers', price: '₹199–₹1,899', moq: '10' },
+  { gift: 'Drinkware hamper', includes: 'Bottle or tumbler + mug + dry fruits or lamp', price: '₹770–₹1,400', moq: '10' },
+  { gift: 'Copper gift set', includes: 'Copper bottle + tumblers + presentation box', price: '₹1,015–₹2,170', moq: '10' },
+  { gift: 'Tech & executive hamper', includes: 'Laptop stand, wireless charger, power bank or wallet set', price: '₹1,197–₹1,631', moq: '10' },
 ]
 
 
 const FAQS = [
   {
     q: 'When should I order Diwali 2026 corporate gifts?',
-    a: 'Diwali 2026 falls on November 1. For 100+ units, place orders by September 30. For 25–99 units, by October 10. Last-minute orders (October 15+) can still be fulfilled for plain stock or pre-made hampers, but customisation options are limited. Rush production is available at a 20% surcharge.',
+    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by Saturday, 24 October are guaranteed to arrive before Diwali with full logo branding, and dispatch takes 7 to 10 working days after confirmation. Orders confirmed between 25 and 31 October are fulfilled from ready stock with a printed insert card. From 1 November, only Bengaluru rush orders from available stock are possible.',
   },
   {
     q: "What's the most popular Diwali corporate gift?",
-    a: 'Drinkware + sweets hampers (stainless bottle or copper bottle with artisan sweets and dry fruits) are the most-ordered Diwali gifts. Premium packaging (rigid gift box, tissue, ribbon) is essential - Diwali is the one occasion where packaging matters as much as the gift.',
+    a: 'Drinkware + sweets hampers (stainless bottle or copper bottle with artisan sweets and dry fruits) are among the most common Diwali gifts in Indian offices. Premium packaging (rigid gift box, tissue, ribbon) is essential - Diwali is the one occasion where packaging matters as much as the gift.',
   },
   {
     q: 'Are FSSAI-certified food items available for Diwali hampers?',
-    a: 'Yes. All sweet and food items in MintBox hampers are FSSAI-certified and come with appropriate shelf life and allergen labelling. We source from vetted food suppliers. Certificates are available on request.',
+    a: 'Yes. All sweet and food items in MintBox hampers are FSSAI-certified and come with appropriate shelf life and allergen labelling. Certificates are available on request.',
   },
   {
     q: 'Can I include alcohol in Diwali hampers?',
@@ -117,7 +119,7 @@ const FAQS = [
   },
   {
     q: 'Can Diwali hampers be personalised with employee names?',
-    a: 'Yes. Name personalisation on gift boxes, cards, and certain products (notebooks, bottles) is available. Provide names list 2 weeks before delivery. Personalisation adds ₹50–₹100 per hamper and 5–7 days to production.',
+    a: 'Yes. Recipient names can go on the insert card, and on bottles, notebooks or mugs in select hampers. Share the names list when you confirm the order. Personalisation cost depends on quantity and print method and is confirmed in your quote.',
   },
 ]
 
@@ -130,16 +132,16 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://themintbox.in" },
           { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://themintbox.in/guides/corporate-gifting-handbook" },
-          { "@type": "ListItem", "position": 3, "name": "Diwali Corporate Gifts", "item": "https://themintbox.in/guides/diwali-corporate-gifts" }
+          { "@type": "ListItem", "position": 3, "name": "Diwali Corporate Gift Ideas", "item": "https://themintbox.in/guides/diwali-corporate-gifts" }
         ]
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "Diwali Corporate Gifts 2026: Best Ideas for Every Budget",
-        "description": "Best Diwali corporate gifts for 2026 - hampers, drinkware, sweets kits, and eco sets. Budget ₹500–₹3,000 per head. Order early to avoid delays. Pan-India.",
+        "headline": "Diwali Corporate Gift Ideas 2026: How to Plan, Budget and Order",
+        "description": "Diwali corporate gift ideas for 2026 by budget, with a planning timeline. Diwali is Sunday 8 November; confirm by 24 October for guaranteed delivery. MOQ 10 units.",
         "url": "https://themintbox.in/guides/diwali-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "dateModified": `${PAGE_UPDATED}T00:00:00+05:30`,
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
@@ -155,25 +157,27 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
               <span className="cp-breadcrumb-sep">›</span>
               <a href="/guides/corporate-gifting-handbook">Guides</a>
               <span className="cp-breadcrumb-sep">›</span>
-              <span className="cp-breadcrumb-current">Diwali Corporate Gifts</span>
+              <span className="cp-breadcrumb-current">Diwali Corporate Gift Ideas</span>
             </nav>
             <div className="cp-hero-eyebrow">Seasonal Guide · Diwali 2026</div>
             <h1 className="cp-hero-title">
-              Diwali Corporate Gifts 2026:<br />
-              <em>Best Ideas for Every Budget</em>
+              Diwali Corporate Gift Ideas 2026:<br />
+              <em>How to Plan, Budget and Order</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Make Diwali 2026 memorable with curated corporate hampers, branded drinkware, sweet kits,
-              and eco sets. Budget ₹500–₹3,000 per head. Order by October 15 - production slots fill fast.
+              Gift ideas by budget, a planning timeline and ordering deadlines for Diwali 2026 (Sunday,
+              8 November). Ready to order? See all 120{' '}
+              <a href="/diwali-corporate-gifts">corporate Diwali gift hampers</a> with full contents and per-unit prices,
+              or <a href="#products">browse this guide's own picks below</a>.
             </p>
             <div className="cp-hero-ctas">
-              <a href="#products" className="cp-hero-cta-primary">Browse Diwali Gifts ↓</a>
+              <a href="/diwali-corporate-gifts" className="cp-hero-cta-primary">See 120 Diwali Hampers →</a>
               <a href="#quote" className="cp-hero-cta-secondary">Get Diwali Quote</a>
             </div>
             <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Order by Oct 15, 2026</span>
-              <span className="cp-hero-badge">✓ ₹500–₹3,000/head</span>
+              <span className="cp-hero-badge">✓ Confirm by 24 Oct for guaranteed delivery</span>
+              <span className="cp-hero-badge">✓ MOQ 10 units</span>
               <span className="cp-hero-badge">✓ Pan-India delivery</span>
               <span className="cp-hero-badge">✓ GST invoicing</span>
             </div>
@@ -181,10 +185,10 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=800&q=80" alt="Diwali corporate gifts with festive diyas" className="cp-hero-img-actual" loading="lazy" />
+                <img src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/diwali-dk16.jpg" alt="Premium copper Diwali hamper with bottle, tumbler, lamp and dry fruits by MintBox" className="cp-hero-img-actual" loading="lazy" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                <img src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/diwali-dk04.jpg" alt="6-in-1 Diwali combo with dry fruits, LED lamp and diyas by MintBox" className="cp-hero-img-actual" loading="lazy" />
               </div>
             </div>
           </div>
@@ -196,14 +200,14 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Diwali 2026 falls on November 1. Corporate Diwali gifts are typically ordered 3–4 weeks in advance (by October 10–15). Budget ₹500–₹1,500 for all-staff; ₹1,500–₹3,000 for managers and clients. Popular options: gift hampers, branded drinkware, sweet kits, and eco sets. Bulk discounts available from 25 units."
+            content="Diwali 2026 falls on Sunday, 8 November. Confirm corporate Diwali gift orders by 24 October for guaranteed pre-Diwali delivery with logo branding; dispatch takes 7 to 10 working days. Most companies spend ₹500 to ₹1,300 per employee and ₹1,300 to ₹2,200 per client. Popular options: dry fruit boxes, copper drinkware sets, diya and candle sets, eco sets and tech hampers. Minimum order is 10 units per hamper, with volume pricing for 100+ units."
           />
           <EATSignal credentials={[
-            '500+ Diwali orders fulfilled annually',
-            'October slots fill by September - early orders recommended',
-            'Custom hampers with branded packaging',
-            'Pan-India delivery before Diwali',
-            'FSSAI-certified sweet and food hampers',
+            '120 ready-to-gift Diwali hampers with full contents listed',
+            'Assembled and quality-checked in Bengaluru',
+            'Logo on box, printed insert card and name personalisation',
+            'Sealed, FSSAI-compliant dry fruits and branded chocolates',
+            'GST invoice on every order, pan-India dispatch with tracking',
           ]} />
         </div>
       </div>
@@ -213,19 +217,19 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
         <div className="cp-container">
           <div className="cp-stats-grid cp-stats-grid--4">
             <div className="cp-stat-card">
-              <div className="cp-stat-value">3–4<span className="cp-stat-unit"> weeks</span></div>
-              <div className="cp-stat-label">lead time required</div>
+              <div className="cp-stat-value">7–10<span className="cp-stat-unit"> days</span></div>
+              <div className="cp-stat-label">dispatch after confirmation</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">₹500<span className="cp-stat-unit">/head</span></div>
-              <div className="cp-stat-label">starting budget</div>
+              <div className="cp-stat-value">24<span className="cp-stat-unit"> Oct</span></div>
+              <div className="cp-stat-label">last date for guaranteed delivery</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">25<span className="cp-stat-unit"> units</span></div>
+              <div className="cp-stat-value">10<span className="cp-stat-unit"> units</span></div>
               <div className="cp-stat-label">minimum order quantity</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">Nov 1</div>
+              <div className="cp-stat-value">Nov 8</div>
               <div className="cp-stat-label">Diwali 2026</div>
             </div>
           </div>
@@ -239,8 +243,9 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
           <div className="cp-section-eyebrow">Gift Options by Budget</div>
           <h2 className="cp-section-title">Diwali Gift Options for Every Budget</h2>
           <p className="cp-section-sub">
-            Choose a tier that fits your per-head spend. All options include branded packaging
-            and can be customised with your company logo.
+            These are the same three tiers used on our{' '}
+            <a href="/diwali-corporate-gifts">Diwali gift hampers</a> page. Every hamper ships in a
+            printed gift box and can carry your company logo.
           </p>
           <div className="cp-budget-grid">
             {BUDGET_CARDS.map(card => (
@@ -306,7 +311,7 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
           <div className="cp-section-eyebrow">Comparison Guide</div>
           <h2 className="cp-section-title">2026 Diwali Gift Ideas at a Glance</h2>
           <p className="cp-section-sub">
-            Prices are per-head at 25+ units with standard branded packaging included.
+            Per-unit prices at the 10-unit minimum, exclusive of GST, with a printed gift box included. Full contents for every hamper are on the <a href="/diwali-corporate-gifts">corporate Diwali gifts</a> page.
           </p>
           <div className="cp-table-wrap">
             <table className="cp-table">
@@ -335,7 +340,7 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=1200&q=80" alt="Festive Diwali corporate gift hampers with diyas and branded packaging" loading="lazy" />
+        <img src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/diwali-dk08.jpg" alt="Festive Diwali corporate gift box with bamboo bottle, mug and chocolates by MintBox" loading="lazy" />
       </figure>
 
       {/* 8. QUOTE PULL */}
@@ -379,7 +384,7 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
           <FAQSection
             items={FAQS}
             eyebrow="FAQ"
-            title="Diwali Corporate Gifts 2026 - Frequently Asked Questions"
+            title="Diwali Corporate Gift Ideas 2026: Frequently Asked Questions"
           />
         </div>
       </section>
@@ -391,13 +396,15 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[
+              { label: 'Shop', title: 'Corporate Diwali Gift Hampers 2026', href: '/diwali-corporate-gifts' },
               { label: 'Seasonal', title: 'Diwali Gifts for Employees', href: '/guides/diwali-gifts-for-employees' },
               { label: 'Collections', title: 'Gift Hampers', href: '/collections/hampers' },
-              { label: 'Budget Guide', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
+              { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹500', href: '/guides/diwali-gifts-for-employees-under-500' },
+              { label: 'Clients', title: 'Diwali Gifts for Clients', href: '/guides/diwali-gifts-for-clients' },
+              { label: 'Dry fruits', title: 'Diwali Dry Fruit Gift Boxes', href: '/guides/diwali-dry-fruit-gift-boxes' },
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'All Corporate Gift Collections', href: '/collections/corporate-gifts' },
-              { label: 'Employees', title: 'Diwali Gifts for Employees', href: '/guides/diwali-gifts-for-employees' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -410,7 +417,7 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date={PAGE_UPDATED} />
       </div>
       <Footer />
       <WhatsAppFloat />

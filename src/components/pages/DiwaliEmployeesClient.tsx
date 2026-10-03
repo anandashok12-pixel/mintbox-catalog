@@ -73,25 +73,25 @@ const EMPLOYEE_LOVES = [
 
 const BUDGET_CARDS = [
   {
-    label: 'Under ₹600',
-    title: 'Entry Diwali',
-    desc: 'Sweets + mug or notebook + card.',
+    label: 'Under ₹500',
+    title: 'Budget Diwali gifts',
+    desc: 'Candle and diya sets, small dry fruit boxes and eco kits for large teams.',
     featured: false,
-    href: '/guides/corporate-gifts-under-1000',
+    href: '/guides/diwali-gifts-for-employees-under-500',
   },
   {
-    label: '₹600–₹1,200',
-    title: 'Standard Diwali',
-    desc: 'Bottle + dry fruits + sweets + branded packaging.',
+    label: '₹500–₹1,000',
+    title: 'Most popular',
+    desc: 'Bottle or mug hampers with dry fruits, a lamp or diya, in a printed box.',
     featured: true,
-    href: '/collections/hampers',
+    href: '/guides/diwali-gifts-for-employees-under-1000',
   },
   {
-    label: '₹1,200–₹2,500',
-    title: 'Premium Diwali',
-    desc: 'Premium hamper + name personalisation + rigid gift box.',
+    label: '₹1,000–₹2,000',
+    title: 'Premium Diwali gifts',
+    desc: 'Copper sets, tech hampers and fragrance gifts for managers and long-time staff.',
     featured: false,
-    href: '/collections/hampers',
+    href: '/guides/diwali-gifts-for-employees-under-2000',
   },
 ]
 
@@ -408,13 +408,15 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[
-              { label: 'Seasonal', title: 'Diwali Corporate Gifts', href: '/guides/diwali-corporate-gifts' },
-              { label: 'Collections', title: 'Gift Hampers', href: '/collections/hampers' },
-              { label: 'Budget Guide', title: 'Corporate Gifts Under ₹1,000', href: '/guides/corporate-gifts-under-1000' },
+              { label: 'Shop', title: 'Corporate Diwali Gift Hampers 2026', href: '/diwali-corporate-gifts' },
+              { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹500', href: '/guides/diwali-gifts-for-employees-under-500' },
+              { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹1,000', href: '/guides/diwali-gifts-for-employees-under-1000' },
+              { label: 'Budget', title: 'Diwali Gifts for Employees Under ₹2,000', href: '/guides/diwali-gifts-for-employees-under-2000' },
+              { label: 'Tech', title: 'Electronic Diwali Gifts for Employees', href: '/guides/electronic-diwali-gifts-for-employees' },
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'Employee Welcome Kit', href: '/collections/employee-welcome-kit' },
-              { label: 'Diwali', title: 'Diwali Corporate Gifts 2026', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Diwali', title: 'Diwali Gift Ideas & Planning Guide', href: '/guides/diwali-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
