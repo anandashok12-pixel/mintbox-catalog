@@ -133,7 +133,7 @@ export function TaskView({ tasks, deals, onAdd, onToggle, onDelete, onDue, onPat
       </div>
 
       {open.length === 0 ? (
-        <div className="empty-state"><span>✓</span><h2>Nothing pending</h2><p>Add a to-do above, or a follow-up inside any deal.</p></div>
+        <div className="empty-state"><span><CheckIcon /></span><h2>Nothing pending</h2><p>Add a to-do above, or a follow-up inside any deal.</p></div>
       ) : (
         <div className="queue-groups">
           {BUCKET_ORDER.map((bucket) => {

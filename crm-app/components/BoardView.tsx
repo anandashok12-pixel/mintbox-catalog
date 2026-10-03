@@ -15,7 +15,7 @@ import {
   type DragStartEvent,
 } from '@dnd-kit/core'
 import { BUCKET_ACCENT, LOST_REASONS, STAGES } from '@/lib/constants'
-import { scoreDeal } from '@/lib/scoring'
+import { BUCKET_LABELS, scoreDeal } from '@/lib/scoring'
 import type { Deal, Stage } from '@/lib/types'
 
 interface BoardProps {
@@ -29,7 +29,7 @@ function contactFor(deal: Deal) {
 }
 
 function money(value?: number | null) {
-  return value == null ? '—' : `₹${Math.round(value).toLocaleString('en-IN')}`
+  return value ? `₹${Math.round(value).toLocaleString('en-IN')}` : 'No value'
 }
 
 function shortDate(value: string) {
@@ -47,15 +47,15 @@ function DealCard({ deal, overlay = false, reasonOpen, onOpen, onReason }: { dea
   const style = transform ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` } : undefined
 
   return (
-    <div ref={setNodeRef} className={`board-card ${overlay ? 'board-card-overlay' : ''} ${isDragging ? 'board-card-dragging' : ''}`} style={{ ...style, '--accent': score ? BUCKET_ACCENT[score.bucket] : '#D8D2C5' } as React.CSSProperties} {...listeners} {...attributes}>
+    <div ref={setNodeRef} className={`board-card ${overlay ? 'board-card-overlay' : ''} ${isDragging ? 'board-card-dragging' : ''}`} style={{ ...style, '--accent': score ? BUCKET_ACCENT[score.bucket] : '#cbd0d8' } as React.CSSProperties} {...listeners} {...attributes}>
       <button className="board-card-body" onClick={onOpen}>
         <span className="drag-grip" aria-hidden="true"><i /><i /><i /><i /></span>
         <strong>{contact?.company || deal.title}</strong>
         <small>{contact?.name || deal.title}</small>
         <div className="board-card-date">Updated {shortDate(deal.updatedAt)}</div>
-        <div className="board-card-meta"><span>{money(deal.estimatedValue)}</span>{score && score.bucket !== 'open_no_next_action' && <em>{score.bucket.replaceAll('_', ' ')}</em>}</div>
+        <div className="board-card-meta"><span className={deal.estimatedValue ? '' : 'no-value'}>{money(deal.estimatedValue)}</span>{score && score.bucket !== 'open_no_next_action' && <em>{BUCKET_LABELS[score.bucket]}</em>}</div>
         {deal.nextAction && <p>{deal.nextAction}</p>}
-        {deal.suggestedStage && deal.suggestedStage !== deal.stage && <div className="stage-suggestion">Suggests {deal.suggestedStage}</div>}
+        {deal.suggestedStage && deal.suggestedStage !== deal.stage && <div className="stage-suggestion">AI suggests {STAGES.find((item) => item.value === deal.suggestedStage)?.label || deal.suggestedStage}</div>}
       </button>
       {reasonOpen && (
         <div className="reason-picker" onPointerDown={(event) => event.stopPropagation()}>
@@ -76,7 +76,7 @@ function Column({ stage, deals, pendingReason, onOpen, onReason }: { stage: type
     <section ref={setNodeRef} className={`board-column stage-${stage.value} ${isOver ? 'board-column-over' : ''}`}>
       <header className="board-column-header">
         <span>{stage.number}</span>
-        <div><h2>{stage.label}</h2><p>{deals.length} deal{deals.length === 1 ? '' : 's'} · {money(total)}</p></div>
+        <div><h2>{stage.label}</h2><p>{deals.length} deal{deals.length === 1 ? '' : 's'}{total ? ` · ${money(total)}` : ''}</p></div>
       </header>
       <div className="board-column-cards">
         {deals.map((deal) => <DealCard key={deal.id} deal={deal} reasonOpen={pendingReason === deal.id} onOpen={() => onOpen(deal)} onReason={(reason) => onReason(deal, reason)} />)}

@@ -46,9 +46,9 @@ export const CONTACT_CHANNELS = [
 ]
 
 export const BUCKET_ACCENT: Record<string, string> = {
-  waiting_on_you: '#B8972E',
-  deadline_at_risk: '#B45232',
-  quoted_gone_quiet: '#C47A2C',
-  open_no_next_action: '#6B8778',
-  dormant: '#8B877D',
+  waiting_on_you: '#2f6fed',
+  deadline_at_risk: '#d84d4d',
+  quoted_gone_quiet: '#d98a2b',
+  open_no_next_action: '#8a93a3',
+  dormant: '#b4b9c2',
 }

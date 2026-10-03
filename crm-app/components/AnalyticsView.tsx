@@ -43,6 +43,7 @@ export function AnalyticsView({ deals, messages, whatsappSession }: { deals: Dea
 
     const byStage = STAGES.map((stage) => ({
       ...stage,
+      stage: stage.value,
       count: deals.filter((deal) => deal.stage === stage.value).length,
       value: deals.filter((deal) => deal.stage === stage.value).reduce((sum, deal) => sum + (deal.estimatedValue || 0), 0),
     }))
@@ -65,7 +66,11 @@ export function AnalyticsView({ deals, messages, whatsappSession }: { deals: Dea
     return { open, won, lost, openValue, wonValue, avgDealValue, winRate, avgDaysToClose, byStage, bySource, byBucket, inbound, outbound }
   }, [deals, messages])
 
-  const maxStageCount = Math.max(1, ...stats.byStage.map((s) => s.count))
+  // Open stages share one scale; won/lost get their own so 48 lost deals don't flatten the live pipeline.
+  const openStages = stats.byStage.filter((s) => s.stage !== 'won' && s.stage !== 'lost')
+  const closedStages = stats.byStage.filter((s) => s.stage === 'won' || s.stage === 'lost')
+  const maxStageCount = Math.max(1, ...openStages.map((s) => s.count))
+  const maxClosedCount = Math.max(1, ...closedStages.map((s) => s.count))
   const maxSourceCount = Math.max(1, ...stats.bySource.map((s) => s.count))
   const maxBucketCount = Math.max(1, ...stats.byBucket.map((s) => s.count))
 
@@ -76,13 +81,15 @@ export function AnalyticsView({ deals, messages, whatsappSession }: { deals: Dea
         <div className="stat-tile"><span>Won</span><strong>{stats.won.length}</strong><small>{money(stats.wonValue)} total</small></div>
         <div className="stat-tile"><span>Win rate</span><strong>{pct(stats.winRate)}</strong><small>{stats.won.length} of {stats.won.length + stats.lost.length} closed</small></div>
         <div className="stat-tile"><span>Avg deal value</span><strong>{money(stats.avgDealValue)}</strong><small>across all deals</small></div>
-        <div className="stat-tile"><span>Avg time to close</span><strong>{stats.avgDaysToClose == null ? '—' : `${Math.round(stats.avgDaysToClose)}d`}</strong><small>won deals</small></div>
+        <div className="stat-tile"><span>Avg time to close</span><strong>{stats.avgDaysToClose == null ? 'n/a' : `${Math.round(stats.avgDaysToClose)}d`}</strong><small>won deals</small></div>
       </section>
 
       <div className="analytics-grid">
         <section className="analytics-card">
           <h3>Pipeline by stage</h3>
-          {stats.byStage.map((stage) => <Bar key={stage.value} label={stage.label} count={stage.count} value={stage.value} max={maxStageCount} formatValue={money} />)}
+          {openStages.map((stage) => <Bar key={stage.stage} label={stage.label} count={stage.count} value={stage.value} max={maxStageCount} formatValue={money} />)}
+          <h4 className="analytics-subhead">Closed</h4>
+          {closedStages.map((stage) => <Bar key={stage.stage} label={stage.label} count={stage.count} value={stage.value} max={maxClosedCount} formatValue={money} />)}
         </section>
 
         <section className="analytics-card">

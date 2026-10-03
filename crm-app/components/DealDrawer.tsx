@@ -1,6 +1,6 @@
 'use client'
 
-import { KeyboardEvent, useState } from 'react'
+import { KeyboardEvent, useEffect, useState } from 'react'
 import type { Contact, Deal, DealTask, Message, Stage } from '@/lib/types'
 import { payloadAdminDealUrl } from '@/lib/payload'
 import { CONTACT_CHANNELS, LEAD_SOURCES, LOST_REASONS, OCCASIONS, STAGES } from '@/lib/constants'
@@ -13,12 +13,12 @@ function contactFor(deal: Deal) {
 }
 
 function formatDate(value?: string | null) {
-  if (!value) return '—'
+  if (!value) return 'never'
   return new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(value))
 }
 
 function formatDateTime(value?: string | null) {
-  if (!value) return '—'
+  if (!value) return 'never'
   return new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }).format(new Date(value))
 }
 
@@ -54,7 +54,7 @@ function TextField({ label, value, onSave, type = 'text', placeholder, wide }: {
   if (value !== prev) { setPrev(value); setDraft(value) }
   return (
     <Field label={label} wide={wide}>
-      <input type={type} value={draft} placeholder={placeholder || '—'} onChange={(e) => setDraft(e.target.value)}
+      <input type={type} value={draft} placeholder={placeholder || 'Not set'} autoComplete="off" onChange={(e) => setDraft(e.target.value)}
         onBlur={() => { if (draft.trim() !== value) onSave(draft.trim()) }}
         onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }} />
     </Field>
@@ -72,7 +72,7 @@ function NumberField({ label, value, onSave, prefix }: {
     <Field label={label}>
       <span className="edit-number">
         {prefix && <em>{prefix}</em>}
-        <input inputMode="decimal" value={draft} placeholder="—" onChange={(e) => setDraft(e.target.value)}
+        <input inputMode="decimal" value={draft} placeholder="Not set" autoComplete="off" onChange={(e) => setDraft(e.target.value)}
           onBlur={() => { const n = toNumber(draft); if (n !== (value ?? null)) onSave(n) }}
           onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }} />
       </span>
@@ -86,7 +86,7 @@ function SelectField({ label, value, options, onSave }: {
   return (
     <Field label={label}>
       <select value={value} onChange={(e) => onSave(e.target.value)}>
-        <option value="">—</option>
+        <option value="">Not set</option>
         {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
     </Field>
@@ -115,6 +115,20 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
   const [newTask, setNewTask] = useState('')
   const [newTaskDue, setNewTaskDue] = useState(inDays(1))
   const [openThread, setOpenThread] = useState<string | null>(null)
+  const [showAllBlockers, setShowAllBlockers] = useState(false)
+
+  useEffect(() => {
+    if (!deal) return
+    const onKey = (event: globalThis.KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      // Blur first so a field being edited saves before the drawer unmounts.
+      const active = document.activeElement as HTMLElement | null
+      active?.blur()
+      onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [deal, onClose])
 
   if (!deal) return null
   const contact = contactFor(deal)
@@ -166,6 +180,9 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
     void onPatch({ tasks: tasks.map((task, i) => i === index ? { ...task, dueDate } : task) })
   }
 
+  const blockerLabels = (deal.blockers || [])
+    .map((item) => item.label?.replace(/\s*\[id=\d+\]/g, '').trim())
+    .filter((label): label is string => Boolean(label))
   const firstName = contact?.name?.split(' ')[0] || 'them'
   const quickTasks = [`Follow up with ${firstName}`, 'Send quote', `Call ${firstName}`, 'Send samples']
   // Open to-dos soonest first; done ones sink to the bottom.
@@ -198,6 +215,11 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
             <span className="eyebrow">Deal record</span>
             <h2>{contact?.company || contact?.name || deal.title}</h2>
             {contact?.company && <p>{contact.name}</p>}
+            <div className="drawer-summary-strip">
+              <span className={`stage-pill stage-pill-${deal.stage}`}>{STAGES.find((item) => item.value === deal.stage)?.label || deal.stage}</span>
+              <span>{deal.estimatedValue ? `₹${Math.round(deal.estimatedValue).toLocaleString('en-IN')}` : 'No value yet'}</span>
+              {deal.awaitingWhom && deal.awaitingWhom !== 'nobody' && <span>Waiting on {deal.awaitingWhom === 'us' ? 'us' : 'them'}</span>}
+            </div>
           </div>
           <button className="icon-button" onClick={onClose} aria-label="Close"><CloseIcon /></button>
         </header>
@@ -216,46 +238,47 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
           </div>
         )}
 
-        <section className="drawer-section">
-          <span className="eyebrow">Contact</span>
-          <div className="edit-grid">
-            <TextField label="Name" value={contact?.name || ''} onSave={(name) => name && saveContact({ name })} />
-            <TextField label="Company" value={contact?.company || ''} onSave={(company) => saveContact({ company })} />
-            <TextField label="Email" type="email" value={contact?.email || ''} onSave={(email) => saveContact({ email })} />
-            <TextField label="Mobile" type="tel" value={contact?.phoneE164 || ''} onSave={(phoneE164) => saveContact({ phoneE164 })} placeholder="+91…" />
-          </div>
-        </section>
-
-        <section className="drawer-section">
-          <span className="eyebrow">Deal</span>
-          <div className="edit-grid">
-            <TextField wide label="Deal title" value={deal.title} onSave={(title) => title && save({ title })} />
-            <SelectField label="Stage" value={deal.stage} options={STAGES} onSave={(stage) => stage && save({ stage: stage as Stage, stageSetManually: true, ...(stage === 'lost' ? {} : { lostReason: null }) })} />
-            {deal.stage === 'lost' && (
-              <SelectField label="Why was it lost?" value={deal.lostReason || ''} options={LOST_REASONS} onSave={(lostReason) => save({ lostReason: lostReason || null })} />
-            )}
-            <SelectField label="Occasion" value={deal.occasion || ''} options={OCCASIONS} onSave={(v) => save({ occasion: v || null })} />
-            <TextField label="Deadline" type="date" value={deal.deadlineDate ? deal.deadlineDate.slice(0, 10) : ''} onSave={(d) => save({ deadlineDate: d ? new Date(d).toISOString() : null })} />
-            <SelectField label="Waiting on" value={deal.awaitingWhom || ''} options={AWAITING} onSave={(v) => save({ awaitingWhom: (v || null) as Deal['awaitingWhom'] })} />
-            <NumberField label="Quantity" value={quantity} onSave={saveQuantity} />
-            <NumberField label="Value per hamper" prefix="₹" value={perHamper} onSave={savePerHamper} />
-            <NumberField label="Total estimated" prefix="₹" value={deal.estimatedValue} onSave={(estimatedValue) => save({ estimatedValue })} />
-            <div className="edit-hint">
-              {quantity != null && perHamper != null
-                ? `${quantity.toLocaleString('en-IN')} × ₹${perHamper.toLocaleString('en-IN')} = ₹${(quantity * perHamper).toLocaleString('en-IN')}`
-                : 'Enter quantity and value per hamper to calculate the total.'}
-            </div>
-            <SelectField label="Lead source" value={deal.leadSource || ''} options={LEAD_SOURCES} onSave={(v) => save({ leadSource: (v || null) as Deal['leadSource'] })} />
-            <SelectField label="Contacted via" value={deal.contactChannel || ''} options={CONTACT_CHANNELS} onSave={(v) => save({ contactChannel: (v || null) as Deal['contactChannel'] })} />
+        <section className="drawer-section tasks-section">
+          <div className="edit-grid next-move">
             <TextField wide label="Next move" value={deal.nextAction || ''} onSave={(nextAction) => save({ nextAction })} placeholder="Nothing concrete is scheduled" />
           </div>
-          <p className="edit-meta">Last message {formatDate(deal.lastMessageAt)} · Updated {formatDate(deal.updatedAt)}</p>
+          <span className="eyebrow">To-dos{overdueTasks ? <em className="eyebrow-alert"> · {overdueTasks} overdue</em> : null}</span>
+          <ul className="task-list">
+            {orderedTasks.map(({ task, index }) => (
+              <li key={task.id ?? index} className={task.done ? 'task-done' : ''}>
+                <button type="button" className="task-check" onClick={() => toggleTask(index)} aria-pressed={!!task.done} aria-label={task.done ? 'Mark not done' : 'Mark done'}>
+                  {task.done && <CheckIcon />}
+                </button>
+                <span>{task.label}</span>
+                <DueBadge dueDate={task.dueDate} done={task.done} onChange={task.done ? undefined : (iso) => setTaskDue(index, iso)} />
+              </li>
+            ))}
+            {tasks.length === 0 && <li className="task-empty">No to-dos yet. Add the next follow-up below.</li>}
+          </ul>
+          <div className="task-compose">
+            <div className="task-quick">
+              {quickTasks.map((label) => <button key={label} type="button" onClick={() => setNewTask(label)}>{label}</button>)}
+            </div>
+            <div className="task-add">
+              <input value={newTask} onChange={(event) => setNewTask(event.target.value)} onKeyDown={addTaskOnEnter} placeholder='e.g. "Send proposal"' />
+              <button type="button" className="icon-button" onClick={addTask} disabled={!newTask.trim()} aria-label="Add to-do"><PlusIcon /></button>
+            </div>
+            <DuePicker value={newTaskDue} onChange={setNewTaskDue} />
+          </div>
         </section>
 
-        <section className="drawer-section drawer-summary">
+        <section className="drawer-section">
           <span className="eyebrow">Situation</span>
           <SummaryEditor value={deal.summary || ''} onSave={(summary) => save({ summary })} />
         </section>
+
+        {blockerLabels.length > 0 && (
+          <section className="drawer-section blockers-section">
+            <span className="eyebrow">Open questions ({blockerLabels.length})</span>
+            <ul>{(showAllBlockers ? blockerLabels : blockerLabels.slice(0, 5)).map((label, index) => <li key={index}>{label}</li>)}</ul>
+            {blockerLabels.length > 5 && <button type="button" className="link-button" onClick={() => setShowAllBlockers((v) => !v)}>{showAllBlockers ? 'Show fewer' : `Show all ${blockerLabels.length}`}</button>}
+          </section>
+        )}
 
         {deal.attribution && (
           <section className="drawer-section">
@@ -298,29 +321,38 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
           <button type="button" className="toolbar-button" onClick={() => onCompose({ dealId: deal.id, contactId: contact?.id, to: contact?.email || '' })}><MailIcon /> {emailThreads.length ? 'Open in Email' : 'Write email'}</button>
         </section>
 
-        <section className="drawer-section tasks-section">
-          <span className="eyebrow">To-dos{overdueTasks ? <em className="eyebrow-alert"> · {overdueTasks} overdue</em> : null}</span>
-          <ul className="task-list">
-            {orderedTasks.map(({ task, index }) => (
-              <li key={task.id ?? index} className={task.done ? 'task-done' : ''}>
-                <button type="button" className="task-check" onClick={() => toggleTask(index)} aria-pressed={!!task.done} aria-label={task.done ? 'Mark not done' : 'Mark done'}>
-                  {task.done && <CheckIcon />}
-                </button>
-                <span>{task.label}</span>
-                <DueBadge dueDate={task.dueDate} done={task.done} onChange={task.done ? undefined : (iso) => setTaskDue(index, iso)} />
-              </li>
-            ))}
-            {tasks.length === 0 && <li className="task-empty">No to-dos yet. Add the next follow-up below.</li>}
-          </ul>
-          <div className="task-compose">
-            <div className="task-quick">
-              {quickTasks.map((label) => <button key={label} type="button" onClick={() => setNewTask(label)}>{label}</button>)}
+        <section className="drawer-section">
+          <span className="eyebrow">Deal</span>
+          <div className="edit-grid">
+            <TextField wide label="Deal title" value={deal.title} onSave={(title) => title && save({ title })} />
+            <SelectField label="Stage" value={deal.stage} options={STAGES} onSave={(stage) => stage && save({ stage: stage as Stage, stageSetManually: true, ...(stage === 'lost' ? {} : { lostReason: null }) })} />
+            {deal.stage === 'lost' && (
+              <SelectField label="Why was it lost?" value={deal.lostReason || ''} options={LOST_REASONS} onSave={(lostReason) => save({ lostReason: lostReason || null })} />
+            )}
+            <SelectField label="Occasion" value={deal.occasion || ''} options={OCCASIONS} onSave={(v) => save({ occasion: v || null })} />
+            <TextField label="Deadline" type="date" value={deal.deadlineDate ? deal.deadlineDate.slice(0, 10) : ''} onSave={(d) => save({ deadlineDate: d ? new Date(d).toISOString() : null })} />
+            <SelectField label="Waiting on" value={deal.awaitingWhom || ''} options={AWAITING} onSave={(v) => save({ awaitingWhom: (v || null) as Deal['awaitingWhom'] })} />
+            <NumberField label="Quantity" value={quantity} onSave={saveQuantity} />
+            <NumberField label="Value per hamper" prefix="₹" value={perHamper} onSave={savePerHamper} />
+            <NumberField label="Total estimated" prefix="₹" value={deal.estimatedValue} onSave={(estimatedValue) => save({ estimatedValue })} />
+            <div className="edit-hint">
+              {quantity != null && perHamper != null
+                ? `${quantity.toLocaleString('en-IN')} × ₹${perHamper.toLocaleString('en-IN')} = ₹${(quantity * perHamper).toLocaleString('en-IN')}`
+                : 'Enter quantity and value per hamper to calculate the total.'}
             </div>
-            <div className="task-add">
-              <input value={newTask} onChange={(event) => setNewTask(event.target.value)} onKeyDown={addTaskOnEnter} placeholder='e.g. "Send proposal"' />
-              <button type="button" className="icon-button" onClick={addTask} disabled={!newTask.trim()} aria-label="Add to-do"><PlusIcon /></button>
-            </div>
-            <DuePicker value={newTaskDue} onChange={setNewTaskDue} />
+            <SelectField label="Lead source" value={deal.leadSource || ''} options={LEAD_SOURCES} onSave={(v) => save({ leadSource: (v || null) as Deal['leadSource'] })} />
+            <SelectField label="Contacted via" value={deal.contactChannel || ''} options={CONTACT_CHANNELS} onSave={(v) => save({ contactChannel: (v || null) as Deal['contactChannel'] })} />
+          </div>
+          <p className="edit-meta">Last message {formatDate(deal.lastMessageAt)} · Updated {formatDate(deal.updatedAt)}</p>
+        </section>
+
+        <section className="drawer-section">
+          <span className="eyebrow">Contact</span>
+          <div className="edit-grid">
+            <TextField label="Name" value={contact?.name || ''} onSave={(name) => name && saveContact({ name })} />
+            <TextField label="Company" value={contact?.company || ''} onSave={(company) => saveContact({ company })} />
+            <TextField label="Email" type="email" value={contact?.email || ''} onSave={(email) => saveContact({ email })} />
+            <TextField label="Mobile" type="tel" value={contact?.phoneE164 || ''} onSave={(phoneE164) => saveContact({ phoneE164 })} placeholder="+91…" />
           </div>
         </section>
 
@@ -342,12 +374,6 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
           <section className="drawer-section">
             <span className="eyebrow">Products</span>
             <div className="tag-list">{deal.productInterest.map((item, index) => item.label && <span key={item.id || index}>{item.label}</span>)}</div>
-          </section>
-        )}
-        {deal.blockers && deal.blockers.length > 0 && (
-          <section className="drawer-section blockers-section">
-            <span className="eyebrow">Blockers</span>
-            <ul>{deal.blockers.map((item, index) => item.label && <li key={item.id || index}>{item.label}</li>)}</ul>
           </section>
         )}
       </aside>

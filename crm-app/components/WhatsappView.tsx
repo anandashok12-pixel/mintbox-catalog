@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react'
 import { payloadFileUrl } from '@/lib/payload'
 import type { Contact, Deal, Message, WhatsappSession } from '@/lib/types'
 import { DealLink } from './DealLink'
-import { AlertIcon, BackIcon, RefreshIcon, WhatsAppIcon } from './Icons'
+import { AlertIcon, BackIcon, PhoneIcon, RefreshIcon, WhatsAppIcon } from './Icons'
 
 function contactFor(message: Message): Contact | null {
   return typeof message.contact === 'object' ? message.contact : null
@@ -36,6 +36,13 @@ function sessionLabel(session: WhatsappSession | null) {
     logged_out: 'Logged out',
   }
   return labels[session.status]
+}
+
+/** Initial of the name shown in the list; a phone glyph for number-only contacts. */
+function avatarFor(contact: Contact | null) {
+  const label = contact?.company || contact?.name || ''
+  if (!label || /^\+?\d/.test(label)) return <PhoneIcon width={15} height={15} />
+  return label.slice(0, 1).toUpperCase()
 }
 
 interface Conversation {
@@ -116,7 +123,7 @@ export function WhatsappView({
         <div className="status-detail"><span>Last heartbeat</span><strong>{formatDate(session?.lastHeartbeatAt)}</strong></div>
         <div className="status-detail"><span>Mirrored</span><strong>{messages.length} messages</strong></div>
         <div className="read-only-pill">Read only</div>
-        <button className={`toolbar-button ${loading ? 'spinning' : ''}`} onClick={onRefresh} disabled={loading}><RefreshIcon /> Refresh</button>
+        <button className={`toolbar-button view-refresh ${loading ? 'spinning' : ''}`} onClick={onRefresh} disabled={loading}><RefreshIcon /> Refresh</button>
       </div>
 
       {error && <div className="inline-alert"><AlertIcon /><span>{error}</span></div>}
@@ -159,7 +166,7 @@ export function WhatsappView({
             <header><h2>Conversations</h2><span>{conversations.length}</span></header>
             {conversations.map((conversation) => (
               <button key={conversation.key} className={selected?.key === conversation.key ? 'active' : ''} onClick={() => setSelectedKey(conversation.key)}>
-                <span className="contact-avatar">{(conversation.contact?.name || '?').slice(0, 1).toUpperCase()}</span>
+                <span className="contact-avatar">{avatarFor(conversation.contact)}</span>
                 <span className="conversation-copy">
                   <strong>{conversation.contact?.company || conversation.contact?.name || 'Unknown contact'}</strong>
                   <small>{conversation.latest.preview || conversation.latest.body || 'Media message'}</small>
@@ -171,9 +178,10 @@ export function WhatsappView({
           <section className="chat-panel">
             <header>
               <button type="button" className="back-button" onClick={() => setSelectedKey(null)} aria-label="Back to list"><BackIcon /></button>
-              <div><strong>{selected?.contact?.company || selected?.contact?.name}</strong><span>{selected?.contact?.phoneE164}</span></div>
-              <span className="message-count">{selected?.messages.length} messages</span>
-              <DealLink contact={selected?.contact || null} deals={deals} onOpenDeal={onOpenDeal} onTurnIntoDeal={onTurnIntoDeal} />
+              <div className="chat-title"><strong>{selected?.contact?.company || selected?.contact?.name}</strong><span>{selected?.contact?.phoneE164} · {selected?.messages.length} messages</span></div>
+              <div className="chat-actions">
+                <DealLink contact={selected?.contact || null} deals={deals} onOpenDeal={onOpenDeal} onTurnIntoDeal={onTurnIntoDeal} />
+              </div>
             </header>
             <div className="message-timeline">
               {selected?.messages.map((message) => (

@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import type { Deal, ScoredDeal } from '@/lib/types'
 import { BUCKET_LABELS, BUCKET_ORDER, buildQueue, queueReason } from '@/lib/scoring'
 import { BUCKET_ACCENT } from '@/lib/constants'
-import { ArrowIcon, WhatsAppIcon } from './Icons'
+import { ArrowIcon, CheckIcon, WhatsAppIcon } from './Icons'
 
 interface QueueProps {
   deals: Deal[]
@@ -34,16 +34,15 @@ function QueueCard({ deal, index, onOpen, onSnooze }: { deal: ScoredDeal; index:
           {contact?.company && <small>{contact.name}</small>}
         </span>
         <span className="queue-reason">{queueReason(deal)}</span>
-        <span className="queue-value">{deal.estimatedValue == null ? '—' : `₹${Math.round(deal.estimatedValue).toLocaleString('en-IN')}`}</span>
+        <span className={`queue-value${deal.estimatedValue ? '' : ' no-value'}`}>{deal.estimatedValue ? `₹${Math.round(deal.estimatedValue).toLocaleString('en-IN')}` : 'No value'}</span>
         <ArrowIcon className="queue-arrow" />
       </button>
       {deal.nextAction && <p className="queue-next"><span>Next</span>{deal.nextAction}</p>}
       <footer className="queue-card-footer">
-        <div className="queue-bucket"><i />{BUCKET_LABELS[deal.bucket]}</div>
         <div className="queue-actions">
           {contact?.phoneE164 && <a href={`https://wa.me/${contact.phoneE164.replace('+', '')}`} target="_blank" rel="noreferrer"><WhatsAppIcon /> Message</a>}
-          <button disabled={pending} onClick={() => snooze(3)}>Snooze 3d</button>
-          <button disabled={pending} onClick={() => snooze(7)}>1 week</button>
+          <button disabled={pending} onClick={() => snooze(3)}>Snooze 3 days</button>
+          <button disabled={pending} onClick={() => snooze(7)}>Snooze 1 week</button>
         </div>
       </footer>
     </article>
@@ -69,7 +68,7 @@ export function QueueView({ deals, onOpen, onSnooze }: QueueProps) {
       </header>
 
       {daily.length === 0 ? (
-        <div className="empty-state"><span>✓</span><h2>No follow-ups due</h2><p>No open deal needs attention right now.</p></div>
+        <div className="empty-state"><span><CheckIcon /></span><h2>No follow-ups due</h2><p>No open deal needs attention right now.</p></div>
       ) : (
         <div className="queue-groups">
           {BUCKET_ORDER.filter((bucket) => bucket !== 'dormant').map((bucket) => {

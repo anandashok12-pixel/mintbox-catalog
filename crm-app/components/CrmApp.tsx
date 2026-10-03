@@ -388,7 +388,7 @@ export function CrmApp() {
             <button className="toolbar-button new-deal-button" onClick={() => setShowNewDeal(true)}><PlusIcon /><span>New deal</span></button>
             <button className={`icon-button ${refreshing ? 'spinning' : ''}`} onClick={refresh} disabled={refreshing} aria-label="Refresh data"><RefreshIcon /></button>
             <div className="user-chip"><span>{(user.name || user.email).slice(0, 1).toUpperCase()}</span><div><strong>{user.name || 'Admin'}</strong><small>{user.email}</small></div></div>
-            <button className="icon-button" onClick={logout} aria-label="Sign out"><LogOutIcon /></button>
+            <button className="icon-button sign-out-button" onClick={() => { if (window.confirm('Sign out of MintBox CRM?')) logout() }} aria-label="Sign out" title="Sign out"><LogOutIcon /></button>
           </div>
         </header>
 

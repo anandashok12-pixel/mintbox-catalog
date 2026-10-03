@@ -70,7 +70,10 @@ export function buildQueue(deals: Deal[], now = new Date()): ScoredDeal[] {
 
 export function queueReason(deal: ScoredDeal): string {
   switch (deal.bucket) {
-    case 'waiting_on_you': return `${Math.max(0, Math.round(deal.sortValue))}h waiting`
+    case 'waiting_on_you': {
+      const hours = Math.max(0, Math.round(deal.sortValue))
+      return hours < 48 ? `${hours}h waiting` : `${Math.round(hours / 24)} days waiting`
+    }
     case 'deadline_at_risk': return `${Math.round(-deal.sortValue)}d to deadline`
     case 'quoted_gone_quiet': return 'No reply after quote'
     case 'dormant': return 'Silent for 21+ days'

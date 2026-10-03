@@ -114,6 +114,15 @@ export function EmailView({
   useEffect(() => {
     getEmailSignatures(token).then(setSignatures).catch(() => undefined)
   }, [token])
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      if (editingSignatures && !savingSignatures) setEditingSignatures(null)
+      else if (compose && !sending) setCompose(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
   const signatureFor = (mailbox: string) => signatures.find((s) => s.mailbox === mailbox)?.signature?.trim() || ''
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState('')
@@ -254,7 +263,7 @@ export function EmailView({
           <span /><strong>{!accounts.length ? 'Not synced yet' : failing.length ? `${failing.length} mailbox error` : 'Syncing'}</strong>
         </div>
         <div className="status-detail"><span>Last sync</span><strong>{formatDate(lastSuccess)}</strong></div>
-        <div className="status-detail"><span>Mailboxes</span><strong>{MAILBOXES.length}</strong></div>
+        <div className="status-detail" title={MAILBOXES.map((box) => `${box}: ${isConnected(box) ? 'connected' : 'not connected'}`).join('\n')}><span>Mailboxes</span><strong>{MAILBOXES.filter(isConnected).length} of {MAILBOXES.length} connected</strong></div>
         <div className="mailbox-filter">
           {['all', ...MAILBOXES].map((box) => (
             <button key={box} className={mailboxFilter === box ? 'active' : ''} onClick={() => setMailboxFilter(box)}>{box === 'all' ? 'All' : box.split('@')[0]}</button>
@@ -262,18 +271,16 @@ export function EmailView({
         </div>
         <button className="toolbar-button" onClick={() => setEditingSignatures(MAILBOXES.map((mailbox) => ({ mailbox, signature: signatureFor(mailbox) })))}>Signatures</button>
         <button className="toolbar-button" onClick={() => { setSendError(''); setCompose(blank({ to: personFilter || '' })) }}><PlusIcon /> New email</button>
-        <button className={`toolbar-button ${loading ? 'spinning' : ''}`} onClick={onRefresh} disabled={loading}><RefreshIcon /> Refresh</button>
+        <button className={`toolbar-button view-refresh ${loading ? 'spinning' : ''}`} onClick={onRefresh} disabled={loading}><RefreshIcon /> Refresh</button>
       </div>
 
-      <div className="mailbox-connect">
-        {MAILBOXES.map((box) => isConnected(box) ? (
-          <span key={box} className="mailbox-chip is-connected">{box}<small>Connected</small></span>
-        ) : (
+      {MAILBOXES.some((box) => !isConnected(box)) && <div className="mailbox-connect">
+        {MAILBOXES.filter((box) => !isConnected(box)).map((box) => (
           <button key={box} type="button" className="mailbox-chip" onClick={() => connect(box)} disabled={connecting === box}>
             {box}<small>{connecting === box ? 'Waiting for Google…' : 'Connect'}</small>
           </button>
         ))}
-      </div>
+      </div>}
       {connectError && <div className="inline-alert"><AlertIcon /><span>{connectError}</span></div>}
 
       {(error || failing.length > 0) && (
@@ -303,7 +310,7 @@ export function EmailView({
               const status = openLabel(t.latest)
               return (
                 <button key={t.key} className={selected?.key === t.key ? 'active' : ''} onClick={() => setSelectedKey(t.key)}>
-                  <span className="contact-avatar">{(t.contact?.name || '?').slice(0, 1).toUpperCase()}</span>
+                  <span className="contact-avatar">{(t.contact?.company || t.contact?.name || '?').slice(0, 1).toUpperCase()}</span>
                   <span className="conversation-copy">
                     <strong>{t.contact?.company || t.contact?.name || 'Unknown'}</strong>
                     <small>{t.subject}</small>
@@ -316,8 +323,8 @@ export function EmailView({
           </aside>
           <section className="chat-panel">
             <header>
-<button type="button" className="back-button" onClick={() => setSelectedKey(null)} aria-label="Back to list"><BackIcon /></button>
-              <div>
+              <button type="button" className="back-button" onClick={() => setSelectedKey(null)} aria-label="Back to list"><BackIcon /></button>
+              <div className="chat-title">
                 <strong>{selected?.subject}</strong>
                 <span>
                   {selected?.contact?.name}
@@ -385,7 +392,7 @@ export function EmailView({
               : <small className="signature-empty">No signature saved for {compose.mailbox} yet.</small>)}
             {sendError && <div className="inline-alert"><AlertIcon /><span>{sendError}</span></div>}
             <div className="compose-actions">
-              <small>Opens are tracked with a pixel — a soft signal, not proof.</small>
+              <small>Opens are tracked with a pixel. Treat them as a hint, not proof.</small>
               <button type="button" className="toolbar-button" onClick={() => setCompose(null)} disabled={sending}>Cancel</button>
               <button type="submit" className="toolbar-button primary" disabled={sending}><SendIcon /> {sending ? 'Sending…' : 'Send'}</button>
             </div>

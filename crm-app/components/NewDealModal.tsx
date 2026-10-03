@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { CONTACT_CHANNELS, LEAD_SOURCES, OCCASIONS } from '@/lib/constants'
 import { isValidPhone, normalizePhone } from '@/lib/phone'
 import { createContact, createDeal, findContactByPhone } from '@/lib/payload'
@@ -28,6 +28,12 @@ export function NewDealModal({ token, onClose, onCreated }: NewDealModalProps) {
   const [notes, setNotes] = useState('')
   const [error, setError] = useState('')
   const [pending, setPending] = useState(false)
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape' && !pending) onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose, pending])
 
   async function submit(event: FormEvent) {
     event.preventDefault()
