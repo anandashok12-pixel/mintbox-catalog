@@ -3,9 +3,12 @@
 // namespace as default and destructure at runtime instead - the only
 // robust way to interop with a plain CJS package from a "type":"module"
 // entrypoint.
-import baileysPkg from '@whiskeysockets/baileys'
+import * as baileysNs from '@whiskeysockets/baileys'
 import type { AuthenticationState } from '@whiskeysockets/baileys'
-const { proto, initAuthCreds, BufferJSON } = baileysPkg as any
+// Works for both module shapes: Baileys 7 is ESM (named exports, default =
+// makeWASocket); Baileys 6 is CJS (everything hangs off the default export).
+const baileysPkg = { ...((baileysNs as any).default ?? {}), ...baileysNs } as any
+const { proto, initAuthCreds, BufferJSON } = baileysPkg
 import { pool, ensureAuthTable } from './db.js'
 
 /**

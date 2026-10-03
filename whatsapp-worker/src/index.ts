@@ -3,9 +3,12 @@
 // loader hands us the whole `module.exports` object as the default import
 // (not just the makeWASocket function), and can't statically resolve
 // named exports reliably at all.
-import baileysPkg from '@whiskeysockets/baileys'
+import * as baileysNs from '@whiskeysockets/baileys'
 import type { WASocket } from '@whiskeysockets/baileys'
-const { makeWASocket, DisconnectReason, fetchLatestBaileysVersion, Browsers, downloadMediaMessage } = baileysPkg as any
+// Works for both module shapes: Baileys 7 is ESM (named exports, default =
+// makeWASocket); Baileys 6 is CJS (everything hangs off the default export).
+const baileysPkg = { ...((baileysNs as any).default ?? {}), ...baileysNs } as any
+const { makeWASocket, DisconnectReason, fetchLatestBaileysVersion, Browsers, downloadMediaMessage } = baileysPkg
 import { Boom } from '@hapi/boom'
 import pino from 'pino'
 import QRCode from 'qrcode'
@@ -139,12 +142,28 @@ async function connect(): Promise<void> {
     if (type !== 'notify') return
 
     for (const msg of messages) {
-      const jid = msg.key?.remoteJid
-      if (!jid) continue
+      const rawJid = msg.key?.remoteJid
+      if (!rawJid) continue
 
       // Never mirror group chats or broadcast/status - out of scope for a
       // 1:1 sales mirror, and explicitly excluded by the PRD.
-      if (jid.includes('@g.us') || jid.includes('broadcast') || jid === 'status@broadcast') continue
+      if (rawJid.includes('@g.us') || rawJid.includes('broadcast') || rawJid === 'status@broadcast') continue
+
+      // WhatsApp increasingly addresses chats by a private LID ("123@lid")
+      // instead of the phone number. The CRM keys contacts on the phone
+      // number, so resolve the LID; skip rather than invent a bogus number.
+      let jid = rawJid
+      if (rawJid.endsWith('@lid')) {
+        const alt = (msg.key as { remoteJidAlt?: string }).remoteJidAlt
+        const mapped = alt?.endsWith('@s.whatsapp.net')
+          ? alt
+          : await sock.signalRepository?.lidMapping?.getPNForLID?.(rawJid).catch(() => undefined)
+        if (!mapped) {
+          logger.warn({ lid: rawJid }, 'could not resolve a LID to a phone number - message not mirrored')
+          continue
+        }
+        jid = mapped
+      }
 
       if (!msg.message) continue // protocol messages, reactions-only, etc. - nothing to extract
 
@@ -172,7 +191,9 @@ async function connect(): Promise<void> {
         providerId,
         jid,
         fromMe: !!msg.key.fromMe,
-        pushName: msg.pushName || undefined,
+        // pushName is the sender's display name - on our own outgoing
+        // messages that is us, not the customer.
+        pushName: msg.key.fromMe ? undefined : msg.pushName || undefined,
         text: content.text,
         sentAt,
         media,
