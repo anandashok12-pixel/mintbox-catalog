@@ -4,7 +4,8 @@ import { useMemo, useState } from 'react'
 import {
   DndContext,
   DragOverlay,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   closestCenter,
   useDraggable,
   useDroppable,
@@ -90,7 +91,12 @@ export function BoardView({ deals, onOpen, onMove }: BoardProps) {
   const [pendingReason, setPendingReason] = useState<string | number | null>(null)
   const [showClosed, setShowClosed] = useState(false)
   const [sort, setSort] = useState<'updated' | 'created' | 'value'>('updated')
-  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 7 } }))
+  // Mouse drags start after a small move; on touch screens a drag needs a
+  // long-press held still, so ordinary swipes scroll the board instead.
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 7 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 450, tolerance: 6 } }),
+  )
   const visibleStages = showClosed ? STAGES : STAGES.filter((stage) => stage.value !== 'won' && stage.value !== 'lost')
   const byStage = useMemo(() => new Map(STAGES.map((stage) => [stage.value, deals
     .filter((deal) => deal.stage === stage.value)
