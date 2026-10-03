@@ -37,9 +37,14 @@ interface Product {
 interface ProductModalProps {
   product: Product
   onClose: () => void
+  /**
+   * Replaces "Add to Pack" (the site cart) with a custom action, e.g. adding
+   * the product to a quote on a landing page. Hides the quantity picker.
+   */
+  action?: { label: string; onClick: () => void }
 }
 
-export default function ProductModal({ product, onClose }: ProductModalProps) {
+export default function ProductModal({ product, onClose, action }: ProductModalProps) {
   const minQty = product.moq || 1
   const [qty, setQty] = useState(minQty)
 
@@ -153,6 +158,19 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             </div>
           )}
 
+          {action ? (
+            <div className="product-modal-actions">
+              <button
+                className="btn-add-pack"
+                onClick={() => {
+                  action.onClick()
+                  onClose()
+                }}
+              >
+                {action.label}
+              </button>
+            </div>
+          ) : (
           <div className="product-modal-actions">
             <div className="qty-selector">
               <button
@@ -178,6 +196,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               Add to Pack
             </button>
           </div>
+          )}
         </div>
       </div>
     </div>

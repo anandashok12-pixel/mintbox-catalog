@@ -4,7 +4,7 @@ import { create } from 'zustand'
 import { TIERS, type TierKey } from '@/components/pages/diwaliHubData'
 
 // Shared between the hero quote form, the hamper picker and every WhatsApp
-// link on the ads landing page, so a hamper picked lower down lands in the
+// link on the ads landing page, so hampers added lower down land in the
 // form and the WhatsApp message carries whatever step 1 already knows.
 
 export const QTY_BANDS = [
@@ -39,31 +39,43 @@ interface QuoteState {
   qty: QtyKey | null
   budget: TierKey | null
   date: string
-  hamper: PickedHamper | null
+  hampers: PickedHamper[]
   setQty: (q: QtyKey) => void
   setBudget: (b: TierKey) => void
   setDate: (d: string) => void
-  setHamper: (h: PickedHamper | null, budget?: TierKey) => void
+  /** Adds the hamper, or removes it if it is already in the quote. */
+  toggleHamper: (h: PickedHamper, budget?: TierKey) => void
+  removeHamper: (id: string) => void
 }
 
 export const useQuote = create<QuoteState>(set => ({
   qty: null,
   budget: null,
   date: '',
-  hamper: null,
+  hampers: [],
   setQty: qty => set({ qty }),
   setBudget: budget => set({ budget }),
   setDate: date => set({ date }),
-  setHamper: (hamper, budget) => set(budget ? { hamper, budget } : { hamper }),
+  toggleHamper: (h, budget) =>
+    set(s => {
+      if (s.hampers.some(x => x.id === h.id)) return { hampers: s.hampers.filter(x => x.id !== h.id) }
+      // The first hamper added also answers the budget question, if it is still open.
+      return { hampers: [...s.hampers, h], budget: s.budget ?? budget ?? null }
+    }),
+  removeHamper: id => set(s => ({ hampers: s.hampers.filter(x => x.id !== id) })),
 }))
 
 export const WHATSAPP_NUMBER = '919886537631'
 
-export function whatsappHref(s: Pick<QuoteState, 'qty' | 'budget' | 'hamper'>): string {
+export function whatsappHref(s: Pick<QuoteState, 'qty' | 'budget' | 'hampers'>): string {
   const parts = ['Hi MintBox, please send me your Diwali catalogue with prices.']
   if (s.qty) parts.push(`Quantity: ${QTY_BANDS.find(b => b.key === s.qty)!.label}.`)
   if (s.budget) parts.push(`Budget per gift: ${budgetLabel(s.budget)}.`)
-  if (s.hamper) parts.push(`Interested in: ${s.hamper.name}.`)
+  if (s.hampers.length) {
+    const names = s.hampers.slice(0, 3).map(h => h.name).join('; ')
+    const more = s.hampers.length > 3 ? ` and ${s.hampers.length - 3} more` : ''
+    parts.push(`Interested in: ${names}${more}.`)
+  }
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(parts.join(' '))}`
 }
 

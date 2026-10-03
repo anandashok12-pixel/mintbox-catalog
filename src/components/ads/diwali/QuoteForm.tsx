@@ -30,7 +30,7 @@ type Errors = Partial<Record<'qty' | 'budget' | 'date' | 'name' | 'email' | 'pho
 export default function QuoteForm({ adGroup }: { adGroup: string }) {
   const router = useRouter()
   const uid = useId()
-  const { qty, budget, date, hamper, setQty, setBudget, setDate, setHamper } = useQuote()
+  const { qty, budget, date, hampers, setQty, setBudget, setDate, removeHamper } = useQuote()
   const [step, setStep] = useState<1 | 2>(1)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -87,12 +87,10 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
             `Number of gifts: ${band.label}`,
             `Budget per gift: ${budgetLabel(budget!)}`,
             `Needed by: ${date}`,
-            hamper ? `Hamper of interest: ${hamper.name} (#${hamper.id})` : '',
+            hampers.length ? `Hampers of interest: ${hampers.map(h => `${h.name} (#${h.id})`).join('; ')}` : '',
             `Landing page: Diwali ads (${adGroup})`,
           ].filter(Boolean).join('\n'),
-          items: hamper
-            ? [{ productId: hamper.id, productName: hamper.name, quantity: band.low, unitPrice: hamper.price }]
-            : [],
+          items: hampers.map(h => ({ productId: h.id, productName: h.name, quantity: band.low, unitPrice: h.price })),
           attribution: getAttribution(),
         }),
       })
@@ -134,15 +132,17 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
         <p className="dl-form-promise">With prices for your numbers, plus a written quote within 24 hours.</p>
       )}
 
-      {hamper && (
-        <div className="dl-picked">
-          <span>
-            Hamper: <strong>{hamper.name}</strong>
-          </span>
-          <button type="button" onClick={() => setHamper(null)} aria-label={`Remove ${hamper.name}`}>
-            <X size={14} weight="bold" />
-          </button>
-        </div>
+      {hampers.length > 0 && (
+        <ul className="dl-picked" aria-label="Hampers in your quote">
+          {hampers.map(h => (
+            <li key={h.id}>
+              <span>{h.name}</span>
+              <button type="button" onClick={() => removeHamper(h.id)} aria-label={`Remove ${h.name}`}>
+                <X size={12} weight="bold" />
+              </button>
+            </li>
+          ))}
+        </ul>
       )}
 
       {step === 1 ? (
@@ -205,7 +205,7 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
           </button>
           <p className="dl-form-foot">
             Fewer than {MOQ} gifts?{' '}
-            <a href={whatsappHref({ qty, budget, hamper })} target="_blank" rel="noopener noreferrer">
+            <a href={whatsappHref({ qty, budget, hampers })} target="_blank" rel="noopener noreferrer">
               Message us on WhatsApp
             </a>
           </p>

@@ -7,11 +7,11 @@ import { track, useQuote, whatsappHref } from './quoteStore'
 
 /** WhatsApp link whose pre-filled message carries what step 1 already knows. */
 export function WhatsAppLink({ className, label = 'WhatsApp' }: { className?: string; label?: string }) {
-  const { qty, budget, hamper } = useQuote()
+  const { qty, budget, hampers } = useQuote()
   return (
     <a
       className={className}
-      href={whatsappHref({ qty, budget, hamper })}
+      href={whatsappHref({ qty, budget, hampers })}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => track('whatsapp_click', { location: className })}
@@ -24,11 +24,11 @@ export function WhatsAppLink({ className, label = 'WhatsApp' }: { className?: st
 
 /** Round WhatsApp button, bottom right on desktop, as on the main site. */
 export function WhatsAppFloat() {
-  const { qty, budget, hamper } = useQuote()
+  const { qty, budget, hampers } = useQuote()
   return (
     <a
       className="dl-wa-float"
-      href={whatsappHref({ qty, budget, hamper })}
+      href={whatsappHref({ qty, budget, hampers })}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with MintBox on WhatsApp"
@@ -42,6 +42,7 @@ export function WhatsAppFloat() {
 /** Mobile-only bottom bar, shown once the hero form has scrolled away. */
 export function MobileBar() {
   const [show, setShow] = useState(false)
+  const count = useQuote(st => st.hampers.length)
   useEffect(() => {
     const hero = document.getElementById('quote')
     if (!hero) return
@@ -53,6 +54,11 @@ export function MobileBar() {
     <div className={`dl-mobilebar${show ? ' is-on' : ''}`} aria-hidden={!show}>
       <a href="#quote" className="dl-btn dl-btn--primary" tabIndex={show ? 0 : -1}>
         {PRIMARY_CTA}
+        {count > 0 && (
+          <span className="dl-mobilebar-count" aria-label={`${count} ${count === 1 ? 'hamper' : 'hampers'} in your quote`}>
+            {count}
+          </span>
+        )}
       </a>
       <WhatsAppLink className="dl-btn dl-btn--wa" />
     </div>

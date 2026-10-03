@@ -24,6 +24,7 @@ import {
   formatPrice,
   getDiwaliHubFaqs,
   isAddOn,
+  moqFor,
   tierFor,
 } from '@/components/pages/diwaliHubData'
 import type { DiwaliProduct } from '@/components/content/DiwaliHamperShowcase'
@@ -148,13 +149,18 @@ export const metadata: Metadata = {
 
 function slim(p: DiwaliProduct): SlimHamper {
   const price = Number(p.price)
-  const items = (p.features ?? []).map(f => f.feature).filter(Boolean).slice(0, 10)
+  const items = (p.features ?? []).map(f => f.feature).filter(Boolean)
   return {
     id: String(p.id),
     name: dash(p.name),
     price,
     image: p.image?.sizes?.card?.url || p.image?.url || null,
-    items: items.length ? items.map(dash) : [],
+    // Full-size photo for the pop-up; the card uses the smaller one above.
+    imageLarge: p.image?.url || null,
+    description: dash(p.description || ''),
+    items: items.map(dash),
+    moq: moqFor(p),
+    customisable: !!p.customisable,
     tier: tierFor(price).key,
   }
 }
