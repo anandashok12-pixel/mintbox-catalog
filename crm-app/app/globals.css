@@ -291,6 +291,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .todo-deal { justify-self: start; padding: 0; border: 0; background: none; color: #2455b4; font: inherit; font-size: 10px; cursor: pointer; text-align: left; }
 .todo-deal:hover { text-decoration: underline; }
 
+/* AI stage suggestion in the deal drawer */
+.stage-suggest-banner { margin-bottom: 4px; padding: 10px 12px; border: 1px solid #d5def3; border-radius: 7px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f6f8fe; font-size: 12px; }
+.stage-suggest-banner span { flex: 1; min-width: 180px; }
+
+/* WhatsApp pairing */
+.qr-note { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
+.qr-placeholder .toolbar-button { margin-top: 10px; }
+
 /* Call button beside WhatsApp in the deal drawer */
 .action-button-call { border-color: #b9c8ee; background: var(--blue-soft); color: #2455b4; }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateContact, updateDeal, updateTask } from '@/lib/payload'
+import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, requestWhatsappQr, updateContact, updateDeal, updateTask } from '@/lib/payload'
 import type { Contact, Deal, GmailSyncState, Message, Stage, Task, User, WhatsappSession } from '@/lib/types'
 import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, MailIcon, QueueIcon, RefreshIcon, SearchIcon, TaskIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
@@ -151,6 +151,15 @@ export function CrmApp() {
 
     void restoreSession()
   }, [loadWhatsapp, loadEmail, loadTasks])
+
+  // While pairing, WhatsApp swaps the QR every ~20s: keep the tab fresh so the
+  // code on screen is always the live one.
+  const whatsappPairing = whatsappSession?.status !== 'connected'
+  useEffect(() => {
+    if (!token || view !== 'whatsapp' || !whatsappPairing) return
+    const timer = window.setInterval(() => { void loadWhatsapp(token) }, 5000)
+    return () => window.clearInterval(timer)
+  }, [token, view, whatsappPairing, loadWhatsapp])
 
   // Keep long-lived app sessions alive without asking to sign in again.
   useEffect(() => {
@@ -343,7 +352,7 @@ export function CrmApp() {
         <main className="app-main">
           {view === 'queue' && <QueueView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />}
           {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
-          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} />}
+          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} onRequestQr={async () => { if (!token) return; await requestWhatsappQr(token); await loadWhatsapp(token) }} />}
           {view === 'email' && <EmailView key={emailFocus?.nonce ?? 0} token={token} messages={emails} sync={gmailSync} loading={emailLoading} error={emailError} focus={emailFocus?.focus ?? null} onRefresh={() => loadEmail(token)} onSent={(message) => { void loadEmail(token); setEmails((current) => [message, ...current]) }} />}
           {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
           {view === 'tasks' && <TaskView tasks={tasks} deals={deals} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} onDue={rescheduleTask} onPatchDealTasks={(deal, next) => patchDeal(deal, { tasks: next }).catch(() => undefined)} onOpenDeal={(deal) => setSelectedDealId(deal.id)} />}

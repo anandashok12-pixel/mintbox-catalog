@@ -3,7 +3,7 @@
 import { KeyboardEvent, useState } from 'react'
 import type { Contact, Deal, DealTask, Message, Stage } from '@/lib/types'
 import { payloadAdminDealUrl } from '@/lib/payload'
-import { CONTACT_CHANNELS, LEAD_SOURCES, OCCASIONS, STAGES } from '@/lib/constants'
+import { CONTACT_CHANNELS, LEAD_SOURCES, LOST_REASONS, OCCASIONS, STAGES } from '@/lib/constants'
 import { CheckIcon, CloseIcon, ExternalIcon, MailIcon, PhoneIcon, PlusIcon, WhatsAppIcon } from './Icons'
 import { involves, openLabel, type EmailFocus } from './EmailView'
 import { DueBadge, DuePicker, dueBucket, fromDateKey, inDays } from './DueDate'
@@ -208,6 +208,14 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
           <a className="action-button" href={payloadAdminDealUrl(deal.id)} target="_blank" rel="noreferrer"><ExternalIcon /> Full record</a>
         </div>
 
+        {deal.suggestedStage && deal.suggestedStage !== deal.stage && (
+          <div className="stage-suggest-banner">
+            <span>AI suggests moving this deal to <strong>{STAGES.find((item) => item.value === deal.suggestedStage)?.label || deal.suggestedStage}</strong></span>
+            <button type="button" className="toolbar-button primary" onClick={() => save({ stage: deal.suggestedStage!, stageSetManually: true, suggestedStage: null })}>Accept</button>
+            <button type="button" className="toolbar-button" onClick={() => save({ suggestedStage: null })}>Dismiss</button>
+          </div>
+        )}
+
         <section className="drawer-section">
           <span className="eyebrow">Contact</span>
           <div className="edit-grid">
@@ -222,7 +230,10 @@ export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchC
           <span className="eyebrow">Deal</span>
           <div className="edit-grid">
             <TextField wide label="Deal title" value={deal.title} onSave={(title) => title && save({ title })} />
-            <SelectField label="Stage" value={deal.stage} options={STAGES} onSave={(stage) => stage && save({ stage: stage as Stage, stageSetManually: true })} />
+            <SelectField label="Stage" value={deal.stage} options={STAGES} onSave={(stage) => stage && save({ stage: stage as Stage, stageSetManually: true, ...(stage === 'lost' ? {} : { lostReason: null }) })} />
+            {deal.stage === 'lost' && (
+              <SelectField label="Why was it lost?" value={deal.lostReason || ''} options={LOST_REASONS} onSave={(lostReason) => save({ lostReason: lostReason || null })} />
+            )}
             <SelectField label="Occasion" value={deal.occasion || ''} options={OCCASIONS} onSave={(v) => save({ occasion: v || null })} />
             <TextField label="Deadline" type="date" value={deal.deadlineDate ? deal.deadlineDate.slice(0, 10) : ''} onSave={(d) => save({ deadlineDate: d ? new Date(d).toISOString() : null })} />
             <SelectField label="Waiting on" value={deal.awaitingWhom || ''} options={AWAITING} onSave={(v) => save({ awaitingWhom: (v || null) as Deal['awaitingWhom'] })} />

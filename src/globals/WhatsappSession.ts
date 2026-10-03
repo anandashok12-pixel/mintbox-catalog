@@ -66,6 +66,14 @@ export const WhatsappSession: GlobalConfig = {
       admin: { readOnly: true },
     },
     {
+      // Set from the CRM's "Get a new QR code" button. A worker that has
+      // stopped after a failed or expired pairing waits for this to change
+      // before making exactly one more attempt.
+      name: 'qrRequestedAt',
+      type: 'date',
+      admin: { readOnly: true, date: { pickerAppearance: 'dayAndTime' } },
+    },
+    {
       name: 'lastAlertSentAt',
       type: 'date',
       admin: {

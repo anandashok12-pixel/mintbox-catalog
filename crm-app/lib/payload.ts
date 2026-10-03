@@ -61,6 +61,11 @@ export async function getWhatsappSession(token: string): Promise<WhatsappSession
   return request('/api/globals/whatsapp-session?depth=1', { cache: 'no-store' }, token)
 }
 
+/** Ask an idle worker for one fresh pairing attempt (see whatsapp-worker waitForQrRequest). */
+export async function requestWhatsappQr(token: string): Promise<void> {
+  await request('/api/globals/whatsapp-session', { method: 'POST', body: JSON.stringify({ qrRequestedAt: new Date().toISOString() }) }, token)
+}
+
 export async function getWhatsappMessages(token: string): Promise<Message[]> {
   const result = await request<PaginatedResponse<Message>>(
     '/api/messages?where[channel][equals]=whatsapp&limit=500&depth=1&sort=-sentAt',

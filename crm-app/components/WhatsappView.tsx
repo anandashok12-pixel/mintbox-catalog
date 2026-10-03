@@ -50,12 +50,14 @@ export function WhatsappView({
   loading,
   error,
   onRefresh,
+  onRequestQr,
 }: {
   session: WhatsappSession | null
   messages: Message[]
   loading: boolean
   error: string
   onRefresh: () => Promise<void>
+  onRequestQr: () => Promise<void>
 }) {
   const conversations = useMemo<Conversation[]>(() => {
     const grouped = new Map<string, Message[]>()
@@ -76,6 +78,26 @@ export function WhatsappView({
   const selected = conversations.find((conversation) => conversation.key === selectedKey) || conversations[0] || null
   const qr = session?.qrMedia && typeof session.qrMedia === 'object' ? payloadFileUrl(session.qrMedia.url) : null
   const offline = !session || isStale(session.lastHeartbeatAt)
+  const [requesting, setRequesting] = useState(false)
+  const [requestError, setRequestError] = useState('')
+  // A QR is only scannable while the worker is actively pairing; an old image
+  // left over from an expired attempt would just fail on the phone.
+  const showQr = qr && session?.status === 'needs_qr' && !offline
+  const [requested, setRequested] = useState(false)
+  const waitingForQr = requested && !showQr && session?.status !== 'connected'
+
+  async function requestQr() {
+    setRequesting(true)
+    setRequestError('')
+    try {
+      await onRequestQr()
+      // The worker checks every 10s; give WhatsApp a minute before offering the button again.
+      setRequested(true)
+      window.setTimeout(() => setRequested(false), 90_000)
+    } catch (cause) {
+      setRequestError(cause instanceof Error ? cause.message : 'Could not request a new QR code')
+    } finally { setRequesting(false) }
+  }
 
   return (
     <div className="whatsapp-view">
@@ -100,14 +122,26 @@ export function WhatsappView({
             <p>The CRM is ready to receive messages, but the WhatsApp companion worker is offline and pairing has not completed.</p>
             <dl className="mirror-checklist">
               <div className="complete"><dt>Webhook and database</dt><dd>Ready</dd></div>
-              <div className="blocked"><dt>Worker process</dt><dd>Offline</dd></div>
+              <div className={offline ? 'blocked' : 'complete'}><dt>Worker process</dt><dd>{offline ? 'Offline' : 'Running'}</dd></div>
               <div className="blocked"><dt>WhatsApp device</dt><dd>{session?.status === 'disconnected' ? 'Connection terminated' : sessionLabel(session)}</dd></div>
               <div><dt>Context extraction</dt><dd>Waiting for messages</dd></div>
             </dl>
           </section>
           <aside className="pairing-panel">
-            <h3>{qr ? 'Scan to connect' : 'Pairing required'}</h3>
-            {qr ? <Image src={qr} alt="WhatsApp pairing QR code" width={220} height={220} unoptimized /> : <div className="qr-placeholder"><WhatsAppIcon /><span>QR appears here when the worker starts</span></div>}
+            <h3>{showQr ? 'Scan to connect' : 'Pairing required'}</h3>
+            {showQr ? (
+              <>
+                <Image src={qr} alt="WhatsApp pairing QR code" width={220} height={220} unoptimized />
+                <small className="qr-note">The code refreshes by itself every ~20 seconds. Scan the one on screen.</small>
+              </>
+            ) : (
+              <div className="qr-placeholder">
+                <WhatsAppIcon />
+                <span>{offline ? 'The WhatsApp worker is offline. It must be running before you can pair.' : waitingForQr ? 'Getting a QR code from WhatsApp…' : 'Have the sales phone in hand, then get a QR code. You have about 3 minutes to scan it.'}</span>
+                {!offline && !waitingForQr && <button type="button" className="toolbar-button primary" onClick={requestQr} disabled={requesting}>{requesting ? 'Requesting…' : 'Get a new QR code'}</button>}
+              </div>
+            )}
+            {requestError && <div className="inline-alert"><AlertIcon /><span>{requestError}</span></div>}
             <p>On the sales phone, open <strong>WhatsApp → Linked devices → Link a device</strong>. The mirror does not send messages or mark them read.</p>
             {session?.lastError && <div className="last-error"><span>Last connection error</span><code>{session.lastError}</code></div>}
           </aside>

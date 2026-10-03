@@ -28,6 +28,7 @@ export interface WhatsappSession {
   status: 'never_connected' | 'needs_qr' | 'connecting' | 'connected' | 'disconnected' | 'logged_out'
   qrMedia?: PayloadMedia | string | number | null
   qrGeneratedAt?: string | null
+  qrRequestedAt?: string | null
   lastHeartbeatAt?: string | null
   lastConnectionEventAt?: string | null
   lastError?: string | null
