@@ -1,10 +1,11 @@
 'use client'
 
 import { KeyboardEvent, useState } from 'react'
-import type { Deal, DealTask } from '@/lib/types'
+import type { Contact, Deal, DealTask, Message, Stage } from '@/lib/types'
 import { payloadAdminDealUrl } from '@/lib/payload'
-import { CONTACT_CHANNELS, LEAD_SOURCES } from '@/lib/constants'
-import { CheckIcon, CloseIcon, ExternalIcon, PlusIcon, WhatsAppIcon } from './Icons'
+import { CONTACT_CHANNELS, LEAD_SOURCES, STAGES } from '@/lib/constants'
+import { CheckIcon, CloseIcon, ExternalIcon, MailIcon, PlusIcon, WhatsAppIcon } from './Icons'
+import { involves, openLabel, type EmailFocus } from './EmailView'
 
 function contactFor(deal: Deal) {
   return typeof deal.contact === 'object' ? deal.contact : null
@@ -20,26 +21,131 @@ function formatDateTime(value?: string | null) {
   return new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }).format(new Date(value))
 }
 
-function currency(value?: number | null) {
-  return value == null ? 'Not known' : `₹${Math.round(value).toLocaleString('en-IN')}`
+const AWAITING = [
+  { label: 'Us', value: 'us' },
+  { label: 'Them', value: 'them' },
+  { label: 'Nobody', value: 'nobody' },
+]
+
+function unitValue(deal: Deal) {
+  const { unitBudgetMin: min, unitBudgetMax: max } = deal
+  if (min != null && max != null) return Math.round((min + max) / 2)
+  return min ?? max ?? null
+}
+
+function toNumber(raw: string) {
+  const cleaned = raw.replace(/[^\d.]/g, '')
+  if (!cleaned) return null
+  const n = Number(cleaned)
+  return Number.isFinite(n) ? n : null
+}
+
+function Field({ label, children, wide }: { label: string; children: React.ReactNode; wide?: boolean }) {
+  return <label className={`edit-field${wide ? ' edit-field-wide' : ''}`}><span>{label}</span>{children}</label>
+}
+
+// Uncontrolled-ish text input: edits locally, saves on blur only when changed.
+function TextField({ label, value, onSave, type = 'text', placeholder, wide }: {
+  label: string; value: string; onSave: (value: string) => void; type?: string; placeholder?: string; wide?: boolean
+}) {
+  const [draft, setDraft] = useState(value)
+  const [prev, setPrev] = useState(value)
+  if (value !== prev) { setPrev(value); setDraft(value) }
+  return (
+    <Field label={label} wide={wide}>
+      <input type={type} value={draft} placeholder={placeholder || '—'} onChange={(e) => setDraft(e.target.value)}
+        onBlur={() => { if (draft.trim() !== value) onSave(draft.trim()) }}
+        onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }} />
+    </Field>
+  )
+}
+
+function NumberField({ label, value, onSave, prefix }: {
+  label: string; value: number | null | undefined; onSave: (value: number | null) => void; prefix?: string
+}) {
+  const shown = value == null ? '' : String(value)
+  const [draft, setDraft] = useState(shown)
+  const [prev, setPrev] = useState(shown)
+  if (shown !== prev) { setPrev(shown); setDraft(shown) }
+  return (
+    <Field label={label}>
+      <span className="edit-number">
+        {prefix && <em>{prefix}</em>}
+        <input inputMode="decimal" value={draft} placeholder="—" onChange={(e) => setDraft(e.target.value)}
+          onBlur={() => { const n = toNumber(draft); if (n !== (value ?? null)) onSave(n) }}
+          onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }} />
+      </span>
+    </Field>
+  )
+}
+
+function SelectField({ label, value, options, onSave }: {
+  label: string; value: string; options: { label: string; value: string }[]; onSave: (value: string) => void
+}) {
+  return (
+    <Field label={label}>
+      <select value={value} onChange={(e) => onSave(e.target.value)}>
+        <option value="">—</option>
+        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    </Field>
+  )
+}
+
+function SummaryEditor({ value, onSave }: { value: string; onSave: (value: string) => void }) {
+  const [draft, setDraft] = useState(value)
+  return <textarea className="remarks-input" value={draft} rows={6} onChange={(e) => setDraft(e.target.value)}
+    onBlur={() => { if (draft !== value) onSave(draft) }} placeholder="No extracted summary yet." />
 }
 
 interface DealDrawerProps {
   deal: Deal | null
+  emails: Message[]
+  onCompose: (focus: EmailFocus) => void
   onClose: () => void
   onPatch: (patch: Partial<Deal>) => Promise<void>
+  onPatchContact: (patch: Partial<Contact>) => Promise<void>
 }
 
 // Keyed by deal.id from the parent (see CrmApp.tsx) so switching deals
 // remounts this with fresh local state, instead of syncing it via an effect.
-export function DealDrawer({ deal, onClose, onPatch }: DealDrawerProps) {
+export function DealDrawer({ deal, emails, onCompose, onClose, onPatch, onPatchContact }: DealDrawerProps) {
   const [remarks, setRemarks] = useState(deal?.remarks || '')
   const [newTask, setNewTask] = useState('')
+  const [openThread, setOpenThread] = useState<string | null>(null)
 
   if (!deal) return null
   const contact = contactFor(deal)
   const phone = contact?.phoneE164
   const tasks = deal.tasks || []
+  // Every email with this person, not just ones the extractor linked to the deal.
+  const contactEmail = contact?.email?.trim().toLowerCase() || ''
+  const related = emails.filter((m) =>
+    (typeof m.deal === 'object' ? m.deal?.id : m.deal) === deal.id ||
+    (contact && (typeof m.contact === 'object' ? m.contact.id : m.contact) === contact.id) ||
+    (contactEmail && involves(m, contactEmail)))
+  const emailThreads = [...related.reduce((map, m) => {
+    const key = m.threadId || `m${m.id}`
+    map.set(key, [...(map.get(key) || []), m])
+    return map
+  }, new Map<string, Message[]>()).entries()]
+    .map(([key, rows]) => ({ key, messages: rows.sort((a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()) }))
+    .sort((a, b) => new Date(b.messages[b.messages.length - 1].sentAt).getTime() - new Date(a.messages[a.messages.length - 1].sentAt).getTime())
+
+  const quantity = deal.quantity ?? null
+  const perHamper = unitValue(deal)
+
+  function save(patch: Partial<Deal>) { void onPatch(patch).catch(() => undefined) }
+  function saveContact(patch: Partial<Contact>) { void onPatchContact(patch).catch(() => undefined) }
+
+  // Quantity x value-per-hamper is the source of truth for the total whenever
+  // either changes; the total can still be overridden directly afterwards.
+  function saveQuantity(next: number | null) {
+    save({ quantity: next, ...(next != null && perHamper != null ? { estimatedValue: next * perHamper } : {}) })
+  }
+  function savePerHamper(next: number | null) {
+    save({ unitBudgetMin: next, unitBudgetMax: next, ...(next != null && quantity != null ? { estimatedValue: quantity * next } : {}) })
+  }
 
   function saveRemarks() {
     if (remarks !== (deal!.remarks || '')) void onPatch({ remarks })
@@ -84,26 +190,42 @@ export function DealDrawer({ deal, onClose, onPatch }: DealDrawerProps) {
           <a className="action-button" href={payloadAdminDealUrl(deal.id)} target="_blank" rel="noreferrer"><ExternalIcon /> Full record</a>
         </div>
 
+        <section className="drawer-section">
+          <span className="eyebrow">Contact</span>
+          <div className="edit-grid">
+            <TextField label="Name" value={contact?.name || ''} onSave={(name) => name && saveContact({ name })} />
+            <TextField label="Company" value={contact?.company || ''} onSave={(company) => saveContact({ company })} />
+            <TextField label="Email" type="email" value={contact?.email || ''} onSave={(email) => saveContact({ email })} />
+            <TextField label="Mobile" type="tel" value={contact?.phoneE164 || ''} onSave={(phoneE164) => saveContact({ phoneE164 })} placeholder="+91…" />
+          </div>
+        </section>
+
+        <section className="drawer-section">
+          <span className="eyebrow">Deal</span>
+          <div className="edit-grid">
+            <TextField wide label="Deal title" value={deal.title} onSave={(title) => title && save({ title })} />
+            <SelectField label="Stage" value={deal.stage} options={STAGES} onSave={(stage) => stage && save({ stage: stage as Stage, stageSetManually: true })} />
+            <TextField label="Deadline" type="date" value={deal.deadlineDate ? deal.deadlineDate.slice(0, 10) : ''} onSave={(d) => save({ deadlineDate: d ? new Date(d).toISOString() : null })} />
+            <NumberField label="Quantity" value={quantity} onSave={saveQuantity} />
+            <NumberField label="Value per hamper" prefix="₹" value={perHamper} onSave={savePerHamper} />
+            <NumberField label="Total estimated" prefix="₹" value={deal.estimatedValue} onSave={(estimatedValue) => save({ estimatedValue })} />
+            <div className="edit-hint">
+              {quantity != null && perHamper != null
+                ? `${quantity.toLocaleString('en-IN')} × ₹${perHamper.toLocaleString('en-IN')} = ₹${(quantity * perHamper).toLocaleString('en-IN')}`
+                : 'Enter quantity and value per hamper to calculate the total.'}
+            </div>
+            <SelectField label="Waiting on" value={deal.awaitingWhom || ''} options={AWAITING} onSave={(v) => save({ awaitingWhom: (v || null) as Deal['awaitingWhom'] })} />
+            <SelectField label="Lead source" value={deal.leadSource || ''} options={LEAD_SOURCES} onSave={(v) => save({ leadSource: (v || null) as Deal['leadSource'] })} />
+            <SelectField label="Contacted via" value={deal.contactChannel || ''} options={CONTACT_CHANNELS} onSave={(v) => save({ contactChannel: (v || null) as Deal['contactChannel'] })} />
+            <TextField wide label="Next move" value={deal.nextAction || ''} onSave={(nextAction) => save({ nextAction })} placeholder="Nothing concrete is scheduled" />
+          </div>
+          <p className="edit-meta">Last message {formatDate(deal.lastMessageAt)} · Updated {formatDate(deal.updatedAt)}</p>
+        </section>
+
         <section className="drawer-section drawer-summary">
           <span className="eyebrow">Situation</span>
-          <p>{deal.summary || 'No extracted summary yet.'}</p>
+          <SummaryEditor value={deal.summary || ''} onSave={(summary) => save({ summary })} />
         </section>
-
-        <section className="drawer-section next-action-block">
-          <span className="eyebrow">Next move</span>
-          <p>{deal.nextAction || 'Nothing concrete is scheduled.'}</p>
-        </section>
-
-        <dl className="deal-facts">
-          <div><dt>Stage</dt><dd>{deal.stage}</dd></div>
-          <div><dt>Potential</dt><dd>{currency(deal.estimatedValue)}</dd></div>
-          <div><dt>Quantity</dt><dd>{deal.quantity?.toLocaleString('en-IN') || '—'}</dd></div>
-          <div><dt>Deadline</dt><dd>{formatDate(deal.deadlineDate)}</dd></div>
-          <div><dt>Last message</dt><dd>{formatDate(deal.lastMessageAt)}</dd></div>
-          <div><dt>Waiting on</dt><dd>{deal.awaitingWhom || '—'}</dd></div>
-          <div><dt>Lead source</dt><dd>{LEAD_SOURCES.find((item) => item.value === deal.leadSource)?.label || '—'}</dd></div>
-          <div><dt>Contacted via</dt><dd>{CONTACT_CHANNELS.find((item) => item.value === deal.contactChannel)?.label || '—'}</dd></div>
-        </dl>
 
         {deal.attribution && (
           <section className="drawer-section">
@@ -111,6 +233,40 @@ export function DealDrawer({ deal, onClose, onPatch }: DealDrawerProps) {
             <p>{deal.attribution}</p>
           </section>
         )}
+
+        <section className="drawer-section">
+          <span className="eyebrow">Email</span>
+          <ul className="drawer-emails">
+            {emailThreads.map((thread) => {
+              const first = thread.messages[0]
+              const last = thread.messages[thread.messages.length - 1]
+              const expanded = openThread === thread.key
+              return (
+                <li key={thread.key} className={expanded ? 'is-open' : ''}>
+                  <button type="button" className="email-thread-toggle" onClick={() => setOpenThread(expanded ? null : thread.key)} aria-expanded={expanded}>
+                    <strong>{first.subject || '(no subject)'}</strong>
+                    <small>{thread.messages.length} message{thread.messages.length === 1 ? '' : 's'} · last {last.direction === 'inbound' ? 'received' : 'sent'} {formatDateTime(last.sentAt)}</small>
+                  </button>
+                  {expanded && (
+                    <ol className="email-thread">
+                      {thread.messages.map((m) => {
+                        const status = openLabel(m)
+                        return (
+                          <li key={m.id} className={m.direction}>
+                            <small>{m.direction === 'inbound' ? `From ${m.fromEmail}` : `${m.fromEmail} → ${m.toEmails}`} · {formatDateTime(m.sentAt)}{status ? ` · ${status.text}` : ''}</small>
+                            <p>{m.body}</p>
+                          </li>
+                        )
+                      })}
+                    </ol>
+                  )}
+                </li>
+              )
+            })}
+            {emailThreads.length === 0 && <li className="task-empty">No emails with {contactEmail || 'this contact'} yet.</li>}
+          </ul>
+          <button type="button" className="toolbar-button" onClick={() => onCompose({ dealId: deal.id, contactId: contact?.id, to: contact?.email || '' })}><MailIcon /> {emailThreads.length ? 'Open in Email' : 'Write email'}</button>
+        </section>
 
         <section className="drawer-section tasks-section">
           <span className="eyebrow">To-dos</span>

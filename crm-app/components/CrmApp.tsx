@@ -1,19 +1,35 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ApiError, createTask, deleteTask, getCurrentUser, getDeals, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateDeal, updateTask } from '@/lib/payload'
-import type { Deal, Message, Stage, Task, User, WhatsappSession } from '@/lib/types'
-import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, QueueIcon, RefreshIcon, SearchIcon, TaskIcon, WhatsAppIcon } from './Icons'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, updateContact, updateDeal, updateTask } from '@/lib/payload'
+import type { Contact, Deal, GmailSyncState, Message, Stage, Task, User, WhatsappSession } from '@/lib/types'
+import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, MailIcon, QueueIcon, RefreshIcon, SearchIcon, TaskIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
 import { QueueView } from './QueueView'
 import { BoardView } from './BoardView'
 import { DealDrawer } from './DealDrawer'
 import { WhatsappView } from './WhatsappView'
+import { EmailView, type EmailFocus } from './EmailView'
 import { NewDealModal } from './NewDealModal'
 import { AnalyticsView } from './AnalyticsView'
 import { TaskView } from './TaskView'
 
 const TOKEN_KEY = 'mintbox-crm-token'
+const REFRESH_EVERY_MS = 6 * 60 * 60 * 1000
+
+// localStorage (not sessionStorage) so the installed app stays signed in
+// between launches; the token is refreshed on open and every few hours.
+const tokenStore = {
+  get(): string | null {
+    try { return localStorage.getItem(TOKEN_KEY) ?? sessionStorage.getItem(TOKEN_KEY) } catch { return null }
+  },
+  set(value: string) {
+    try { localStorage.setItem(TOKEN_KEY, value); sessionStorage.removeItem(TOKEN_KEY) } catch { /* storage blocked */ }
+  },
+  clear() {
+    try { localStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem(TOKEN_KEY) } catch { /* storage blocked */ }
+  },
+}
 
 function isTaskOverdue(task: Task) {
   if (task.done || !task.dueDate) return false
@@ -26,24 +42,31 @@ export function CrmApp() {
   const [deals, setDeals] = useState<Deal[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
   const [selectedDealId, setSelectedDealId] = useState<string | number | null>(null)
-  const [view, setView] = useState<'queue' | 'board' | 'whatsapp' | 'analytics' | 'tasks'>('board')
+  const [view, setView] = useState<'queue' | 'board' | 'whatsapp' | 'email' | 'analytics' | 'tasks'>('board')
   const [search, setSearch] = useState('')
   const [whatsappSession, setWhatsappSession] = useState<WhatsappSession | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [whatsappError, setWhatsappError] = useState('')
   const [whatsappLoading, setWhatsappLoading] = useState(false)
+  const [emails, setEmails] = useState<Message[]>([])
+  const [gmailSync, setGmailSync] = useState<GmailSyncState | null>(null)
+  const [emailError, setEmailError] = useState('')
+  const [emailLoading, setEmailLoading] = useState(false)
+  const [emailFocus, setEmailFocus] = useState<{ focus: EmailFocus; nonce: number } | null>(null)
   const [booting, setBooting] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState('')
   const [showNewDeal, setShowNewDeal] = useState(false)
 
   const logout = useCallback(() => {
-    sessionStorage.removeItem(TOKEN_KEY)
+    tokenStore.clear()
     setToken(null)
     setUser(null)
     setDeals([])
     setTasks([])
     setMessages([])
+    setEmails([])
+    setGmailSync(null)
     setWhatsappSession(null)
     setSelectedDealId(null)
   }, [])
@@ -87,53 +110,103 @@ export function CrmApp() {
     }
   }, [logout])
 
+  const loadEmail = useCallback(async (activeToken: string) => {
+    setEmailLoading(true)
+    try {
+      const [rows, state] = await Promise.all([getEmailMessages(activeToken), getGmailSync(activeToken)])
+      setEmails(rows)
+      setGmailSync(state)
+      setEmailError('')
+    } catch (cause) {
+      if (cause instanceof ApiError && cause.status === 401) logout()
+      else setEmailError(cause instanceof Error ? cause.message : 'Could not load email')
+    } finally {
+      setEmailLoading(false)
+    }
+  }, [logout])
+
   useEffect(() => {
     async function restoreSession() {
-      const stored = sessionStorage.getItem(TOKEN_KEY)
+      let stored = tokenStore.get()
       if (!stored) {
         setBooting(false)
         return
       }
       try {
+        stored = (await refreshSession(stored).catch(() => null)) || stored
+        tokenStore.set(stored)
         const [currentUser, rows] = await Promise.all([getCurrentUser(stored), getDeals(stored)])
         setToken(stored)
         setUser(currentUser)
         setDeals(rows)
         void loadWhatsapp(stored)
+        void loadEmail(stored)
         void loadTasks(stored)
       } catch {
-        sessionStorage.removeItem(TOKEN_KEY)
+        tokenStore.clear()
       } finally {
         setBooting(false)
       }
     }
 
     void restoreSession()
-  }, [loadWhatsapp, loadTasks])
+  }, [loadWhatsapp, loadEmail, loadTasks])
+
+  // Keep long-lived app sessions alive without asking to sign in again.
+  useEffect(() => {
+    if (!token) return
+    const timer = window.setInterval(async () => {
+      const next = await refreshSession(token).catch(() => null)
+      if (next) { tokenStore.set(next); setToken(next) }
+    }, REFRESH_EVERY_MS)
+    return () => window.clearInterval(timer)
+  }, [token])
 
   async function handleLogin(email: string, password: string) {
     const result = await payloadLogin(email, password)
-    sessionStorage.setItem(TOKEN_KEY, result.token)
+    tokenStore.set(result.token)
     setToken(result.token)
     setUser(result.user)
-    await Promise.all([loadDeals(result.token), loadWhatsapp(result.token), loadTasks(result.token)])
+    await Promise.all([loadDeals(result.token), loadWhatsapp(result.token), loadEmail(result.token), loadTasks(result.token)])
   }
 
   async function refresh() {
     if (!token) return
     setRefreshing(true)
-    try { await Promise.all([loadDeals(token), loadWhatsapp(token), loadTasks(token)]) } finally { setRefreshing(false) }
+    try { await Promise.all([loadDeals(token), loadWhatsapp(token), loadEmail(token), loadTasks(token)]) } finally { setRefreshing(false) }
   }
+
+  // Saves run one at a time: Payload rewrites the row, so two PATCHes in flight
+  // can clobber each other's fields (e.g. quantity then value-per-hamper).
+  const saveQueue = useRef<Promise<unknown>>(Promise.resolve())
 
   async function patchDeal(deal: Deal, patch: Partial<Deal>) {
     if (!token) return
     setDeals((current) => current.map((item) => item.id === deal.id ? { ...item, ...patch } : item))
+    const run = saveQueue.current.catch(() => undefined).then(() => updateDeal(token, deal.id, patch))
+    saveQueue.current = run
     try {
-      const updated = await updateDeal(token, deal.id, patch)
+      const updated = await run
       setDeals((current) => current.map((item) => item.id === deal.id ? updated : item))
     } catch (cause) {
       await loadDeals(token).catch(() => undefined)
       setError(cause instanceof Error ? cause.message : 'Could not save the deal')
+      throw cause
+    }
+  }
+
+  async function patchContact(deal: Deal, patch: Partial<Contact>) {
+    if (!token || typeof deal.contact !== 'object') return
+    const contactId = deal.contact.id
+    const apply = (fn: (c: Contact) => Contact) => setDeals((current) => current.map((item) =>
+      typeof item.contact === 'object' && item.contact.id === contactId ? { ...item, contact: fn(item.contact) } : item))
+    apply((c) => ({ ...c, ...patch }))
+    try {
+      const updated = await updateContact(token, contactId, patch)
+      apply((c) => ({ ...c, ...updated }))
+    } catch (cause) {
+      await loadDeals(token).catch(() => undefined)
+      setError(cause instanceof Error ? cause.message : 'Could not save the contact')
       throw cause
     }
   }
@@ -212,6 +285,7 @@ export function CrmApp() {
   const viewMeta = {
     board: { title: 'Deals', subtitle: `${filteredDeals.length} records` },
     queue: { title: 'Priority queue', subtitle: 'Work that needs attention' },
+    email: { title: 'Email', subtitle: `${emails.length} synced messages` },
     whatsapp: { title: 'WhatsApp mirror', subtitle: `${messages.length} captured messages` },
     analytics: { title: 'Analytics', subtitle: 'Pipeline and activity' },
     tasks: { title: 'To-dos', subtitle: `${tasks.filter((task) => !task.done).length} pending` },
@@ -227,6 +301,10 @@ export function CrmApp() {
           <button className={view === 'whatsapp' ? 'active' : ''} onClick={() => setView('whatsapp')} title="WhatsApp mirror">
             <WhatsAppIcon /><span>WhatsApp</span>
             {whatsappSession?.status !== 'connected' && <i className="nav-alert" />}
+          </button>
+          <button className={view === 'email' ? 'active' : ''} onClick={() => setView('email')} title="Email">
+            <MailIcon /><span>Email</span>
+            {gmailSync?.accounts?.some((a) => a.lastError) && <i className="nav-alert" />}
           </button>
           <button className={view === 'analytics' ? 'active' : ''} onClick={() => setView('analytics')} title="Analytics"><AnalyticsIcon /><span>Analytics</span></button>
           <button className={view === 'tasks' ? 'active' : ''} onClick={() => setView('tasks')} title="To-dos">
@@ -254,11 +332,12 @@ export function CrmApp() {
           {view === 'queue' && <QueueView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />}
           {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
           {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} />}
+          {view === 'email' && <EmailView key={emailFocus?.nonce ?? 0} token={token} messages={emails} sync={gmailSync} loading={emailLoading} error={emailError} focus={emailFocus?.focus ?? null} onRefresh={() => loadEmail(token)} onSent={(message) => { void loadEmail(token); setEmails((current) => [message, ...current]) }} />}
           {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
           {view === 'tasks' && <TaskView tasks={tasks} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} />}
         </main>
       </div>
-      <DealDrawer key={selectedDeal?.id ?? 'none'} deal={selectedDeal} onClose={() => setSelectedDealId(null)} onPatch={(patch) => selectedDeal ? patchDeal(selectedDeal, patch) : Promise.resolve()} />
+      <DealDrawer key={selectedDeal?.id ?? 'none'} deal={selectedDeal} emails={emails} onCompose={(focus) => { setEmailFocus({ focus, nonce: Date.now() }); setSelectedDealId(null); setView('email') }} onClose={() => setSelectedDealId(null)} onPatch={(patch) => selectedDeal ? patchDeal(selectedDeal, patch) : Promise.resolve()} onPatchContact={(patch) => selectedDeal ? patchContact(selectedDeal, patch) : Promise.resolve()} />
       {showNewDeal && token && <NewDealModal token={token} onClose={() => setShowNewDeal(false)} onCreated={dealCreated} />}
     </div>
   )

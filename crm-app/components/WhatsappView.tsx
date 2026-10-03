@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { payloadFileUrl } from '@/lib/payload'
 import type { Contact, Message, WhatsappSession } from '@/lib/types'
-import { AlertIcon, RefreshIcon, WhatsAppIcon } from './Icons'
+import { AlertIcon, BackIcon, RefreshIcon, WhatsAppIcon } from './Icons'
 
 function contactFor(message: Message): Contact | null {
   return typeof message.contact === 'object' ? message.contact : null
@@ -113,7 +113,7 @@ export function WhatsappView({
           </aside>
         </div>
       ) : (
-        <div className="inbox-shell">
+        <div className={`inbox-shell${selectedKey ? ' has-selection' : ''}`}>
           <aside className="conversation-list">
             <header><h2>Conversations</h2><span>{conversations.length}</span></header>
             {conversations.map((conversation) => (
@@ -129,6 +129,7 @@ export function WhatsappView({
           </aside>
           <section className="chat-panel">
             <header>
+              <button type="button" className="back-button" onClick={() => setSelectedKey(null)} aria-label="Back to list"><BackIcon /></button>
               <div><strong>{selected?.contact?.company || selected?.contact?.name}</strong><span>{selected?.contact?.phoneE164}</span></div>
               <span className="message-count">{selected?.messages.length} messages</span>
             </header>

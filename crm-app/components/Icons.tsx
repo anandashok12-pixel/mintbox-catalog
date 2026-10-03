@@ -11,6 +11,7 @@ export const BoardIcon = (props: IconProps) => <IconBase {...props}><rect x="3" 
 export const RefreshIcon = (props: IconProps) => <IconBase {...props}><path d="M20 6v5h-5"/><path d="M18.5 15a7 7 0 1 1-.8-7.8L20 11"/></IconBase>
 export const LogOutIcon = (props: IconProps) => <IconBase {...props}><path d="M10 17l5-5-5-5M15 12H3"/><path d="M14 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></IconBase>
 export const ArrowIcon = (props: IconProps) => <IconBase {...props}><path d="M5 12h14M14 7l5 5-5 5"/></IconBase>
+export const BackIcon = (props: IconProps) => <IconBase {...props}><path d="M15 18l-6-6 6-6"/></IconBase>
 export const CloseIcon = (props: IconProps) => <IconBase {...props}><path d="M6 6l12 12M18 6L6 18"/></IconBase>
 export const WhatsAppIcon = (props: IconProps) => <IconBase {...props}><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.7A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="M8.2 7.8c.3-.6.6-.6.9-.6h.4c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.7c-.2.2-.2.4-.1.6.5 1 1.3 1.8 2.3 2.3.2.1.4.1.6-.1l.8-1c.2-.2.4-.3.7-.2l1.8.8c.3.1.4.3.4.5 0 .3-.1 1.3-.8 1.8-.6.5-1.4.8-2.3.5-1-.3-2.3-.8-3.9-2.2-1.3-1.2-2.2-2.6-2.5-3.6-.3-1 0-1.8.4-2.2Z"/></IconBase>
 export const ExternalIcon = (props: IconProps) => <IconBase {...props}><path d="M14 5h5v5M19 5l-9 9"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></IconBase>
@@ -22,3 +23,6 @@ export const PlusIcon = (props: IconProps) => <IconBase {...props}><path d="M12 
 export const AnalyticsIcon = (props: IconProps) => <IconBase {...props}><path d="M4 19V9M11 19V5M18 19v-7"/></IconBase>
 export const TaskIcon = (props: IconProps) => <IconBase {...props}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m7 12 2.5 2.5L17 9"/></IconBase>
 export const TrashIcon = (props: IconProps) => <IconBase {...props}><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7"/></IconBase>
+export const MailIcon = (props: IconProps) => <IconBase {...props}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6.5L20.5 7"/></IconBase>
+export const SendIcon = (props: IconProps) => <IconBase {...props}><path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z"/></IconBase>
+export const EyeIcon = (props: IconProps) => <IconBase {...props}><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></IconBase>

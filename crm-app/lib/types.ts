@@ -44,6 +44,16 @@ export interface Message {
   preview?: string | null
   media?: (PayloadMedia | string | number)[] | null
   providerId?: string | null
+  mailbox?: string | null
+  threadId?: string | null
+  subject?: string | null
+  fromEmail?: string | null
+  toEmails?: string | null
+  ccEmails?: string | null
+  trackingToken?: string | null
+  openedAt?: string | null
+  lastOpenedAt?: string | null
+  openCount?: number | null
   sentAt: string
   createdAt: string
   updatedAt: string
@@ -119,4 +129,18 @@ export interface PaginatedResponse<T> {
   totalDocs: number
   hasNextPage: boolean
   nextPage?: number | null
+}
+
+export interface GmailSyncAccount {
+  id?: string
+  mailbox: string
+  connectedAt?: string | null
+  lastSyncAt?: string | null
+  lastSuccessAt?: string | null
+  lastError?: string | null
+  totalSynced?: number | null
+}
+
+export interface GmailSyncState {
+  accounts?: GmailSyncAccount[] | null
 }

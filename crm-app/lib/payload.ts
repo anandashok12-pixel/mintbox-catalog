@@ -1,4 +1,4 @@
-import type { Contact, Deal, Message, PaginatedResponse, Task, User, WhatsappSession } from './types'
+import type { Contact, Deal, GmailSyncState, Message, PaginatedResponse, Task, User, WhatsappSession } from './types'
 
 const apiBase = '/payload-api'
 const payloadAdminBase = (process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://themintbox.in').replace(/\/$/, '')
@@ -42,6 +42,12 @@ export async function getCurrentUser(token: string): Promise<User> {
   return result.user
 }
 
+/** Swap a still-valid token for a fresh one so the installed app stays signed in. */
+export async function refreshSession(token: string): Promise<string | null> {
+  const result = await request<{ refreshedToken?: string }>('/api/users/refresh-token', { method: 'POST' }, token)
+  return result.refreshedToken || null
+}
+
 export async function getDeals(token: string): Promise<Deal[]> {
   const result = await request<PaginatedResponse<Deal>>(
     '/api/deals?limit=500&depth=1&sort=-updatedAt',
@@ -62,6 +68,72 @@ export async function getWhatsappMessages(token: string): Promise<Message[]> {
     token,
   )
   return result.docs
+}
+
+export async function getEmailMessages(token: string): Promise<Message[]> {
+  const result = await request<PaginatedResponse<Message>>(
+    '/api/messages?where[channel][equals]=email&limit=500&depth=1&sort=-sentAt',
+    { cache: 'no-store' },
+    token,
+  )
+  return result.docs
+}
+
+export async function getGmailSync(token: string): Promise<GmailSyncState> {
+  return request('/api/globals/gmail-sync?depth=0', { cache: 'no-store' }, token)
+}
+
+export interface SendEmailInput {
+  mailbox: string
+  to: string
+  cc?: string
+  subject: string
+  body: string
+  contactId?: string | number
+  dealId?: string | number
+  replyToMessageId?: string | number
+  signature?: boolean
+}
+
+export interface DraftEmailInput {
+  mailbox: string
+  to: string
+  subject?: string
+  instructions: string
+  currentDraft?: string
+  contactId?: string | number
+  dealId?: string | number
+}
+
+export async function draftEmail(token: string, data: DraftEmailInput): Promise<{ subject: string; body: string }> {
+  return request('/api/email/draft', { method: 'POST', body: JSON.stringify(data) }, token)
+}
+
+export interface EmailSignature { mailbox: string; signature?: string | null }
+
+export async function getEmailSignatures(token: string): Promise<EmailSignature[]> {
+  const result = await request<{ signatures?: EmailSignature[] | null }>('/api/globals/email-settings?depth=0', { cache: 'no-store' }, token)
+  return (result.signatures || []).map(({ mailbox, signature }) => ({ mailbox, signature }))
+}
+
+export async function saveEmailSignatures(token: string, signatures: EmailSignature[]): Promise<void> {
+  await request('/api/globals/email-settings', { method: 'POST', body: JSON.stringify({ signatures }) }, token)
+}
+
+export async function sendEmail(token: string, data: SendEmailInput): Promise<Message> {
+  const result = await request<{ message: Message }>('/api/email/send', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }, token)
+  return result.message
+}
+
+export async function startGmailConnect(token: string, mailbox: string): Promise<string> {
+  const result = await request<{ url: string }>('/api/email/oauth/start', {
+    method: 'POST',
+    body: JSON.stringify({ mailbox }),
+  }, token)
+  return result.url
 }
 
 export function payloadFileUrl(url?: string | null): string | null {
@@ -137,6 +209,18 @@ export async function createContact(
 ): Promise<Contact> {
   const result = await request<{ doc: Contact } | Contact>('/api/contacts', {
     method: 'POST',
+    body: JSON.stringify(data),
+  }, token)
+  return 'doc' in result ? result.doc : result
+}
+
+export async function updateContact(
+  token: string,
+  id: string | number,
+  data: Partial<Contact>,
+): Promise<Contact> {
+  const result = await request<{ doc: Contact } | Contact>(`/api/contacts/${id}`, {
+    method: 'PATCH',
     body: JSON.stringify(data),
   }, token)
   return 'doc' in result ? result.doc : result
