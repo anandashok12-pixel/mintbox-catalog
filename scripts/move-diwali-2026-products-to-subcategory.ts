@@ -11,6 +11,7 @@
  *   npx tsx scripts/move-diwali-2026-products-to-subcategory.ts --dry
  *   npx tsx scripts/move-diwali-2026-products-to-subcategory.ts
  */
+import { authHeaders } from './lib/payloadAuth'
 import { DIWALI_2026_PRODUCTS } from '../src/data/diwali2026Products'
 
 const BASE_URL = 'https://themintbox.in'
@@ -37,7 +38,7 @@ async function findProductByName(name: string): Promise<{ id: number; category: 
 async function moveProduct(id: number, categoryId: number) {
   const res = await fetch(`${BASE_URL}/api/products/${id}`, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders(BASE_URL)) },
     body: JSON.stringify({ category: categoryId }),
   })
   if (!res.ok) throw new Error(`Move failed for product id ${id}: HTTP ${res.status} - ${(await res.text()).slice(0, 300)}`)

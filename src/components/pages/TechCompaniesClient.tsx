@@ -1,5 +1,7 @@
 'use client'
 
+import ClientLogos from '@/components/content/ClientLogos'
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -62,8 +64,8 @@ const GIFT_CATEGORIES = [
 const OCCASION_TABLE = [
   { occasion: 'Employee Onboarding', gift: 'Notebook + bottle + tee combo', budget: '₹800–₹1,500', moq: '10 units' },
   { occasion: 'Work Anniversary', gift: 'Premium insulated bottle or engraved pen', budget: '₹500–₹1,500', moq: '1 unit' },
-  { occasion: 'Diwali Gifting', gift: 'Hamper with drinkware + snacks', budget: '₹1,000–₹3,000', moq: '25 units' },
-  { occasion: 'Conference/Event', gift: 'Branded tote + USB + pen', budget: '₹400–₹700', moq: '50 units' },
+  { occasion: 'Diwali Gifting', gift: 'Hamper with drinkware + snacks', budget: '₹1,000–₹3,000', moq: '10 units' },
+  { occasion: 'Conference/Event', gift: 'Branded tote + USB + pen', budget: '₹400–₹700', moq: '10 units' },
   { occasion: 'Client Appreciation', gift: 'Premium tech kit or curated hamper', budget: '₹2,000–₹5,000', moq: '1 unit' },
   { occasion: 'Team Win Celebration', gift: 'Swag box with tee + mug + snack', budget: '₹600–₹1,200', moq: '10 units' },
 ]
@@ -141,6 +143,7 @@ export default function TechCompaniesClient({ products, categories }: { products
         "headline": "Corporate Gifts for Tech Companies: Premium Picks for 2026",
         "description": "Premium corporate gifts for IT and tech companies - branded tech accessories, quality drinkware, eco kits. Bulk orders, GST invoicing. Bangalore & Pan-India.",
         "url": "https://themintbox.in/industry-solutions/tech-companies",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -162,41 +165,48 @@ export default function TechCompaniesClient({ products, categories }: { products
             <div>
               <div className="cp-hero-eyebrow">Industry Solutions · IT & Tech</div>
               <h1 className="cp-hero-title">
-                Corporate Gifts for Tech Companies:<br />
+                Corporate Gifts for Tech Companies:{' '}<br />
                 <em>Premium Picks for 2026</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Branded tech accessories, quality drinkware, and team swag for India's fastest-growing tech companies.
-                Bulk orders for 500+ employees, individual delivery to remote teams, and culture-forward curation.
+                Branded tech accessories, drinkware and team swag for growing tech companies, with individual delivery to remote teams.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">See Tech Gifts ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ Tech accessory specialists</span>
-                <span className="cp-hero-badge">✓ Remote team delivery</span>
-                <span className="cp-hero-badge">✓ MOQ from 25 units</span>
-                <span className="cp-hero-badge">✓ GST invoicing</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Fast same-day corporate gift delivery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/Premium%20Vegan%20Leather%20Desk%20Mat%201.8MM.png" alt="Premium Vegan Leather Desk Mat 1.8MM" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=800&q=80" alt="Custom branded corporate water bottle" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/CORK%20DESKTOP%20ORGANIZER%20TRAY-2.png" alt="CORK DESKTOP ORGANIZER TRAY" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80" alt="Branded merchandise corporate gift" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/native-union-fold-laptop-stand.png" alt="Native Union Fold Laptop Stand" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Tech accessory specialists</span>
+            <span className="cp-hero-badge">✓ Remote team delivery</span>
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
+
+      <ClientLogos />
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -209,7 +219,7 @@ export default function TechCompaniesClient({ products, categories }: { products
             'Tech-specific gifting for 50+ Bangalore IT companies',
             'Remote team delivery to 500+ cities in India',
             'Premium tech accessories and quality drinkware',
-            'Bulk orders from 25 units with individual delivery',
+            'Bulk orders from 10 units with individual delivery',
             'GST invoicing and purchase order support',
           ]} />
         </div>
@@ -243,7 +253,6 @@ export default function TechCompaniesClient({ products, categories }: { products
       {/* ── GIFT CATEGORIES ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Gift Categories</div>
           <h2 className="cp-section-title">What Tech Teams Actually Want</h2>
           <p className="cp-section-sub">
             Four categories that resonate with engineers, PMs, and designers - practical, daily-use gifts
@@ -264,13 +273,12 @@ export default function TechCompaniesClient({ products, categories }: { products
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=1200&q=80" alt="Tech industry corporate gifting - branded merchandise for IT companies" loading="lazy" />
+        <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Tech Company Gift Options</h2>
           <p className="cp-section-sub">
             All products below are curated for tech teams - practical, brandable, and quality-forward.
@@ -337,7 +345,6 @@ export default function TechCompaniesClient({ products, categories }: { products
       {/* ── BUDGET TIERS ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Budget Planning</div>
           <h2 className="cp-section-title">Gift Options at Every Budget Level</h2>
           <p className="cp-section-sub">
             Whether you're gifting all 500 employees or just the engineering leads, there's a
@@ -367,7 +374,7 @@ export default function TechCompaniesClient({ products, categories }: { products
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Tech Gifting Programme</div>
-            <h2 className="cp-cta-title">Build Your Tech Team<br />Gifting Programme</h2>
+            <h2 className="cp-cta-title">Build Your Tech Team{' '}<br />Gifting Programme</h2>
             <p className="cp-cta-desc">
               Tell us your team size, gifting occasions, and budget - we'll build a
               custom programme with product recommendations and volume pricing.
@@ -377,7 +384,7 @@ export default function TechCompaniesClient({ products, categories }: { products
                 'Tech-specific product curation',
                 'Individual delivery to remote employees',
                 'GST invoice and PO support',
-                'Quote within 4 business hours',
+                'Reply within 1 hour on business days',
               ].map(p => (
                 <div key={p} className="cp-cta-promise">
                   <span className="cp-cta-promise-dot" />
@@ -389,7 +396,7 @@ export default function TechCompaniesClient({ products, categories }: { products
           <InlineQuoteForm
             title="Build Your Tech Team Gifting Programme"
             subtitle="Tell us your team size and gifting occasions and we'll send back tailored recommendations."
-            ctaLabel="Get Tech Gifting Quote"
+            ctaLabel="Request a quote"
             defaultOccasion="welcome_kit"
           />
         </div>
@@ -403,7 +410,6 @@ export default function TechCompaniesClient({ products, categories }: { products
           <FAQSection
             items={FAQS}
             title="Corporate Gifts for Tech Companies - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -411,7 +417,6 @@ export default function TechCompaniesClient({ products, categories }: { products
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

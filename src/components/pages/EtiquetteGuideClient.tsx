@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -93,6 +94,7 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
         "headline": "Corporate Gifting Etiquette in India: The Complete Guide",
         "description": "Learn corporate gifting etiquette for India: timing, budgets, personalisation, cultural dos and don'ts. A practical guide for HR, admin, and procurement teams.",
         "url": "https://themintbox.in/guides/corporate-gifting-etiquette",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -112,7 +114,7 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-btn-primary">Browse Recommended Gifts</a>
-              <a href="#quote" className="cp-btn-secondary">Request a Quote</a>
+              <a href="#quote" className="cp-btn-secondary">Request a quote</a>
             </div>
           </div>
         </section>
@@ -171,7 +173,7 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1556742212-5b321f3c261b?auto=format&fit=crop&w=1200&q=80" alt="Professional corporate gifting etiquette guide for Indian businesses" loading="lazy" />
+          <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Product Showcase */}
@@ -231,7 +233,7 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Corporate team following gifting etiquette for professional business relationships" loading="lazy" />
+          <Image src="/hampers/hamper7.webp" alt="Festive gift tray with planner and treats" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Quote Band */}
@@ -241,7 +243,7 @@ export default function EtiquetteGuideClient({ products, categories }: Props) {
             <p className="cp-quote-sub">
               We handle GST invoicing, cultural sensitivity checks, packaging, and on-time delivery across India.
             </p>
-            <a href="#quote" className="cp-btn-primary">Get a Custom Quote</a>
+            <a href="#quote" className="cp-btn-primary">Request a quote</a>
           </div>
         </section>
 

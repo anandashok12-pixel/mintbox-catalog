@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import NewEmployeeGiftsClient from '@/components/pages/NewEmployeeGiftsClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Corporate Gifts for New Employees | Welcome Kits | MintBox',
@@ -30,7 +31,7 @@ export default async function NewEmployeeGiftsPage() {
       payload.find({ collection: 'products', where: { inStock: { equals: true } }, sort: 'order', limit: 500, depth: 1 }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[corporate-gifts-for-new-employees] Payload query failed:', err)
   }

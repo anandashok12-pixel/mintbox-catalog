@@ -86,7 +86,7 @@ export default function CartPanel({ onRequestPricing }: CartPanelProps) {
               </div>
               <p className="cart-disclaimer">* Final pricing subject to qty, customisation &amp; delivery</p>
               <button className="btn-request-pricing" onClick={onRequestPricing}>
-                Request Final Pricing →
+                Request a quote →
               </button>
             </div>
           </>

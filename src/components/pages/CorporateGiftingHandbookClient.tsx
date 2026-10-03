@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -102,10 +103,10 @@ const CATEGORIES = [
 ]
 
 const COMPARISON_TABLE = [
-  { type: 'Conference Giveaway', budget: '₹100–₹300', moq: '100+', lead: '3–5 days', best: 'Pens, notepads, tote bags' },
-  { type: 'Team Event Gift', budget: '₹300–₹700', moq: '50+', lead: '5–7 days', best: 'Mugs, bottles, notebooks' },
-  { type: 'Diwali / Festival', budget: '₹500–₹1,500', moq: '50+', lead: '7–14 days', best: 'Hampers, premium drinkware' },
-  { type: 'Employee Onboarding', budget: '₹800–₹2,000', moq: '25+', lead: '5–10 days', best: 'Welcome kits, branded accessories' },
+  { type: 'Conference Giveaway', budget: '₹100–₹300', moq: '10+', lead: '3–5 days', best: 'Pens, notepads, tote bags' },
+  { type: 'Team Event Gift', budget: '₹300–₹700', moq: '10+', lead: '5–7 days', best: 'Mugs, bottles, notebooks' },
+  { type: 'Diwali / Festival', budget: '₹500–₹1,500', moq: '10+', lead: '7–14 days', best: 'Hampers, premium drinkware' },
+  { type: 'Employee Onboarding', budget: '₹800–₹2,000', moq: '10+', lead: '5–10 days', best: 'Welcome kits, branded accessories' },
   { type: 'Client Gift', budget: '₹1,000–₹3,000', moq: '10+', lead: '7–10 days', best: 'Curated hampers, tech gadgets' },
   { type: 'CXO / Executive', budget: '₹3,000+', moq: '5+', lead: '10–15 days', best: 'Premium boxes, bespoke items' },
 ]
@@ -113,7 +114,7 @@ const COMPARISON_TABLE = [
 const FAQS = [
   {
     q: 'What is the minimum order quantity for corporate gifts?',
-    a: 'Most products start at 25 units for bulk orders with logo printing. Premium hampers and onboarding kits are available from 10 units. Conference giveaways (pens, notepads) require a minimum of 100 units to unlock bulk pricing.',
+    a: 'The minimum order is 10 units for every product, including logo printing, hampers and onboarding kits. Bulk pricing improves at higher volumes.',
   },
   {
     q: 'How do I choose the right corporate gift?',
@@ -164,6 +165,7 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
         "headline": "The Corporate Gifting Handbook: Complete Guide for Indian Businesses",
         "description": "The complete corporate gifting guide for Indian businesses - budgeting, choosing gifts, bulk ordering, customisation, and occasion planning. Updated for 2026.",
         "url": "https://themintbox.in/guides/corporate-gifting-handbook",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -185,42 +187,46 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
             <div>
               <div className="cp-hero-eyebrow">Complete Guide · 2026 Edition</div>
               <h1 className="cp-hero-title">
-                The Corporate Gifting Handbook:<br />
+                The Corporate Gifting Handbook:{' '}<br />
                 <em>Complete Guide for Indian Businesses</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Everything you need to plan, budget, customise, and deliver corporate gifts
-                at scale - from Diwali hampers to client gifts, onboarding kits to conference
-                giveaways. Updated for 2026.
+                How to plan, budget, customise and deliver corporate gifts at scale, from Diwali hampers to onboarding kits. Updated for 2026.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#chapters" className="cp-hero-cta-primary">Read the Handbook ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get a Free Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ Budget planning templates</span>
-                <span className="cp-hero-badge">✓ Occasion-by-occasion guide</span>
-                <span className="cp-hero-badge">✓ Customisation options</span>
-                <span className="cp-hero-badge">✓ 2026 trends included</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80" alt="Corporate gifting guide and handbook" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/hero2.webp" alt="Corporate gift box with mug and notebook" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero4.webp" alt="Gift box with notebook and accessories" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Budget planning templates</span>
+            <span className="cp-hero-badge">✓ Occasion-by-occasion guide</span>
+            <span className="cp-hero-badge">✓ Customisation options</span>
+            <span className="cp-hero-badge">✓ 2026 trends included</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -232,7 +238,7 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <EATSignal credentials={[
             'MintBox has fulfilled 10,000+ corporate gift orders across Bangalore and pan-India',
             '200+ products in stock - drinkware, stationery, hampers, tech, eco-friendly',
-            'Bulk orders from 25 units with logo customisation included',
+            'Bulk orders from 10 units with logo customisation included',
             'GST-compliant invoicing, dedicated account manager per order',
             'Same-day delivery available in Bangalore for in-stock items',
           ]} />
@@ -242,7 +248,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       {/* ── CHAPTER INDEX ── */}
       <section id="chapters" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">What's in This Guide</div>
           <h2 className="cp-section-title">Handbook Contents</h2>
           <p className="cp-section-sub">
             Jump to any chapter or read from start to finish. Each section links to
@@ -264,7 +269,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       {/* ── WHY GIFTING ── */}
       <section id="why-gifting" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Chapter 1</div>
           <h2 className="cp-section-title">Why Corporate Gifting Matters</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px', marginTop: '40px' }}>
             {[
@@ -324,13 +328,12 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1200&q=80" alt="Corporate gifting handbook and planning guide for Indian businesses" loading="lazy" />
+        <Image src="/hampers/onboarding.webp" alt="Employee onboarding gift baskets" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── BUDGET PLANNING ── */}
       <section id="budget-planning" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Chapter 3</div>
           <h2 className="cp-section-title">Budget Planning & Pricing</h2>
           <p className="cp-section-sub">
             Corporate gifting budgets vary widely by company size, occasion, and recipient tier.
@@ -379,7 +382,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       {/* ── CUSTOMISATION ── */}
       <section id="customisation" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Chapter 4</div>
           <h2 className="cp-section-title">Customisation & Branding</h2>
           <p className="cp-section-sub">
             Branded gifts outperform generic ones in recall and sentiment. Over 85% of MintBox products
@@ -437,13 +439,12 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Office team planning corporate gifting programme" loading="lazy" />
+        <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── OCCASIONS ── */}
       <section id="occasions" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Chapter 6</div>
           <h2 className="cp-section-title">Corporate Gifting Calendar: Occasions & Timing</h2>
           <p className="cp-section-sub">
             Every gifting moment has its own expectations and timelines. Plan ahead to avoid
@@ -465,10 +466,9 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       {/* ── PRODUCT SHOWCASE ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Browse the Catalogue</div>
           <h2 className="cp-section-title">Explore Corporate Gifts</h2>
           <p className="cp-section-sub">
-            All products are in stock, customisable, and available for bulk orders from 25 units.
+            All products are in stock, customisable, and available for bulk orders from 10 units.
             Filter by category or budget to find your perfect gift.
           </p>
           <ContentProductShowcase
@@ -524,17 +524,17 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Ready to Gift?</div>
-            <h2 className="cp-cta-title">Get a Free Corporate<br />Gifting Quote</h2>
+            <h2 className="cp-cta-title">Get a Free Corporate{' '}<br />Gifting Quote</h2>
             <p className="cp-cta-desc">
               Share your occasion, quantity, and budget - we'll send a curated recommendation
-              with pricing within 4 business hours.
+              with pricing. We reply within 1 hour on business days.
             </p>
             <div className="cp-cta-promises">
               {[
                 'Curated product recommendation for your occasion',
-                'Bulk pricing from 25 units',
+                'Bulk pricing from 10 units',
                 'Customisation options included',
-                'Response within 4 business hours',
+                'Reply within 1 hour on business days',
               ].map(p => (
                 <div key={p} className="cp-cta-promise">
                   <span className="cp-cta-promise-dot" />
@@ -546,7 +546,7 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <InlineQuoteForm
             title="Get Your Free Quote"
             subtitle="Tell us your occasion and quantity - we'll recommend the perfect gifts with pricing."
-            ctaLabel="Get Free Quote"
+            ctaLabel="Request a quote"
             interestHint="Occasion, quantity, and budget range"
           />
         </div>
@@ -560,7 +560,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
           <FAQSection
             items={FAQS}
             title="Corporate Gifting - Frequently Asked Questions"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -568,7 +567,6 @@ export default function CorporateGiftingHandbookClient({ products, categories }:
       {/* ── EXPLORE MORE ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Continue Reading</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides</h2>
           <div className="cp-related-grid">
             {[

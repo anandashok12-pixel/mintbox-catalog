@@ -1,6 +1,6 @@
 /**
  * Single place to change the Diwali 2026 / corporate gifting catalog markup.
- * `MARKUP_MULTIPLIER` is a placeholder — Anand sets the real number before
+ * `MARKUP_MULTIPLIER` is a placeholder - Anand sets the real number before
  * anything here goes live. mrp is rounded to a ...49 or ...99 ending, the
  * pattern already used for MintBox's own listed prices.
  */

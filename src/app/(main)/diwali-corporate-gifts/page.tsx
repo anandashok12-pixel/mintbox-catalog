@@ -41,7 +41,8 @@ const getDiwaliProducts = cache(async () => {
         and: [{ category: { in: categoryIds } }, { inStock: { equals: true } }],
       },
       sort: 'order',
-      limit: 200,
+      // No cap: the in-stock catalogue outgrew fixed limits (630 products, Oct 2026)
+      pagination: false,
       depth: 1,
     })
     return result.docs as unknown as DiwaliProduct[]
@@ -51,14 +52,22 @@ const getDiwaliProducts = cache(async () => {
   }
 })
 
+const typicalRange = (prices: number[], fbMin: number, fbMax: number): [number, number] => {
+  if (!prices.length) return [fbMin, fbMax]
+  const s = [...prices].sort((a, b) => a - b)
+  const at = (q: number) => s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]
+  // Trim the extremes (single low-value add-ons and one-off luxury boxes) so the headline range is representative.
+  const round = (n: number, step: number) => Math.round(n / step) * step
+  return [round(at(0.05), 10), round(at(0.95), 50)]
+}
+
 const formatPrice = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
 export async function generateMetadata(): Promise<Metadata> {
   const products = await getDiwaliProducts()
   const prices = products.map(p => Number(p.price)).filter(n => Number.isFinite(n))
   const count = products.length || 55
-  const min = prices.length ? Math.min(...prices) : 434
-  const max = prices.length ? Math.max(...prices) : 2170
+  const [min, max] = typicalRange(prices, 434, 2170)
   const ogImage =
     products.find(p => String(p.id) === OG_PRODUCT_ID && p.image?.url)?.image?.url ||
     products.find(p => p.image?.url)?.image?.url ||
@@ -99,8 +108,7 @@ const FAQ_SCHEMA_ITEMS = DIWALI_HUB_FAQS.map(item => ({
 export default async function DiwaliCorporateGiftsPage() {
   const products = await getDiwaliProducts()
   const prices = products.map(p => Number(p.price)).filter(n => Number.isFinite(n))
-  const min = prices.length ? Math.min(...prices) : 434
-  const max = prices.length ? Math.max(...prices) : 2170
+  const [min, max] = typicalRange(prices, 434, 2170)
 
   // Rendered from the server component so the structured data is always in the
   // initial HTML and is never re-rendered (and discarded) during hydration.

@@ -98,7 +98,7 @@ export function SolutionsQuoteForm({
           <div style={{ fontSize: 32, marginBottom: 8, color: '#1B4D3E' }}>&#10003;</div>
           <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 20, marginBottom: 6 }}>Request received</div>
           <p style={{ fontSize: 14, opacity: 0.7, margin: 0 }}>
-            We&apos;ll get back to you within 4 hours on business days.
+            We reply within 1 hour on business days.
           </p>
         </div>
         <div className="sl-qbf-wa">

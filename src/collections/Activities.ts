@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { authenticated } from '../access/authenticated'
 
 export const Activities: CollectionConfig = {
   slug: 'activities',
@@ -8,10 +9,10 @@ export const Activities: CollectionConfig = {
     description: 'Non-message events: form submissions, quotes sent, stage changes, digests sent.',
   },
   access: {
-    read: ({ req }) => !!req.user,
-    create: () => true,
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    read: authenticated,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
   },
   fields: [
     {

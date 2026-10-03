@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -140,6 +141,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
         "headline": "Work Anniversary Gifts for Employees: Ideas by Milestone",
         "description": "Celebrate work anniversaries with memorable corporate gifts. Ideas by milestone year from MintBox - personalised, branded, and GST-compliant.",
         "url": "https://themintbox.in/guides/work-anniversary-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -160,7 +162,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
             </nav>
             <div className="cp-hero-eyebrow">Employee Recognition · Milestone Gifts</div>
             <h1 className="cp-hero-title">
-              Work Anniversary Gifts for Employees:<br />
+              Work Anniversary Gifts for Employees:{' '}<br />
               <em>Ideas by Milestone</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -170,27 +172,33 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Anniversary Gifts ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Year 1 to 15+ covered</span>
-              <span className="cp-hero-badge">✓ MOQ 25 units</span>
-              <span className="cp-hero-badge">✓ Name engraving available</span>
-              <span className="cp-hero-badge">✓ GST invoicing</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Team celebrating work anniversary milestone" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p40-b089.jpg" alt="3-in-1 Executive Gift Set - Brown Suede Notebook & Card Holder" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p40-b088.jpg" alt="3-in-1 Executive Gift Set - Brown Ribbed Notebook & Card Holder" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Year 1 to 15+ covered</span>
+            <span className="cp-hero-badge">✓ MOQ 10 units</span>
+            <span className="cp-hero-badge">✓ Name engraving available</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -239,7 +247,6 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
       {/* 4. MILESTONE TIERS */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">By Milestone Year</div>
           <h2 className="cp-section-title">Anniversary Gift Ideas by Milestone Year</h2>
           <p className="cp-section-sub">
             Match the gift to the milestone. Budget, ideas, and personalisation approach for each
@@ -283,7 +290,6 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
       {/* 5. PERSONALISATION IDEAS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Personalisation</div>
           <h2 className="cp-section-title">Make It Personal: Anniversary Gift Personalisation Ideas</h2>
           <p className="cp-section-sub">
             The right personal touch turns a good gift into an unforgettable moment. These ideas
@@ -321,7 +327,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Team celebrating a work anniversary milestone with branded gift presentation" loading="lazy" />
+        <Image src="/hampers/hamper12.webp" alt="Gift set with bottle and dry fruits" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE BAND */}
@@ -340,8 +346,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Anniversary Gifting</div>
-            <h2 className="cp-cta-title">Plan Your<br />Anniversary Programme</h2>
+            <h2 className="cp-cta-title">Plan Your{' '}<br />Anniversary Programme</h2>
             <p className="cp-cta-sub">
               Tell us your team size, anniversary frequency, and budget per tier - we will design
               a rolling anniversary gifting programme with ready stock and 3-day turnaround.
@@ -350,7 +355,7 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Anniversary Gift Quote"
-              ctaLabel="Get Anniversary Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="work-anniversary"
             />
           </div>
@@ -364,7 +369,6 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Work Anniversary Gifts - Frequently Asked Questions"
           />
         </div>
@@ -373,7 +377,6 @@ export default function WorkAnniversaryClient({ products, categories }: Props) {
       {/* 10. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

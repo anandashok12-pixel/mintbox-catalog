@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -173,41 +174,46 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
             <div>
               <div className="cp-hero-eyebrow">Collections · Employee Onboarding</div>
               <h1 className="cp-hero-title">
-                Employee Welcome Kits:<br />
+                Employee Welcome Kits:{' '}<br />
                 <em>Make Day 1 Unforgettable</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Custom employee welcome kits that communicate culture from day one - curated bundles of notebooks,
-                bottles, branded apparel, and a personal note. MOQ from 10 units. Delivered to offices or individual addresses.
+                Employee welcome kits that show your culture from day one: notebooks, bottles, apparel and a personal note. MOQ 10 units.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Welcome Kit Items ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Build My Kit</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
-                <span className="cp-hero-badge">✓ 4–6 items per kit</span>
-                <span className="cp-hero-badge">✓ Culture-first curation</span>
-                <span className="cp-hero-badge">✓ Individual address delivery</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80" alt="Branded merchandise corporate gift" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p43-b113.jpg" alt="Natural Cork Notebook Gift Set - Full Cork Cover" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80" alt="Premium corporate stationery notebook" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p43-b112.jpg" alt="Natural Cork Notebook Gift Set - Grey Vegan Leather Cover" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ 4–6 items per kit</span>
+            <span className="cp-hero-badge">✓ Culture-first curation</span>
+            <span className="cp-hero-badge">✓ Individual address delivery</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -260,7 +266,6 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
       {/* ── KIT COMPONENTS ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">What Goes Inside</div>
           <h2 className="cp-section-title">Welcome Kit Components</h2>
           <p className="cp-section-sub">
             Each kit is assembled from a menu of items - choose 4–6 based on your brand, culture, and budget.
@@ -278,7 +283,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80" alt="Employee welcome kit with branded notebook, bottle, and personalised welcome card" loading="lazy" />
+            <Image src="/hampers/hamper7.webp" alt="Festive gift tray with planner and treats" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -286,7 +291,6 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
       {/* ── HOW TO ORDER ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">The Process</div>
           <h2 className="cp-section-title">How to Order Welcome Kits</h2>
           <p className="cp-section-sub">
             Five steps from brief to delivery - typically 7–10 business days for first-time orders.
@@ -328,7 +332,6 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
       {/* ── BUDGET TIERS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Budget Guide</div>
           <h2 className="cp-section-title">Welcome Kit Budgets</h2>
           <p className="cp-section-sub">
             Three tiers to match your budget and culture ambition. All tiers include full branding and individual delivery.
@@ -344,7 +347,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <a href="#quote" className="cp-budget-cta">Get a Quote →</a>
+                <a href="#quote" className="cp-budget-cta">Request a quote →</a>
               </div>
             ))}
           </div>
@@ -358,7 +361,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
             "The welcome kit is your new hire's first physical experience of your culture.
             It should answer the question: what kind of company have I just joined?"
           </p>
-          <a href="#quote" className="cp-quote-band-cta">Design My Welcome Kit →</a>
+          <a href="#quote" className="cp-quote-band-cta">Request a quote →</a>
         </div>
       </div>
 
@@ -368,7 +371,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Employee Onboarding</div>
-            <h2 className="cp-cta-title">Design Your<br />Welcome Kit</h2>
+            <h2 className="cp-cta-title">Design Your{' '}<br />Welcome Kit</h2>
             <p className="cp-cta-sub">
               Share your team size, budget, and brand vibe. We will send 3 curated kit options
               within 24 hours - no commitment needed.
@@ -378,7 +381,7 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
           <InlineQuoteForm
             title="Design Your Welcome Kit"
             subtitle="Tell us your quantity, budget, and culture - we will curate the perfect kit."
-            ctaLabel="Build My Welcome Kit"
+            ctaLabel="Request a quote"
             defaultOccasion="welcome_kit"
           />
         </div>
@@ -392,7 +395,6 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
           <FAQSection
             items={FAQS}
             title="Employee Welcome Kits - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -400,7 +402,6 @@ export default function WelcomeKitClient({ products }: { products: Product[] }) 
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

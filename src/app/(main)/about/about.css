@@ -303,18 +303,13 @@
   border: 0.5px solid rgba(184, 151, 46, 0.15);
   border-radius: 6px;
   padding: 2rem;
-  opacity: 0;
-  transform: translateX(60px);
   transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.25s ease, background 0.25s ease;
 }
 .ab-broke-card:hover {
   background: rgba(255, 255, 255, 0.07);
   border-color: rgba(184, 151, 46, 0.3);
 }
-.ab-broke-card.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+
 .ab-broke-card:nth-child(1) { transition-delay: 0s; }
 .ab-broke-card:nth-child(2) { transition-delay: 0.08s; }
 .ab-broke-card:nth-child(3) { transition-delay: 0.16s; }
@@ -326,13 +321,20 @@
   border: 0.5px solid rgba(184, 151, 46, 0.28);
   border-radius: 6px;
   padding: 2rem;
-  opacity: 0;
-  transform: translateX(60px);
   transition: opacity 0.55s ease 0.4s, transform 0.55s ease 0.4s;
 }
-.ab-broke-card-last.visible {
-  opacity: 1;
-  transform: translateX(0);
+/* Slide-in only when JS can reveal the cards and motion is allowed. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .ab-broke-card,
+  .ab-broke-card-last {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  .ab-broke-card.visible,
+  .ab-broke-card-last.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .ab-broke-num {
   font-family: 'Libre Baskerville', serif;
@@ -906,4 +908,66 @@
   .ab-founder-card {
     min-height: 360px;
   }
+}
+
+/* ===========================
+   FOUNDER (Ashok Kumar N)
+=========================== */
+.ab-lead {
+  background: white;
+  padding: 5rem var(--ab-page-x);
+  border-top: 0.5px solid var(--ab-rule);
+}
+.ab-lead-inner {
+  max-width: var(--ab-content-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) 2fr;
+  gap: 4rem;
+  align-items: center;
+}
+.ab-lead-photo img {
+  display: block;
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+  box-shadow: 0 24px 60px rgba(13, 51, 40, 0.18);
+}
+.ab-lead-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--ab-forest-deep);
+  line-height: 1.2;
+  margin: 0.25rem 0 0.5rem;
+}
+.ab-lead-role {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--ab-gold);
+  margin: 0 0 1.5rem;
+}
+.ab-lead-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 1.5rem;
+}
+.ab-lead-links a {
+  color: var(--ab-forest-deep);
+  font-weight: 500;
+  border-bottom: 1px solid var(--ab-gold);
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+.ab-lead-links a:hover { color: var(--ab-gold); }
+@media (max-width: 800px) {
+  .ab-lead { padding: 3.5rem var(--ab-page-x); }
+  .ab-lead-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .ab-lead-photo img { max-width: 260px; }
+  .ab-lead-title { font-size: 32px; }
 }

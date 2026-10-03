@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import DiwaliEmployeesClient from '@/components/pages/DiwaliEmployeesClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Diwali Gifts for Employees 2026: Ideas & Planning | MintBox',
   description:
-    'Thoughtful Diwali gifts for employees - bulk hampers, personalised sets, and sweet kits from ₹400/head. Plan 3–4 weeks early. GST invoicing. Delivered across India.',
+    'Thoughtful Diwali gifts for employees: bulk hampers, personalised sets and sweet kits from ₹400/head. Plan 3 to 4 weeks early. GST invoicing. Pan-India.',
   alternates: { canonical: 'https://themintbox.in/guides/diwali-gifts-for-employees' },
   openGraph: {
     title: 'Diwali Gifts for Employees 2026: Ideas, Budget & Planning | MintBox',
     description:
-      'Thoughtful Diwali gifts for employees - bulk hampers, personalised sets, and sweet kits from ₹400/head. Plan 3–4 weeks early. GST invoicing. Delivered across India.',
+      'Thoughtful Diwali gifts for employees: bulk hampers, personalised sets and sweet kits from ₹400/head. Plan 3 to 4 weeks early. GST invoicing. Pan-India.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function DiwaliEmployeesPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[diwali-gifts-for-employees] Payload query failed:', err)
   }

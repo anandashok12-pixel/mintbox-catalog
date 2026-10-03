@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -62,20 +63,20 @@ const METHODS = [
 const HOW_IT_WORKS = [
   { num: '1', title: 'Choose Products', desc: 'Browse and shortlist from 200+ customisable items.' },
   { num: '2', title: 'Share Your Brief', desc: 'Upload logo, pick method, state quantity & deadline.' },
-  { num: '3', title: 'Receive Mockups', desc: 'Free digital mockups delivered within 24 hours.' },
+  { num: '3', title: 'Receive Mockups', desc: 'Free digital mockups delivered within 48 hours.' },
   { num: '4', title: 'Approve & Confirm', desc: 'Review, request tweaks, and confirm the order.' },
   { num: '5', title: 'Production & Delivery', desc: 'Packed and dispatched Pan-India, GST invoice included.' },
 ]
 
 const MOQ_TABLE = [
-  { product: 'Ceramic / Travel Mugs', moq: '50 units', method: 'Print', cost: '₹0 at 50+' },
-  { product: 'Steel Water Bottles', moq: '50 units', method: 'Engrave / Print', cost: '₹0 at 50+' },
-  { product: 'Notebooks & Diaries', moq: '25 units', method: 'Print / Foil', cost: '₹0 at 25+' },
-  { product: 'Tote Bags', moq: '50 units', method: 'Print / Embroidery', cost: '₹0 at 50+' },
-  { product: 'Pens (metal)', moq: '50 units', method: 'Engrave / Print', cost: '₹0 at 100+' },
+  { product: 'Ceramic / Travel Mugs', moq: '10 units', method: 'Print', cost: '₹0 at 50+' },
+  { product: 'Steel Water Bottles', moq: '10 units', method: 'Engrave / Print', cost: '₹0 at 50+' },
+  { product: 'Notebooks & Diaries', moq: '10 units', method: 'Print / Foil', cost: '₹0 at 25+' },
+  { product: 'Tote Bags', moq: '10 units', method: 'Print / Embroidery', cost: '₹0 at 50+' },
+  { product: 'Pens (metal)', moq: '10 units', method: 'Engrave / Print', cost: '₹0 at 100+' },
   { product: 'T-Shirts / Polos', moq: '30 units', method: 'Embroidery / Print', cost: '₹0 at 30+' },
-  { product: 'Custom Gift Boxes', moq: '25 units', method: 'Full-wrap Print', cost: '₹0 at 25+' },
-  { product: 'Power Banks', moq: '50 units', method: 'Print / Engrave', cost: '₹25–₹50 below 50' },
+  { product: 'Custom Gift Boxes', moq: '10 units', method: 'Full-wrap Print', cost: '₹0 at 25+' },
+  { product: 'Power Banks', moq: '10 units', method: 'Print / Engrave', cost: '₹25–₹50 below 50' },
 ]
 
 const GALLERY = [
@@ -89,11 +90,11 @@ const GALLERY = [
 const FAQS = [
   {
     q: 'What is the minimum order for personalised gifts?',
-    a: 'Most products require a minimum of 50 units for logo printing or engraving. Notebooks and custom boxes start from 25 units. We occasionally accommodate smaller batches (20–49 units) for a small setup fee - <a href="/contact">contact us</a> to check availability.',
+    a: 'The minimum order is 10 units for logo printing or engraving on every product. <a href="/contact">Contact us</a> to confirm options for your quantity.',
   },
   {
     q: 'How long does the mockup process take?',
-    a: 'We deliver free digital mockups within 24 business hours of receiving your logo file and brief. You can request unlimited revisions before approving.',
+    a: 'We deliver free digital mockups within 48 business hours of receiving your logo file and brief. You can request unlimited revisions before approving.',
   },
   {
     q: 'What logo file formats do you accept?',
@@ -109,7 +110,7 @@ const FAQS = [
   },
   {
     q: 'What is the production and delivery timeline?',
-    a: 'Standard personalised orders take 7–10 business days from order confirmation. Rush orders (4–6 days) are available at an express surcharge. Delivery across Bangalore is 1–2 days after dispatch; Pan-India is 3–5 days.',
+    a: 'Standard personalised orders take 7–10 business days from order confirmation. Rush orders (4–6 days) are available. Rush options are available, message us on WhatsApp for a quote. Delivery across Bangalore is 1–2 days after dispatch; Pan-India is 3–5 days.',
   },
   {
     q: 'Can I see a physical sample before placing a bulk order?',
@@ -138,8 +139,9 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Personalised Corporate Gifts: Make Every Gift On-Brand",
-        "description": "Custom-branded corporate gifts with logo printing, laser engraving, and embroidery. Minimum 50 units. Free mockup in 24 hours. Bangalore-based, Pan-India delivery.",
+        "description": "Custom-branded corporate gifts with logo printing, laser engraving, and embroidery. Minimum 10 units. Free mockup in 48 hours. Bangalore-based, Pan-India delivery.",
         "url": "https://themintbox.in/customization/personalized-corporate-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -158,13 +160,12 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
             </nav>
             <div className="cp-hero-eyebrow">Customisation & Personalisation</div>
             <h1 className="cp-hero-title">
-              Personalised Corporate Gifts:<br />
+              Personalised Corporate Gifts:{' '}<br />
               <em>Make Every Gift On-Brand</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              From laser-engraved steel bottles to full-wrap printed gift boxes - add your logo,
-              brand colours, and employee names to 200+ curated gifts. Free digital mockup within 24 hours.
+              Add your logo, brand colours and employee names to 200+ curated gifts, from engraved bottles to printed gift boxes.
             </p>
             <div className="cp-hero-ctas">
               <a href="#quote" className="cp-hero-cta-primary">
@@ -174,41 +175,47 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
                 Browse Customisable Products ↓
               </a>
             </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Free digital mockups</span>
-              <span className="cp-hero-badge">✓ MOQ from 25 units</span>
-              <span className="cp-hero-badge">✓ GST invoicing</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-            </div>
             </div>
 
           {/* Hero visual */}
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Branded corporate coffee mug gift" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                <Image src="/hampers/hero4.webp" alt="Gift box with notebook and accessories" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80" alt="Premium corporate stationery notebook" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=800&q=80" alt="Custom branded corporate water bottle" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/hamper7.webp" alt="Festive gift tray with planner and treats" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Free digital mockups</span>
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
+
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Personalised corporate gifts are branded items - bottles, notebooks, apparel - with your company logo or employee names. MOQ starts at 25 units; free digital mockups within 24 hours. Logo printing is included at no extra cost for orders of 50+ units. Production takes 7–10 business days; Pan-India delivery 3–5 days after dispatch."
+            content="Personalised corporate gifts are branded items - bottles, notebooks, apparel - with your company logo or employee names. MOQ starts at 10 units; free digital mockups within 48 hours. Logo printing is included at no extra cost for orders of 50+ units. Production takes 7–10 business days; Pan-India delivery 3–5 days after dispatch."
           />
           <EATSignal credentials={[
             '200+ customisable products across 6 categories',
-            'Free digital mockup within 24 business hours',
+            'Free digital mockup within 48 business hours',
             'Logo printing included at 50+ units - no setup fee',
             '500+ corporate clients across Bangalore and India',
             'GST-compliant invoicing, net-30 terms available',
@@ -240,7 +247,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
       {/* ── METHODS ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Personalisation Methods</div>
           <h2 className="cp-section-title">Four Ways to Put Your Brand on a Gift</h2>
           <p className="cp-section-sub">
             Each method has its ideal product fit and price point. MintBox recommends the
@@ -262,7 +268,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Customisable Products</div>
           <h2 className="cp-section-title">Browse & Build Your Personalised Pack</h2>
           <p className="cp-section-sub">
             Every product below supports logo printing, engraving, or custom packaging.
@@ -279,7 +284,7 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=1200&q=80" alt="Personalised corporate gifts with custom logo branding on drinkware and notebooks" loading="lazy" />
+        <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── QUOTE PULL ── */}
@@ -317,7 +322,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
       {/* ── GALLERY ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Examples</div>
           <h2 className="cp-section-title">What Personalised MintBox Gifts Look Like</h2>
           <div className="cp-gallery-grid" style={{ marginTop: '32px' }}>
             {GALLERY.map((g, i) => (
@@ -338,7 +342,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
       {/* ── MOQ & PRICING TABLE ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">MOQ & Pricing</div>
           <h2 className="cp-section-title">Personalisation at Every Scale</h2>
           <p className="cp-section-sub">
             Customisation cost is zero at the stated MOQ. Below that, a small setup fee applies.
@@ -382,14 +385,14 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Free Mockup</div>
-            <h2 className="cp-cta-title">Upload Your Logo.<br />We'll Handle the Rest.</h2>
+            <h2 className="cp-cta-title">Upload Your Logo.{' '}<br />We'll Handle the Rest.</h2>
             <p className="cp-cta-desc">
               Share your logo and tell us what you need. We'll come back with a free digital mockup
-              within 24 hours - no commitment required.
+              within 48 hours - no commitment required.
             </p>
             <div className="cp-cta-promises">
               {[
-                'Free mockup within 24 business hours',
+                'Free mockup within 48 business hours',
                 'No payment until you approve the design',
                 'Bulk pricing quote included',
                 'GST-compliant invoice on every order',
@@ -404,7 +407,7 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
           <InlineQuoteForm
             title="Upload Logo · Free Mockup"
             subtitle="Fill in the form and share your logo file via the notes field or email it after - we'll confirm receipt."
-            ctaLabel="Get Free Mockup"
+            ctaLabel="Request a quote"
             defaultOccasion=""
             interestHint="I'd like a free mockup for: "
           />
@@ -419,7 +422,6 @@ export default function PersonalizedGiftsClient({ products, categories }: { prod
           <FAQSection
             items={FAQS}
             title="Personalised Corporate Gifts - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>

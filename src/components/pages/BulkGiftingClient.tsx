@@ -1,5 +1,7 @@
 'use client'
 
+import ClientLogos from '@/components/content/ClientLogos'
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -127,7 +129,7 @@ const FAQS = [
   },
   {
     q: 'Can I order multiple products under one purchase order?',
-    a: 'Yes. Mixed-product bulk orders are common - for example, 500 bottles + 500 notebooks under one PO with one invoice. Each product has its own MOQ (typically 50–100 units per SKU for bulk runs). A coordinator manages the parallel production tracks.',
+    a: 'Yes. Mixed-product bulk orders are common - for example, 500 bottles + 500 notebooks under one PO with one invoice. The 10-unit MOQ applies per product. A coordinator manages the parallel production tracks.',
   },
   {
     q: 'Do you provide GST invoicing for bulk corporate orders?',
@@ -160,14 +162,19 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "2nd Floor, Sobha Alexander Plaza, Ashok Nagar",
           "addressLocality": "Bangalore",
           "addressRegion": "Karnataka",
+          "postalCode": "560025",
           "addressCountry": "IN"
         },
+        "telephone": "+919886537631",
+        "email": "hello@themintbox.in",
+        "image": "https://themintbox.in/mintbox-logo.webp",
         "areaServed": "Bangalore, Karnataka, India",
         "priceRange": "₹₹"
       }) }} />
@@ -188,7 +195,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
             <div>
               <div className="cp-hero-eyebrow">Bangalore · Bulk Gifting Services</div>
               <h1 className="cp-hero-title">
-                Bulk Corporate Gifting in Bangalore:<br />
+                Bulk Corporate Gifting in Bangalore:{' '}<br />
                 <em>From 100 to 10,000 Units</em>
               </h1>
               <div className="cp-hero-rule" />
@@ -198,31 +205,39 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Products ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get Bulk Pricing</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ 100 to 10,000+ units</span>
-                <span className="cp-hero-badge">✓ Dedicated account manager</span>
-                <span className="cp-hero-badge">✓ GST invoicing</span>
-                <span className="cp-hero-badge">✓ Pan-India delivery</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Modern corporate office building" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero4.webp" alt="Gift box with notebook and accessories" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?auto=format&fit=crop&w=800&q=80" alt="Corporate gifting planning and stationery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 100 to 10,000+ units</span>
+            <span className="cp-hero-badge">✓ Dedicated account manager</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <ClientLogos />
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -275,7 +290,6 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
       {/* ── WHY BULK WITH MINTBOX ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Why MintBox</div>
           <h2 className="cp-section-title">Why Bulk Gift with MintBox</h2>
           <p className="cp-section-sub">
             Four reasons Bangalore's fastest-growing companies trust MintBox for large-scale gifting.
@@ -297,7 +311,6 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
       {/* ── BULK PRICING TIERS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Pricing</div>
           <h2 className="cp-section-title">Bulk Pricing Tiers</h2>
           <p className="cp-section-sub">
             Discounts scale automatically with quantity. Mix products under one PO - we apply the tier based on total units.
@@ -315,7 +328,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1200&q=80" alt="Bulk corporate gift packages and hampers ready for dispatch" loading="lazy" />
+        <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── HOW LARGE ORDERS WORK ── */}
@@ -343,7 +356,6 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Product Catalogue</div>
           <h2 className="cp-section-title">Browse Bulk Gift Options</h2>
           <p className="cp-section-sub">
             All products available for bulk orders. Add to your quote list and we will confirm bulk pricing
@@ -362,7 +374,6 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
       {/* ── OCCASIONS TABLE ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Planning Guide</div>
           <h2 className="cp-section-title">Bulk Order by Occasion</h2>
           <p className="cp-section-sub">
             Reference guide for quantities, budgets, and lead times by occasion. Use this to start your brief.
@@ -401,7 +412,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
             "At 500 units, a ₹800 gift per head costs ₹4 lakh total - the same as a modest team offsite.
             The difference: 500 people take a piece of your culture home with them."
           </p>
-          <a href="#quote" className="cp-quote-band-cta">Request Bulk Quote →</a>
+          <a href="#quote" className="cp-quote-band-cta">Request a quote →</a>
         </div>
       </div>
 
@@ -411,7 +422,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Bulk Gifting</div>
-            <h2 className="cp-cta-title">Get Bulk<br />Pricing</h2>
+            <h2 className="cp-cta-title">Get Bulk{' '}<br />Pricing</h2>
             <p className="cp-cta-sub">
               Share your quantity, occasion, and budget. We will send a full quote with
               bulk pricing and production timeline within 24 hours.
@@ -421,7 +432,7 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
           <InlineQuoteForm
             title="Get Bulk Pricing"
             subtitle="Tell us your quantity and occasion - bulk quote within 24 hours, dedicated account manager assigned."
-            ctaLabel="Request Bulk Quote"
+            ctaLabel="Request a quote"
             defaultOccasion="other"
           />
         </div>
@@ -435,7 +446,6 @@ export default function BulkGiftingClient({ products }: { products: Product[] })
           <FAQSection
             items={FAQS}
             title="Bulk Corporate Gifting - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>

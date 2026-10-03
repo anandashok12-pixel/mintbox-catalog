@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import ClientLogos from '@/components/content/ClientLogos'
+import GoogleReviews from '@/components/content/GoogleReviews'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Navbar } from './Navbar'
@@ -95,11 +97,6 @@ export function LandingPage() {
       { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
     )
     reveals.forEach((el) => observer.observe(el))
-
-    /* Trigger hero reveals immediately */
-    document.querySelectorAll('#hero .reveal').forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), 200 + i * 150)
-    })
 
     /* ---------- TESTIMONIAL PARALLAX ---------- */
     const testiSection = document.getElementById('testimonials')
@@ -209,19 +206,19 @@ export function LandingPage() {
     <>
       <Navbar />
 
-      {/* SECTION 1: HERO  -  Centered */}
+      {/* SECTION 1: HERO - Centered */}
       <section id="hero" aria-label="Hero">
         <div className="geo-overlay" aria-hidden="true"></div>
         <div className="hero-content">
-          <h1 className="hero-headline reveal reveal-delay-1">
-            Gifting that says<br/><em>what words can&apos;t.</em>
+          <h1 className="hero-headline">
+            Gifting that says{' '}<br /><em>what words can&apos;t.</em>
           </h1>
-          <p className="hero-sub reveal reveal-delay-2">
+          <p className="hero-sub">
             Premium corporate gifts for India&apos;s most ambitious teams. From onboarding kits to Diwali hampers - delivered with the precision your brand deserves.
           </p>
-          <div className="hero-ctas reveal reveal-delay-3">
+          <div className="hero-ctas">
             <a href="/catalog" className="hero-btn-primary">Browse Catalogue</a>
-            <a href="/contact" className="hero-btn-secondary">Book a Discovery Call</a>
+            <a href="/contact" className="hero-btn-secondary">Request a quote</a>
           </div>
         </div>
       </section>
@@ -265,7 +262,7 @@ export function LandingPage() {
             <div className="trust-stat-divider" />
             <div className="trust-stat">
               <span className="trust-stat-num">10 Units</span>
-              <span className="trust-stat-label">Min. Order Qty</span>
+              <span className="trust-stat-label">Min. Order</span>
             </div>
             <div className="trust-stat-divider" />
             <div className="trust-stat">
@@ -276,6 +273,8 @@ export function LandingPage() {
         </div>
       </div>
 
+      <ClientLogos />
+
       {/* SECTION 3: OCCASIONS */}
       <section id="occasions" aria-label="Shop by occasion">
         <div className="section-header-center reveal">
@@ -285,7 +284,7 @@ export function LandingPage() {
         </div>
 
         <div className="occasions-grid">
-          <a href="/catalog" className="occasion-card reveal reveal-delay-1" aria-label="Employee Onboarding gifts — browse the catalogue">
+          <a href="/catalog" className="occasion-card reveal reveal-delay-1" aria-label="Employee Onboarding gifts - browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/employee-onboarding.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -295,7 +294,7 @@ export function LandingPage() {
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-2" aria-label="Diwali & Festive gifts — browse the catalogue">
+          <a href="/catalog" className="occasion-card reveal reveal-delay-2" aria-label="Diwali & Festive gifts - browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/diwali-and-festive.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -305,7 +304,7 @@ export function LandingPage() {
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-3" aria-label="Client Appreciation gifts — browse the catalogue">
+          <a href="/catalog" className="occasion-card reveal reveal-delay-3" aria-label="Client Appreciation gifts - browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/client-appreciation.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -315,7 +314,7 @@ export function LandingPage() {
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-1" aria-label="Work Anniversary gifts — browse the catalogue">
+          <a href="/catalog" className="occasion-card reveal reveal-delay-1" aria-label="Work Anniversary gifts - browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/work-anniversary.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -325,7 +324,7 @@ export function LandingPage() {
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-2" aria-label="Team & Events gifts — browse the catalogue">
+          <a href="/catalog" className="occasion-card reveal reveal-delay-2" aria-label="Team & Events gifts - browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/team-and-events.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -335,7 +334,7 @@ export function LandingPage() {
               <span className="occasion-arrow"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
             </div>
           </a>
-          <a href="/catalog" className="occasion-card reveal reveal-delay-3" aria-label="New Year gifts — browse the catalogue">
+          <a href="/catalog" className="occasion-card reveal reveal-delay-3" aria-label="New Year gifts - browse the catalogue">
             <div className="occasion-card-img" style={{ backgroundImage: "url('/occasions/new-year.webp')" }}></div>
             <div className="occasion-card-overlay">
               <div className="occasion-overlay-text">
@@ -350,90 +349,29 @@ export function LandingPage() {
         <a href="/catalog" className="view-all-link reveal">View all occasions →</a>
       </section>
 
-      {/* SECTION 4: HOW IT WORKS  -  Bento cards */}
+      {/* SECTION 4: HOW IT WORKS */}
       <section id="how-it-works" aria-label="How MintBox works">
         <div className="hiw-header reveal">
-          <span className="hiw-eyebrow">How It Works</span>
-          <h2 className="hiw-headline">Four steps to the<br/>perfect gift.</h2>
+          <h2 className="hiw-headline">Four steps to the{' '}<br />perfect gift.</h2>
           <p className="hiw-sub">From your brief to their doorstep - we handle everything in between.</p>
         </div>
 
-        <div className="hiw-bento">
-          {/* 01  -  Share requirements */}
-          <div className="hiw-card reveal reveal-delay-1">
-            <div className="hiw-card-body">
-              <span className="hiw-card-step">Step 01</span>
-              <h3 className="hiw-card-title">Share your requirements</h3>
-              <p className="hiw-card-desc">Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form - we work around you.</p>
-            </div>
-            <div className="hiw-mock">
-              <div className="hiw-mock-chat">
-                <div className="hiw-bubble">Hi! We need 80 onboarding kits for new hires. Budget ₹1,500 each.</div>
-                <div className="hiw-bubble reply">Got it! Sending you 3 curated options by tonight.</div>
-                <div className="hiw-bubble" style={{ maxWidth: '55%' }}>Perfect, thank you!</div>
+        <ol className="hiw-steps">
+          {[
+            { img: '/hampers/hamper8.webp', alt: 'Gift hamper contents laid out on a table', title: 'Share your requirements', desc: 'Tell us your occasion, team size, and budget. WhatsApp, email, or fill a quick form - we work around you.' },
+            { img: '/hampers/hamper11.webp', alt: 'Gift box and packaging with space for your logo', title: 'We curate & brand', desc: 'We select products, apply your branding, and share samples for approval. No surprises on the final invoice.' },
+            { img: '/hampers/hamper10.webp', alt: 'Finished gift box with a notebook, mug and accessories', title: 'You approve a sample', desc: 'We ship a physical sample before full production. Nothing goes to print until you are happy.' },
+            { img: '/hampers/onboarding.webp', alt: 'Packed gift baskets ready for delivery', title: 'Delivered to your team', desc: 'Individual addresses or bulk office delivery - tracked, on time, and beautifully packaged across India.' },
+          ].map((step, i) => (
+            <li key={step.title} className={`hiw-step reveal reveal-delay-${i + 1}`}>
+              <div className="hiw-step-img">
+                <Image src={step.img} alt={step.alt} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 270px" style={{ objectFit: 'cover' }} />
               </div>
-            </div>
-          </div>
-
-          {/* 02  -  Curate & brand */}
-          <div className="hiw-card reveal reveal-delay-2">
-            <div className="hiw-card-body">
-              <span className="hiw-card-step">Step 02</span>
-              <h3 className="hiw-card-title">We curate &amp; brand</h3>
-              <p className="hiw-card-desc">We select products, apply your branding, and share samples for approval. No surprises on the final invoice.</p>
-            </div>
-            <div className="hiw-mock">
-              <span className="brand-section-label">Products selected</span>
-              <div className="brand-products">
-                <div className="brand-product-chip"><span className="brand-product-name">Araku Coffee</span><span className="brand-product-check">Yes</span></div>
-                <div className="brand-product-chip"><span className="brand-product-name">Kraft Notebook</span><span className="brand-product-check">Yes</span></div>
-                <div className="brand-product-chip"><span className="brand-product-name">Soy Candle</span><span className="brand-product-check">Yes</span></div>
-              </div>
-              <div className="brand-divider"></div>
-              <span className="brand-section-label">Brand colours applied</span>
-              <div className="brand-color-row">
-                <div className="brand-color-swatch" style={{ background: '#1B4D3E' }}></div>
-                <div className="brand-color-swatch" style={{ background: '#B8972E' }}></div>
-                <div className="brand-color-swatch" style={{ background: '#F2F2F0', border: '1px solid #ddd' }}></div>
-                <div className="brand-color-swatch" style={{ background: '#1A1A18' }}></div>
-                <span className="brand-color-label">+ Logo embossed on lid</span>
-              </div>
-            </div>
-          </div>
-
-          {/* 03  -  Approve sample */}
-          <div className="hiw-card reveal reveal-delay-3">
-            <div className="hiw-card-body">
-              <span className="hiw-card-step">Step 03</span>
-              <h3 className="hiw-card-title">You approve a sample</h3>
-              <p className="hiw-card-desc">We ship a physical sample before full production. You sign off, we confirm. Nothing goes to print until you&apos;re happy.</p>
-            </div>
-            <div className="hiw-mock">
-              <div className="hiw-mock-checklist">
-                <div className="hiw-check-row"><span className="hiw-check-text">Box design &amp; ribbon</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-text">Logo print quality</span><span className="hiw-check-badge" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span></div>
-                <div className="hiw-check-row"><span className="hiw-check-text">Final invoice sign-off</span><span className="hiw-check-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Pending</span></div>
-              </div>
-            </div>
-          </div>
-
-          {/* 04  -  Delivered */}
-          <div className="hiw-card reveal reveal-delay-4">
-            <div className="hiw-card-body">
-              <span className="hiw-card-step">Step 04</span>
-              <h3 className="hiw-card-title">Delivered to your team</h3>
-              <p className="hiw-card-desc">Individual addresses or bulk office delivery - tracked, on time, and beautifully packaged across India.</p>
-            </div>
-            <div className="hiw-mock">
-              <div className="hiw-mock-delivery">
-                <div className="hiw-delivery-row"><div className="hiw-delivery-dot" style={{ background: '#22c55e' }}></div><span className="hiw-delivery-text">Ananya K. · Bengaluru</span><span className="hiw-delivery-badge" style={{ background: '#dcfce7', color: '#166534' }}>Delivered</span></div>
-                <div className="hiw-delivery-row"><div className="hiw-delivery-dot" style={{ background: '#B8972E' }}></div><span className="hiw-delivery-text">Rohit M. · Mumbai</span><span className="hiw-delivery-badge" style={{ background: '#fef9c3', color: '#713f12' }}>In transit</span></div>
-                <div className="hiw-delivery-row"><div className="hiw-delivery-dot" style={{ background: '#22c55e' }}></div><span className="hiw-delivery-text">Priya S. · Delhi</span><span className="hiw-delivery-badge" style={{ background: '#dcfce7', color: '#166534' }}>Delivered</span></div>
-                <div className="hiw-delivery-row"><div className="hiw-delivery-dot" style={{ background: '#B8972E' }}></div><span className="hiw-delivery-text">Vikram N. · Hyderabad</span><span className="hiw-delivery-badge" style={{ background: '#fef9c3', color: '#713f12' }}>Out for delivery</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
+              <h3 className="hiw-card-title">{step.title}</h3>
+              <p className="hiw-card-desc">{step.desc}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* SECTION: SCORECARD */}
@@ -453,12 +391,12 @@ export function LandingPage() {
           {[
             { feature: 'In-house branding', mintbox: 'Always', vendor: 'Outsourced' },
             { feature: 'Transparent pricing', mintbox: 'Fixed quote', vendor: 'Hidden fees' },
-            { feature: 'Low minimum order', mintbox: '10 units', vendor: '100+ units' },
+            { feature: 'Low minimum order', mintbox: 'From 10 units', vendor: '100+ units' },
             { feature: 'Pan India delivery', mintbox: 'Included', vendor: 'Extra charge' },
             { feature: 'HRMS integration', mintbox: 'Available', vendor: 'Manual only' },
             { feature: 'Sample approval', mintbox: 'Before order', vendor: 'Post-payment' },
             { feature: 'ESG documentation', mintbox: 'On request', vendor: 'Not available' },
-            { feature: 'Quote turnaround', mintbox: '48 hours', vendor: '5–7 days' },
+            { feature: 'Quote turnaround', mintbox: '24 hours', vendor: '5–7 days' },
           ].map((row, i) => (
             <div key={i} className="scorecard-row reveal" style={{ transitionDelay: `${i * 0.06}s` }}>
               <div className="scorecard-feature-col">{row.feature}</div>
@@ -478,7 +416,6 @@ export function LandingPage() {
       {/* SECTION 5: COLLECTIONS */}
       <section id="collections" aria-label="Featured collections">
         <div className="section-header-center reveal">
-          <span className="section-label">Curated For You</span>
           <h2 className="section-headline">The MintBox Edit.</h2>
               <p className="collections-sub" style={{ marginTop: '10px' }}>Our most-loved collections, ready to brand and ship.</p>
           <span className="gold-rule"></span>
@@ -491,9 +428,9 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Onboarding Kit</h3>
-              <p className="product-desc">Everything they need from Day 1 - branded, curated, and unforgettable.</p>
+              <p className="product-desc">Branded essentials that make Day 1 memorable.</p>
               <p className="product-price">From ₹1,500 / unit</p>
-              <p className="product-moq">Min. order: 25 units</p>
+              <p className="product-moq">Min. order: 10 units</p>
             </div>
           </article>
           <article className="product-card reveal reveal-delay-2">
@@ -502,9 +439,9 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Diwali Edit</h3>
-              <p className="product-desc">Festive gifting that earns a second look - and a post on their stories.</p>
+              <p className="product-desc">Festive hampers people actually keep.</p>
               <p className="product-price">From ₹2,200 / unit</p>
-              <p className="product-moq">Min. order: 25 units</p>
+              <p className="product-moq">Min. order: 10 units</p>
             </div>
           </article>
           <article className="product-card reveal reveal-delay-3">
@@ -513,9 +450,9 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The WFH Essentials</h3>
-              <p className="product-desc">For the team that works everywhere - tools that travel as well as they do.</p>
+              <p className="product-desc">Desk and travel tools for teams that work anywhere.</p>
               <p className="product-price">From ₹1,800 / unit</p>
-              <p className="product-moq">Min. order: 25 units</p>
+              <p className="product-moq">Min. order: 10 units</p>
             </div>
           </article>
           <article className="product-card reveal reveal-delay-4">
@@ -524,7 +461,7 @@ export function LandingPage() {
             </div>
             <div className="product-body">
               <h3 className="product-name">The Executive Gift</h3>
-              <p className="product-desc">For clients worth impressing - luxury presentation, no compromise.</p>
+              <p className="product-desc">Luxury presentation for clients worth impressing.</p>
               <p className="product-price">From ₹3,500 / unit</p>
               <p className="product-moq">Min. order: 10 units</p>
             </div>
@@ -592,10 +529,12 @@ export function LandingPage() {
       </section>
 
 
+      <GoogleReviews />
+
       {/* SECTION: COMBINED TESTIMONIAL + QUOTE FORM */}
       <section id="quote-cta" aria-label="Request a quote">
         <div className="cta-combined">
-          {/* LEFT  -  Testimonial panel */}
+          {/* LEFT - Testimonial panel */}
           <div className="cta-left">
             <span className="cta-left-wordmark">MINTBOX</span>
             <div className="cta-left-quote">
@@ -609,8 +548,8 @@ export function LandingPage() {
             </div>
             <div className="cta-left-stats">
               <div className="cta-stat">
-                <span className="cta-stat-num">4hr</span>
-                <span className="cta-stat-label">Response time</span>
+                <span className="cta-stat-num">1hr</span>
+                <span className="cta-stat-label">Reply on business days</span>
               </div>
               <div className="cta-stat">
                 <span className="cta-stat-num">500+</span>
@@ -623,9 +562,9 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* RIGHT  -  Quote form panel */}
+          {/* RIGHT - Quote form panel */}
           <div className="cta-right">
-            <span className="cta-right-eyebrow">Request a Quote</span>
+            <span className="cta-right-eyebrow">Request a quote</span>
             <h2 className="cta-right-headline">Ready to make your people feel valued?</h2>
             <p className="cta-right-sub">Tell us about your team and your budget. We handle everything else.</p>
 
@@ -680,12 +619,12 @@ export function LandingPage() {
               </div>
 
               {quoteError && <div className="cta-form-server-error">{quoteError}</div>}
-              {quoteSuccess && <div className="cta-form-success">Sent! We&apos;ll be in touch soon.</div>}
+              {quoteSuccess && <div className="cta-form-success">Sent! We reply within 1 hour on business days.</div>}
 
               <button type="submit" className="cta-submit" id="quoteSubmitBtn" disabled={quoteSubmitting}>
-                <span className="form-submit-text">{quoteSubmitting ? 'Sending...' : 'Send enquiry →'}</span>
+                <span className="form-submit-text">{quoteSubmitting ? 'Sending...' : 'Request a quote →'}</span>
               </button>
-              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener nofollow">Prefer WhatsApp? →</a>
+              <a href="https://wa.me/919886537631" className="cta-wa-link" target="_blank" rel="noopener nofollow">Chat on WhatsApp →</a>
             </form>
           </div>
         </div>

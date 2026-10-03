@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import StationeryCollectionClient from '@/components/pages/StationeryCollectionClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Stationery Gifts: Notebooks, Pens & Desk Sets | MintBox',
+  title: 'Corporate Stationery Gifts: Notebooks & Pens | MintBox',
   description:
-    'Branded corporate stationery - notebooks, pens, planners, and desk sets. Custom logo printing from 50 units. Perfect for onboarding and client gifts. Bulk pricing.',
+    'Branded corporate stationery: notebooks, pens, planners and desk sets. Custom logo printing from 10 units. Ideal for onboarding and client gifts. Bulk pricing.',
   alternates: { canonical: 'https://themintbox.in/collections/stationery' },
   openGraph: {
-    title: 'Corporate Stationery Gifts: Notebooks, Pens & Desk Sets | MintBox',
+    title: 'Corporate Stationery Gifts: Notebooks & Pens | MintBox',
     description:
-      'Branded corporate stationery - notebooks, pens, planners, and desk sets. Custom logo printing from 50 units. Perfect for onboarding and client gifts. Bulk pricing.',
+      'Branded corporate stationery: notebooks, pens, planners and desk sets. Custom logo printing from 10 units. Ideal for onboarding and client gifts. Bulk pricing.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function StationeryPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[stationery] Payload query failed:', err)
   }

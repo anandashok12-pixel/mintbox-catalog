@@ -6,6 +6,7 @@ import './solutions.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
+import ClientLogos from '@/components/content/ClientLogos'
 
 type PersonaKey = 'hr' | 'marketing' | 'sales' | 'founder'
 
@@ -46,7 +47,7 @@ export default function SolutionsPageClient() {
               <path d="M34 13C37 10,39 9,40 9C41 9,43 10,46 13C43 16,41 16,40 16C39 16,37 16,34 13Z" stroke="#B8972E" strokeWidth="1.1" fill="none" />
               <path d="M40 16L38 24M40 16L42 24" stroke="#B8972E" strokeWidth="0.9" strokeLinecap="round" />
             </svg>
-            <h1 className="sl-hero-title">MintBox is built<br />for the person<br />reading this.</h1>
+            <h1 className="sl-hero-title">MintBox is built{' '}<br />for the person{' '}<br />reading this.</h1>
             <div className="sl-hero-sub">Whether you&apos;re running HR for a unicorn, closing deals for a SaaS company, or building culture from scratch - MintBox works the way you work.</div>
             <div className="sl-hero-ctas">
               <button className="sl-btn-primary" onClick={() => switchTab('hr')}>I&apos;m in HR &amp; People Ops →</button>
@@ -373,7 +374,7 @@ export default function SolutionsPageClient() {
             </div>
             <div className="sl-stats-row">
               <div className="sl-stat-mini"><div className="sl-sm-num">₹4k+</div><div className="sl-sm-label">Premium client gift tier</div></div>
-              <div className="sl-stat-mini"><div className="sl-sm-num">1 day</div><div className="sl-sm-label">Quote turnaround</div></div>
+              <div className="sl-stat-mini"><div className="sl-sm-num">24 hrs</div><div className="sl-sm-label">Quote turnaround</div></div>
               <div className="sl-stat-mini"><div className="sl-sm-num">Any</div><div className="sl-sm-label">Address, any city in India</div></div>
             </div>
           </div>
@@ -463,7 +464,7 @@ export default function SolutionsPageClient() {
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Minimum order quantities that don&apos;t make sense for a 15-person team</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>No time to design a kit - too many other priorities</div>
               <div className="sl-ph-pain"><div className="sl-ph-pain-icon sl-pain">{PainX}</div>Gifting that doesn&apos;t match the premium brand you&apos;re trying to build</div>
-              <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox starts at 25 units, curates the kit for you, and sets up a reorder system so every new hire gets the same premium experience automatically</div>
+              <div className="sl-ph-pain" style={{ marginTop: '0.5rem' }}><div className="sl-ph-pain-icon sl-solution">{SolutionCheck}</div>MintBox starts at 10 units, curates the kit for you, and sets up a reorder system so every new hire gets the same premium experience automatically</div>
             </div>
             <button className="sl-ph-cta" style={{ background: '#7A2A5E' }}>See Founder solutions →</button>
           </div>
@@ -556,6 +557,8 @@ export default function SolutionsPageClient() {
           </div>
         </div>
       </div>
+
+      <ClientLogos />
 
       <Footer />
       <WhatsAppFloat />

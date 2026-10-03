@@ -1,5 +1,7 @@
 'use client'
 
+import ClientLogos from '@/components/content/ClientLogos'
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -112,7 +114,7 @@ const STEPS = [
 ]
 
 const COMPARISON_TABLE = [
-  { aspect: 'MOQ', startup: '10–25 units', enterprise: '100–500 units' },
+  { aspect: 'MOQ', startup: '10 units', enterprise: '100–500 units' },
   { aspect: 'Budget/head', startup: '₹250–₹1,500', enterprise: '₹500–₹5,000' },
   { aspect: 'Turnaround', startup: '7–10 days', enterprise: '14–21 days' },
   { aspect: 'Personalisation', startup: 'Team name/logo', enterprise: 'Individual names' },
@@ -123,7 +125,7 @@ const COMPARISON_TABLE = [
 const FAQS = [
   {
     q: "What's the minimum order for startup gifting?",
-    a: 'Most items have an MOQ of 10–25 units, designed for startups doing rolling onboarding or small team gifting. Some premium items (custom hoodies, hardcover notebooks) require 50 units minimum. Volume discounts start at 50+ units.',
+    a: 'The MOQ is 10 units on every item, designed for startups doing rolling onboarding or small team gifting. Volume discounts start at 50+ units.',
   },
   {
     q: "What's a good budget per head for startup onboarding kits?",
@@ -172,6 +174,7 @@ export default function StartupsIndustryClient({
         "headline": "Corporate Gifts for Startups: Build Culture, Not Just Swag",
         "description": "Startup-specific corporate gifting - onboarding kits, team swag, investor gifts. Budget-conscious, brand-forward, and fast. MOQ from 10 units. Bangalore & Pan-India.",
         "url": "https://themintbox.in/industry-solutions/startups",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -193,41 +196,48 @@ export default function StartupsIndustryClient({
             <div>
               <div className="cp-hero-eyebrow">Industry Solutions · Startups & Scale-Ups</div>
               <h1 className="cp-hero-title">
-                Corporate Gifts for Startups:<br />
+                Corporate Gifts for Startups:{' '}<br />
                 <em>Build Culture, Not Just Swag</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Onboarding kits, team swag, investor gifts, and event giveaways - designed for fast-moving startups.
-                MOQ from 10 units, transparent pricing, and turnaround in 7 days. No filler, no generic gifts.
+                Onboarding kits, team swag, investor gifts and event giveaways for fast-moving startups. MOQ 10 units, transparent pricing, 7-day turnaround.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Startup Gifts ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get a Startup Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ MOQ from 10 units</span>
-                <span className="cp-hero-badge">✓ Culture-fit curation</span>
-                <span className="cp-hero-badge">✓ 7-day turnaround</span>
-                <span className="cp-hero-badge">✓ GST invoicing</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80" alt="Branded merchandise corporate gift" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p43-b113.jpg" alt="Natural Cork Notebook Gift Set - Full Cork Cover" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Startup team gifting celebration" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p43-b112.jpg" alt="Natural Cork Notebook Gift Set - Grey Vegan Leather Cover" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ Culture-fit curation</span>
+            <span className="cp-hero-badge">✓ 7-day turnaround</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
+
+      <ClientLogos />
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -280,7 +290,6 @@ export default function StartupsIndustryClient({
       {/* ── USE CASES ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Use Cases</div>
           <h2 className="cp-section-title">What Startups Gift - and When</h2>
           <p className="cp-section-sub">
             From Day 1 welcome kits to investor hampers, every gifting moment is an opportunity to
@@ -305,7 +314,6 @@ export default function StartupsIndustryClient({
       {/* ── BUDGET TIERS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Budget Guide</div>
           <h2 className="cp-section-title">Recommended Budgets by Stage</h2>
           <p className="cp-section-sub">
             What you can achieve at each funding stage - from seed through growth.
@@ -335,7 +343,7 @@ export default function StartupsIndustryClient({
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Startup team gifting and onboarding kits" loading="lazy" />
+        <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── PRODUCT SHOWCASE ── */}
@@ -360,7 +368,6 @@ export default function StartupsIndustryClient({
       {/* ── HOW IT WORKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Our Process</div>
           <h2 className="cp-section-title">How Startup Gifting Works at MintBox</h2>
           <p className="cp-section-sub">
             From brief to delivery in 7–12 days. A simple, founder-friendly process with no committee
@@ -383,7 +390,6 @@ export default function StartupsIndustryClient({
       {/* ── COMPARISON TABLE ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Startup vs Enterprise</div>
           <h2 className="cp-section-title">Startup Gifting vs Enterprise Gifting</h2>
           <p className="cp-section-sub">
             Startup gifting is different. Lower MOQs, faster decisions, and culture-first curation -
@@ -419,7 +425,7 @@ export default function StartupsIndustryClient({
             "Your company culture starts on Day 1. The welcome kit isn't swag - it's a signal to your
             new hire about who you are."
           </p>
-          <a href="#quote" className="cp-quote-band-cta">Build Your Onboarding Kit →</a>
+          <a href="#quote" className="cp-quote-band-cta">Request a quote →</a>
         </div>
       </div>
 
@@ -429,17 +435,17 @@ export default function StartupsIndustryClient({
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Startup Gifting</div>
-            <h2 className="cp-cta-title">Build Your Startup<br />Gifting Programme</h2>
+            <h2 className="cp-cta-title">Build Your Startup{' '}<br />Gifting Programme</h2>
             <p className="cp-cta-sub">
               Share your occasion, team size, and budget. We will come back with 3 curated options
-              and a quote within 4 hours.
+              and a quote. We reply within 1 hour on business days.
             </p>
             <div className="cp-quote-form-panel" />
           </div>
           <InlineQuoteForm
             title="Build Your Startup Gifting Programme"
-            subtitle="MOQ from 10 units. Tell us your occasion, team size, and budget - we'll curate and quote within 4 hours."
-            ctaLabel="Get Startup Quote"
+            subtitle="MOQ from 10 units. Tell us your occasion, team size, and budget - we'll curate and quote. We reply within 1 hour on business days."
+            ctaLabel="Request a quote"
             defaultOccasion="welcome_kit"
           />
         </div>
@@ -453,7 +459,6 @@ export default function StartupsIndustryClient({
           <FAQSection
             items={FAQS}
             title="Corporate Gifts for Startups - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>

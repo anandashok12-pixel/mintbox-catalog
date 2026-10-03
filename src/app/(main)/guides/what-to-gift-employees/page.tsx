@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import WhatToGiftClient from '@/components/pages/WhatToGiftClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'What to Gift Employees: Corporate Gift Ideas | MintBox',
@@ -30,7 +31,7 @@ export default async function WhatToGiftPage() {
       payload.find({ collection: 'products', where: { inStock: { equals: true } }, sort: 'order', limit: 500, depth: 1 }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[what-to-gift-employees] Payload query failed:', err)
   }

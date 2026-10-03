@@ -121,8 +121,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             <div className="success-icon">✓</div>
             <h2>Request Received!</h2>
             <p>
-              Thank you for your interest. Our team will get back to you within 24 hours
-              with final pricing and customisation options.
+              Thank you for your interest. We reply within 1 hour on business days, then
+              send final pricing and customisation options.
             </p>
             <div className="success-ref">
               <p>Your Reference Code</p>
@@ -156,8 +156,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
         <button className="modal-close" onClick={onClose}>×</button>
 
         <div className="lead-modal-header">
-          <h2>Request Final Pricing</h2>
-          <p>Tell us about your gifting requirements and we&apos;ll get back within 24 hours.</p>
+          <h2>Request a quote</h2>
+          <p>Tell us about your gifting requirements and we reply within 1 hour on business days.</p>
         </div>
 
         <div className="lead-modal-body">
@@ -213,8 +213,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
           <form className="lead-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Name *</label>
-                <input
+                <label htmlFor="lm-f1" className="form-label">Name *</label>
+                <input id="lm-f1" autoComplete="name"
                   type="text"
                   className="form-input"
                   value={name}
@@ -224,8 +224,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Company *</label>
-                <input
+                <label htmlFor="lm-f2" className="form-label">Company *</label>
+                <input id="lm-f2" autoComplete="organization"
                   type="text"
                   className="form-input"
                   value={company}
@@ -238,8 +238,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
 
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Email *</label>
-                <input
+                <label htmlFor="lm-f3" className="form-label">Email *</label>
+                <input id="lm-f3" autoComplete="email"
                   type="email"
                   className="form-input"
                   value={email}
@@ -249,8 +249,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Phone *</label>
-                <input
+                <label htmlFor="lm-f4" className="form-label">Phone *</label>
+                <input id="lm-f4"
                   type="tel"
                   className="form-input"
                   value={phone}
@@ -263,8 +263,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Occasion</label>
-              <select
+              <label htmlFor="lm-f5" className="form-label">Occasion</label>
+              <select id="lm-f5"
                 className="form-select"
                 value={occasion}
                 onChange={(e) => setOccasion(e.target.value)}
@@ -281,8 +281,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             {occasion === 'other' && (
               <div className="form-row">
                 <div className="form-group">
-                  <label className="form-label">Custom occasion type *</label>
-                  <input
+                  <label htmlFor="lm-f6" className="form-label">Custom occasion type *</label>
+                  <input id="lm-f6"
                     type="text"
                     className="form-input"
                     value={customOccasionType}
@@ -292,8 +292,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Location *</label>
-                  <input
+                  <label htmlFor="lm-f7" className="form-label">Location *</label>
+                  <input id="lm-f7"
                     type="text"
                     className="form-input"
                     value={customOccasionLocation}
@@ -306,8 +306,8 @@ export default function LeadModal({ onClose }: LeadModalProps) {
             )}
 
             <div className="form-group">
-              <label className="form-label">Additional Notes</label>
-              <textarea
+              <label htmlFor="lm-f8" className="form-label">Additional Notes</label>
+              <textarea id="lm-f8"
                 className="form-textarea"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}

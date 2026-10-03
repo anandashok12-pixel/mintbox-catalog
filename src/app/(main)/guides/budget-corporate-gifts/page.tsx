@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import BudgetCorporateGiftsClient from '@/components/pages/BudgetCorporateGiftsClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Budget Corporate Gifts: Smart Gifting, No Overspend | MintBox',
+  title: 'Budget Corporate Gifts: Smart Gifting | MintBox',
   description:
-    'How to buy quality corporate gifts on a budget. Compare price tiers (₹100–₹2,000), see what\'s achievable at each level, and get bulk pricing. Free quote in 24 hours.',
+    'How to buy quality corporate gifts on a budget. Compare price tiers from ₹100 to ₹2,000, see what each level gets you and get bulk pricing. Free quote.',
   alternates: { canonical: 'https://themintbox.in/guides/budget-corporate-gifts' },
   openGraph: {
-    title: 'Budget Corporate Gifts: Smart Gifting, No Overspend | MintBox',
+    title: 'Budget Corporate Gifts: Smart Gifting | MintBox',
     description:
-      'How to buy quality corporate gifts on a budget. Compare price tiers (₹100–₹2,000), see what\'s achievable at each level, and get bulk pricing. Free quote in 24 hours.',
+      'How to buy quality corporate gifts on a budget. Compare price tiers from ₹100 to ₹2,000, see what each level gets you and get bulk pricing. Free quote.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function BudgetCorporateGiftsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[budget-corporate-gifts] Payload query failed:', err)
   }

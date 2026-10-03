@@ -127,7 +127,7 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
         <tr>
           <td style="background:#0D3D2B;padding:28px 32px;">
             <h1 style="margin:0;color:#C9A84C;font-size:24px;font-weight:700;letter-spacing:2px;">MINTBOX</h1>
-            <p style="margin:4px 0 0;color:#a8c4b8;font-size:13px;">New Quote Request  -  ${refCode}</p>
+            <p style="margin:4px 0 0;color:#a8c4b8;font-size:13px;">New Quote Request - ${refCode}</p>
           </td>
         </tr>
         <tr>
@@ -174,7 +174,7 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
   const itemList = leadItems
     .map(
       (item) =>
-        `<li style="padding:6px 0;border-bottom:1px solid #e8e0d0;display:flex;justify-content:space-between;">${item.productName} × ${item.quantity} &mdash; <strong>₹${(item.quantity * item.unitPrice).toLocaleString('en-IN')}</strong></li>`,
+        `<li style="padding:6px 0;border-bottom:1px solid #e8e0d0;display:flex;justify-content:space-between;">${item.productName} × ${item.quantity} - <strong>₹${(item.quantity * item.unitPrice).toLocaleString('en-IN')}</strong></li>`,
     )
     .join('')
 
@@ -194,7 +194,7 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
         <tr>
           <td style="padding:40px 32px;">
             <h2 style="color:#0D3D2B;font-size:22px;margin:0 0 8px;">Thank you, ${lead.name}!</h2>
-            <p style="color:#555;line-height:1.6;margin:0 0 24px;">We've received your gifting request from <strong>${lead.company}</strong>. Our team will review your pack and reach out with final pricing and customisation options within 24 hours.</p>
+            <p style="color:#555;line-height:1.6;margin:0 0 24px;">We've received your gifting request from <strong>${lead.company}</strong>. We reply within 1 hour on business days, then send final pricing and customisation options for your pack.</p>
             <div style="background:#f5f2ec;border-radius:8px;padding:16px 20px;margin-bottom:28px;text-align:center;">
               <p style="margin:0;color:#666;font-size:13px;letter-spacing:1px;">YOUR REFERENCE CODE</p>
               <p style="margin:8px 0 0;color:#0D3D2B;font-size:24px;font-weight:700;letter-spacing:3px;">${refCode}</p>
@@ -219,7 +219,7 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
         <tr>
           <td style="background:#0D3D2B;padding:20px 32px;text-align:center;">
             <p style="margin:0;color:#a8c4b8;font-size:13px;">Questions? Email us at <a href="mailto:hello@themintbox.in" style="color:#C9A84C;">hello@themintbox.in</a></p>
-            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© 2025 MintBox  -  themintbox.in</p>
+            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© 2025 MintBox - themintbox.in</p>
           </td>
         </tr>
       </table>
@@ -325,7 +325,7 @@ export async function POST(req: NextRequest) {
       resend.emails.send({
         from: 'MintBox <noreply@themintbox.in>',
         to: notifyEmails,
-        subject: `New Quote Request ${refCode}  -  ${company}`,
+        subject: `New Quote Request ${refCode} - ${company}`,
         html: teamEmailHtml(body, refCode, estimatedTotal, {
           channel,
           entryPage: first?.landingPage,
@@ -336,7 +336,7 @@ export async function POST(req: NextRequest) {
       resend.emails.send({
         from: 'MintBox <noreply@themintbox.in>',
         to: email,
-        subject: `Your MintBox request is confirmed  -  ${refCode}`,
+        subject: `Your MintBox request is confirmed - ${refCode}`,
         html: customerEmailHtml(body, refCode, estimatedTotal),
       }),
     ])

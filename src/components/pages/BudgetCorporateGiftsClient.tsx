@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -128,7 +129,7 @@ const FAQS = [
   },
   {
     q: 'Are there hidden costs I should budget for (packaging, setup, delivery)?',
-    a: "MintBox pricing is all-inclusive - logo printing, basic packaging, and standard delivery are included in the listed price. Additional costs include custom packaging boxes (₹30–₹80/unit), rush production (15–20% surcharge), name personalisation (₹30–₹80/unit), and express delivery.",
+    a: "MintBox pricing is all-inclusive - logo printing, basic packaging, and standard delivery are included in the listed price. Additional costs include custom packaging boxes (₹30–₹80/unit), name personalisation (₹30–₹80/unit), and rush production or express delivery. Rush options are available, message us on WhatsApp for a quote.",
   },
   {
     q: 'Can I split my budget across multiple gift tiers for different seniority levels?',
@@ -159,6 +160,7 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
         "headline": "Budget Corporate Gifts: Smart Gifting Without Overspending",
         "description": "How to buy quality corporate gifts on a budget. Compare price tiers, see what's achievable at each level, and get bulk pricing. Free quote in 24 hours.",
         "url": "https://themintbox.in/guides/budget-corporate-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -180,41 +182,46 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
             <div>
               <div className="cp-hero-eyebrow">Gifting Guide · Budgeting & Planning</div>
               <h1 className="cp-hero-title">
-                Budget Corporate Gifts:<br />
+                Budget Corporate Gifts:{' '}<br />
                 <em>Smart Gifting Without Overspending</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                A practical framework for planning corporate gifting budgets - by team size, occasion,
-                and price tier. Covers ₹100 to ₹5,000 per head with real examples, bulk pricing, and what to avoid.
+                Plan corporate gifting budgets by team size, occasion and price tier, from ₹100 to ₹5,000 per head, with real examples.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Budget Gifts ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get Bulk Pricing</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ ₹100–₹5,000/head covered</span>
-                <span className="cp-hero-badge">✓ Bulk pricing calculator</span>
-                <span className="cp-hero-badge">✓ Real examples</span>
-                <span className="cp-hero-badge">✓ Free quote</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Budget planning for corporate gifting" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero4.webp" alt="Gift box with notebook and accessories" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hamper7.webp" alt="Festive gift tray with planner and treats" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ ₹100–₹5,000/head covered</span>
+            <span className="cp-hero-badge">✓ Bulk pricing calculator</span>
+            <span className="cp-hero-badge">✓ Real examples</span>
+            <span className="cp-hero-badge">✓ Free quote</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -261,7 +268,6 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
       {/* ── PRICE LEVELS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Price Breakdown</div>
           <h2 className="cp-section-title">What You Get at Each Budget Level</h2>
           <p className="cp-section-sub">
             Not all budgets are equal - here is a realistic breakdown of what quality and category
@@ -285,7 +291,6 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Browse Products</div>
           <h2 className="cp-section-title">Budget Corporate Gifts - Full Range</h2>
           <p className="cp-section-sub">
             Filter by price to find gifts that match your budget. All products support bulk ordering
@@ -305,7 +310,7 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
       <section className="cp-section cp-section--white">
         <div className="cp-container">
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Corporate gifting budget planning and finance workspace" loading="lazy" />
+            <Image src="/hampers/hamper10.webp" alt="Finished corporate gift box" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
           <div className="cp-section-eyebrow">Budget Planning by Occasion</div>
           <h2 className="cp-section-title">Recommended Budget by Occasion</h2>
@@ -356,7 +361,6 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
       {/* ── BULK PRICING TIERS ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Discounts</div>
           <h2 className="cp-section-title">The More You Order, the More You Save</h2>
           <p className="cp-section-sub">
             Bulk pricing tiers apply across all products. The larger your order, the lower
@@ -392,14 +396,14 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Free Budgeting Help</div>
-            <h2 className="cp-cta-title">Plan Your<br />Gifting Budget</h2>
+            <h2 className="cp-cta-title">Plan Your{' '}<br />Gifting Budget</h2>
             <p className="cp-cta-desc">
               Tell us your team size, occasion, and budget per head - we'll send back a
               curated shortlist with exact pricing and bulk discounts applied.
             </p>
             <div className="cp-cta-promises">
               {[
-                'Itemised quote within 4 business hours',
+                'Itemised quote, reply within 1 hour',
                 'Bulk discount applied automatically',
                 'No hidden setup or packaging fees',
                 'Multi-tier gifting supported (by seniority)',
@@ -414,7 +418,7 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
           <InlineQuoteForm
             title="Plan Your Gifting Budget"
             subtitle="Share your budget range and team size - we'll match the best options with bulk pricing."
-            ctaLabel="Get Budget Quote"
+            ctaLabel="Request a quote"
             defaultOccasion="other"
           />
         </div>
@@ -428,7 +432,6 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
           <FAQSection
             items={FAQS}
             title="Budget Corporate Gifts - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -436,7 +439,6 @@ export default function BudgetCorporateGiftsClient({ products, categories }: { p
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides</h2>
           <div className="cp-related-grid">
             {[

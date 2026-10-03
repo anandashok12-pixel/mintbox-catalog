@@ -48,7 +48,7 @@ export default function ComingSoonPage() {
             margin: '0 0 2rem',
           }}>
             We&rsquo;re still setting this up. In the meantime, browse the catalogue or send us a
-            message - we reply within four working hours.
+            message. We reply within 1 hour on business days.
           </p>
           <div style={{
             display: 'flex',

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -78,7 +79,7 @@ const HAMPER_THEMES = [
 ]
 
 const OCCASIONS_TABLE = [
-  { occasion: 'Diwali', recommended: 'Drinkware + sweets + gift box', budget: '₹1,000–₹3,000', moq: '25' },
+  { occasion: 'Diwali', recommended: 'Drinkware + sweets + gift box', budget: '₹1,000–₹3,000', moq: '10' },
   { occasion: 'Onboarding', recommended: '4–5 item welcome kit', budget: '₹1,000–₹2,500', moq: '10' },
   { occasion: 'Client Appreciation', recommended: 'Premium 3-item set', budget: '₹1,500–₹5,000', moq: '1' },
   { occasion: 'Work Anniversary', recommended: 'Personalised 3-item set', budget: '₹800–₹2,000', moq: '1' },
@@ -113,7 +114,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How far in advance should I order Diwali hampers?',
-    a: 'Order at least 3–4 weeks before Diwali (target: early-to-mid October for a November Diwali). During Diwali, production slots fill up by late October. For 200+ hampers, we recommend placing orders by September 30.',
+    a: 'Order at least 3–4 weeks before Diwali (target: early-to-mid October for a November Diwali). During Diwali, production slots fill up by late October. For 200+ hampers, we recommend placing orders by 10 October at the latest.',
   },
   {
     q: 'Can hampers be delivered to individual employee addresses?',
@@ -160,38 +161,42 @@ export default function HampersCollectionClient({ products, categories }: { prod
             </nav>
             <div className="cp-hero-eyebrow">Category · Gift Hampers</div>
             <h1 className="cp-hero-title">
-              Corporate Gift Hampers:<br />
+              Corporate Gift Hampers:{' '}<br />
               <em>Curated Sets for Every Occasion</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Curated corporate gift hampers for Diwali, employee onboarding, client appreciation,
-              and recognition. Each hamper is thoughtfully assembled, branded, and delivered with
-              premium packaging across India.
+              Curated corporate hampers for Diwali, onboarding, client appreciation and recognition, branded and delivered in premium packaging across India.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Hampers ↓</a>
               <a href="#quote" className="cp-hero-cta-secondary">Curate a Hamper</a>
             </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 30+ curated hamper sets</span>
-              <span className="cp-hero-badge">✓ Custom branding on every item</span>
-              <span className="cp-hero-badge">✓ Premium packaging included</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-            </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/home-fragrance-suite.webp" alt="Home Fragrance Suite" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/filter-kaapi-heritage.webp" alt="Filter Kaapi Heritage" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 30+ curated hamper sets</span>
+            <span className="cp-hero-badge">✓ Custom branding on every item</span>
+            <span className="cp-hero-badge">✓ Premium packaging included</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -204,7 +209,7 @@ export default function HampersCollectionClient({ products, categories }: { prod
             '30+ curated hamper themes',
             'Premium packaging included in every hamper',
             'Branding on all items, not just the box',
-            'MOQ 25 units, single pieces available for VIPs',
+            'MOQ 10 units, single pieces available for VIPs',
             'Pan-India delivery with tracking',
           ]} />
         </div>
@@ -238,7 +243,6 @@ export default function HampersCollectionClient({ products, categories }: { prod
       {/* 4. PRODUCT SHOWCASE */}
       <section className="cp-section cp-section--cream" id="products">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Browse</div>
           <h2 className="cp-section-title">Browse Hamper Products</h2>
           <ContentProductShowcase
             products={products}
@@ -253,7 +257,6 @@ export default function HampersCollectionClient({ products, categories }: { prod
       {/* 5. HAMPER THEMES */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Curated Themes</div>
           <h2 className="cp-section-title">Curated Hamper Themes by Occasion</h2>
           <p className="cp-section-sub">
             Start with a curated theme or build your own. Every hamper includes branding on all items and premium packaging.
@@ -271,7 +274,7 @@ export default function HampersCollectionClient({ products, categories }: { prod
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1200&q=80" alt="Curated corporate gift hamper with premium packaging and branded items" loading="lazy" />
+            <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/the-grand-diwali-trunk.webp" alt="The Grand Diwali Trunk" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -323,7 +326,6 @@ export default function HampersCollectionClient({ products, categories }: { prod
       {/* 8. BULK PRICING TIERS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Pricing</div>
           <h2 className="cp-section-title">Bulk Pricing Tiers</h2>
           <p className="cp-section-sub">
             The more hampers you order, the better the per-unit price. Packaging and branding are included in all tiers.
@@ -355,16 +357,15 @@ export default function HampersCollectionClient({ products, categories }: { prod
       <section className="cp-cta-section" id="quote">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
-            <h2 className="cp-cta-title">Ready to Curate<br />Your Corporate Hamper?</h2>
+            <h2 className="cp-cta-title">Ready to Curate{' '}<br />Your Corporate Hamper?</h2>
             <p className="cp-cta-sub">
-              Tell us your occasion, quantity, and budget - we will come back with a curated hamper proposal and mockup within 4 hours.
+              Tell us your occasion, quantity, and budget - we will come back with a curated hamper proposal and mockup. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Curate Your Hamper"
-              ctaLabel="Request Hamper Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="diwali"
             />
           </div>
@@ -378,7 +379,6 @@ export default function HampersCollectionClient({ products, categories }: { prod
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Corporate Gift Hampers - Frequently Asked Questions"
           />
         </div>

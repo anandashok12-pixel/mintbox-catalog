@@ -9,6 +9,8 @@ import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import { getAttribution } from '@/lib/attribution'
 import { isValidPhone } from '@/lib/phone'
+import ClientLogos from '@/components/content/ClientLogos'
+import GoogleReviews from '@/components/content/GoogleReviews'
 
 interface ContactPageData {
   hero: { label: string; titleLine1: string; titleLine2: string; subtitle: string }
@@ -34,9 +36,9 @@ const EMPTY: ContactPageData = {
   formInfo: {
     eyebrow: 'Send us a message',
     title: "We'd love to hear from you.",
-    subtitle: "Share a few details about your gifting need and we'll get back within four working hours with a curated proposal  -  no spam, no sales follow-ups, just a real reply from the team.",
+    subtitle: "Share a few details about your gifting need and we'll get back with a curated proposal. No spam, no sales follow-ups, just a real reply from the team.",
     promises: [
-      { bold: 'Reply within 4 hours. ', desc: 'Every enquiry gets a real response from a real person  -  never an auto-reply.' },
+      { bold: 'A real reply. ', desc: 'We reply within 1 hour on business days. Every enquiry gets a response from a person, never an auto-reply.' },
       { bold: 'Transparent pricing. ', desc: 'The number we quote upfront is the number on your invoice. No surprise fees, no surcharges.' },
       { bold: 'No pressure, no pitch. ', desc: "We'll send options that fit your budget. If we're not the right fit, we'll say so honestly." },
     ],
@@ -65,12 +67,12 @@ const EMPTY: ContactPageData = {
       { label: 'Rs8,000+', value: 'Rs8,000+' },
     ],
     successTitle: 'Message sent!',
-    successMessage: "Thank you! We'll be in touch within 4 hours.",
+    successMessage: "Thank you! We reply within 1 hour on business days.",
   },
   contactDetails: {
     phone: '+91 9886537631',
     email: 'hello@themintbox.in',
-    emailSubNote: 'Response within 4 hours on business days',
+    emailSubNote: 'We reply within 1 hour on business days.',
     officeAddress: '2nd Floor, Sobha Alexander Plaza\n2-A, Commissariat Rd, Ashok Nagar\nBengaluru, Karnataka 560025',
     mapLabel: 'Sobha Alexander Plaza, Ashok Nagar',
     mapSublabel: 'Commissariat Rd, Bengaluru 560 025',
@@ -211,7 +213,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
         <div className="ct-hero-content">
           <div className="ct-hero-label">{data.hero.label}</div>
           <h1 className="ct-hero-title">
-            {data.hero.titleLine1}<br /><em>{data.hero.titleLine2}</em>
+            {data.hero.titleLine1}{' '}<br /><em>{data.hero.titleLine2}</em>
           </h1>
           <div className="ct-hero-rule" />
           <p className="ct-hero-sub">
@@ -258,8 +260,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Your name</label>
-                    <input
+                    <label htmlFor="ct-f1" className="ct-form-label">Your name</label>
+                    <input id="ct-f1" autoComplete="name"
                       className="ct-form-input"
                       type="text"
                       placeholder="Enter your name"
@@ -270,8 +272,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                     {nameError && <div className="ct-field-error">{nameError}</div>}
                   </div>
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Company</label>
-                    <input
+                    <label htmlFor="ct-f2" className="ct-form-label">Company</label>
+                    <input id="ct-f2" autoComplete="organization"
                       className="ct-form-input"
                       type="text"
                       placeholder="Enter your company name"
@@ -283,8 +285,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Email address</label>
-                    <input
+                    <label htmlFor="ct-f3" className="ct-form-label">Email address</label>
+                    <input id="ct-f3" autoComplete="email"
                       className="ct-form-input"
                       type="email"
                       placeholder="Enter your email"
@@ -295,8 +297,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                     {emailError && <div className="ct-field-error">{emailError}</div>}
                   </div>
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Mobile number</label>
-                    <input
+                    <label htmlFor="ct-f4" className="ct-form-label">Mobile number</label>
+                    <input id="ct-f4"
                       className="ct-form-input"
                       type="tel"
                       placeholder="Enter your mobile number"
@@ -311,8 +313,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
 
                 <div className="ct-form-row">
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Occasion</label>
-                    <select
+                    <label htmlFor="ct-f5" className="ct-form-label">Occasion</label>
+                    <select id="ct-f5"
                       className="ct-form-select"
                       value={occasion}
                       onChange={(e) => setOccasion(e.target.value)}
@@ -324,8 +326,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                     </select>
                   </div>
                   <div className="ct-form-group">
-                    <label className="ct-form-label">Team size</label>
-                    <select
+                    <label htmlFor="ct-f6" className="ct-form-label">Team size</label>
+                    <select id="ct-f6"
                       className="ct-form-select"
                       value={teamSize}
                       onChange={(e) => setTeamSize(e.target.value)}
@@ -339,8 +341,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 </div>
 
                 <div className="ct-form-group ct-full">
-                  <label className="ct-form-label">Budget per unit (optional)</label>
-                  <select
+                  <label htmlFor="ct-f7" className="ct-form-label">Budget per unit (optional)</label>
+                  <select id="ct-f7"
                     className="ct-form-select"
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
@@ -353,8 +355,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 </div>
 
                 <div className="ct-form-group ct-full">
-                  <label className="ct-form-label">Tell us more</label>
-                  <textarea
+                  <label htmlFor="ct-f8" className="ct-form-label">Tell us more</label>
+                  <textarea id="ct-f8"
                     className="ct-form-textarea"
                     placeholder="Share any details about your gifting requirement: timeline, special requests, branding needs, or anything else we should know."
                     value={notes}
@@ -363,7 +365,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                 </div>
 
                 <button type="submit" className="ct-form-submit" disabled={submitting}>
-                  {submitting ? 'Sending\u2026' : 'Send enquiry \u2192'}
+                  {submitting ? 'Sending\u2026' : 'Request a quote \u2192'}
                 </button>
               </form>
             )}
@@ -383,11 +385,11 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
         </div>
       </div>
 
-      {/* CONTACT DETAILS  -  split panel */}
+      {/* CONTACT DETAILS - split panel */}
       <div className="ct-contact-section">
         <div className="ct-contact-split">
 
-          {/* LEFT  -  white, contact details */}
+          {/* LEFT - white, contact details */}
           <div className="ct-contact-left">
             <div className="ct-cs-eyebrow">Contact details</div>
             <div className="ct-cs-list">
@@ -445,7 +447,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
             </div>
           </div>
 
-          {/* RIGHT  -  cream, map */}
+          {/* RIGHT - cream, map */}
           <div className="ct-contact-right">
             <div className="ct-cs-eyebrow">Find us</div>
             <div className="ct-map-placeholder">
@@ -468,7 +470,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
                   <circle cx="12" cy="10" r="3" />
                 </svg>
                 <span style={{ verticalAlign: 'middle' }}>
-                  {data.contactDetails.mapLabel || 'Sobha Alexander Plaza'} — Get Directions →
+                  {data.contactDetails.mapLabel || 'Sobha Alexander Plaza'} - Get Directions →
                 </span>
               </a>
             </div>
@@ -477,7 +479,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
         </div>
       </div>
 
-      {/* What happens next — gives enquirers context and adds substantive
+      {/* What happens next - gives enquirers context and adds substantive
           page content. */}
       <div className="ct-next-section">
         <div className="ct-next-inner">
@@ -485,7 +487,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
           <h2 className="ct-next-title">From enquiry to delivered gifts</h2>
           <p className="ct-next-lead">
             Reaching out to MintBox is the start of a conversation, not a sales funnel. Tell us who
-            you&apos;re gifting, the occasion, and a rough budget — we&apos;ll take it from there and
+            you&apos;re gifting, the occasion, and a rough budget - we&apos;ll take it from there and
             come back with a curated proposal, transparent pricing, and honest lead times. Here is
             exactly how it works.
           </p>
@@ -494,7 +496,7 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
               <span className="ct-next-num">1</span>
               <h3 className="ct-next-step-title">You share your brief</h3>
               <p className="ct-next-step-desc">
-                Send your requirement via the form or WhatsApp — team size, occasion, budget and any
+                Send your requirement via the form or WhatsApp - team size, occasion, budget and any
                 branding needs. No commitment, and no account to create.
               </p>
             </div>
@@ -502,8 +504,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
               <span className="ct-next-num">2</span>
               <h3 className="ct-next-step-title">We send a curated proposal</h3>
               <p className="ct-next-step-desc">
-                Within four working hours you&apos;ll get hand-picked hamper options that fit your
-                budget, with clear per-unit pricing — everything included, no surprise fees.
+                You&apos;ll get hand-picked hamper options that fit your budget, with clear
+                per-unit pricing - everything included, no surprise fees.
               </p>
             </div>
             <div className="ct-next-step">
@@ -518,8 +520,8 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
               <span className="ct-next-num">4</span>
               <h3 className="ct-next-step-title">We pack and deliver</h3>
               <p className="ct-next-step-desc">
-                We produce, quality-check, and deliver across Bengaluru and pan-India — to a single
-                office or individually to employees&apos; homes — with GST invoicing throughout.
+                We produce, quality-check, and deliver across Bengaluru and pan-India - to a single
+                office or individually to employees&apos; homes - with GST invoicing throughout.
               </p>
             </div>
           </div>
@@ -532,11 +534,14 @@ export function ContactPageClient({ data: raw }: { data: ContactPageData }) {
             >
               WhatsApp
             </a>{' '}
-            or email <a href={`mailto:${publicEmail}`}>{publicEmail}</a> — a real person replies,
+            or email <a href={`mailto:${publicEmail}`}>{publicEmail}</a> - a real person replies,
             usually within a few hours on business days.
           </p>
         </div>
       </div>
+
+      <GoogleReviews />
+      <ClientLogos />
 
       <Footer />
       <WhatsAppFloat />

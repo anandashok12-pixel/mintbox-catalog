@@ -111,7 +111,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
   const [justAdded, setJustAdded] = useState<string | null>(null)
 
   // The cart store rehydrates from sessionStorage, so cart-derived UI only
-  // renders on the client — otherwise the first client render disagrees with
+  // renders on the client - otherwise the first client render disagrees with
   // the server HTML and React throws away the whole SSR tree.
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false)
 
@@ -295,7 +295,7 @@ export default function DiwaliHamperShowcase({ products, tier, onTierChange }: P
             <div className="cp-pack-bar-label">{count} item{count !== 1 ? 's' : ''} in your pack</div>
             <div className="cp-pack-bar-sub">Est. {formatPrice(total)} · MOQ applies</div>
           </div>
-          <span className="cp-pack-bar-cta">Request Quote →</span>
+          <span className="cp-pack-bar-cta">Request a quote →</span>
         </div>
       )}
 

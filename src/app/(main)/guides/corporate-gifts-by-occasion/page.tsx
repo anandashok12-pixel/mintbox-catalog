@@ -5,11 +5,12 @@ import configPromise from '@payload-config'
 import { isPublished } from '@/lib/publishGate'
 import GiftsByOccasionClient from '@/components/pages/GiftsByOccasionClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 const PUBLISH_DATE = '2026-10-02'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifts by Occasion: Onboarding, Festivals & Clients | MintBox',
+  title: 'Corporate Gifts by Occasion: A Planning Guide | MintBox',
   description:
     'Match the gift to the moment: onboarding kits, festive hampers, and client appreciation gifts. Budget tiers, gift categories, MOQs and a bulk-order checklist.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifts-by-occasion' },
@@ -43,7 +44,7 @@ export default async function GiftsByOccasionPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[corporate-gifts-by-occasion] Payload query failed:', err)
   }

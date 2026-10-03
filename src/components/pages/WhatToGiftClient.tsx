@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -80,6 +81,7 @@ export default function WhatToGiftClient({ products, categories }: Props) {
         "headline": "What to Gift Employees: Ideas by Occasion, Budget & Team Size",
         "description": "Discover what to gift employees for Diwali, work anniversaries, and appreciation events. Curated corporate gift ideas from MintBox, Bangalore.",
         "url": "https://themintbox.in/guides/what-to-gift-employees",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -99,7 +101,7 @@ export default function WhatToGiftClient({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-btn-primary">Browse Gifts</a>
-              <a href="#quote" className="cp-btn-secondary">Get Quote</a>
+              <a href="#quote" className="cp-btn-secondary">Request a quote</a>
             </div>
           </div>
         </section>
@@ -159,7 +161,7 @@ export default function WhatToGiftClient({ products, categories }: Props) {
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80" alt="Corporate gift packages curated for employee appreciation occasions" loading="lazy" />
+          <Image src="/hampers/hamper10.webp" alt="Finished corporate gift box" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Product Showcase */}
@@ -195,7 +197,7 @@ export default function WhatToGiftClient({ products, categories }: Props) {
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Office team discussing what to gift employees for Diwali and work anniversaries" loading="lazy" />
+          <Image src="/hampers/hamper11.webp" alt="Branded gift box ready for your logo" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Quote Band */}
@@ -205,7 +207,7 @@ export default function WhatToGiftClient({ products, categories }: Props) {
             <p className="cp-quote-sub">
               Tell us your team size, occasion, and budget - we will curate the right gift set and handle all logistics.
             </p>
-            <a href="#quote" className="cp-btn-primary">Get a Custom Quote</a>
+            <a href="#quote" className="cp-btn-primary">Request a quote</a>
           </div>
         </section>
 

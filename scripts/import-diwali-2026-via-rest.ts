@@ -4,15 +4,15 @@
  * REST API rather than a direct DB connection. Local CLI scripts using
  * getPayload() directly hit a drizzle-kit/@neondatabase-serverless bug during
  * schema introspection (unrelated to this task, reproduces on both Node 22 and
- * 26) - the Products/Categories/Media collections all have public `create`
- * access (matching how the live site's own lead-capture flow writes data), so
- * this goes straight to the same API the deployed app itself uses. No local
- * DB credentials needed at all.
+ * 26) - so this goes straight to the deployed app's REST API. No local DB
+ * credentials needed; writes log in as a Payload admin via
+ * PAYLOAD_ADMIN_EMAIL / PAYLOAD_ADMIN_PASSWORD (see scripts/lib/payloadAuth.ts).
  *
  * Usage:
  *   npx tsx scripts/import-diwali-2026-via-rest.ts --dry
  *   npx tsx scripts/import-diwali-2026-via-rest.ts
  */
+import { authHeaders } from './lib/payloadAuth'
 import fs from 'fs'
 import path from 'path'
 import { DIWALI_2026_PRODUCTS } from '../src/data/diwali2026Products'
@@ -50,7 +50,7 @@ async function uploadImage(slug: string, filename: string, alt: string): Promise
   const form = new FormData()
   form.append('file', new Blob([buffer], { type: 'image/webp' }), filename)
   form.append('_payload', JSON.stringify({ alt }))
-  const res = await fetch(`${BASE_URL}/api/media`, { method: 'POST', body: form })
+  const res = await fetch(`${BASE_URL}/api/media`, { method: 'POST', headers: await authHeaders(BASE_URL), body: form })
   if (!res.ok) {
     const text = await res.text()
     throw new Error(`Media upload failed for ${filename}: HTTP ${res.status} - ${text.slice(0, 300)}`)
@@ -62,7 +62,7 @@ async function uploadImage(slug: string, filename: string, alt: string): Promise
 async function createProduct(categoryId: number, p: (typeof DIWALI_2026_PRODUCTS)[number], order: number, imageId: number | null) {
   const res = await fetch(`${BASE_URL}/api/products`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders(BASE_URL)) },
     body: JSON.stringify({
       name: p.name,
       category: categoryId,

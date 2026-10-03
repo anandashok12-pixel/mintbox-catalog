@@ -1,11 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { anyone, authenticated } from '../access/authenticated'
 
 export const FAQPage: GlobalConfig = {
   slug: 'faq-page',
   label: 'FAQ Page',
   access: {
-    read: () => true,
-    update: () => true,
+    read: anyone,
+    update: authenticated,
   },
   fields: [
     {

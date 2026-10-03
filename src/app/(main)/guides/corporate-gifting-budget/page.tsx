@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import GiftingBudgetClient from '@/components/pages/GiftingBudgetClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifting Budget: How to Plan & Optimise Spend | MintBox',
+  title: 'Corporate Gifting Budget: How to Plan Your Spend | MintBox',
   description:
     'How to plan a corporate gifting budget - by company size, occasion, and ROI. Includes budget templates, per-employee benchmarks, and bulk pricing guide.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifting-budget' },
   openGraph: {
-    title: 'Corporate Gifting Budget: How to Plan & Optimise Spend | MintBox',
+    title: 'Corporate Gifting Budget: How to Plan Your Spend | MintBox',
     description:
       'How to plan a corporate gifting budget - by company size, occasion, and ROI. Includes budget templates, per-employee benchmarks, and bulk pricing guide.',
   },
@@ -35,7 +36,7 @@ export default async function GiftingBudgetPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[corporate-gifting-budget] Payload query failed:', err)
   }

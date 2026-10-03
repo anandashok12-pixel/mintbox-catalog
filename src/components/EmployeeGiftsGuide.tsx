@@ -53,7 +53,7 @@ export function EmployeeGiftsGuide() {
             <div className="legal-intro">
               <p>
                 Diwali is the moment to thank the people who carried the year. A well-chosen Diwali
-                gift makes employees feel genuinely valued — and a generic, last-minute one quietly
+                gift makes employees feel genuinely valued - and a generic, last-minute one quietly
                 does the opposite. For companies in Bengaluru, where teams are large and the talent
                 market is competitive, the Diwali gift is one of the most visible signals of how a
                 company treats its people.
@@ -84,7 +84,7 @@ export function EmployeeGiftsGuide() {
               <div className="legal-section-body">
                 <p>
                   Employee gifting at Diwali is recognition made tangible. It arrives at the one time
-                  of year when the gesture is most expected, and it is shared — employees show Diwali
+                  of year when the gesture is most expected, and it is shared - employees show Diwali
                   gifts to family and colleagues, so a good one earns goodwill well beyond the
                   individual. Equally, a careless gift is noticed and remembered. The aim is not
                   extravagance; it is evident thought.
@@ -99,11 +99,11 @@ export function EmployeeGiftsGuide() {
               </h2>
               <div className="legal-section-body">
                 <p>
-                  Three things. It should feel <strong>festive</strong> — a Diwali gift should look
+                  Three things. It should feel <strong>festive</strong> - a Diwali gift should look
                   and feel like the occasion, not like a routine purchase. It should be{' '}
-                  <strong>useful or genuinely enjoyable</strong> — something the employee will use or
+                  <strong>useful or genuinely enjoyable</strong> - something the employee will use or
                   happily share, not a token that gathers dust. And it should feel{' '}
-                  <strong>considered</strong> — branded packaging, a personal note, or a thoughtful
+                  <strong>considered</strong> - branded packaging, a personal note, or a thoughtful
                   combination signals care even on a modest budget.
                 </p>
               </div>
@@ -137,25 +137,25 @@ export function EmployeeGiftsGuide() {
                           (₹200–₹225), Wooden Glass Scented Candle (₹200)
                         </td>
                         <td>
-                          For large teams and giveaways. Presentation does the heavy lifting — branded
+                          For large teams and giveaways. Presentation does the heavy lifting - branded
                           packaging and a festive card make a small gift feel complete.
                         </td>
                       </tr>
                       <tr>
                         <td>₹500–₹1,500</td>
                         <td>
-                          A curated hamper — e.g. a laddoo box, Sancha Original Masala Chai (₹320) and
+                          A curated hamper - e.g. a laddoo box, Sancha Original Masala Chai (₹320) and
                           a scented candle in a Jute Basket (₹170)
                         </td>
                         <td>
-                          The most popular tier for company-wide gifting — generous enough to feel
+                          The most popular tier for company-wide gifting - generous enough to feel
                           valued, practical enough to scale.
                         </td>
                       </tr>
                       <tr>
                         <td>₹1,500–₹3,000</td>
                         <td>
-                          A larger hamper — gourmet treats, a Ferrero Rocher 24-piece box (₹855), a
+                          A larger hamper - gourmet treats, a Ferrero Rocher 24-piece box (₹855), a
                           Sancha Brewing Tales Tea Gift Box (₹950) and a branded item
                         </td>
                         <td>For senior staff, or as a premium company-wide gift.</td>
@@ -163,7 +163,7 @@ export function EmployeeGiftsGuide() {
                       <tr>
                         <td>₹3,000+</td>
                         <td>
-                          Premium gifts — e.g. a Borosil Brew Pro Drip Coffee Machine (₹3,170) or a
+                          Premium gifts - e.g. a Borosil Brew Pro Drip Coffee Machine (₹3,170) or a
                           curated executive box
                         </td>
                         <td>For senior management and long-tenure employees.</td>
@@ -180,7 +180,7 @@ export function EmployeeGiftsGuide() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <figure className="guide-figure">
                   <img src="/hampers/hamper3.webp" alt="A curated Diwali hamper for employees" />
-                  <figcaption>A ₹500–₹1,500 hamper — the most popular tier for company-wide gifting.</figcaption>
+                  <figcaption>A ₹500–₹1,500 hamper - the most popular tier for company-wide gifting.</figcaption>
                 </figure>
               </div>
             </section>
@@ -192,13 +192,13 @@ export function EmployeeGiftsGuide() {
               </h2>
               <div className="legal-section-body">
                 <p>
-                  <strong>Hampers</strong> are the most popular choice — they feel festive and
+                  <strong>Hampers</strong> are the most popular choice - they feel festive and
                   generous and let you combine a traditional item with a practical one. For most
                   teams, a curated hamper is the safe, well-received default.
                 </p>
                 <p>
                   <strong>Single branded gifts</strong> work when you want something practical and
-                  lasting — a quality bottle, a desk item — but pair it with festive packaging so it
+                  lasting - a quality bottle, a desk item - but pair it with festive packaging so it
                   still reads as a Diwali gift.
                 </p>
                 <p>
@@ -220,7 +220,7 @@ export function EmployeeGiftsGuide() {
                   that work well across a whole team: branded festive packaging, a card carrying the
                   company’s Diwali message, and logo-printed items inside the hamper. For larger
                   budgets, adding the employee’s name lifts it further. MintBox personalises gifts
-                  with your branding — start at the <a href="/catalog">MintBox catalogue</a> or{' '}
+                  with your branding - start at the <a href="/catalog">MintBox catalogue</a> or{' '}
                   <a href="/contact">request a quote</a>.
                 </p>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -239,9 +239,9 @@ export function EmployeeGiftsGuide() {
               <div className="legal-section-body">
                 <p>
                   A few practical notes for a diverse workforce. Keep food hampers vegetarian by
-                  default and clearly labelled — it is the safest universal choice. Offer a sugar-free
+                  default and clearly labelled - it is the safest universal choice. Offer a sugar-free
                   or dry-fruit-led option alongside traditional sweets, for health-conscious
-                  employees. Be cautious with alcohol. And remember remote and hybrid employees — plan
+                  employees. Be cautious with alcohol. And remember remote and hybrid employees - plan
                   to ship to their homes so no one is left out.
                 </p>
               </div>
@@ -254,7 +254,7 @@ export function EmployeeGiftsGuide() {
               </h2>
               <div className="legal-section-body">
                 <p>
-                  Many teams now appreciate an eco-friendly Diwali hamper — plantable products,
+                  Many teams now appreciate an eco-friendly Diwali hamper - plantable products,
                   natural and recycled materials, and minimal-waste packaging. It is a thoughtful
                   message at a festival associated with excess, and it reflects well on the company.
                 </p>
@@ -269,7 +269,7 @@ export function EmployeeGiftsGuide() {
               <div className="legal-section-body">
                 <p>
                   Gifting a whole team means planning the logistics early. Confirm your Diwali
-                  employee gift order six to eight weeks before Diwali — for 2026, that means
+                  employee gift order six to eight weeks before Diwali - for 2026, that means
                   September. Decide whether gifts go to one office for distribution or ship directly
                   to employees’ homes, which is increasingly common for hybrid teams. MintBox handles
                   branding, packing, GST invoicing and delivery across Bengaluru. Full detail is in
@@ -298,7 +298,7 @@ export function EmployeeGiftsGuide() {
             <div className="guide-cta">
               <p className="guide-cta-title">Make your team feel valued this Diwali.</p>
               <p className="guide-cta-sub">
-                Build your team’s Diwali hamper at the MintBox catalogue and request a quote — confirm
+                Build your team’s Diwali hamper at the MintBox catalogue and request a quote - confirm
                 bulk orders by mid-September.
               </p>
               <div className="guide-cta-btns">

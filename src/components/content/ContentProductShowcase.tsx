@@ -54,6 +54,7 @@ export default function ContentProductShowcase({
 }: ContentProductShowcaseProps) {
   const [activeCat, setActiveCat] = useState('all')
   const [search, setSearch] = useState('')
+  const [visibleCount, setVisibleCount] = useState(12)
   // Ceiling used to default to a hardcoded 10000, which silently hid any
   // product priced above it with no way to raise the slider (same bug as
   // CatalogClient's, fixed in 8b07a09). Derive it from the products actually
@@ -72,26 +73,23 @@ export default function ContentProductShowcase({
   const total = useCartStore(s => s.total())
 
   // Build category list from products actually present
-  const usedCatIds = useMemo(() => new Set(products.map(p =>
-    typeof p.category === 'object' ? p.category?.id : p.category
-  )), [products])
+  // Ids are compared as strings: slimProducts stringifies product category
+  // ids while category docs from Payload keep numeric ids.
+  const catIdOf = (p: Product) =>
+    String(typeof p.category === 'object' ? p.category?.id : p.category)
+
+  const usedCatIds = useMemo(() => new Set(products.map(catIdOf)), [products])
 
   const visibleCats = useMemo(() =>
-    categories.filter(c => usedCatIds.has(c.id)),
+    categories.filter(c => usedCatIds.has(String(c.id))),
     [categories, usedCatIds]
   )
 
   const filtered = useMemo(() => {
     return products.filter(p => {
       if (onlyCustomisable && !p.customisable) return false
-      if (filterCategoryId) {
-        const catId = typeof p.category === 'object' ? p.category?.id : p.category
-        if (catId !== filterCategoryId) return false
-      }
-      if (activeCat !== 'all') {
-        const catId = typeof p.category === 'object' ? p.category?.id : p.category
-        if (catId !== activeCat) return false
-      }
+      if (filterCategoryId && catIdOf(p) !== String(filterCategoryId)) return false
+      if (activeCat !== 'all' && catIdOf(p) !== activeCat) return false
       if (p.price > priceMax) return false
       if (search.trim()) {
         const q = search.trim().toLowerCase()
@@ -127,8 +125,8 @@ export default function ContentProductShowcase({
             {visibleCats.map(cat => (
               <button
                 key={cat.id}
-                className={`cp-cat-tab${activeCat === cat.id ? ' active' : ''}`}
-                onClick={() => setActiveCat(cat.id)}
+                className={`cp-cat-tab${activeCat === String(cat.id) ? ' active' : ''}`}
+                onClick={() => setActiveCat(String(cat.id))}
               >
                 {cat.emoji && <span>{cat.emoji}</span>}
                 {cat.name}
@@ -181,7 +179,7 @@ export default function ContentProductShowcase({
           </div>
         ) : (
           <div className="cp-showcase-grid">
-            {filtered.map(product => {
+            {filtered.slice(0, visibleCount).map(product => {
               const imgUrl = product.image?.sizes?.card?.url || product.image?.url || null
               const catName = typeof product.category === 'object' ? product.category?.name : ''
               return (
@@ -200,6 +198,7 @@ export default function ContentProductShowcase({
                         alt={product.name}
                         width={240}
                         height={240}
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
                     ) : (
@@ -220,6 +219,18 @@ export default function ContentProductShowcase({
                 </div>
               )
             })}
+          </div>
+        )}
+        {filtered.length > visibleCount && (
+          <div style={{ textAlign: 'center', marginTop: 24 }}>
+            <button
+              type="button"
+              className="cp-showcase-more"
+              onClick={() => setVisibleCount(c => c + 12)}
+              style={{ padding: '12px 28px', borderRadius: 8, border: '1px solid var(--forest-green,#1B4D3E)', background: 'transparent', color: 'var(--forest-green,#1B4D3E)', fontFamily: 'inherit', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}
+            >
+              Show more ({filtered.length - visibleCount} left)
+            </button>
           </div>
         )}
 
@@ -247,7 +258,7 @@ export default function ContentProductShowcase({
             <div className="cp-pack-bar-label">{count} item{count !== 1 ? 's' : ''} in your pack</div>
             <div className="cp-pack-bar-sub">Est. {formatPrice(total)} · MOQ applies</div>
           </div>
-          <span className="cp-pack-bar-cta">Request Quote →</span>
+          <span className="cp-pack-bar-cta">Request a quote →</span>
         </div>
       )}
 

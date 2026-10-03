@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import HampersCollectionClient from '@/components/pages/HampersCollectionClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gift Hampers: Curated Sets for Every Occasion | MintBox',
+  title: 'Corporate Gift Hampers for Every Occasion | MintBox',
   description:
-    'Curated corporate gift hampers for Diwali, onboarding, client appreciation, and more. Custom branding, premium packaging, Pan-India delivery. Bulk from 25 units.',
+    'Curated corporate gift hampers for Diwali, onboarding and client appreciation. Custom branding, premium packaging, Pan-India delivery. Bulk from 10 units.',
   alternates: { canonical: 'https://themintbox.in/collections/hampers' },
   openGraph: {
-    title: 'Corporate Gift Hampers: Curated Sets for Every Occasion | MintBox',
+    title: 'Corporate Gift Hampers for Every Occasion | MintBox',
     description:
-      'Curated corporate gift hampers for Diwali, onboarding, client appreciation, and more. Custom branding, premium packaging, Pan-India delivery. Bulk from 25 units.',
+      'Curated corporate gift hampers for Diwali, onboarding and client appreciation. Custom branding, premium packaging, Pan-India delivery. Bulk from 10 units.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function HampersPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[hampers] Payload query failed:', err)
   }

@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import HowToChooseClient from '@/components/pages/HowToChooseClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'How to Choose Corporate Gifts: A Practical 2026 Guide | MintBox',
+  title: 'How to Choose Corporate Gifts: 2026 Guide | MintBox',
   description:
     'Step-by-step guide to picking the right corporate gifts - by occasion, recipient, budget, and customisation. Avoid common mistakes. 200+ options from MintBox.',
   alternates: { canonical: 'https://themintbox.in/guides/how-to-choose-corporate-gifts' },
   openGraph: {
-    title: 'How to Choose Corporate Gifts: A Practical 2026 Guide | MintBox',
+    title: 'How to Choose Corporate Gifts: 2026 Guide | MintBox',
     description:
       'Step-by-step guide to picking the right corporate gifts - by occasion, recipient, budget, and customisation. Avoid common mistakes. 200+ options from MintBox.',
   },
@@ -35,7 +36,7 @@ export default async function HowToChoosePage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[how-to-choose-corporate-gifts] Payload query failed:', err)
   }

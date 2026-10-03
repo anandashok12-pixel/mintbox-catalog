@@ -22,7 +22,7 @@ export const dynamic = 'force-dynamic'
  *                  from information_schema, so we can see what's missing.
  *   - reset        DROP all three globals tables (plus their array/version
  *                  child tables) CASCADE, then run pushDevSchema. With no
- *                  existing tables there's no diff ambiguity — drizzle-kit
+ *                  existing tables there's no diff ambiguity - drizzle-kit
  *                  emits straight CREATE TABLEs and apply() runs cleanly.
  *                  Destructive: wipes any content currently in those
  *                  globals (which is empty / stale anyway).

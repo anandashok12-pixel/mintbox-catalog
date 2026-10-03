@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import PersonalizedMugsClient from '@/components/pages/PersonalizedMugsClient'
 import '../../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Personalized Coffee Mugs for Corporate Gifting | MintBox',
-  description: 'Order personalised coffee mugs with your company logo. Ceramic, enamel, and stainless steel options for bulk corporate gifting. MOQ 25 units, pan-India delivery.',
+  description: 'Order personalised coffee mugs with your company logo. Ceramic, enamel and stainless steel options for bulk corporate gifting. MOQ 10 units, Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/collections/drinkware/personalized-coffee-mugs' },
   openGraph: {
     title: 'Personalized Coffee Mugs for Corporate Gifting | MintBox',
-    description: 'Order personalised coffee mugs with your company logo. Ceramic, enamel, and stainless steel options for bulk corporate gifting. MOQ 25 units, pan-India delivery.',
+    description: 'Order personalised coffee mugs with your company logo. Ceramic, enamel and stainless steel options for bulk corporate gifting. MOQ 10 units, Pan-India delivery.',
     url: 'https://themintbox.in/collections/drinkware/personalized-coffee-mugs',
     siteName: 'MintBox', locale: 'en_IN', type: 'website',
   },
@@ -31,7 +32,7 @@ export default async function PersonalizedMugsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) { console.error('[personalized-coffee-mugs] Payload query failed:', err) }
 
   // Filter to category-relevant products only

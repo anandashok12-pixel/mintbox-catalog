@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -92,6 +93,7 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
         "headline": "Corporate Gifts for New Employees: Welcome Kits That Make an Impression",
         "description": "Create the perfect new employee welcome kit. Branded onboarding gifts from ₹500 that make a strong first impression. Bulk from 10 units, pan-India delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-for-new-employees",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -105,13 +107,13 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
             <div className="cp-breadcrumb">
               <a href="/">Home</a> › <a href="/guides/corporate-gifting-handbook">Guides</a> › Corporate Gifts for New Employees
             </div>
-            <h1 className="cp-hero-title">Corporate Gifts for New Employees: Welcome Kits That Make an Impression</h1>
+            <h1 className="cp-hero-title">Corporate Gifts for New Employees: Welcome Kits That Impress</h1>
             <p className="cp-hero-subtitle">
               Make new employees feel valued from day one with a branded welcome kit that communicates culture, care, and belonging.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-btn-primary">Browse Gifts</a>
-              <a href="#quote" className="cp-btn-secondary">Get Quote</a>
+              <a href="#quote" className="cp-btn-secondary">Request a quote</a>
             </div>
           </div>
         </section>
@@ -169,7 +171,7 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80" alt="New employee onboarding welcome kit making a strong first impression" loading="lazy" />
+          <Image src="/hampers/hamper12.webp" alt="Gift set with bottle and dry fruits" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Product Showcase */}
@@ -205,24 +207,24 @@ export default function NewEmployeeGiftsClient({ products, categories }: Props) 
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Team meeting to discuss new employee welcome kit programme" loading="lazy" />
+          <Image src="/hampers/onboarding.webp" alt="Employee onboarding gift baskets" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Quote Band */}
         <section className="cp-quote-band">
           <div className="cp-container">
-            <h2 className="cp-quote-title">Design Your New Employee Welcome Kit</h2>
+            <h2 className="cp-quote-title">Request a quote</h2>
             <p className="cp-quote-sub">
               Tell us your team size, budget, and brand - we will curate a kit that makes every new hire feel genuinely welcomed.
             </p>
-            <a href="#quote" className="cp-btn-primary">Get a Custom Quote</a>
+            <a href="#quote" className="cp-btn-primary">Request a quote</a>
           </div>
         </section>
 
         {/* Inline Quote Form */}
         <section className="cp-section" id="quote">
           <div className="cp-container">
-            <h2 className="cp-section-title">Request Your Welcome Kit</h2>
+            <h2 className="cp-section-title">Request a quote</h2>
             <InlineQuoteForm
               title="Tell Us About Your Onboarding Gift Need"
               subtitle="We will recommend the right items, handle personalisation, and deliver to individual addresses."

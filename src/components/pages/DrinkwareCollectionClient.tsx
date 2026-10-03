@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -79,12 +80,12 @@ const SUBCATEGORIES = [
 
 const OCCASIONS_TABLE = [
   { occasion: 'Employee Onboarding', recommended: 'Stainless bottle + mug combo', budget: '₹350–₹700', moq: '10' },
-  { occasion: 'Diwali Gifting', recommended: 'Copper bottle or tumbler in gift box', budget: '₹400–₹900', moq: '25' },
+  { occasion: 'Diwali Gifting', recommended: 'Copper bottle or tumbler in gift box', budget: '₹400–₹900', moq: '10' },
   { occasion: 'Work Anniversary', recommended: 'Engraved premium bottle', budget: '₹500–₹1,200', moq: '1' },
   { occasion: 'Client Appreciation', recommended: 'French press or luxury tumbler', budget: '₹600–₹1,500', moq: '1' },
-  { occasion: 'Conference Giveaway', recommended: 'Branded ceramic mug', budget: '₹150–₹300', moq: '50' },
+  { occasion: 'Conference Giveaway', recommended: 'Branded ceramic mug', budget: '₹150–₹300', moq: '10' },
   { occasion: 'Remote Team', recommended: 'Individual bottles shipped directly', budget: '₹300–₹600', moq: '10' },
-  { occasion: 'Sports / Wellness', recommended: 'BPA-free large bottle (750ml+)', budget: '₹250–₹500', moq: '25' },
+  { occasion: 'Sports / Wellness', recommended: 'BPA-free large bottle (750ml+)', budget: '₹250–₹500', moq: '10' },
 ]
 
 const BULK_TIERS = [
@@ -117,7 +118,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What's the lead time for large drinkware orders?",
-    a: 'Standard production: 7–10 business days. For 250+ units: 12–15 days. Express (5–7 days) available at 20% surcharge. Same-day delivery in Bangalore for pre-printed stock only.',
+    a: 'Standard production: 7–10 business days. For 250+ units: 12–15 days. Express (5–7 days) is available. Rush options are available, message us on WhatsApp for a quote. Same-day delivery in Bangalore for pre-printed stock only.',
   },
 ]
 
@@ -160,38 +161,42 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
             </nav>
             <div className="cp-hero-eyebrow">Category · Drinkware</div>
             <h1 className="cp-hero-title">
-              Corporate Drinkware Gifts:<br />
+              Corporate Drinkware Gifts:{' '}<br />
               <em>Bottles, Mugs &amp; Tumblers</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Premium branded drinkware for corporate gifting - insulated stainless steel bottles,
-              ceramic mugs, travel tumblers, and French press kits. Logo printing from 25 units.
-              Used every day; seen by colleagues every day.
+              Branded bottles, ceramic mugs, travel tumblers and French press kits, with logo printing from 10 units. Used and seen every day.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Drinkware ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Drinkware Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 40+ drinkware SKUs</span>
-              <span className="cp-hero-badge">✓ Logo printing from 25 units</span>
-              <span className="cp-hero-badge">✓ BPA-free &amp; food-safe</span>
-              <span className="cp-hero-badge">✓ Starts at ₹150/unit</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=800&q=80" alt="Premium tea mug personalised gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/Coffee%20Mug.jpeg" alt="Coffee Mug" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=800&q=80" alt="Custom branded corporate water bottle" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/Copper%20water%20Bottle.png" alt="Copper Water Bottle" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 40+ drinkware SKUs</span>
+            <span className="cp-hero-badge">✓ Logo printing from 10 units</span>
+            <span className="cp-hero-badge">✓ BPA-free &amp; food-safe</span>
+            <span className="cp-hero-badge">✓ Starts at ₹150/unit</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -203,7 +208,7 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
           <EATSignal credentials={[
             '40+ drinkware SKUs in stock',
             'BPA-free, food-safe materials',
-            'Logo printing included from 25 units',
+            'Logo printing included from 10 units',
             'Insulated options for hot and cold beverages',
             'Delivered Pan-India in 7–10 days',
           ]} />
@@ -238,7 +243,6 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
       {/* 4. PRODUCT SHOWCASE */}
       <section className="cp-section cp-section--cream" id="products">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Browse</div>
           <h2 className="cp-section-title">Browse Drinkware Products</h2>
           <ContentProductShowcase
             products={products}
@@ -253,7 +257,6 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
       {/* 5. SUB-CATEGORIES */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Product Types</div>
           <h2 className="cp-section-title">Six Drinkware Formats for Every Occasion</h2>
           <p className="cp-section-sub">
             From budget ceramic mugs for conference giveaways to copper bottles for premium festive gifting
@@ -272,7 +275,7 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80" alt="Branded corporate drinkware collection including mugs, bottles and tumblers" loading="lazy" />
+            <Image src="/hampers/hero1.webp" alt="Artisan festive gift hamper" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -324,7 +327,6 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
       {/* 8. BULK PRICING TIERS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Pricing</div>
           <h2 className="cp-section-title">Bulk Pricing Tiers</h2>
           <p className="cp-section-sub">
             The more you order, the better the per-unit price. All tiers include logo printing.
@@ -356,16 +358,15 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
       <section className="cp-cta-section" id="quote">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
-            <h2 className="cp-cta-title">Ready to Order<br />Branded Drinkware?</h2>
+            <h2 className="cp-cta-title">Ready to Order{' '}<br />Branded Drinkware?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Drinkware Pricing"
-              ctaLabel="Request Drinkware Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="welcome_kit"
             />
           </div>
@@ -379,7 +380,6 @@ export default function DrinkwareCollectionClient({ products, categories }: { pr
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Corporate Drinkware - Frequently Asked Questions"
           />
         </div>

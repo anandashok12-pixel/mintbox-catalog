@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import ChristmasGiftsClient from '@/components/pages/ChristmasGiftsClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Christmas Corporate Gifts for Employees & Clients | MintBox',
@@ -35,7 +36,7 @@ export default async function ChristmasGiftsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[christmas-corporate-gifts] Payload query failed:', err)
   }

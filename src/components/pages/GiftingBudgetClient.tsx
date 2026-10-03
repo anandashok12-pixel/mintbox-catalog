@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -121,6 +122,7 @@ export default function GiftingBudgetClient({ products, categories }: { products
         "headline": "Corporate Gifting Budget: How to Plan & Optimise Your Spend",
         "description": "How to plan a corporate gifting budget - by company size, occasion, and ROI. Includes budget templates, per-employee benchmarks, and bulk pricing guide.",
         "url": "https://themintbox.in/guides/corporate-gifting-budget",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -141,7 +143,7 @@ export default function GiftingBudgetClient({ products, categories }: { products
             </nav>
             <div className="cp-hero-eyebrow">Planning Guide · Budgets &amp; ROI</div>
             <h1 className="cp-hero-title">
-              Corporate Gifting Budget:<br />
+              Corporate Gifting Budget:{' '}<br />
               <em>How to Plan &amp; Optimise Your Spend</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -151,27 +153,33 @@ export default function GiftingBudgetClient({ products, categories }: { products
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">See Products ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Budget Plan</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Per-employee benchmarks</span>
-              <span className="cp-hero-badge">✓ By occasion &amp; company size</span>
-              <span className="cp-hero-badge">✓ ROI framework</span>
-              <span className="cp-hero-badge">✓ Free budget template</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Corporate gifting budget planning workspace" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Budget planning for corporate gifting" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Per-employee benchmarks</span>
+            <span className="cp-hero-badge">✓ By occasion &amp; company size</span>
+            <span className="cp-hero-badge">✓ ROI framework</span>
+            <span className="cp-hero-badge">✓ Free budget template</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -218,7 +226,6 @@ export default function GiftingBudgetClient({ products, categories }: { products
       {/* 4. BUDGET BY COMPANY SIZE */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">By Company Size</div>
           <h2 className="cp-section-title">Budget Benchmarks by Company Size</h2>
           <p className="cp-section-sub">
             Gifting budgets scale with headcount. Use these benchmarks as a starting point,
@@ -244,7 +251,6 @@ export default function GiftingBudgetClient({ products, categories }: { products
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Corporate Gift Products</h2>
           <p className="cp-section-sub">
             Explore our full range across budget tiers. Use the filters to narrow by price or category.
@@ -263,7 +269,7 @@ export default function GiftingBudgetClient({ products, categories }: { products
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Corporate gifting budget planning and financial workspace" loading="lazy" />
+            <Image src="/hampers/hamper11.webp" alt="Branded gift box ready for your logo" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
           <div className="cp-section-eyebrow">Budget Allocation</div>
           <h2 className="cp-section-title">How to Allocate Your Annual Gifting Budget</h2>
@@ -311,7 +317,6 @@ export default function GiftingBudgetClient({ products, categories }: { products
       {/* 8. BULK PRICING TIERS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Discounts</div>
           <h2 className="cp-section-title">How Bulk Pricing Saves Your Budget</h2>
           <p className="cp-section-sub">
             Consolidating your gifting orders unlocks significant per-unit savings.
@@ -342,17 +347,16 @@ export default function GiftingBudgetClient({ products, categories }: { products
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Budget Planning</div>
-            <h2 className="cp-cta-title">Plan Your<br />Gifting Budget</h2>
+            <h2 className="cp-cta-title">Plan Your{' '}<br />Gifting Budget</h2>
             <p className="cp-cta-sub">
               Tell us your headcount, occasions, and budget range - we will send back a
-              structured gifting plan with product recommendations and bulk pricing within 4 hours.
+              structured gifting plan with product recommendations and bulk pricing. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Plan Your Gifting Budget"
-              ctaLabel="Get a Budget Plan"
+              ctaLabel="Request a quote"
               defaultOccasion="other"
             />
           </div>
@@ -366,7 +370,6 @@ export default function GiftingBudgetClient({ products, categories }: { products
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Corporate Gifting Budget - Frequently Asked Questions"
           />
         </div>

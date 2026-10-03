@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import UniqueGiftsClient from '@/components/pages/UniqueGiftsClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Unique Corporate Gift Ideas for Employees & Clients | MintBox',
-  description: 'Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 50 units, from MintBox.',
+  description: 'Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 10 units, from MintBox.',
   alternates: { canonical: 'https://themintbox.in/guides/unique-corporate-gifts' },
   openGraph: {
     title: 'Unique Corporate Gift Ideas for Employees & Clients | MintBox',
-    description: 'Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 50 units, from MintBox.',
+    description: 'Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 10 units, from MintBox.',
     url: 'https://themintbox.in/guides/unique-corporate-gifts',
     siteName: 'MintBox', locale: 'en_IN', type: 'article',
   },
@@ -27,7 +28,7 @@ export default async function UniqueGiftsPage() {
       payload.find({ collection: 'products', where: { inStock: { equals: true } }, sort: 'order', limit: 500, depth: 1 }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) { console.error('[unique-corporate-gifts] Payload query failed:', err) }
   return <UniqueGiftsClient products={products} categories={categories} />
 }

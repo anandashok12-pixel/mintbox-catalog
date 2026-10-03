@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -99,7 +100,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What's the MOQ for gifts under ₹100?",
-    a: 'Most items have an MOQ of 100 units for printed orders. For very low-cost items like pens and badges, 250 units may be required to cover setup costs. Volume discounts kick in meaningfully at 500+.',
+    a: 'The MOQ is 10 units, including printed orders. Volume discounts kick in meaningfully at 500+.',
   },
   {
     q: 'Can I get logo printing for gifts under ₹100?',
@@ -145,8 +146,9 @@ export default function BudgetUnder100Client({ products, categories }: { product
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gifts Under ₹100: Affordable Bulk Ideas for 2026",
-        "description": "Best corporate gifts under ₹100 for large-scale events and giveaways. Pens, seed packets, badges, stickers - logo-printed from 100 units. Pan-India bulk delivery.",
+        "description": "Best corporate gifts under ₹100 for large-scale events and giveaways. Pens, seed packets, badges, stickers - logo-printed from 10 units. Pan-India bulk delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-under-100",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -168,41 +170,46 @@ export default function BudgetUnder100Client({ products, categories }: { product
             <div>
               <div className="cp-hero-eyebrow">Budget Guide · Updated May 2026</div>
               <h1 className="cp-hero-title">
-                Corporate Gifts Under ₹100:<br />
+                Corporate Gifts Under ₹100:{' '}<br />
                 <em>Affordable Bulk Ideas for 2026</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Impactful gifting at ₹25–₹100 per unit. Branded pens, seed packets, stickers, and more.
-                Ideal for large-scale events, conferences, and bulk giveaways from 100 units.
+                Gifts at ₹25 to ₹100 per unit: branded pens, seed packets and stickers for events, conferences and giveaways. From 10 units.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">See Products Under ₹100 ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get Bulk Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ From ₹25/unit</span>
-                <span className="cp-hero-badge">✓ MOQ from 100 units</span>
-                <span className="cp-hero-badge">✓ Logo printing included</span>
-                <span className="cp-hero-badge">✓ Pan-India delivery</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=800&q=80" alt="Quality pen and stationery corporate gift" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/hamper12.webp" alt="Gift set with bottle and dry fruits" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Green sustainable corporate gifting" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/onboarding.webp" alt="Employee onboarding gift baskets" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?auto=format&fit=crop&w=800&q=80" alt="Corporate gifting planning and stationery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ From ₹25/unit</span>
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ Logo printing included</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -213,7 +220,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
           />
           <EATSignal credentials={[
             'Gifts priced ₹25–₹100 per unit, bulk-ready',
-            'MOQ 100 units, volume discounts from 500+',
+            'MOQ 10 units, volume discounts from 500+',
             'Logo printing included in listed price at 100+ units',
             'Perfect for events, conferences, mass giveaways',
             'GST invoicing, transparent no-surprise pricing',
@@ -245,7 +252,6 @@ export default function BudgetUnder100Client({ products, categories }: { product
       {/* ── PRICE TIER CARDS ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Price Breakdown</div>
           <h2 className="cp-section-title">What You Get at Each Budget Level</h2>
           <p className="cp-section-sub">
             Even within ₹100, there are meaningful differences. Here is what each sub-bracket delivers.
@@ -270,7 +276,6 @@ export default function BudgetUnder100Client({ products, categories }: { product
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products Under ₹100</div>
           <h2 className="cp-section-title">Browse Products Under ₹100</h2>
           <p className="cp-section-sub">
             All products below are under ₹100 per unit. Use the search or category tabs to narrow your shortlist.
@@ -291,7 +296,7 @@ export default function BudgetUnder100Client({ products, categories }: { product
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Budget planning workspace for bulk corporate gifting" loading="lazy" />
+            <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
           <div className="cp-section-eyebrow">Comparison Guide</div>
           <h2 className="cp-section-title">Top Picks Under ₹100 at a Glance</h2>
@@ -344,9 +349,8 @@ export default function BudgetUnder100Client({ products, categories }: { product
       <section className="cp-section cp-section--white">
         <div className="cp-container">
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=1200&q=80" alt="Quality stationery pen - a classic budget corporate gift" loading="lazy" />
+            <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
-          <div className="cp-section-eyebrow">Volume Discounts</div>
           <h2 className="cp-section-title">The More You Order, the More You Save</h2>
           <p className="cp-section-sub">
             Bulk pricing tiers apply across all products under ₹100. Discounts are per-unit and stack
@@ -383,16 +387,16 @@ export default function BudgetUnder100Client({ products, categories }: { product
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Bulk Pricing</div>
-            <h2 className="cp-cta-title">Get Bulk Pricing<br />Under ₹100</h2>
+            <h2 className="cp-cta-title">Get Bulk Pricing{' '}<br />Under ₹100</h2>
             <p className="cp-cta-sub">
               Tell us your quantity, products of interest, and timeline - we will send back
-              an itemised bulk quote within 4 hours.
+              an itemised bulk quote. We reply within 1 hour on business days.
             </p>
           </div>
           <InlineQuoteForm
             title="Get Bulk Pricing Under ₹100"
-            subtitle="Tell us what you need and we will come back with a detailed quote within 4 hours."
-            ctaLabel="Get Bulk Quote"
+            subtitle="Tell us what you need and we will come back with a detailed quote. We reply within 1 hour on business days."
+            ctaLabel="Request a quote"
             defaultOccasion="corporate_event"
           />
         </div>
@@ -406,7 +410,6 @@ export default function BudgetUnder100Client({ products, categories }: { product
           <FAQSection
             items={FAQ_ITEMS}
             title="Corporate Gifts Under ₹100 - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -414,7 +417,6 @@ export default function BudgetUnder100Client({ products, categories }: { product
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides</h2>
           <div className="cp-related-grid">
             {RELATED_LINKS.map(link => (

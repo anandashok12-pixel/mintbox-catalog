@@ -1,5 +1,7 @@
 'use client'
 
+import ClientLogos from '@/components/content/ClientLogos'
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -55,7 +57,7 @@ const WHAT_TO_LOOK_FOR = [
 ]
 
 const MINTBOX_ADVANTAGES = [
-  { label: "MOQ", value: "From 25 units" },
+  { label: "MOQ", value: "From 10 units" },
   { label: "Turnaround", value: "7–10 business days" },
   { label: "Branding", value: "Logo print, emboss, UV, packaging" },
   { label: "GST", value: "Compliant invoicing on every order" },
@@ -79,7 +81,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What is the minimum order quantity for corporate gifts in Bangalore?",
-    a: "MintBox accepts orders from 25 units. Most categories have no fixed upper limit. For orders of 500+, we offer additional customisation and volume pricing.",
+    a: "MintBox accepts orders from 10 units. Most categories have no fixed upper limit. For orders of 500+, we offer additional customisation and volume pricing.",
   },
   {
     q: "How long does corporate gift production take in Bangalore?",
@@ -112,14 +114,19 @@ export default function SuppliersClient({ products, categories }: Props) {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "2nd Floor, Sobha Alexander Plaza, Ashok Nagar",
           "addressLocality": "Bangalore",
           "addressRegion": "Karnataka",
+          "postalCode": "560025",
           "addressCountry": "IN"
         },
+        "telephone": "+919886537631",
+        "email": "hello@themintbox.in",
+        "image": "https://themintbox.in/mintbox-logo.webp",
         "areaServed": "Bangalore, Karnataka, India",
         "priceRange": "₹₹"
       }) }} />
@@ -140,7 +147,7 @@ export default function SuppliersClient({ products, categories }: Props) {
             <div>
               <div className="cp-hero-eyebrow">Bangalore · Corporate Gift Suppliers</div>
               <h1 className="cp-hero-title">
-                Corporate Gift Suppliers in Bangalore:<br />
+                Corporate Gift Suppliers in Bangalore:{' '}<br />
                 <em>Why MintBox Stands Out</em>
               </h1>
               <div className="cp-hero-rule" />
@@ -149,25 +156,19 @@ export default function SuppliersClient({ products, categories }: Props) {
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Products ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ MOQ from 25 units</span>
-                <span className="cp-hero-badge">✓ Dedicated account manager</span>
-                <span className="cp-hero-badge">✓ GST invoicing</span>
-                <span className="cp-hero-badge">✓ Pan-India delivery</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Modern corporate office building" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero1.webp" alt="Artisan festive gift hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
@@ -175,12 +176,26 @@ export default function SuppliersClient({ products, categories }: Props) {
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ Dedicated account manager</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <ClientLogos />
+
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox is a Bangalore-based corporate gift supplier offering branded merchandise, custom hampers, and bulk gifting with GST-compliant invoicing, dedicated account managers, and pan-India delivery. MOQ from 25 units."
+            content="MintBox is a Bangalore-based corporate gift supplier offering branded merchandise, custom hampers, and bulk gifting with GST-compliant invoicing, dedicated account managers, and pan-India delivery. MOQ from 10 units."
           />
           <EATSignal
             credentials={[
@@ -226,7 +241,6 @@ export default function SuppliersClient({ products, categories }: Props) {
       {/* ── WHAT TO LOOK FOR ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Supplier Checklist</div>
           <h2 className="cp-section-title">What to Look for in a Corporate Gift Supplier</h2>
           <p className="cp-section-sub">
             Six criteria to evaluate before you commit to a supplier - and how MintBox measures up on each.
@@ -248,7 +262,6 @@ export default function SuppliersClient({ products, categories }: Props) {
       {/* ── MINTBOX AT A GLANCE TABLE ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">At a Glance</div>
           <h2 className="cp-section-title">MintBox at a Glance</h2>
           <p className="cp-section-sub">
             Key numbers and capabilities at a glance - everything you need to know before placing an order.
@@ -269,7 +282,7 @@ export default function SuppliersClient({ products, categories }: Props) {
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1556742212-5b321f3c261b?auto=format&fit=crop&w=1200&q=80" alt="Corporate gift supplier meeting and business partnership in Bangalore" loading="lazy" />
+        <Image src="/hampers/hamper11.webp" alt="Branded gift box ready for your logo" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── PRODUCT CATEGORIES ── */}
@@ -297,7 +310,6 @@ export default function SuppliersClient({ products, categories }: Props) {
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Product Catalogue</div>
           <h2 className="cp-section-title">Browse Corporate Gift Products</h2>
           <p className="cp-section-sub">
             All products available for corporate orders. Filter by category or price, add to your quote list,
@@ -319,7 +331,7 @@ export default function SuppliersClient({ products, categories }: Props) {
           <p className="cp-quote-band-text">
             {"Ready to order branded corporate gifts? Share your brief and we'll send a full quote with production timeline within 24 hours."}
           </p>
-          <a href="#quote" className="cp-quote-band-cta">Get a Quote →</a>
+          <a href="#quote" className="cp-quote-band-cta">Request a quote →</a>
         </div>
       </div>
 
@@ -329,7 +341,7 @@ export default function SuppliersClient({ products, categories }: Props) {
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Corporate Gifting</div>
-            <h2 className="cp-cta-title">Get a<br />Supplier Quote</h2>
+            <h2 className="cp-cta-title">Get a{' '}<br />Supplier Quote</h2>
             <p className="cp-cta-sub">
               {"Tell us your quantity, occasion, and budget. We'll send a full quote with branded options and production timeline within 24 hours."}
             </p>
@@ -337,7 +349,7 @@ export default function SuppliersClient({ products, categories }: Props) {
           <InlineQuoteForm
             title="Get a Quote"
             subtitle="Share your quantity and occasion - quote within 24 hours, dedicated account manager assigned."
-            ctaLabel="Request Supplier Quote"
+            ctaLabel="Request a quote"
             defaultOccasion="other"
           />
         </div>
@@ -351,7 +363,6 @@ export default function SuppliersClient({ products, categories }: Props) {
           <FAQSection
             items={FAQ_ITEMS}
             title="Corporate Gift Suppliers in Bangalore - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -359,7 +370,6 @@ export default function SuppliersClient({ products, categories }: Props) {
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

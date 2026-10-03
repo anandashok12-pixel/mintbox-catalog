@@ -3,11 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import BudgetGiftsClient from '@/components/pages/BudgetGiftsClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifts Under ₹1000: Budget Options for 2026 | MintBox',
+  title: 'Corporate Gifts Under ₹1,000: Options for 2026 | MintBox',
   description:
-    'Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 50 units, logo customisation included. Pan-India delivery.',
+    'Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 10 units, logo customisation included. Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifts-under-1000' },
   openGraph: {
     title: 'Corporate Gifts Under ₹1000 - MintBox',
@@ -39,7 +40,7 @@ export default async function BudgetGiftsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[budget-gifts] Payload query failed:', err)
   }

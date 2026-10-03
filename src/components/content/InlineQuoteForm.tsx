@@ -26,8 +26,8 @@ interface InlineQuoteFormProps {
 
 export default function InlineQuoteForm({
   title = 'Get a Free Quote',
-  subtitle = "Tell us what you need and we'll send a detailed quote within 4 hours.",
-  ctaLabel = 'Request Quote',
+  subtitle = "Tell us what you need and we'll send a detailed quote. We reply within 1 hour on business days.",
+  ctaLabel = 'Request a quote',
   defaultOccasion = '',
   interestHint = '',
 }: InlineQuoteFormProps) {
@@ -94,7 +94,7 @@ export default function InlineQuoteForm({
           <div className="cp-form-success-icon">✓</div>
           <div className="cp-form-success-title">Request Received</div>
           <p className="cp-form-success-desc">
-            Our team will send you a detailed quote within 4 business hours. Check your inbox.
+            Our team will send you a detailed quote. We reply within 1 hour on business days. Check your inbox.
           </p>
           <div className="cp-form-success-ref">
             <div className="cp-form-success-ref-label">Reference</div>
@@ -115,8 +115,8 @@ export default function InlineQuoteForm({
 
         <div className="cp-form-row" style={{ marginBottom: '14px' }}>
           <div className="cp-form-group">
-            <label className="cp-form-label">Your Name *</label>
-            <input
+            <label htmlFor="iq-f1" className="cp-form-label">Your Name *</label>
+            <input id="iq-f1" autoComplete="name"
               className="cp-form-input"
               type="text"
               placeholder="Priya Sharma"
@@ -126,8 +126,8 @@ export default function InlineQuoteForm({
             />
           </div>
           <div className="cp-form-group">
-            <label className="cp-form-label">Company *</label>
-            <input
+            <label htmlFor="iq-f2" className="cp-form-label">Company *</label>
+            <input id="iq-f2" autoComplete="organization"
               className="cp-form-input"
               type="text"
               placeholder="Acme Corp"
@@ -140,8 +140,8 @@ export default function InlineQuoteForm({
 
         <div className="cp-form-row" style={{ marginBottom: '14px' }}>
           <div className="cp-form-group">
-            <label className="cp-form-label">Work Email *</label>
-            <input
+            <label htmlFor="iq-f3" className="cp-form-label">Work Email *</label>
+            <input id="iq-f3" autoComplete="email"
               className="cp-form-input"
               type="email"
               placeholder="priya@acme.com"
@@ -151,8 +151,8 @@ export default function InlineQuoteForm({
             />
           </div>
           <div className="cp-form-group">
-            <label className="cp-form-label">Phone *</label>
-            <input
+            <label htmlFor="iq-f4" className="cp-form-label">Phone *</label>
+            <input id="iq-f4"
               className="cp-form-input"
               type="tel"
               placeholder="+91 98765 43210"
@@ -166,8 +166,8 @@ export default function InlineQuoteForm({
 
         <div className="cp-form-row" style={{ marginBottom: '14px' }}>
           <div className="cp-form-group">
-            <label className="cp-form-label">Occasion</label>
-            <select
+            <label htmlFor="iq-f5" className="cp-form-label">Occasion</label>
+            <select id="iq-f5"
               className="cp-form-select"
               value={occasion}
               onChange={e => setOccasion(e.target.value)}
@@ -179,8 +179,8 @@ export default function InlineQuoteForm({
             </select>
           </div>
           <div className="cp-form-group">
-            <label className="cp-form-label">Approx. Quantity</label>
-            <input
+            <label htmlFor="iq-f6" className="cp-form-label">Approx. Quantity</label>
+            <input id="iq-f6"
               className="cp-form-input"
               type="text"
               placeholder="e.g. 200 units"
@@ -191,8 +191,8 @@ export default function InlineQuoteForm({
         </div>
 
         <div className="cp-form-group" style={{ marginBottom: '16px' }}>
-          <label className="cp-form-label">What are you looking for?</label>
-          <textarea
+          <label htmlFor="iq-f7" className="cp-form-label">What are you looking for?</label>
+          <textarea id="iq-f7"
             className="cp-form-textarea"
             placeholder="Products, budget, delivery timeline, customisation needs…"
             value={notes}

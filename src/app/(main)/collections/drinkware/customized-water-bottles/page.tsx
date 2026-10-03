@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import CustomWaterBottlesClient from '@/components/pages/CustomWaterBottlesClient'
 import '../../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Customized Water Bottles for Corporate Gifting | MintBox',
-  description: 'Order customized water bottles with your company logo. Stainless steel, copper, and insulated bottles for bulk corporate gifting. MOQ 25 units.',
+  description: 'Order customized water bottles with your company logo. Stainless steel, copper, and insulated bottles for bulk corporate gifting. MOQ 10 units.',
   alternates: { canonical: 'https://themintbox.in/collections/drinkware/customized-water-bottles' },
   openGraph: {
     title: 'Customized Water Bottles for Corporate Gifting | MintBox',
-    description: 'Order customized water bottles with your company logo. Stainless steel, copper, and insulated bottles for bulk corporate gifting. MOQ 25 units.',
+    description: 'Order customized water bottles with your company logo. Stainless steel, copper, and insulated bottles for bulk corporate gifting. MOQ 10 units.',
     url: 'https://themintbox.in/collections/drinkware/customized-water-bottles',
     siteName: 'MintBox', locale: 'en_IN', type: 'website',
   },
@@ -31,7 +32,7 @@ export default async function CustomWaterBottlesPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) { console.error('[customized-water-bottles] Payload query failed:', err) }
 
   // Filter to category-relevant products only

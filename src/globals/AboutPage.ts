@@ -1,11 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { anyone, authenticated } from '../access/authenticated'
 
 export const AboutPage: GlobalConfig = {
   slug: 'about-page',
   label: 'About Page',
   access: {
-    read: () => true,
-    update: () => true,
+    read: anyone,
+    update: authenticated,
   },
   fields: [
     {
@@ -122,8 +123,8 @@ export const AboutPage: GlobalConfig = {
         { name: 'email', type: 'text', defaultValue: 'hello@themintbox.in' },
         { name: 'phone', type: 'text', defaultValue: '+91 9886537631' },
         { name: 'whatsappUrl', type: 'text', defaultValue: 'https://wa.me/919886537631' },
-        { name: 'cardName', type: 'text', defaultValue: 'Anand Ashok' },
-        { name: 'cardRole', type: 'text', defaultValue: 'Director, MintBox' },
+        { name: 'cardName', type: 'text', defaultValue: 'Ashok Kumar N' },
+        { name: 'cardRole', type: 'text', defaultValue: 'Founder, MintBox' },
         { name: 'portrait', type: 'upload', relationTo: 'media' },
       ],
     },

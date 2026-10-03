@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import EcoFriendlyClient from '@/components/pages/EcoFriendlyClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Eco-Friendly Corporate Gifts: Sustainable Gifting 2026 | MintBox',
+  title: 'Eco-Friendly Corporate Gifts: Sustainable Gifting | MintBox',
   description:
     'Sustainable corporate gifts - seed paper notebooks, bamboo pens, jute bags, and recycled kits. ESG-aligned gifting from ₹150/unit. Bangalore & Pan-India.',
   alternates: { canonical: 'https://themintbox.in/collections/eco-friendly-gifts' },
   openGraph: {
-    title: 'Eco-Friendly Corporate Gifts: Sustainable Gifting 2026 | MintBox',
+    title: 'Eco-Friendly Corporate Gifts: Sustainable Gifting | MintBox',
     description:
       'Sustainable corporate gifts - seed paper notebooks, bamboo pens, jute bags, and recycled kits. ESG-aligned gifting from ₹150/unit. Bangalore & Pan-India.',
   },
@@ -35,7 +36,7 @@ export default async function EcoFriendlyPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[eco-friendly-gifts] Payload query failed:', err)
   }

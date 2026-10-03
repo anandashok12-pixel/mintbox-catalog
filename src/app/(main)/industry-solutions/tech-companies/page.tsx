@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import TechCompaniesClient from '@/components/pages/TechCompaniesClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifts for Tech Companies: Premium Picks 2026 | MintBox',
+  title: 'Corporate Gifts for Tech Companies: Top Picks | MintBox',
   description:
     'Premium corporate gifts for IT and tech companies - branded tech accessories, quality drinkware, eco kits. Bulk orders, GST invoicing. Bangalore & Pan-India.',
   alternates: { canonical: 'https://themintbox.in/industry-solutions/tech-companies' },
   openGraph: {
-    title: 'Corporate Gifts for Tech Companies: Premium Picks 2026 | MintBox',
+    title: 'Corporate Gifts for Tech Companies: Top Picks | MintBox',
     description:
       'Premium corporate gifts for IT and tech companies - branded tech accessories, quality drinkware, eco kits. Bulk orders, GST invoicing. Bangalore & Pan-India.',
   },
@@ -35,7 +36,7 @@ export default async function TechCompaniesPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[tech-companies] Payload query failed:', err)
   }

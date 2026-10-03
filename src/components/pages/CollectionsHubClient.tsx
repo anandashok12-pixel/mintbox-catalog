@@ -1,5 +1,7 @@
 'use client'
 
+import ClientLogos from '@/components/content/ClientLogos'
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -70,17 +72,17 @@ const OCCASIONS = [
 const HOW_IT_WORKS = [
   { num: '1', title: 'Browse & Pick', desc: 'Explore 200+ products and add your favourites to a pack.' },
   { num: '2', title: 'Share Requirements', desc: 'Tell us quantity, occasion, delivery, and any customisation needs.' },
-  { num: '3', title: 'Receive Bulk Quote', desc: 'We respond within 4 hours with itemised pricing and lead times.' },
+  { num: '3', title: 'Receive Bulk Quote', desc: 'We reply within 1 hour on business days, then send itemised pricing and lead times.' },
 ]
 
 const FAQS = [
   {
     q: 'What is the minimum order quantity?',
-    a: 'Minimum order quantity is 25 units for most products with logo printing. Some premium items (custom hampers, luxury sets) can be ordered from 10 units. High-volume giveaway items (pens, seed packets) typically require 100 units minimum. <a href="/contact">Contact us</a> for specific MOQs by product.',
+    a: 'Minimum order quantity is 10 units for every product, including logo printing, custom hampers and giveaway items. <a href="/contact">Contact us</a> for specific MOQs by product.',
   },
   {
     q: 'Can I mix products in a single order?',
-    a: 'Yes. You can build a hamper or kit with multiple products. Each product retains its own MOQ; mixed packs typically require a minimum of 25 sets total.',
+    a: 'Yes. You can build a hamper or kit with multiple products. Each product retains its own MOQ; mixed packs need a minimum of 10 sets total.',
   },
   {
     q: 'Do all products support logo customisation?',
@@ -134,36 +136,28 @@ export default function CollectionsHubClient({ products, categories }: { product
             <div>
               <div className="cp-hero-eyebrow">Gift Collections</div>
               <h1 className="cp-hero-title">
-                Corporate Gift Collections:<br />
+                Corporate Gift Collections:{' '}<br />
                 <em>Hampers, Kits & Curated Sets</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Browse 200+ corporate gifts organised by category, occasion, and budget.
-                From ₹150 conference giveaways to ₹3,000 premium hampers - all customisable,
-                all bulk-ready.
+                200+ corporate gifts by category, occasion and budget, from ₹150 giveaways to ₹3,000 hampers. All customisable and bulk-ready.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse All Products ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Request Full Catalogue</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ 200+ products</span>
-                <span className="cp-hero-badge">✓ 6 categories</span>
-                <span className="cp-hero-badge">✓ Bulk from 25 units</span>
-                <span className="cp-hero-badge">✓ Pan-India delivery</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?auto=format&fit=crop&w=800&q=80" alt="Curated corporate gift collections" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero1.webp" alt="Artisan festive gift hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
@@ -171,16 +165,30 @@ export default function CollectionsHubClient({ products, categories }: { product
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 200+ products</span>
+            <span className="cp-hero-badge">✓ 6 categories</span>
+            <span className="cp-hero-badge">✓ Bulk from 10 units</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <ClientLogos />
+
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox offers 200+ corporate gifts across drinkware, stationery, tech gadgets, hampers, eco-friendly items, and apparel - all available with logo customisation. Pricing starts at ₹150 per unit; bulk orders from 25 units. Filter by category, occasion, and budget. Same-day delivery available in Bangalore for in-stock items."
+            content="MintBox offers 200+ corporate gifts across drinkware, stationery, tech gadgets, hampers, eco-friendly items, and apparel - all available with logo customisation. Pricing starts at ₹150 per unit; bulk orders from 10 units. Filter by category, occasion, and budget. Same-day delivery available in Bangalore for in-stock items."
           />
           <EATSignal credentials={[
             '200+ products across 6 categories - all in stock',
-            'Bulk orders from 25 units, volume discounts from 100+',
+            'Bulk orders from 10 units, volume discounts from 100+',
             'Logo customisation on 85%+ of products',
             'Same-day delivery in Bangalore for in-stock items',
             'GST-compliant invoicing, dedicated account manager',
@@ -216,7 +224,6 @@ export default function CollectionsHubClient({ products, categories }: { product
       {/* ── PRODUCT SHOWCASE (ALL PRODUCTS) ── */}
       <section id="products" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Full Catalogue</div>
           <h2 className="cp-section-title">Shop by Category</h2>
           <p className="cp-section-sub">
             Use the filters below to narrow by category, keyword, or budget. Click any product
@@ -235,7 +242,6 @@ export default function CollectionsHubClient({ products, categories }: { product
       {/* ── OCCASIONS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Shop by Occasion</div>
           <h2 className="cp-section-title">Every Gifting Moment, Covered</h2>
           <p className="cp-section-sub">
             Whether it's onboarding a new hire or celebrating Diwali with 500 employees,
@@ -257,7 +263,7 @@ export default function CollectionsHubClient({ products, categories }: { product
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?auto=format&fit=crop&w=1200&q=80" alt="Curated corporate gift collections for every occasion and budget" loading="lazy" />
+            <Image src="/hampers/hamper11.webp" alt="Branded gift box ready for your logo" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -320,7 +326,6 @@ export default function CollectionsHubClient({ products, categories }: { product
       {/* ── HOW IT WORKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">How to Order</div>
           <h2 className="cp-section-title">From Browsing to Delivered in 3 Steps</h2>
           <p className="cp-section-sub" style={{ marginBottom: '52px' }}>
             No minimum spend. No complicated procurement processes. Just great gifts, delivered.
@@ -343,7 +348,7 @@ export default function CollectionsHubClient({ products, categories }: { product
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Full Catalogue</div>
-            <h2 className="cp-cta-title">Request the Full<br />MintBox Catalogue</h2>
+            <h2 className="cp-cta-title">Request the Full{' '}<br />MintBox Catalogue</h2>
             <p className="cp-cta-desc">
               Get our complete product catalogue with bulk pricing, MOQ tables, customisation options,
               and current lead times - all in one PDF, sent straight to your inbox.
@@ -351,7 +356,7 @@ export default function CollectionsHubClient({ products, categories }: { product
             <div className="cp-cta-promises">
               {[
                 'Complete 200+ product catalogue',
-                'Bulk pricing from 50 units',
+                'Bulk pricing from 10 units',
                 'Customisation options per category',
                 'Sent within 2 hours of request',
               ].map(p => (
@@ -365,7 +370,7 @@ export default function CollectionsHubClient({ products, categories }: { product
           <InlineQuoteForm
             title="Request Full Catalogue"
             subtitle="Share your email and we'll send the full catalogue with pricing within 2 hours."
-            ctaLabel="Send Me the Catalogue"
+            ctaLabel="Request a quote"
             interestHint="I'm interested in: (categories / occasions / budget range)"
           />
         </div>
@@ -379,7 +384,6 @@ export default function CollectionsHubClient({ products, categories }: { product
           <FAQSection
             items={FAQS}
             title="Corporate Gift Collections - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -387,7 +391,6 @@ export default function CollectionsHubClient({ products, categories }: { product
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides & Categories</h2>
           <div className="cp-related-grid">
             {[

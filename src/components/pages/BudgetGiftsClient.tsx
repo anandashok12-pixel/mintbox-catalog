@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -121,7 +122,7 @@ const FAQS = [
   },
   {
     q: 'What is the minimum order for budget gifts?',
-    a: 'Most products start from 50 units; notebooks and stationery from 25 units. We can accommodate smaller test orders (10–24 units) at a small per-unit premium for first-time buyers.',
+    a: 'Every product starts from 10 units, notebooks and stationery included.',
   },
   {
     q: 'How do bulk discounts work under ₹1,000?',
@@ -158,8 +159,9 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gifts Under ₹1,000: Best Budget Options for 2026",
-        "description": "Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 50 units, logo customisation included. Pan-India delivery.",
+        "description": "Quality corporate gifts under ₹1,000. Browse mugs, notebooks, eco kits, and more. Bulk pricing from 10 units, logo customisation included. Pan-India delivery.",
         "url": "https://themintbox.in/guides/corporate-gifts-under-1000",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -181,7 +183,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
             <div>
               <div className="cp-hero-eyebrow">Budget Guide · Updated May 2026</div>
               <h1 className="cp-hero-title">
-                Corporate Gifts Under ₹1,000:<br />
+                Corporate Gifts Under ₹1,000:{' '}<br />
                 <em>Best Budget Options for 2026</em>
               </h1>
               <div className="cp-hero-rule" />
@@ -192,31 +194,37 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">See Budget Products ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get Bulk Pricing</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ All under ₹1,000 / unit</span>
-                <span className="cp-hero-badge">✓ Logo printing included</span>
-                <span className="cp-hero-badge">✓ MOQ from 50 units</span>
-                <span className="cp-hero-badge">✓ GST invoicing</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Branded corporate coffee mug gift" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/hamper8.webp" alt="Gift hamper contents laid out" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80" alt="Premium corporate stationery notebook" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hamper10.webp" alt="Finished corporate gift box" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?auto=format&fit=crop&w=800&q=80" alt="Curated corporate gift set" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hamper11.webp" alt="Branded gift box ready for your logo" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ All under ₹1,000 / unit</span>
+            <span className="cp-hero-badge">✓ Logo printing included</span>
+            <span className="cp-hero-badge">✓ MOQ from 10 units</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -226,7 +234,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
             content="Corporate gifts under ₹1,000 include branded drinkware, notebooks, eco kits, and tech accessories - all available with logo printing. At 100+ units, per-unit costs drop 20–30%, making ₹600–₹800 hampers realistic. Logo printing is included free at 100+ units. Standard production is 7–10 business days; Pan-India delivery 3–5 days after dispatch."
           />
           <EATSignal credentials={[
-            'Bulk pricing from 50 units - no hidden fees',
+            'Bulk pricing from 10 units - no hidden fees',
             'Logo printing included free at 100+ units',
             'All listed products priced ≤ ₹1,000 per unit',
             '7–10 day production, Pan-India delivery',
@@ -239,7 +247,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       {/* ── PRICE TIERS EXPLAINER ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Price Breakdown</div>
           <h2 className="cp-section-title">What You Get at Each Budget Level</h2>
           <p className="cp-section-sub">
             Not all ₹1,000-and-under gifts are created equal. Here's a realistic breakdown of
@@ -270,7 +277,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products Under ₹1,000</div>
           <h2 className="cp-section-title">Browse Budget-Friendly Corporate Gifts</h2>
           <p className="cp-section-sub">
             All products below are under ₹1,000 per unit. Use the search or category tabs
@@ -291,7 +297,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       <section className="cp-section cp-section--white">
         <div className="cp-container">
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80" alt="Curated corporate gift packages for employees" loading="lazy" />
+            <Image src="/hampers/hamper12.webp" alt="Gift set with bottle and dry fruits" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
           <div className="cp-section-eyebrow">Comparison Guide</div>
           <h2 className="cp-section-title">Top Picks Under ₹1,000 at a Glance</h2>
@@ -333,7 +339,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       {/* ── FREEBIES ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">What's Included</div>
           <h2 className="cp-section-title">Personalisation That Doesn't Add Cost</h2>
           <p className="cp-section-sub">
             At 100+ units, these four customisation extras are included in the base price - no
@@ -367,7 +372,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       {/* ── BULK PRICING ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Discounts</div>
           <h2 className="cp-section-title">The More You Order, the More You Save</h2>
           <p className="cp-section-sub">
             Bulk pricing tiers apply across all products. Discounts are per-unit and stack
@@ -423,7 +427,7 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
                       { type: 'In-stock, no customisation', time: '2–3 business days' },
                       { type: 'Standard logo printing', time: '7–10 business days' },
                       { type: 'Name personalisation', time: '10–14 business days' },
-                      { type: 'Rush order (50–100 units)', time: '4–6 business days (+fee)' },
+                      { type: 'Rush order (50–100 units)', time: '4–6 business days (quote on WhatsApp)' },
                     ].map(r => (
                       <tr key={r.type}>
                         <td>{r.type}</td>
@@ -435,7 +439,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
               </div>
             </div>
             <div>
-              <div className="cp-section-eyebrow">GST & Invoicing</div>
               <h2 className="cp-section-title" style={{ marginBottom: '20px' }}>Invoice-Ready for Procurement</h2>
               <p style={{ fontSize: '16px', fontWeight: 300, color: 'rgba(26,26,24,0.6)', lineHeight: 1.8, marginBottom: '24px' }}>
                 Every MintBox order includes a full GST-compliant tax invoice, HSN code, and itemised
@@ -466,14 +469,14 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Bulk Pricing</div>
-            <h2 className="cp-cta-title">Get Bulk Pricing<br />Under ₹1,000</h2>
+            <h2 className="cp-cta-title">Get Bulk Pricing{' '}<br />Under ₹1,000</h2>
             <p className="cp-cta-desc">
               Tell us your quantity, products of interest, and timeline - we'll send back
-              an itemised bulk quote within 4 hours.
+              an itemised bulk quote. We reply within 1 hour on business days.
             </p>
             <div className="cp-cta-promises">
               {[
-                'Itemised quote within 4 business hours',
+                'Itemised quote, reply within 1 hour',
                 'Volume discount applied automatically',
                 'Logo customisation options included',
                 'Delivery estimate to your city',
@@ -487,8 +490,8 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
           </div>
           <InlineQuoteForm
             title="Get Bulk Pricing Under ₹1,000"
-            subtitle="Tell us what you need and we'll come back with a detailed quote within 4 hours."
-            ctaLabel="Get Bulk Pricing"
+            subtitle="Tell us what you need and we'll come back with a detailed quote. We reply within 1 hour on business days."
+            ctaLabel="Request a quote"
             defaultOccasion=""
             interestHint="Interested in: (products / categories)\nApprox. quantity: "
           />
@@ -503,7 +506,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
           <FAQSection
             items={FAQS}
             title="Corporate Gifts Under ₹1,000 - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -511,7 +513,6 @@ export default function BudgetGiftsClient({ products, categories }: { products: 
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides</h2>
           <div className="cp-related-grid">
             {[

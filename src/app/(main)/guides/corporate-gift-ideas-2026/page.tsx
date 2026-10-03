@@ -3,14 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import GiftIdeas2026Client from '@/components/pages/GiftIdeas2026Client'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Corporate Gift Ideas 2026 | Trending Ideas | MintBox',
-  description: 'Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 25 units.',
+  description: 'Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 10 units.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gift-ideas-2026' },
   openGraph: {
     title: 'Corporate Gift Ideas 2026 | Trending Ideas | MintBox',
-    description: 'Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 25 units.',
+    description: 'Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 10 units.',
     url: 'https://themintbox.in/guides/corporate-gift-ideas-2026',
     siteName: 'MintBox', locale: 'en_IN', type: 'article',
   },
@@ -27,7 +28,7 @@ export default async function GiftIdeas2026Page() {
       payload.find({ collection: 'products', where: { inStock: { equals: true } }, sort: 'order', limit: 500, depth: 1 }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) { console.error('[corporate-gift-ideas-2026] Payload query failed:', err) }
   return <GiftIdeas2026Client products={products} categories={categories} />
 }

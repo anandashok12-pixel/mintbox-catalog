@@ -6,14 +6,20 @@ import { AttributionTracker } from '@/components/AttributionTracker'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://themintbox.in'),
-  title: 'MintBox  -  Premium Corporate Gifting',
+  title: 'MintBox | Premium Corporate Gifting in India',
   description:
     'Curated corporate gifting packs for every occasion. Discover premium gifts, build your pack, and request custom pricing.',
+  // './' resolves to each page's own URL, so every route gets a self-referencing canonical
+  // unless it sets its own. The social image comes from opengraph-image.jpg in this folder.
+  alternates: { canonical: './' },
   openGraph: {
-    title: 'MintBox  -  Premium Corporate Gifting',
+    title: 'MintBox | Premium Corporate Gifting in India',
     description: 'Curated corporate gifting catalog with premium products.',
     siteName: 'MintBox',
+    type: 'website',
+    locale: 'en_IN',
   },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {

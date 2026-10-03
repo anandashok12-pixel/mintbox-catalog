@@ -40,16 +40,16 @@ export default function PrivacyPage() {
               </p>
               <ul>
                 <li>
-                  <strong>Contact details</strong> &mdash; your name, work email, phone number, and
+                  <strong>Contact details</strong> - your name, work email, phone number, and
                   company name, submitted via the quote form or contact form.
                 </li>
                 <li>
-                  <strong>Enquiry details</strong> &mdash; the occasion, team size, budget range, and
+                  <strong>Enquiry details</strong> - the occasion, team size, budget range, and
                   any additional notes you include with your request, along with the products you
                   add to your pack.
                 </li>
                 <li>
-                  <strong>Communications</strong> &mdash; the content of any emails, WhatsApp
+                  <strong>Communications</strong> - the content of any emails, WhatsApp
                   messages, or calls you exchange with our team, retained so that we have context
                   for follow-ups.
                 </li>
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
                 <li>Respond to your enquiry, prepare a quote, and follow up on outstanding questions.</li>
                 <li>Fulfil and deliver an order if you choose to place one with us.</li>
                 <li>
-                  Send transactional communications related to your enquiry or order &mdash; quote
+                  Send transactional communications related to your enquiry or order - quote
                   confirmations, dispatch updates, invoices.
                 </li>
                 <li>Improve our products, processes, and the website itself.</li>
@@ -96,19 +96,19 @@ export default function PrivacyPage() {
               </p>
               <ul>
                 <li>
-                  <strong>Hosting and infrastructure</strong> &mdash; the cloud platform that runs
+                  <strong>Hosting and infrastructure</strong> - the cloud platform that runs
                   our website and database.
                 </li>
                 <li>
-                  <strong>Email delivery</strong> &mdash; the transactional email provider we use
+                  <strong>Email delivery</strong> - the transactional email provider we use
                   to send quote confirmations and respond to enquiries.
                 </li>
                 <li>
-                  <strong>Payments and invoicing</strong> &mdash; if you transact with us, the
+                  <strong>Payments and invoicing</strong> - if you transact with us, the
                   payment processor and accounting software handling that transaction.
                 </li>
                 <li>
-                  <strong>Logistics</strong> &mdash; once you place an order, the courier or
+                  <strong>Logistics</strong> - once you place an order, the courier or
                   logistics partner delivering the gifts receives the recipient name and address
                   required to ship the package.
                 </li>
@@ -133,7 +133,7 @@ export default function PrivacyPage() {
               </p>
               <p>
                 We do not use third-party advertising cookies. You can clear or block cookies in
-                your browser settings &mdash; the site will continue to function, though some
+                your browser settings - the site will continue to function, though some
                 preferences (like your cart contents) may not persist between visits.
               </p>
             </>

@@ -1,11 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { anyone, authenticated } from '../access/authenticated'
 
 export const ContactPage: GlobalConfig = {
   slug: 'contact-page',
   label: 'Contact Page',
   access: {
-    read: () => true,
-    update: () => true,
+    read: anyone,
+    update: authenticated,
   },
   fields: [
     {
@@ -83,7 +84,7 @@ export const ContactPage: GlobalConfig = {
           ],
         },
         { name: 'successTitle', type: 'text', defaultValue: 'Message sent!' },
-        { name: 'successMessage', type: 'text', defaultValue: 'Anand will get back to you within 4 hours on business days.' },
+        { name: 'successMessage', type: 'text', defaultValue: 'We reply within 1 hour on business days.' },
       ],
     },
 
@@ -94,7 +95,7 @@ export const ContactPage: GlobalConfig = {
       fields: [
         { name: 'phone', type: 'text', defaultValue: '+91 9886537631' },
         { name: 'email', type: 'text', defaultValue: 'hello@themintbox.in' },
-        { name: 'emailSubNote', type: 'text', defaultValue: 'Reply within 4 hours on business days' },
+        { name: 'emailSubNote', type: 'text', defaultValue: 'We reply within 1 hour on business days.' },
         { name: 'officeAddress', type: 'textarea' },
         { name: 'mapLabel', type: 'text', defaultValue: 'Sobha Alexander Plaza, Ashok Nagar' },
         { name: 'mapSublabel', type: 'text', defaultValue: 'Commissariat Rd, Bengaluru 560025' },

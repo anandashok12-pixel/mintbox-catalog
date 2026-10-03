@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -122,7 +123,7 @@ const FAQS = [
   },
   {
     q: 'What is the minimum order quantity for bulk Diwali gifting?',
-    a: 'MintBox curated hampers start from 25 units. Individual (non-hamper) products typically start from a 10-unit MOQ - confirm the exact minimum for your chosen items when you request a quote.',
+    a: 'MintBox has a 10-unit MOQ on curated hampers and individual products.',
   },
   {
     q: 'Are Diwali gifts for employees tax exempt in India?',
@@ -148,6 +149,7 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
         "headline": "15 Diwali Gift Ideas for Employees by Budget",
         "description": "15 Diwali gift ideas for employees sorted into 3 budget bands, from ₹1,500 to ₹3,000+. Personalisation tips, packaging ideas, MOQs and lead times for bulk orders.",
         "url": "https://themintbox.in/guides/diwali-gifts-for-employees-by-budget",
+        "datePublished": "2026-09-27T00:00:00+05:30",
         "dateModified": "2026-09-27T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -168,7 +170,7 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
             </nav>
             <div className="cp-hero-eyebrow">Seasonal Guide · Diwali 2026</div>
             <h1 className="cp-hero-title">
-              15 Diwali Gift Ideas for<br />
+              15 Diwali Gift Ideas for{' '}<br />
               <em>Employees, By Budget</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -178,38 +180,44 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
             </p>
             <div className="cp-hero-ctas">
               <a href="#ideas" className="cp-hero-cta-primary">See All 15 Ideas ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Bulk Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 3 budget bands</span>
-              <span className="cp-hero-badge">✓ From 25 units</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-              <span className="cp-hero-badge">✓ Sample kits available</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80" alt="Diwali gift hamper with dry fruits and diyas" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/tea-ceremony.webp" alt="Tea Ceremony" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=800&q=80" alt="Festive Diwali gift box packaging" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/urli-celebration.webp" alt="Urli Celebration" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 3 budget bands</span>
+            <span className="cp-hero-badge">✓ From 10 units</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+            <span className="cp-hero-badge">✓ Sample kits available</span>
+          </div>
+        </div>
+      </div>
+
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="15 Diwali gift ideas for employees split across 3 budgets: under ₹1,500 (diya sets, desk essentials, mithai boxes), ₹1,500–₹3,000 (dry fruit hampers, wellness kits, personalised desk kits - the most common company-wide band), and ₹3,000+ (luxury hampers, tech accessories, experiential vouchers for leadership). MintBox hampers start from 25 units with pan-India delivery."
+            content="15 Diwali gift ideas for employees split across 3 budgets: under ₹1,500 (diya sets, desk essentials, mithai boxes), ₹1,500–₹3,000 (dry fruit hampers, wellness kits, personalised desk kits - the most common company-wide band), and ₹3,000+ (luxury hampers, tech accessories, experiential vouchers for leadership). MintBox hampers start from 10 units with pan-India delivery."
           />
           <EATSignal credentials={[
             'Diwali gifting for 200+ companies across India',
-            'Bulk pricing for teams of 25–2,000',
+            'Bulk pricing for teams of 10–2,000',
             'Sample kits available before you commit',
             'FSSAI-certified food items only',
             'Name personalisation on kits and boxes',
@@ -244,7 +252,6 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
       {/* 4. IDEAS BY BAND */}
       <section id="ideas" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Under ₹1,500</div>
           <h2 className="cp-section-title">Festive Ideas for Large Teams</h2>
           <p className="cp-section-sub">
             Deliberate curation beats spend at this band - a thoughtfully chosen set of simple items always
@@ -266,11 +273,10 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
 
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">₹1,500–₹3,000</div>
           <h2 className="cp-section-title">The Company-Wide Sweet Spot</h2>
           <p className="cp-section-sub">
             Enough budget for a genuinely multi-item hamper that feels curated rather than assembled.
-            MintBox&apos;s Diwali hamper collection starts here, from 25 units.
+            MintBox&apos;s Diwali hamper collection starts here, from 10 units.
           </p>
           <div className="cp-cards-grid cp-cards-grid--3">
             {IDEAS_1500_3000.map(card => (
@@ -310,7 +316,6 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Diwali Gift Products by Budget</h2>
           <p className="cp-section-sub">
             Filter by price to match whichever of the three bands fits your team.
@@ -328,7 +333,6 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
       {/* 6. BUDGET TIERS SUMMARY */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">At a Glance</div>
           <h2 className="cp-section-title">Choose Your Budget Band</h2>
           <p className="cp-section-sub">
             A quick summary of what each band typically includes.
@@ -353,7 +357,7 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1200&q=80" alt="Diwali gift hampers packed and ready for bulk delivery" loading="lazy" />
+        <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/copper-wellness.webp" alt="Copper Wellness" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE PULL */}
@@ -393,16 +397,15 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Diwali 2026</div>
-            <h2 className="cp-cta-title">Get Your Diwali<br />Gift Shortlist</h2>
+            <h2 className="cp-cta-title">Get Your Diwali{' '}<br />Gift Shortlist</h2>
             <p className="cp-cta-sub">
-              Tell us your team size and budget band - we will send curated options with mockups within 4 hours.
+              Tell us your team size and budget band - we will send curated options with mockups. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Your Diwali Gift Shortlist"
-              ctaLabel="Get Diwali Gift Ideas"
+              ctaLabel="Request a quote"
               defaultOccasion="diwali"
             />
           </div>
@@ -416,7 +419,6 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Diwali Gift Ideas for Employees - Frequently Asked Questions"
           />
         </div>
@@ -425,7 +427,6 @@ export default function DiwaliGiftsByBudgetClient({ products, categories }: { pr
       {/* 11. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

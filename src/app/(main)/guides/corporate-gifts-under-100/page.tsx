@@ -3,11 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import BudgetUnder100Client from '@/components/pages/BudgetUnder100Client'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifts Under ₹100: Affordable Bulk Ideas 2026 | MintBox',
+  title: 'Corporate Gifts Under ₹100: Bulk Ideas 2026 | MintBox',
   description:
-    'Best corporate gifts under ₹100 for large-scale events and giveaways. Pens, seed packets, badges, stickers - logo-printed from 100 units. Pan-India bulk delivery.',
+    'Best corporate gifts under ₹100 for large events and giveaways. Pens, seed packets, badges and stickers, logo-printed from 10 units. Pan-India bulk delivery.',
   alternates: { canonical: 'https://themintbox.in/guides/corporate-gifts-under-100' },
   openGraph: {
     title: 'Corporate Gifts Under ₹100 - MintBox',
@@ -39,7 +40,7 @@ export default async function BudgetUnder100Page() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[corporate-gifts-under-100] Payload query failed:', err)
   }

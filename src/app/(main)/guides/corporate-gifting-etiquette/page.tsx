@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import EtiquetteGuideClient from '@/components/pages/EtiquetteGuideClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Corporate Gifting Etiquette in India | MintBox Guide',
@@ -30,7 +31,7 @@ export default async function EtiquetteGuidePage() {
       payload.find({ collection: 'products', where: { inStock: { equals: true } }, sort: 'order', limit: 500, depth: 1 }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[corporate-gifting-etiquette] Payload query failed:', err)
   }

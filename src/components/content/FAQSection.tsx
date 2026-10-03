@@ -18,7 +18,7 @@ interface FAQSectionProps {
   emitSchema?: boolean
 }
 
-export default function FAQSection({ items, title = 'Frequently Asked Questions', eyebrow = 'FAQ', emitSchema = true }: FAQSectionProps) {
+export default function FAQSection({ items, title = 'Frequently Asked Questions', eyebrow, emitSchema = true }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const schema = {
@@ -42,7 +42,7 @@ export default function FAQSection({ items, title = 'Frequently Asked Questions'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       )}
-      <div className="cp-section-eyebrow">{eyebrow}</div>
+      {eyebrow && <div className="cp-section-eyebrow">{eyebrow}</div>}
       <h2 className="cp-section-title" style={{ marginBottom: '36px' }}>{title}</h2>
       <div className="cp-faq-list">
         {items.map((item, i) => (

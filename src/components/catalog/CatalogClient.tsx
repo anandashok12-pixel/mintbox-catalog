@@ -124,7 +124,7 @@ export default function CatalogClient({ categories, products }: CatalogClientPro
         <Sidebar categories={categories} activeCat={activeCat} />
 
         <main className="main-content">
-          {/* SEO/a11y page heading. Visually hidden — the catalog UI leads
+          {/* SEO/a11y page heading. Visually hidden - the catalog UI leads
               with the filter/category strip, so a visible h1 would disrupt
               the dense layout, but the page still needs a single h1. */}
           <h1

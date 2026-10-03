@@ -46,7 +46,7 @@ export default function IndustrySolutionsHubClient() {
             <span className="cp-breadcrumb-current">Industry Solutions</span>
           </nav>
           <div className="cp-hero-eyebrow">Solutions by Industry</div>
-          <h1 className="cp-hero-title">Corporate Gifting,<br />Tailored to Your Industry</h1>
+          <h1 className="cp-hero-title">Corporate Gifting,{' '}<br />Tailored to Your Industry</h1>
           <div className="cp-hero-rule" />
           <p className="cp-hero-sub">
             Gifting that fits how your industry actually works - from startup culture kits to
@@ -57,7 +57,6 @@ export default function IndustrySolutionsHubClient() {
 
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Browse by Industry</div>
           <h2 className="cp-section-title">Find Your Industry</h2>
           <div className="cp-cards-grid cp-cards-grid--2">
             {INDUSTRIES.map(industry => (
@@ -74,7 +73,6 @@ export default function IndustrySolutionsHubClient() {
 
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

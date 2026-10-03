@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { authenticated } from '../access/authenticated'
 import { normalizePhone } from '@/lib/phone'
 import { fanOutLeadToCrm } from './hooks/fanOutLeadToCrm'
 
@@ -8,14 +9,13 @@ export const Leads: CollectionConfig = {
     useAsTitle: 'referenceCode',
     defaultColumns: ['referenceCode', 'name', 'company', 'email', 'phone', 'channel', 'entryPage', 'status', 'createdAt'],
   },
+  // Site quote forms post to the custom /api/leads route, which writes with
+  // the local API (no access check), so REST create does not need to be public.
   access: {
-    create: () => true,
-    read: ({ req }) => {
-      if (req.user) return true
-      return false
-    },
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    read: authenticated,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
   },
   hooks: {
     beforeChange: [

@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import CorporateGiftingHandbookClient from '@/components/pages/CorporateGiftingHandbookClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Corporate Gifting Handbook: India Guide for 2026 | MintBox',
@@ -34,7 +35,7 @@ export default async function CorporateGiftingHandbookPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[corporate-gifting-handbook] Payload query failed:', err)
   }

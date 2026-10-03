@@ -2,10 +2,11 @@ import type { NextConfig } from 'next'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
+  experimental: { globalNotFound: true },
   // drizzle-kit is loaded at runtime by @payloadcms/drizzle's pushDevSchema
   // via a dynamic require. Without externalising it Turbopack tries to bundle
   // it into the serverless function and the dynamic path can't be resolved
-  // ("Cannot find module 'drizzle-kit-<hash>/api'") — so the schema push
+  // ("Cannot find module 'drizzle-kit-<hash>/api'"): so the schema push
   // silently fails on Vercel. Marking it external keeps it in node_modules
   // for the function to require directly.
   serverExternalPackages: ['drizzle-kit'],
@@ -21,12 +22,18 @@ const nextConfig: NextConfig = {
         destination: 'https://themintbox.in/:path*',
         permanent: true,
       },
+      // Merged into the employees guide (its budget bands now live there).
+      {
+        source: '/guides/diwali-gifts-for-employees-by-budget',
+        destination: '/guides/diwali-gifts-for-employees',
+        statusCode: 301,
+      },
     ]
   },
   images: {
     // AVIF first (smaller), WebP fallback for older browsers.
     formats: ['image/avif', 'image/webp'],
-    // Cache optimized variants for 31 days — product images change rarely;
+    // Cache optimized variants for 31 days: product images change rarely;
     // when they do, the source URL changes (new blob hash) so cache busts naturally.
     minimumCacheTTL: 2678400,
     remotePatterns: [
@@ -39,7 +46,7 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'public.blob.vercel-storage.com',
       },
-      // Private Vercel Blob store (legacy — assets uploaded before store migration)
+      // Private Vercel Blob store (legacy: assets uploaded before store migration)
       {
         protocol: 'https',
         hostname: '*.private.blob.vercel-storage.com',

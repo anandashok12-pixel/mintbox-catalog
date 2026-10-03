@@ -3,15 +3,16 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import BangaloreCorporateGiftingClient from '@/components/pages/BangaloreCorporateGiftingClient'
 import '../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifting in Bangalore: Bulk & Fast Delivery | MintBox',
+  title: 'Corporate Gifting in Bangalore: Bulk & Same-Day | MintBox',
   description:
-    'Corporate gifting in Bangalore - same-day delivery across Koramangala, Whitefield, HSR Layout & Electronic City. Bulk from 25 units, logo customisation included.',
+    'Corporate gifting in Bangalore: same-day delivery across Koramangala, Whitefield, HSR Layout & Electronic City. Bulk from 10 units, with logo customisation.',
   alternates: { canonical: 'https://themintbox.in/bangalore-corporate-gifting' },
   openGraph: {
     title: 'Corporate Gifting in Bangalore - MintBox',
-    description: 'Same-day corporate gift delivery in Bangalore. Bulk orders from 25 units, logo customisation, GST-compliant invoicing.',
+    description: 'Same-day corporate gift delivery in Bangalore. Bulk orders from 10 units, logo customisation, GST-compliant invoicing.',
   },
 }
 
@@ -34,7 +35,7 @@ export default async function BangaloreCorporateGiftingPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[bangalore-corporate-gifting] Payload query failed:', err)
   }

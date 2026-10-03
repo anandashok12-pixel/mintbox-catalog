@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { authenticated } from '../access/authenticated'
 
 // Standard CRM stages the pipeline board drags cards between. Kept separate
 // from Leads.status (new/quoted/won/lost) which is coarser and stays as the
@@ -48,10 +49,10 @@ export const Deals: CollectionConfig = {
     defaultColumns: ['title', 'contact', 'stage', 'estimatedValue', 'nextActionAt', 'updatedAt'],
   },
   access: {
-    read: ({ req }) => !!req.user,
-    create: () => true,
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    read: authenticated,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
   },
   hooks: {
     beforeChange: [

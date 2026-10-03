@@ -102,7 +102,7 @@ export function FAQPage({ data: raw }: { data: FAQPageData }) {
         <div className="page-hero-content">
           <div className="page-hero-eyebrow">{data.hero.eyebrow}</div>
           <h1 className="page-hero-title">
-            {data.hero.titleLine1}<br />{data.hero.titleLine2}
+            {data.hero.titleLine1}{' '}<br />{data.hero.titleLine2}
           </h1>
           <p className="page-hero-sub">
             {data.hero.subtitle}

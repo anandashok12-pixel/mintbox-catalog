@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { authenticated } from '../access/authenticated'
 
 export const Contacts: CollectionConfig = {
   slug: 'contacts',
@@ -7,10 +8,10 @@ export const Contacts: CollectionConfig = {
     defaultColumns: ['name', 'company', 'phoneE164', 'email', 'lastActivityAt'],
   },
   access: {
-    read: ({ req }) => !!req.user,
-    create: () => true,
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    read: authenticated,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
   },
   fields: [
     {

@@ -3,11 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import PersonalizedGiftsClient from '@/components/pages/PersonalizedGiftsClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Personalised Corporate Gifts: Make Every Gift On-Brand | MintBox',
+  title: 'Personalised Corporate Gifts: On-Brand Gifting | MintBox',
   description:
-    'Custom-branded corporate gifts with logo printing, laser engraving, and embroidery. Minimum 50 units. Free mockup in 24 hours. Bangalore-based, Pan-India delivery.',
+    'Custom-branded corporate gifts with logo printing, laser engraving and embroidery. Minimum 10 units. Free mockup in 48 hours. Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/customization/personalized-corporate-gifts' },
   openGraph: {
     title: 'Personalised Corporate Gifts - MintBox',
@@ -39,7 +40,7 @@ export default async function PersonalizedCorporateGiftsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[personalized-gifts] Payload query failed:', err)
   }

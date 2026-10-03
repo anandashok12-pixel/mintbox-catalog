@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -60,7 +61,7 @@ const BUDGET_TIERS = [
   {
     label: '₹500–₹1,500',
     title: 'Practical & Scalable',
-    desc: 'Insulated bottles, notebooks with pen sets, printed totes, desk organisers, curated snack boxes. MOQs typically start at 25–50 units.',
+    desc: 'Insulated bottles, notebooks with pen sets, printed totes, desk organisers, curated snack boxes. Minimum order 10 units.',
     href: '/guides/corporate-gifts-under-1000',
     featured: false,
   },
@@ -107,7 +108,7 @@ const FAQS = [
   },
   {
     q: 'What is the minimum order quantity for corporate gifts in India?',
-    a: 'Most Indian gifting vendors set an MOQ of 25–50 units for branded corporate gifts. MintBox onboarding kits start from 25 units; individual (non-kit) products can start from a 10-unit MOQ.',
+    a: 'Most Indian gifting vendors set an MOQ of 25–50 units for branded corporate gifts. MintBox has a 10-unit MOQ on everything, kits included.',
   },
   {
     q: 'How far in advance should I order gifts for a festival like Diwali?',
@@ -137,6 +138,7 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
         "headline": "Corporate Gifts by Occasion: Onboarding, Festivals & Client Appreciation",
         "description": "Match the gift to the moment: onboarding kits, festive hampers, and client appreciation gifts. Budget tiers, gift categories, MOQs and a bulk-order checklist.",
         "url": "https://themintbox.in/guides/corporate-gifts-by-occasion",
+        "datePublished": "2026-09-27T00:00:00+05:30",
         "dateModified": "2026-10-02T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -157,7 +159,7 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
             </nav>
             <div className="cp-hero-eyebrow">Strategy Guide · 2026</div>
             <h1 className="cp-hero-title">
-              Corporate Gifts by Occasion:<br />
+              Corporate Gifts by Occasion:{' '}<br />
               <em>Onboarding, Festivals &amp; Clients</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -167,38 +169,44 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
             </p>
             <div className="cp-hero-ctas">
               <a href="#occasions" className="cp-hero-cta-primary">See the 3 Occasions ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Bulk Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 3 occasions, matched</span>
-              <span className="cp-hero-badge">✓ From 25 units</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-              <span className="cp-hero-badge">✓ Sample proof included</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Branded corporate onboarding kit on a desk" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Curated corporate gift box with branded merchandise" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/hamper7.webp" alt="Festive gift tray with planner and treats" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 3 occasions, matched</span>
+            <span className="cp-hero-badge">✓ From 10 units</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+            <span className="cp-hero-badge">✓ Sample proof included</span>
+          </div>
+        </div>
+      </div>
+
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Corporate gifts serve three distinct occasions: onboarding (belonging, from ₹1,500), festivals (recognition at scale, ₹500–₹3,000+ depending on band), and client appreciation (relationship-building, ₹2,000–₹5,000). Match the occasion first, then pick the budget tier - MintBox kits and hampers start from 25 units with pan-India delivery."
+            content="Corporate gifts serve three distinct occasions: onboarding (belonging, from ₹1,500), festivals (recognition at scale, ₹500–₹3,000+ depending on band), and client appreciation (relationship-building, ₹2,000–₹5,000). Match the occasion first, then pick the budget tier - MintBox kits and hampers start from 10 units with pan-India delivery."
           />
           <EATSignal credentials={[
             'Onboarding kits, festive hampers and client gifts for companies across India',
-            'Branded onboarding kits from ₹1,500, minimum 25 units',
+            'Branded onboarding kits from ₹1,500, minimum 10 units',
             'Transparent bulk pricing, no hidden packaging fees',
             'Digital proof approval before dispatch',
             'Pan-India delivery including tier-2 cities',
@@ -233,7 +241,6 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
       {/* 4. MATCH THE OCCASION */}
       <section id="occasions" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Match the Moment</div>
           <h2 className="cp-section-title">Three Occasions, Three Different Jobs</h2>
           <p className="cp-section-sub">
             Treating every corporate gift as interchangeable is where most gifting programmes fall flat.
@@ -255,7 +262,6 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Gifts by Budget</h2>
           <p className="cp-section-sub">
             Filter by price to match the occasion and tier you need.
@@ -298,7 +304,7 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80" alt="Assorted branded corporate gifts and merchandise" loading="lazy" />
+        <Image src="/hampers/executive-gift.webp" alt="Executive leather gift set" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE PULL */}
@@ -315,7 +321,6 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
       {/* 8. GIFT CATEGORIES */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">What to Choose</div>
           <h2 className="cp-section-title">Gift Categories That Consistently Land Well</h2>
           <p className="cp-section-sub">
             A few categories outperform the rest for everyday usefulness and long-term brand recall.
@@ -337,7 +342,6 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
       {/* 8b. PROCUREMENT CHECKLIST */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container--narrow">
-          <div className="cp-section-eyebrow">Before You Order</div>
           <h2 className="cp-section-title">A Procurement Checklist for Bulk Orders</h2>
           <p className="cp-section-sub">
             Run through this before confirming any bulk corporate gifting order.
@@ -355,15 +359,15 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Onboarding · Festivals · Clients</div>
-            <h2 className="cp-cta-title">Tell Us the<br />Occasion</h2>
+            <h2 className="cp-cta-title">Tell Us the{' '}<br />Occasion</h2>
             <p className="cp-cta-sub">
-              Tell us the moment you&apos;re gifting for, headcount and budget - we&apos;ll send matched options with mockups within 4 hours.
+              Tell us the moment you&apos;re gifting for, headcount and budget - we&apos;ll send matched options with mockups. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Tell Us the Occasion"
-              ctaLabel="Get a Matched Quote"
+              ctaLabel="Request a quote"
             />
           </div>
         </div>
@@ -376,7 +380,6 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Corporate Gifts by Occasion - Frequently Asked Questions"
           />
         </div>
@@ -385,7 +388,6 @@ export default function GiftsByOccasionClient({ products, categories }: { produc
       {/* 11. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

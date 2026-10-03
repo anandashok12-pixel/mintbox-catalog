@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import WorkAnniversaryClient from '@/components/pages/WorkAnniversaryClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Work Anniversary Gifts for Employees | Ideas | MintBox',
@@ -35,7 +36,7 @@ export default async function WorkAnniversaryPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[work-anniversary-gifts] Payload query failed:', err)
   }

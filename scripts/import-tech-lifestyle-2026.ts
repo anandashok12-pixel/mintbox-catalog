@@ -17,6 +17,7 @@
  *
  * Idempotent: products matched by name.
  */
+import { authHeaders } from './lib/payloadAuth'
 import { TECH_LIFESTYLE_2026_PRODUCTS } from '../src/data/techLifestyle2026Products'
 
 const BASE_URL = 'https://themintbox.in'
@@ -50,7 +51,7 @@ async function findExistingProduct(name: string): Promise<boolean> {
 async function createProduct(categoryId: number, p: (typeof TECH_LIFESTYLE_2026_PRODUCTS)[number], order: number) {
   const res = await fetch(`${BASE_URL}/api/products`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders(BASE_URL)) },
     body: JSON.stringify({
       name: p.name,
       category: categoryId,

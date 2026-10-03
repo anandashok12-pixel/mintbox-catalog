@@ -47,7 +47,7 @@ export function Navbar() {
         </ul>
 
         <div className="nav-actions">
-          <a href="/contact" className="btn-primary nav-cta-desktop">Request a Quote</a>
+          <a href="/contact" className="btn-primary nav-cta-desktop">Request a quote</a>
           <button
             className="hamburger"
             aria-label="Open menu"

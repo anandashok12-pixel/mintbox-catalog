@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -10,6 +11,7 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import DiwaliSeeAlso from '@/components/content/DiwaliSeeAlso'
 
 interface Category {
   id: string
@@ -72,26 +74,58 @@ const EMPLOYEE_LOVES = [
 ]
 
 const BUDGET_CARDS = [
+  { label: 'Under ₹600', title: 'Entry Diwali', desc: 'Sweets + mug or notebook + card.', featured: false, href: '/guides/corporate-gifts-under-500' },
+  { label: '₹600–₹1,200', title: 'Standard Diwali', desc: 'Bottle + dry fruits + sweets + branded packaging.', featured: true, href: '/collections/hampers' },
+  { label: '₹1,200–₹1,800', title: 'Premium Diwali', desc: 'Premium hamper + name personalisation.', featured: false, href: '/collections/hampers' },
+  { label: '₹1,800–₹3,000', title: 'Signature Diwali', desc: 'Larger hamper or desk kit in a rigid gift box.', featured: false, href: '/collections/hampers' },
+  { label: '₹3,000 and above', title: 'Leadership & Key Clients', desc: 'Luxury hamper, tech or experiential gift.', featured: false, href: '/collections/hampers' },
+]
+
+const IDEA_BANDS = [
   {
     label: 'Under ₹600',
-    title: 'Entry Diwali',
-    desc: 'Sweets + mug or notebook + card.',
-    featured: false,
-    href: '/guides/corporate-gifts-under-1000',
+    title: 'Small, festive and easy to scale',
+    ideas: [
+      { icon: '🪔', bg: 'cp-img-gold', title: 'Artisan Diya & Candle Set', desc: 'Festive, universally appropriate, easy to brand at scale.' },
+      { icon: '🍫', bg: 'cp-img-green', title: 'Mithai or Chocolate Box', desc: 'Feels premium when packaged well; appreciated across every team.' },
+      { icon: '🌱', bg: 'cp-img-mid', title: 'Potted Plant or Succulent', desc: 'Eco-conscious, and it stays on the desk long after Diwali.' },
+    ],
   },
   {
     label: '₹600–₹1,200',
-    title: 'Standard Diwali',
-    desc: 'Bottle + dry fruits + sweets + branded packaging.',
-    featured: true,
-    href: '/collections/hampers',
+    title: 'Practical gifts for the whole team',
+    ideas: [
+      { icon: '🖊️', bg: 'cp-img-warm', title: 'Branded Desk Essentials', desc: 'A quality pen with a printed notepad - utility meets personalisation.' },
+      { icon: '💌', bg: 'cp-img-gold', title: 'Personalised Card + E-Voucher', desc: 'Maximum employee choice while keeping a tangible element.' },
+      { icon: '🍶', bg: 'cp-img-warm', title: 'Branded Steel Bottle or Coffee Set', desc: 'Practical and long-lasting, carries your identity daily.' },
+    ],
   },
   {
-    label: '₹1,200–₹2,500',
-    title: 'Premium Diwali',
-    desc: 'Premium hamper + name personalisation + rigid gift box.',
-    featured: false,
-    href: '/collections/hampers',
+    label: '₹1,200–₹1,800',
+    title: 'Multi-item hampers that feel curated',
+    ideas: [
+      { icon: '🥜', bg: 'cp-img-warm', title: 'Premium Dry Fruit Hamper', desc: 'The most popular pick in this band - universal and easy to bulk order.' },
+      { icon: '👜', bg: 'cp-img-gold', title: 'Eco Tote with Snacks', desc: 'A soy candle and curated snacks for strong visual appeal.' },
+      { icon: '🧘', bg: 'cp-img-mid', title: 'Wellness Kit', desc: 'Herbal tea, essential oil roller and face mist - a well-being signal.' },
+    ],
+  },
+  {
+    label: '₹1,800–₹3,000',
+    title: 'Signature gifts for managers and milestones',
+    ideas: [
+      { icon: '📓', bg: 'cp-img-green', title: 'Personalised Desk Kit', desc: 'Branded journal + pen + wireless charger for hybrid teams.' },
+      { icon: '🧴', bg: 'cp-img-warm', title: 'Premium Self-Care Set', desc: 'Skincare, aromatherapy and gourmet coffee for senior hires.' },
+      { icon: '🎧', bg: 'cp-img-mid', title: 'Wireless Earbuds or Power Bank', desc: 'Broadly well received and useful long after Diwali.' },
+    ],
+  },
+  {
+    label: '₹3,000 and above',
+    title: 'For leadership and key relationships',
+    ideas: [
+      { icon: '🎁', bg: 'cp-img-gold', title: 'Luxury Hamper in a Wooden Crate', desc: 'Artisan chocolates and dry fruits - looks exceptional, travels well.' },
+      { icon: '💼', bg: 'cp-img-green', title: 'Full Branded Desk Kit', desc: 'Merchandise, premium notebook and a cable organiser - onboarding-grade.' },
+      { icon: '🎟️', bg: 'cp-img-gold', title: 'Experiential Voucher', desc: 'Dining, wellness or spa - a memorable moment over a physical object.' },
+    ],
   },
 ]
 
@@ -100,7 +134,7 @@ const PLANNING_TIPS = [
     icon: '📅',
     bg: 'cp-img-gold',
     title: 'Order Early',
-    desc: 'Diwali 2026 is November 1. For 100+ gifts, order by September 30. Personalised orders need 2 weeks minimum.',
+    desc: 'Diwali 2026 is Sunday, 8 November. Order by 25 October for guaranteed delivery, and earlier for 100+ gifts. Personalised orders need 2 weeks minimum.',
   },
   {
     icon: '💌',
@@ -146,7 +180,7 @@ const FAQS = [
   },
   {
     q: 'What if I have employees in different cities?',
-    a: 'We coordinate multi-city Diwali delivery from one order. Group employees by city, share a spreadsheet, and we dispatch all gifts from a single purchase order with city-wise tracking. All gifts arrive before Diwali subject to ordering by October 15.',
+    a: 'We coordinate multi-city Diwali delivery from one order. Group employees by city, share a spreadsheet, and we dispatch all gifts from a single purchase order with city-wise tracking. All gifts arrive before Diwali subject to ordering by 25 October.',
   },
 ]
 
@@ -168,7 +202,8 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
         "headline": "Diwali Gifts for Employees 2026: Ideas, Budget & Planning",
         "description": "Thoughtful Diwali gifts for employees - bulk hampers, personalised sets, and sweet kits from ₹400/head. Plan 3–4 weeks early. GST invoicing. Delivered across India.",
         "url": "https://themintbox.in/guides/diwali-gifts-for-employees",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "datePublished": "2026-05-26T00:00:00+05:30",
+        "dateModified": "2026-10-03T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
@@ -188,52 +223,58 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
             </nav>
             <div className="cp-hero-eyebrow">Seasonal Guide · Employee Diwali 2026</div>
             <h1 className="cp-hero-title">
-              Diwali Gifts for Employees 2026:<br />
+              Diwali Gifts for Employees 2026:{' '}<br />
               <em>Ideas, Budget &amp; Planning</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Thoughtful Diwali gifts your employees will love - from ₹400 sweet kits to ₹3,000 premium hampers.
-              Plan early, personalise at scale, and deliver to offices or home addresses Pan-India.
+              Diwali gifts your employees will love, from ₹400 sweet kits to premium hampers, delivered to offices or homes across India.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Employee Gifts ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Employee Diwali Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ From ₹400/head</span>
-              <span className="cp-hero-badge">✓ Home delivery option</span>
-              <span className="cp-hero-badge">✓ Name personalisation</span>
-              <span className="cp-hero-badge">✓ Order by Oct 15</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=800&q=80" alt="Diwali corporate gifts with festive diyas" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/home-fragrance-suite.webp" alt="Home Fragrance Suite" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=800&q=80" alt="Beautifully wrapped Diwali gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/filter-kaapi-heritage.webp" alt="Filter Kaapi Heritage" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ From ₹400/head</span>
+            <span className="cp-hero-badge">✓ Home delivery option</span>
+            <span className="cp-hero-badge">✓ Name personalisation</span>
+            <span className="cp-hero-badge">✓ Order by 25 Oct</span>
+          </div>
+        </div>
+      </div>
+
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Diwali gifts for employees typically cost ₹500–₹1,500 per head. Popular options: sweet hampers, branded drinkware, eco gift sets, and personalised kits. For 100+ employees, bulk pricing drops costs 15–20%. For remote teams, individual home delivery is available. Order by October 15 to guarantee delivery before Diwali."
+            content="Diwali gifts for employees typically cost ₹500–₹1,500 per head. Popular options: sweet hampers, branded drinkware, eco gift sets, and personalised kits. For 100+ employees, bulk pricing drops costs 15–20%. For remote teams, individual home delivery is available. Order by 25 October to guarantee delivery before Diwali (8 November)."
           />
           <EATSignal credentials={[
             'Employee Diwali gifts for 200+ companies',
-            'Bulk pricing for teams of 25–2,000',
+            'Bulk pricing for teams of 10–2,000',
             'Individual home delivery for remote employees',
             'Name personalisation on kits and boxes',
             'FSSAI-certified food items only',
           ]} />
+          <DiwaliSeeAlso current="employees" />
         </div>
       </div>
 
@@ -254,7 +295,7 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
               <div className="cp-stat-label">delivery available</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">Oct 15</div>
+              <div className="cp-stat-value">25 Oct</div>
               <div className="cp-stat-label">deadline for guaranteed delivery</div>
             </div>
           </div>
@@ -265,7 +306,6 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
       {/* 4. WHAT EMPLOYEES LOVE */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Gift Ideas</div>
           <h2 className="cp-section-title">What Employees Love at Diwali</h2>
           <p className="cp-section-sub">
             These are the most appreciated Diwali gift formats - practical, festive,
@@ -288,7 +328,6 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Employee Diwali Gift Products</h2>
           <p className="cp-section-sub">
             All products suitable for employee Diwali gifting. Filter by price to match your per-head budget.
@@ -309,9 +348,9 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
           <div className="cp-section-eyebrow">Budget Tiers</div>
           <h2 className="cp-section-title">Choose Your Diwali Gift Budget</h2>
           <p className="cp-section-sub">
-            Three tiers to match your per-head spend. All include branded packaging and can be personalised.
+            Five tiers to match your per-head spend. All include branded packaging and can be personalised.
           </p>
-          <div className="cp-budget-grid">
+          <div className="cp-budget-grid cp-budget-grid--5">
             {BUDGET_CARDS.map(card => (
               <a
                 key={card.label}
@@ -329,9 +368,37 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
         </div>
       </section>
 
+      {/* 6b. IDEAS BY BUDGET BAND (moved from the retired by-budget guide) */}
+      <section id="ideas-by-budget" className="cp-section cp-section--white">
+        <div className="cp-container">
+          <h2 className="cp-section-title">15 Diwali Gift Ideas by Budget Band</h2>
+          <p className="cp-section-sub">
+            Five bands, three ideas each. Shortlist quickly for a team of 20 or 2,000.
+          </p>
+          {IDEA_BANDS.map(band => (
+            <div key={band.label} style={{ marginTop: 32 }}>
+              <h3 className="cp-card-title" style={{ fontSize: 20, marginBottom: 16 }}>
+                {band.label}: {band.title}
+              </h3>
+              <div className="cp-cards-grid cp-cards-grid--3">
+                {band.ideas.map(card => (
+                  <div key={card.title} className="cp-card">
+                    <div className={`cp-card-icon ${card.bg}`} style={{ fontSize: '22px', width: '52px', height: '52px' }}>
+                      {card.icon}
+                    </div>
+                    <div className="cp-card-title">{card.title}</div>
+                    <p className="cp-card-desc">{card.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1200&q=80" alt="Warm Diwali employee gift hampers ready for delivery with festive packaging" loading="lazy" />
+        <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/classic-dry-fruit-duo.webp" alt="Classic Dry Fruit Duo" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE PULL */}
@@ -348,7 +415,6 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
       {/* 8. PLANNING TIPS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Planning Tips</div>
           <h2 className="cp-section-title">How to Plan Employee Diwali Gifting</h2>
           <p className="cp-section-sub">
             Four things that separate a great Diwali gift programme from a forgettable one.
@@ -371,17 +437,16 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Employee Diwali 2026</div>
-            <h2 className="cp-cta-title">Plan Employee<br />Diwali Gifts</h2>
+            <h2 className="cp-cta-title">Plan Employee{' '}<br />Diwali Gifts</h2>
             <p className="cp-cta-sub">
               Tell us your team size, budget per head, and delivery preferences - we will
-              send a curated proposal with options and mockups within 4 hours.
+              send a curated proposal with options and mockups. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Plan Employee Diwali Gifts"
-              ctaLabel="Get Employee Diwali Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="diwali"
             />
           </div>
@@ -395,7 +460,6 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Diwali Gifts for Employees - Frequently Asked Questions"
           />
         </div>
@@ -414,7 +478,7 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
               { label: 'Bangalore', title: 'Bulk Corporate Gifting', href: '/bangalore-corporate-gifting/bulk-gifting' },
               { label: 'Personalisation', title: 'Personalised Corporate Gifts', href: '/customization/personalized-corporate-gifts' },
               { label: 'Collections', title: 'Employee Welcome Kit', href: '/collections/employee-welcome-kit' },
-              { label: 'Diwali', title: 'Diwali Corporate Gifts 2026', href: '/guides/diwali-corporate-gifts' },
+              { label: 'Diwali', title: 'Diwali Corporate Gift Hampers', href: '/diwali-corporate-gifts' },
             ].map(link => (
               <a key={link.href} href={link.href} className="cp-related-card">
                 <div className="cp-related-card-label">{link.label}</div>
@@ -427,7 +491,7 @@ export default function DiwaliEmployeesClient({ products, categories }: { produc
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date="2026-10-03" />
       </div>
       <Footer />
       <WhatsAppFloat />

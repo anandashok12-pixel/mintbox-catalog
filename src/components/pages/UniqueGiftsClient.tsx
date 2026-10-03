@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -60,7 +61,7 @@ const FAQ_ITEMS = [
   { q: "What are unique corporate gift ideas for employees?", a: "Unique employee gifts go beyond standard mugs and pens: seed paper stationery, desk plants in branded pots, artisan tea kits, copper drinkware, and curated theme boxes (wellness, coffee, work-from-home). Personalisation with the employee's name makes any gift feel unique." },
   { q: "What makes a corporate gift memorable?", a: "Three factors: personalisation (name, message, story), unexpected category (something they wouldn't buy themselves), and quality packaging. A thoughtfully packaged ₹500 gift is often remembered longer than a generic ₹2,000 item." },
   { q: "What are unique corporate gift ideas for clients?", a: "For clients, premium hampers with artisan products, copper gift sets, and experience boxes (curated themes) stand out. At ₹2,000–₹5,000, include at least one personalised element - engraving, a bespoke note, or custom colour." },
-  { q: "Can unique corporate gifts be ordered in bulk?", a: "Yes. MintBox specialises in unique bulk gifting - seed paper kits, copper sets, artisan hampers - all available from 25 units with logo branding and individual packaging. Many unique products have shorter MOQs than standard items." },
+  { q: "Can unique corporate gifts be ordered in bulk?", a: "Yes. MintBox specialises in unique bulk gifting - seed paper kits, copper sets, artisan hampers - all available from 10 units with logo branding and individual packaging. Many unique products have shorter MOQs than standard items." },
   { q: "What is the most unique Diwali corporate gift?", a: "Artisan copper bottles with logo engraving paired with premium dry fruits in a custom rigid box consistently rank as the most unique and appreciated Diwali gift. Budget: ₹1,500–₹2,500 per kit. MintBox produces these in batches from August." },
 ]
 
@@ -80,8 +81,9 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Unique Corporate Gift Ideas That Actually Get Remembered",
-        "description": "Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 50 units, from MintBox.",
+        "description": "Discover unique corporate gifts that stand out. Personalised, creative, and memorable gifting ideas for Indian businesses. Bulk from 10 units, from MintBox.",
         "url": "https://themintbox.in/guides/unique-corporate-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -102,7 +104,7 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
             </nav>
             <div className="cp-hero-eyebrow">Gifting Guide · 2026</div>
             <h1 className="cp-hero-title">
-              Unique Corporate Gift Ideas<br />
+              Unique Corporate Gift Ideas{' '}<br />
               <em>That Actually Get Remembered</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -112,27 +114,33 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Products ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 200+ Clients</span>
-              <span className="cp-hero-badge">✓ 50,000+ Gifts</span>
-              <span className="cp-hero-badge">✓ Pan-India Delivery</span>
-              <span className="cp-hero-badge">✓ GST Invoicing</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Unique plant corporate gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/onboarding.webp" alt="Employee onboarding gift baskets" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=800&q=80" alt="Custom personalised corporate gift workspace" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 200+ Clients</span>
+            <span className="cp-hero-badge">✓ 50,000+ Gifts</span>
+            <span className="cp-hero-badge">✓ Pan-India Delivery</span>
+            <span className="cp-hero-badge">✓ GST Invoicing</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -146,7 +154,7 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
             '50,000+ gifts delivered pan-India',
             '6+ years of corporate gifting expertise',
             'Unique, personalised, and eco-friendly options',
-            'From 25 units with full logo branding',
+            'From 10 units with full logo branding',
           ]} />
         </div>
       </div>
@@ -179,7 +187,6 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
       {/* 4. UNIQUE IDEAS GRID */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Unique Gift Ideas</div>
           <h2 className="cp-section-title">8 Unique Corporate Gift Ideas for 2026</h2>
           <p className="cp-section-sub">
             These gifts break the mould - each one earns a reaction, a photo, or a story.
@@ -198,13 +205,12 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?auto=format&fit=crop&w=1200&q=80" alt="Unique and memorable corporate gift ideas for employees and clients" loading="lazy" />
+        <Image src="/hampers/hero4.webp" alt="Gift box with notebook and accessories" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 5. WHAT MAKES A GIFT UNIQUE */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Framework</div>
           <h2 className="cp-section-title">What Makes a Corporate Gift Truly Unique?</h2>
           <p className="cp-section-sub">
             Four principles that separate remembered gifts from forgotten ones.
@@ -242,7 +248,7 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80" alt="Premium corporate gift boxes curated for unique gifting experiences" loading="lazy" />
+        <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE BAND */}
@@ -261,17 +267,16 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get Started</div>
-            <h2 className="cp-cta-title">Order Unique Gifts<br />for Your Team</h2>
+            <h2 className="cp-cta-title">Order Unique Gifts{' '}<br />for Your Team</h2>
             <p className="cp-cta-sub">
               Share your headcount, budget, and occasion - we will curate a
-              unique gifting proposal within 4 hours.
+              unique gifting proposal. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get a Unique Gifting Quote"
-              ctaLabel="Get Quote"
+              ctaLabel="Request a quote"
             />
           </div>
         </div>
@@ -284,7 +289,6 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Unique Corporate Gifts - Frequently Asked Questions"
           />
         </div>
@@ -293,7 +297,6 @@ export default function UniqueGiftsClient({ products, categories }: Props) {
       {/* 10. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

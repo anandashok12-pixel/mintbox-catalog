@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import SameDayDeliveryClient from '@/components/pages/SameDayDeliveryClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Same-Day Corporate Gift Delivery in Bangalore | MintBox',
   description:
-    'Same-day corporate gift delivery across Bangalore - Koramangala, Whitefield, Electronic City, HSR Layout. In-stock branded gifts delivered in 4–6 hours. Get a quote.',
+    'Same-day corporate gift delivery across Bangalore: Koramangala, Whitefield, Electronic City, HSR Layout. In-stock branded gifts in 4 to 6 hours. Get a quote.',
   alternates: { canonical: 'https://themintbox.in/bangalore-corporate-gifting/same-day-delivery' },
   openGraph: {
     title: 'Same-Day Corporate Gift Delivery in Bangalore | MintBox',
     description:
-      'Same-day corporate gift delivery across Bangalore - Koramangala, Whitefield, Electronic City, HSR Layout. In-stock branded gifts delivered in 4–6 hours. Get a quote.',
+      'Same-day corporate gift delivery across Bangalore: Koramangala, Whitefield, Electronic City, HSR Layout. In-stock branded gifts in 4 to 6 hours. Get a quote.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function SameDayDeliveryPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[same-day-delivery] Payload query failed:', err)
   }

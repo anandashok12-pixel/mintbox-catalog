@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import DrinkwareCollectionClient from '@/components/pages/DrinkwareCollectionClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Corporate Drinkware Gifts: Bottles, Mugs & More | MintBox',
   description:
-    'Branded corporate drinkware - stainless bottles, ceramic mugs, tumblers, and travel cups. Logo printing from 25 units. Bulk pricing available. Pan-India delivery.',
+    'Branded corporate drinkware: stainless bottles, ceramic mugs, tumblers and travel cups. Logo printing from 10 units. Bulk pricing and Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/collections/drinkware' },
   openGraph: {
     title: 'Corporate Drinkware Gifts: Bottles, Mugs & More | MintBox',
     description:
-      'Branded corporate drinkware - stainless bottles, ceramic mugs, tumblers, and travel cups. Logo printing from 25 units. Bulk pricing available. Pan-India delivery.',
+      'Branded corporate drinkware: stainless bottles, ceramic mugs, tumblers and travel cups. Logo printing from 10 units. Bulk pricing and Pan-India delivery.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function DrinkwarePage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[drinkware] Payload query failed:', err)
   }

@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import CollectionsHubClient from '@/components/pages/CollectionsHubClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Corporate Gift Collections: Hampers & Curated Sets | MintBox',
@@ -34,7 +35,7 @@ export default async function CollectionsHubPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[collections-hub] Payload query failed:', err)
   }

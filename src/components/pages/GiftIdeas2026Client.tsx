@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -79,8 +80,9 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Corporate Gift Ideas 2026: Trends, Budgets & Top Picks",
-        "description": "Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 25 units.",
+        "description": "Top corporate gift ideas for 2026: eco-friendly, tech, wellness, and personalised gifting trends. Curated for Indian businesses. Bulk from 10 units.",
         "url": "https://themintbox.in/guides/corporate-gift-ideas-2026",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -101,7 +103,7 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
             </nav>
             <div className="cp-hero-eyebrow">Gifting Guide · 2026</div>
             <h1 className="cp-hero-title">
-              Corporate Gift Ideas 2026:<br />
+              Corporate Gift Ideas 2026:{' '}<br />
               <em>Trends, Budgets &amp; Top Picks</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -111,27 +113,33 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Products ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 200+ Clients</span>
-              <span className="cp-hero-badge">✓ 50,000+ Gifts</span>
-              <span className="cp-hero-badge">✓ Pan-India Delivery</span>
-              <span className="cp-hero-badge">✓ GST Invoicing</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/hamper11.webp" alt="Branded gift box ready for your logo" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Green sustainable corporate gifting" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="/hampers/hamper12.webp" alt="Gift set with bottle and dry fruits" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 200+ Clients</span>
+            <span className="cp-hero-badge">✓ 50,000+ Gifts</span>
+            <span className="cp-hero-badge">✓ Pan-India Delivery</span>
+            <span className="cp-hero-badge">✓ GST Invoicing</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -178,7 +186,6 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
       {/* 4. 2026 TRENDS */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">2026 Gifting Trends</div>
           <h2 className="cp-section-title">Top Corporate Gifting Trends for 2026</h2>
           <p className="cp-section-sub">
             Six major trends are reshaping corporate gifting in India in 2026.
@@ -201,9 +208,8 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
       <section className="cp-section cp-section--white">
         <div className="cp-container">
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80" alt="Corporate gift packages curated for 2026" loading="lazy" />
+            <Image src="/hampers/hamper8.webp" alt="Gift hamper contents laid out" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
-          <div className="cp-section-eyebrow">Budget Guide</div>
           <h2 className="cp-section-title">Corporate Gift Ideas by Budget</h2>
           <p className="cp-section-sub">
             Find the right gift for your per-head spend. All options include logo branding and packaging.
@@ -252,7 +258,7 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
       </section>
 
       <figure className="cp-editorial-img" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Modern office workspace - where corporate gifting decisions are made" loading="lazy" />
+        <Image src="/hampers/hamper10.webp" alt="Finished corporate gift box" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE BAND */}
@@ -271,17 +277,16 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get Started</div>
-            <h2 className="cp-cta-title">Plan Your 2026<br />Corporate Gifting</h2>
+            <h2 className="cp-cta-title">Plan Your 2026{' '}<br />Corporate Gifting</h2>
             <p className="cp-cta-sub">
               Share your headcount, budget per head, and delivery timeline - we will
-              respond with a curated proposal within 4 hours.
+              respond with a curated proposal. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get a 2026 Gifting Quote"
-              ctaLabel="Get Quote"
+              ctaLabel="Request a quote"
             />
           </div>
         </div>
@@ -294,7 +299,6 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Corporate Gift Ideas 2026 - Frequently Asked Questions"
           />
         </div>
@@ -303,7 +307,6 @@ export default function GiftIdeas2026Client({ products, categories }: Props) {
       {/* 10. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

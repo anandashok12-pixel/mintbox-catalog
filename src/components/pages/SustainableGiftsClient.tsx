@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -95,7 +96,7 @@ const ESG_CHECKLIST = [
 const FAQ_ITEMS = [
   {
     q: "What are sustainable corporate gift options for Indian companies?",
-    a: "The best sustainable corporate gifts are seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, natural wellness hampers, and stainless steel or copper drinkware. All are available with logo branding from MintBox, MOQ from 25 units.",
+    a: "The best sustainable corporate gifts are seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, natural wellness hampers, and stainless steel or copper drinkware. All are available with logo branding from MintBox, MOQ from 10 units.",
   },
   {
     q: "Are eco-friendly corporate gifts more expensive?",
@@ -133,6 +134,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
         "headline": "Sustainable Corporate Gifts for ESG-Conscious Companies",
         "description": "Eco-friendly and sustainable corporate gifts for ESG-conscious companies. Bamboo, seed kits, recycled stationery, and more. Bulk orders, pan-India delivery.",
         "url": "https://themintbox.in/guides/sustainable-corporate-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -153,7 +155,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
             </nav>
             <div className="cp-hero-eyebrow">ESG &amp; Sustainability · Eco-Friendly Gifting</div>
             <h1 className="cp-hero-title">
-              Sustainable Corporate Gifts<br />
+              Sustainable Corporate Gifts{' '}<br />
               <em>for ESG-Conscious Companies</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -163,34 +165,40 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Eco Gifts ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ MOQ 25 units</span>
-              <span className="cp-hero-badge">✓ Plastic-free packaging</span>
-              <span className="cp-hero-badge">✓ Logo branding available</span>
-              <span className="cp-hero-badge">✓ GST invoicing</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Green sustainable corporate gifting" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p32-b063.jpg" alt="3-in-1 Bamboo Gift Set - Bamboo Flask & Two Mugs" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=800&q=80" alt="Sustainable bamboo corporate gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/CORK%20DESK%20ORGANIZER-2.png" alt="CORK DESK ORGANIZER" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ MOQ 10 units</span>
+            <span className="cp-hero-badge">✓ Plastic-free packaging</span>
+            <span className="cp-hero-badge">✓ Logo branding available</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
+
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Sustainable corporate gifts include seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, and stainless steel drinkware. All available with logo branding from MOQ 25 units. 10–20% price premium over conventional gifts - closing fast as demand grows."
+            content="Sustainable corporate gifts include seed paper stationery, bamboo accessories, recycled notebooks, indoor plant kits, and stainless steel drinkware. All available with logo branding from MOQ 10 units. 10–20% price premium over conventional gifts - closing fast as demand grows."
           />
           <EATSignal
             credentials={[
@@ -232,11 +240,10 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
       {/* 4. ECO CATEGORIES */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Gift Categories</div>
           <h2 className="cp-section-title">Sustainable Corporate Gift Categories</h2>
           <p className="cp-section-sub">
             Six categories of eco-friendly gifts - each available with logo branding from MOQ
-            25 units.
+            10 units.
           </p>
           <div className="cp-card-grid cp-card-grid--3">
             {ECO_CATEGORIES.map((cat) => (
@@ -282,7 +289,6 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
       {/* 5. ESG CHECKLIST */}
       <section className="cp-section cp-section--white">
         <div className="cp-container--narrow">
-          <div className="cp-section-eyebrow">ESG Guide</div>
           <h2 className="cp-section-title">ESG Gift Checklist: Is Your Gift Truly Sustainable?</h2>
           <p className="cp-section-sub">
             Use this checklist to evaluate any corporate gift against sustainability criteria.
@@ -342,7 +348,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80" alt="Sustainable eco-friendly corporate gifts including bamboo accessories and recycled stationery" loading="lazy" />
+        <Image src="/hampers/onboarding.webp" alt="Employee onboarding gift baskets" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE BAND */}
@@ -362,8 +368,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Eco-Friendly Gifting</div>
-            <h2 className="cp-cta-title">Build Your<br />Sustainable Gift Programme</h2>
+            <h2 className="cp-cta-title">Build Your{' '}<br />Sustainable Gift Programme</h2>
             <p className="cp-cta-sub">
               Tell us your ESG requirements, budget, and headcount - we will recommend eco-friendly
               products that meet your sustainability criteria and brand guidelines.
@@ -372,7 +377,7 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Eco Gift Quote"
-              ctaLabel="Get Eco Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="sustainable"
             />
           </div>
@@ -386,7 +391,6 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Sustainable Corporate Gifts - Frequently Asked Questions"
           />
         </div>
@@ -395,7 +399,6 @@ export default function SustainableGiftsClient({ products, categories }: Props) 
       {/* 10. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

@@ -3,11 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import WelcomeKitClient from '@/components/pages/WelcomeKitClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
   title: 'Employee Welcome Kits: Onboarding Gift Sets | MintBox',
   description:
-    'Branded employee welcome kits for Day 1 onboarding - notebooks, bottles, tees, and more. MOQ from 10 units. Custom logo included. Pan-India delivery in 7–10 days.',
+    'Branded employee welcome kits for Day 1 onboarding: notebooks, bottles, tees and more. MOQ from 10 units, custom logo included. Pan-India delivery.',
   alternates: { canonical: 'https://themintbox.in/collections/employee-welcome-kit' },
   openGraph: {
     title: 'Employee Welcome Kits: Onboarding Gift Sets - MintBox',
@@ -34,7 +35,7 @@ export default async function WelcomeKitPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[employee-welcome-kit] Payload query failed:', err)
   }

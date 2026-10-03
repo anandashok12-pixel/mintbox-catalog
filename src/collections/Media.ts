@@ -1,9 +1,10 @@
 import type { CollectionConfig } from 'payload'
+import { anyone, authenticated } from '../access/authenticated'
 
 // Media URLs are generated from payload's serverURL (NEXT_PUBLIC_URL), which
 // historically pointed at mintbox-catalog.vercel.app. Rendering those absolute
 // URLs on themintbox.in makes next/image proxy every product image through a
-// second cross-domain serverless hop — slow enough that Googlebot's renderer
+// second cross-domain serverless hop - slow enough that Googlebot's renderer
 // gives up ("Other error" in Search Console). Rewriting them to relative
 // /api/media/... paths keeps every fetch same-origin on whichever domain
 // served the page.
@@ -16,10 +17,10 @@ const stripMediaOrigin = (url: unknown): unknown => {
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    read: () => true,
-    create: () => true,
-    update: () => true,
-    delete: () => true,
+    read: anyone,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
   },
   hooks: {
     afterRead: [

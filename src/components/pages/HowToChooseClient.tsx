@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -158,6 +159,7 @@ export default function HowToChooseClient({ products, categories }: { products: 
         "headline": "How to Choose Corporate Gifts: A Practical 2026 Guide",
         "description": "Step-by-step guide to picking the right corporate gifts - by occasion, recipient, budget, and customisation. Avoid common mistakes. 200+ options from MintBox.",
         "url": "https://themintbox.in/guides/how-to-choose-corporate-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -179,41 +181,46 @@ export default function HowToChooseClient({ products, categories }: { products: 
             <div>
               <div className="cp-hero-eyebrow">Gift Selection Guide · Updated May 2026</div>
               <h1 className="cp-hero-title">
-                How to Choose Corporate Gifts:<br />
+                How to Choose Corporate Gifts:{' '}<br />
                 <em>A Practical 2026 Guide</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                A step-by-step framework for selecting the right corporate gift - by recipient, occasion,
-                budget, and customisation. Avoid common mistakes and find gifts that get remembered.
+                A step-by-step framework for choosing corporate gifts by recipient, occasion, budget and customisation, and the mistakes to avoid.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Gift Options ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get Free Consultation</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ Step-by-step framework</span>
-                <span className="cp-hero-badge">✓ By occasion & recipient</span>
-                <span className="cp-hero-badge">✓ Budget calculator</span>
-                <span className="cp-hero-badge">✓ Free consultation</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero1.webp" alt="Artisan festive gift hamper" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1556742212-5b321f3c261b?auto=format&fit=crop&w=800&q=80" alt="Corporate gifting planning checklist" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero2.webp" alt="Corporate gift box with mug and notebook" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Creative corporate gifting ideas workspace" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Step-by-step framework</span>
+            <span className="cp-hero-badge">✓ By occasion & recipient</span>
+            <span className="cp-hero-badge">✓ Budget calculator</span>
+            <span className="cp-hero-badge">✓ Free consultation</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -260,7 +267,6 @@ export default function HowToChooseClient({ products, categories }: { products: 
       {/* ── DECISION FRAMEWORK ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Selection Framework</div>
           <h2 className="cp-section-title">5 Steps to the Right Corporate Gift</h2>
           <p className="cp-section-sub">
             Follow these steps in order. Each answer narrows the field until you have a clear,
@@ -281,13 +287,12 @@ export default function HowToChooseClient({ products, categories }: { products: 
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Planning the right corporate gift selection for your team" loading="lazy" />
+        <Image src="/hampers/hamper7.webp" alt="Festive gift tray with planner and treats" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">All Options</div>
           <h2 className="cp-section-title">Browse 200+ Corporate Gift Options</h2>
           <p className="cp-section-sub">
             Search by category, filter by price, or browse all options. Click any product to
@@ -336,13 +341,12 @@ export default function HowToChooseClient({ products, categories }: { products: 
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80" alt="Curated corporate gift packages ready for corporate clients" loading="lazy" />
+        <Image src="/hampers/hamper8.webp" alt="Gift hamper contents laid out" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── OCCASION CARDS ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Occasion Cheat-Sheet</div>
           <h2 className="cp-section-title">The Right Gift for Every Occasion</h2>
           <p className="cp-section-sub">
             Quick reference for the six most common corporate gifting occasions - what to give,
@@ -380,17 +384,17 @@ export default function HowToChooseClient({ products, categories }: { products: 
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Free Gift Consultation</div>
-            <h2 className="cp-cta-title">Get a Free<br />Gift Consultation</h2>
+            <h2 className="cp-cta-title">Get a Free{' '}<br />Gift Consultation</h2>
             <p className="cp-cta-desc">
               Tell us your recipient, occasion, and budget and we will send back a curated
-              shortlist of three options with real pricing - within 4 hours.
+              shortlist of three options with real pricing. We reply within 1 hour on business days.
             </p>
             <div className="cp-cta-promises">
               {[
                 'Personalised shortlist for your occasion',
                 'Samples available before bulk order',
                 'No obligation, no minimum',
-                'Response within 4 business hours',
+                'Reply within 1 hour on business days',
               ].map(p => (
                 <div key={p} className="cp-cta-promise">
                   <span className="cp-cta-promise-dot" />
@@ -402,7 +406,7 @@ export default function HowToChooseClient({ products, categories }: { products: 
           <InlineQuoteForm
             title="Get a Free Gift Consultation"
             subtitle="Tell us your occasion, recipient, and budget - we'll send personalised gift recommendations."
-            ctaLabel="Start My Gift Search"
+            ctaLabel="Request a quote"
             defaultOccasion="other"
           />
         </div>
@@ -416,7 +420,6 @@ export default function HowToChooseClient({ products, categories }: { products: 
           <FAQSection
             items={FAQS}
             title="How to Choose Corporate Gifts - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -424,7 +427,6 @@ export default function HowToChooseClient({ products, categories }: { products: 
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Guides & Collections</h2>
           <div className="cp-related-grid">
             {[

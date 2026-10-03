@@ -1,11 +1,13 @@
 'use client'
 
+import { ABOUT_FOUNDING_STORY } from '@/data/aboutFoundingStory'
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import '../app/(main)/landing.css'
 import '../app/(main)/about/about.css'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
+import ClientLogos from '@/components/content/ClientLogos'
 import { WhatsAppFloat } from './WhatsAppFloat'
 
 interface AboutPageData {
@@ -61,17 +63,8 @@ const EMPTY: AboutPageData = {
     bannerImage: null,
     caption: 'Every product is sourced, sampled, and physically evaluated before it earns a place in a MintBox.',
   },
-  foundingStory: {
-    label: 'The Founding Story',
-    title: 'Born from a box that disappointed.',
-    storyImage: null,
-    paragraph1: 'It started with a bad experience. Not one bad experience - dozens of them. As a founder who had hired teams, managed vendors, and sat through more than a few uncomfortable conversations about why the Diwali gifts arrived three days late and with the wrong logo - we knew something was fundamentally broken about how corporate gifting worked in India.',
-    pullQuote: 'The industry had hundreds of vendors. It had no one who actually cared about what happened when the box was opened.',
-    paragraph2: "The problem wasn't a lack of products. India has extraordinary manufacturers, brilliant artisans, and a gifting culture that runs deep. The problem was the layer between - the opaque pricing, the outsourced branding, the “we’ll check with the courier” non-answers, and the invoices that bore no resemblance to the quote.",
-    paragraph3: 'We started MintBox with a simple conviction: a premium corporate gift should work like a premium product. It should arrive on time. The logo should look exactly like the mockup. The invoice should match the quote. The person who opens it should feel - genuinely - that someone thought about them specifically.',
-    paragraph4: 'We launched in Bengaluru because this city - with its density of tech companies, its globally minded workforce, and its founders who understand what brand quality means - is the perfect place to build a gifting brand that holds itself to a higher standard. If we can earn the trust of teams building India’s most ambitious companies, we’ve done something worth doing.',
-    paragraph5: 'MintBox is still early. We’re a small team, we’re pre-launch, and we’re building every process and every partnership from scratch with quality as the only non-negotiable. We won’t ship a gift we wouldn’t be proud to receive ourselves.',
-  },
+  foundingStory: { ...ABOUT_FOUNDING_STORY, storyImage: null },
+
   whatBroke: {
     label: 'What We Set Out To Fix',
     title: 'The five things that were broken before MintBox existed.',
@@ -93,10 +86,10 @@ const EMPTY: AboutPageData = {
       { num: '01', title: 'Craftsmanship', tag: 'Quality first', desc: 'Every product in our catalogue has been sourced, sampled, and physically evaluated.', example: '“We rejected three notebook suppliers before finding one whose debossing held to our spec.”' },
       { num: '02', title: 'Transparency', tag: 'No surprises', desc: 'What you see on the quote is what appears on the invoice - line for line.', example: '“We have never billed a rupee that wasn’t discussed upfront.”' },
       { num: '03', title: 'Reliability', tag: 'On time, always', desc: 'We set honest lead times and track every individual shipment.', example: '“We plan every festive order with a minimum three-week buffer.”' },
-      { num: '04', title: 'Human connection', tag: 'People, not portals', desc: 'Every new client speaks to a person. Every enquiry gets a response from Anand personally.', example: '“Anand picks up every WhatsApp. That won’t change.”' },
+      { num: '04', title: 'Human connection', tag: 'People, not portals', desc: 'Every new client speaks to a person. Every enquiry gets a response from a real person on our team.', example: '“Every WhatsApp message gets read and answered by a person.”' },
     ],
   },
-  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'anand@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631', cardName: 'Anand Ashok', cardRole: 'Director, MintBox', portrait: null },
+  founder: { label: '', title: '', bioParagraph1: '', bioParagraph2: '', email: 'hello@themintbox.in', phone: '+91 9886537631', whatsappUrl: 'https://wa.me/919886537631', cardName: 'Ashok Kumar N', cardRole: 'Founder, MintBox', portrait: null },
   cta: {
     title: 'Work with the team that takes gifting seriously.',
     subtitle: "Whether you're planning a 50-person Diwali pack or onboarding 500 new hires next quarter - we'd love to hear what you're building and show you what good gifting can feel like.",
@@ -112,7 +105,7 @@ const mergeNonNull = <T extends Record<string, any>>(base: T, overrides: Record<
   const result: Record<string, any> = { ...base }
   if (overrides) {
     for (const [k, v] of Object.entries(overrides)) {
-      // Skip null, undefined, and empty arrays  -  fall back to base defaults
+      // Skip null, undefined, and empty arrays - fall back to base defaults
       if (v === null || v === undefined) continue
       if (Array.isArray(v) && v.length === 0) continue
       if (typeof v === 'string' && v.trim() === '') continue
@@ -221,7 +214,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         <div className="ab-hero-pat" />
         <div className="ab-hero-inner">
           <h1 className="ab-hero-title">
-            {data.hero.titleLine1}<br />
+            {data.hero.titleLine1}{' '}<br />
             <em>{data.hero.titleLine2}</em>
           </h1>
           <div className="ab-hero-rule-gold" />
@@ -283,7 +276,35 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         </div>
       </section>
 
-      {/* WHAT WAS BROKEN  -  horizontal scroll cards */}
+      {/* FOUNDER */}
+      <section className="ab-lead" aria-labelledby="ab-lead-title">
+        <div className="ab-lead-inner">
+          <div className="ab-lead-photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/founder-ashok-kumar.jpg" alt="Ashok Kumar N, founder of MintBox" width={800} height={793} loading="lazy" />
+          </div>
+          <div className="ab-lead-copy">
+            <div className="ab-story-label">Meet the founder</div>
+            <h2 id="ab-lead-title" className="ab-lead-title">Ashok Kumar N</h2>
+            <p className="ab-lead-role">Founder, MintBox &middot; Former Indian Air Force &middot; Former AVP Operations, Updater Services (UDS)</p>
+            <p className="ab-story-p">
+              Ashok spent twenty years in the Indian Air Force as a technical supervisor, where the standard was simple: the work is done properly, on time, and checked before it leaves your hands. Procedure was never a burden. It was how you earned the right to be trusted.
+            </p>
+            <p className="ab-story-p">
+              He carried that discipline into a second career in project and operations leadership, with roles at HCL Infosystems, GE Power and Sodexo, and eight years at Updater Services (UDS), where he rose from Regional Manager to General Manager and then AVP Operations. His work there was managing people, vendors and service delivery for corporate clients across Bengaluru, which meant he knew exactly how a promise to a client turns into a promise to be kept.
+            </p>
+            <p className="ab-story-p">
+              He started MintBox in 2025 to bring that same standard to corporate gifting: honest lead times, one price that matches the invoice, and a quality check on every box before it leaves. When you work with MintBox, you are working with a founder who still treats delivery as a matter of honour.
+            </p>
+            <div className="ab-lead-links">
+              <a href="https://www.linkedin.com/in/ashok-kumar-5350a47/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+              <a href="https://wa.me/919886537631" target="_blank" rel="noopener noreferrer">WhatsApp +91 98865 37631</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WAS BROKEN - horizontal scroll cards */}
       <div className="ab-broke">
         <div className="ab-broke-pat" />
         <div className="ab-broke-header">
@@ -316,7 +337,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         </div>
       </div>
 
-      {/* VALUES section removed — was redundant with the "five things we set
+      {/* VALUES section removed - was redundant with the "five things we set
           out to fix" section above it. */}
 
 
@@ -341,6 +362,8 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
           </div>
         </div>
       </section>
+
+      <ClientLogos tone="cream" />
 
       <Footer />
       <WhatsAppFloat />

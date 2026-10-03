@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -102,6 +103,7 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
         "headline": "Corporate Gifting Trends 2026: What Indian Companies Are Ordering",
         "description": "The top corporate gifting trends for 2026: sustainability, personalisation, tech gifts, and wellness. MintBox insight for Indian HR and procurement teams.",
         "url": "https://themintbox.in/guides/corporate-gifting-trends-2026",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -115,13 +117,13 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
             <div className="cp-breadcrumb">
               <a href="/">Home</a> › <a href="/guides/corporate-gifting-handbook">Guides</a> › Gifting Trends 2026
             </div>
-            <h1 className="cp-hero-title">Corporate Gifting Trends 2026: What Indian Companies Are Ordering</h1>
+            <h1 className="cp-hero-title">Corporate Gifting Trends 2026: What Indian Teams Order</h1>
             <p className="cp-hero-subtitle">
               Sustainability, deep personalisation, remote work kits, and wellness boxes - the six trends reshaping Indian corporate gifting in 2026.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-btn-primary">Browse Trending Gifts</a>
-              <a href="#quote" className="cp-btn-secondary">Get Quote</a>
+              <a href="#quote" className="cp-btn-secondary">Request a quote</a>
             </div>
           </div>
         </section>
@@ -197,7 +199,7 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Team office meeting discussing corporate gifting trends for 2026" loading="lazy" />
+          <Image src="/hampers/onboarding.webp" alt="Employee onboarding gift baskets" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* What to Avoid */}
@@ -229,7 +231,7 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
         </section>
 
         <figure className="cp-editorial-img">
-          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" alt="Modern office workspace reflecting 2026 corporate gifting trends" loading="lazy" />
+          <Image src="/hampers/wfh-essentials.webp" alt="Work-from-home essentials hamper" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
         </figure>
 
         {/* Quote Band */}
@@ -239,7 +241,7 @@ export default function GiftingTrendsClient({ products, categories }: Props) {
             <p className="cp-quote-sub">
               Our team curates trend-forward gifting programmes for Indian corporates - sustainable, personalised, and delivered on time.
             </p>
-            <a href="#quote" className="cp-btn-primary">Get a Custom Quote</a>
+            <a href="#quote" className="cp-btn-primary">Request a quote</a>
           </div>
         </section>
 

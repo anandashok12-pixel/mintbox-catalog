@@ -7,14 +7,17 @@
  *   - "Products" (slug diwali-2026-products) - new, empty until
  *     import-diwali-2026-via-rest.ts populates it with the 50 new products.
  *
- * Uses the public REST API (categories have create/update access open, same
- * as the live site's own writes) - no local DB credentials needed. Run this
+ * Uses the REST API - no local DB credentials needed. Writes log in as a
+ * Payload admin via PAYLOAD_ADMIN_EMAIL / PAYLOAD_ADMIN_PASSWORD (see
+ * scripts/lib/payloadAuth.ts); --dry needs no credentials. Run this
  * BEFORE import-diwali-2026-via-rest.ts.
  *
  * Usage:
  *   npx tsx scripts/migrate-diwali-gifting-categories.ts --dry
  *   npx tsx scripts/migrate-diwali-gifting-categories.ts
  */
+import { authHeaders } from './lib/payloadAuth'
+
 const BASE_URL = 'https://themintbox.in'
 const LEGACY_SLUG = 'diwali-gift-boxes'
 const PARENT_SLUG = 'diwali-gifting'
@@ -38,7 +41,7 @@ async function findBySlug(slug: string): Promise<Category | null> {
 async function createCategory(body: Record<string, unknown>): Promise<Category> {
   const res = await fetch(`${BASE_URL}/api/categories`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders(BASE_URL)) },
     body: JSON.stringify(body),
   })
   if (!res.ok) throw new Error(`Create failed: HTTP ${res.status} - ${(await res.text()).slice(0, 300)}`)
@@ -49,7 +52,7 @@ async function createCategory(body: Record<string, unknown>): Promise<Category> 
 async function updateCategory(id: number, body: Record<string, unknown>): Promise<Category> {
   const res = await fetch(`${BASE_URL}/api/categories/${id}`, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders(BASE_URL)) },
     body: JSON.stringify(body),
   })
   if (!res.ok) throw new Error(`Update failed for id ${id}: HTTP ${res.status} - ${(await res.text()).slice(0, 300)}`)

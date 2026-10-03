@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -79,10 +80,10 @@ const SUBCATEGORIES = [
 
 const OCCASIONS_TABLE = [
   { occasion: 'Onboarding Kit', recommended: 'Notebook + pen + planner', budget: '₹350–₹700', moq: '10' },
-  { occasion: 'Conference Giveaway', recommended: 'Branded pen + notepad', budget: '₹80–₹200', moq: '100' },
+  { occasion: 'Conference Giveaway', recommended: 'Branded pen + notepad', budget: '₹80–₹200', moq: '10' },
   { occasion: 'Client Gift', recommended: 'Premium hardcover notebook + pen set', budget: '₹400–₹900', moq: '1' },
-  { occasion: 'Diwali', recommended: 'Elegant planner + pen in gift box', budget: '₹500–₹1,200', moq: '25' },
-  { occasion: 'Team Event', recommended: 'Branded sticky notes + pen', budget: '₹100–₹200', moq: '50' },
+  { occasion: 'Diwali', recommended: 'Elegant planner + pen in gift box', budget: '₹500–₹1,200', moq: '10' },
+  { occasion: 'Team Event', recommended: 'Branded sticky notes + pen', budget: '₹100–₹200', moq: '10' },
   { occasion: 'Work Anniversary', recommended: 'Premium leather-look journal', budget: '₹500–₹1,500', moq: '1' },
 ]
 
@@ -108,7 +109,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What's the minimum order for custom-printed notebooks?",
-    a: 'MOQ for custom-printed notebooks is 50 units. For standard logo printing on existing designs, 50 units is required. Custom interior layouts (goals pages, branded templates) require 100 units minimum.',
+    a: 'The MOQ is 10 units, including custom-printed notebooks, standard logo printing and custom interior layouts (goals pages, branded templates).',
   },
   {
     q: 'Can I mix notebook sizes and types in one order?',
@@ -159,38 +160,42 @@ export default function StationeryCollectionClient({ products, categories }: { p
             </nav>
             <div className="cp-hero-eyebrow">Category · Stationery</div>
             <h1 className="cp-hero-title">
-              Corporate Stationery Gifts:<br />
+              Corporate Stationery Gifts:{' '}<br />
               <em>Notebooks, Pens &amp; Desk Sets</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Branded notebooks, quality pens, planners, sticky notes, and desk sets for offices,
-              onboarding kits, and client gifts. Logo printing from 50 units. Items employees
-              actually use daily.
+              Branded notebooks, pens, planners and desk sets for offices, onboarding kits and client gifts. Logo printing from 10 units.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Stationery ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Stationery Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 50+ stationery SKUs</span>
-              <span className="cp-hero-badge">✓ Logo printing from 50 units</span>
-              <span className="cp-hero-badge">✓ Eco-friendly options</span>
-              <span className="cp-hero-badge">✓ Starts at ₹25/unit</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80" alt="Premium corporate stationery notebook" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/CAVALO%20-%20Be%20Unique%20Leather%20Diary%20Embossed%20With%20Leaf%20of%20Tree%20%26%20a%20Quote%20Antique%20Handmade%20Leather%20Bound%20Diary.png" alt="Handmade Leather Diary, Leaf Embossed (240pg)" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=800&q=80" alt="Personalised pen stationery gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/REGAL%20Timeless%20Charm%20A-5%20PU%20Leather%20Notebook%20Diary%20Journal%20with%20Magnetic%20Flap%20Closure%20and%20Pen%20Holder%2C.png" alt="Timeless Charm A5 PU Leather Notebook (Deep Brown)" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 50+ stationery SKUs</span>
+            <span className="cp-hero-badge">✓ Logo printing from 10 units</span>
+            <span className="cp-hero-badge">✓ Eco-friendly options</span>
+            <span className="cp-hero-badge">✓ Starts at ₹25/unit</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -202,7 +207,7 @@ export default function StationeryCollectionClient({ products, categories }: { p
           <EATSignal credentials={[
             '50+ stationery SKUs from notebooks to desk organizers',
             'Eco-friendly options (recycled paper, bamboo pens)',
-            'Logo printing on all items from 50 units',
+            'Logo printing on all items from 10 units',
             'Perfect for onboarding, conferences, and client gifting',
             'Ships Pan-India in 7–10 days',
           ]} />
@@ -237,7 +242,6 @@ export default function StationeryCollectionClient({ products, categories }: { p
       {/* 4. PRODUCT SHOWCASE */}
       <section className="cp-section cp-section--cream" id="products">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Browse</div>
           <h2 className="cp-section-title">Browse Stationery Products</h2>
           <ContentProductShowcase
             products={products}
@@ -252,7 +256,6 @@ export default function StationeryCollectionClient({ products, categories }: { p
       {/* 5. SUB-CATEGORIES */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Product Types</div>
           <h2 className="cp-section-title">Stationery Formats for Corporate Gifting</h2>
           <p className="cp-section-sub">
             From budget ballpoint pens for conference bags to premium hardcover journals for client appreciation
@@ -271,7 +274,7 @@ export default function StationeryCollectionClient({ products, categories }: { p
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1200&q=80" alt="Premium branded corporate stationery including notebooks, pens and planners" loading="lazy" />
+            <Image src="/hampers/hamper8.webp" alt="Gift hamper contents laid out" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -323,7 +326,6 @@ export default function StationeryCollectionClient({ products, categories }: { p
       {/* 8. BULK PRICING TIERS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Pricing</div>
           <h2 className="cp-section-title">Bulk Pricing Tiers</h2>
           <p className="cp-section-sub">
             The more you order, the better the per-unit price. All tiers include logo printing.
@@ -355,16 +357,15 @@ export default function StationeryCollectionClient({ products, categories }: { p
       <section className="cp-cta-section" id="quote">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
-            <h2 className="cp-cta-title">Ready to Order<br />Branded Stationery?</h2>
+            <h2 className="cp-cta-title">Ready to Order{' '}<br />Branded Stationery?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, occasion, and logo - we will respond with pricing and a free digital mockup. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Stationery Pricing"
-              ctaLabel="Request Stationery Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="welcome_kit"
             />
           </div>
@@ -378,7 +379,6 @@ export default function StationeryCollectionClient({ products, categories }: { p
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Corporate Stationery - Frequently Asked Questions"
           />
         </div>

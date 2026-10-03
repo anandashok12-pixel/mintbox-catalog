@@ -35,7 +35,6 @@ const GROUPS: GuideGroup[] = [
     guides: [
       { emoji: '🪔', title: 'Diwali Corporate Gifts', desc: 'Ideas for every budget, for 2026.', href: '/guides/diwali-corporate-gifts' },
       { emoji: '🎁', title: 'Diwali Gifts for Employees', desc: 'Planning Diwali gifting for your whole team.', href: '/guides/diwali-gifts-for-employees' },
-      { emoji: '📦', title: 'Diwali Gifts by Budget', desc: '15 employee gift ideas at every price point.', href: '/guides/diwali-gifts-for-employees-by-budget' },
       { emoji: '⚖️', title: 'Employees vs Clients vs VIPs', desc: 'How Diwali hampers should differ by recipient.', href: '/guides/diwali-hampers-for-employees-vs-clients' },
       { emoji: '🎄', title: 'Christmas Corporate Gifts', desc: 'Ideas for employees and clients this Christmas.', href: '/guides/christmas-corporate-gifts' },
     ],
@@ -93,7 +92,7 @@ export default function GuidesHubClient() {
             <span className="cp-breadcrumb-current">Guides</span>
           </nav>
           <div className="cp-hero-eyebrow">Corporate Gifting Guides</div>
-          <h1 className="cp-hero-title">Everything You Need to Get<br />Corporate Gifting Right</h1>
+          <h1 className="cp-hero-title">Everything You Need to Get{' '}<br />Corporate Gifting Right</h1>
           <div className="cp-hero-rule" />
           <p className="cp-hero-sub">
             22 practical guides covering budgets, festivals, occasions, and gifting strategy - built
@@ -105,7 +104,6 @@ export default function GuidesHubClient() {
       {GROUPS.map(group => (
         <section key={group.heading} className="cp-section cp-section--white">
           <div className="cp-container">
-            <div className="cp-section-eyebrow">{group.eyebrow}</div>
             <h2 className="cp-section-title">{group.heading}</h2>
             <div className="cp-cards-grid cp-cards-grid--3">
               {group.guides.map(guide => (
@@ -123,7 +121,6 @@ export default function GuidesHubClient() {
 
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

@@ -10,6 +10,10 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
+from payload_auth import auth_headers  # noqa: E402
 
 BASE_URL = "http://localhost:3000"
 
@@ -24,20 +28,20 @@ def api_get(path):
 def api_post(path, data):
     url = BASE_URL + path
     body = json.dumps(data).encode()
-    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json", **auth_headers(BASE_URL)}, method="POST")
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read())
 
 def api_patch(path, data):
     url = BASE_URL + path
     body = json.dumps(data).encode()
-    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="PATCH")
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json", **auth_headers(BASE_URL)}, method="PATCH")
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read())
 
 def api_delete(path):
     url = BASE_URL + path
-    req = urllib.request.Request(url, headers={"Content-Type": "application/json"}, method="DELETE")
+    req = urllib.request.Request(url, headers={"Content-Type": "application/json", **auth_headers(BASE_URL)}, method="DELETE")
     try:
         with urllib.request.urlopen(req) as resp:
             return json.loads(resp.read())

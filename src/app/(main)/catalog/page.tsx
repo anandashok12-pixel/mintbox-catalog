@@ -5,7 +5,7 @@ import CatalogClient from '@/components/catalog/CatalogClient'
 export const metadata = {
   title: 'Corporate Gifting Catalogue: Browse All Products | MintBox',
   description:
-    'Browse the MintBox corporate gifting catalogue — sweets and mithai, gourmet hampers, drinkware, tech, apparel and eco-friendly gifts. Build a pack and request a quote.',
+    'Browse the MintBox corporate gifting catalogue: sweets, gourmet hampers, drinkware, tech, apparel and eco-friendly gifts. Build a pack and request a quote.',
   alternates: { canonical: 'https://themintbox.in/catalog' },
 }
 
@@ -26,7 +26,8 @@ export default async function CatalogPage() {
         collection: 'products',
         where: { inStock: { equals: true } },
         sort: 'order',
-        limit: 500,
+        // No cap: the in-stock catalogue outgrew fixed limits (630 products, Oct 2026)
+        pagination: false,
         depth: 1,
       }),
     ])

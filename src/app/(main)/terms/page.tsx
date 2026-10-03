@@ -63,9 +63,8 @@ export default function TermsPage() {
                 need to re-confirm.
               </p>
               <p>
-                Most products carry a minimum order quantity (MOQ) of 10 units. Curated hampers and
-                fully-branded boxes typically have an MOQ of 25 units. Specific MOQs are confirmed
-                in your written quote.
+                Our minimum order quantity (MOQ) is 10 units, including curated hampers and
+                fully-branded boxes. Quantities are confirmed in your written quote.
               </p>
               <p>
                 An order is formally accepted only when you confirm the quote in writing (by email
@@ -84,7 +83,7 @@ export default function TermsPage() {
               </p>
               <ul>
                 <li>
-                  <strong>50% advance</strong> on confirmation of the order &mdash; this covers
+                  <strong>50% advance</strong> on confirmation of the order - this covers
                   procurement of raw materials and branding setup.
                 </li>
                 <li>
@@ -188,8 +187,8 @@ export default function TermsPage() {
           body: (
             <>
               <p>
-                The Site &mdash; including the MintBox name, logo, copy, photography, layout, and
-                code &mdash; is owned by MintBox and protected by Indian and international
+                The Site - including the MintBox name, logo, copy, photography, layout, and
+                code - is owned by MintBox and protected by Indian and international
                 intellectual property laws. You may not copy, redistribute, or use any part of the
                 Site for commercial purposes without our written permission.
               </p>
@@ -246,7 +245,7 @@ export default function TermsPage() {
               </p>
               <p>
                 We prefer to resolve issues directly and informally. Please email{' '}
-                <a href="mailto:hello@themintbox.in">hello@themintbox.in</a> first &mdash; we
+                <a href="mailto:hello@themintbox.in">hello@themintbox.in</a> first - we
                 respond promptly and take complaints seriously.
               </p>
             </>

@@ -3,7 +3,7 @@ import { LandingPage } from '@/components/LandingPage'
 
 export const metadata: Metadata = {
   description:
-    'MintBox is a Bengaluru corporate gifting partner — curated festive hampers, branded onboarding kits and premium gifts for employees and clients, with transparent bulk pricing and pan-India delivery.',
+    'MintBox is a Bengaluru corporate gifting partner: curated festive hampers, branded onboarding kits and premium gifts, with transparent bulk pricing.',
   alternates: { canonical: 'https://themintbox.in' },
 }
 
@@ -14,7 +14,7 @@ const organizationSchema = {
   url: 'https://themintbox.in',
   logo: 'https://themintbox.in/mintbox-logo.webp',
   description:
-    'Premium corporate gifting packs for every occasion — curated, customized, and delivered across India.',
+    'Premium corporate gifting packs for every occasion: curated, customized and delivered across India.',
   telephone: '+919886537631',
   email: 'hello@themintbox.in',
   address: {

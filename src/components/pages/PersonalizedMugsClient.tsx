@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -53,9 +54,9 @@ const PERSONALISATION_OPTIONS = [
 ]
 
 const FAQ_ITEMS = [
-  { q: "What types of personalized mugs does MintBox offer?", a: "MintBox offers ceramic mugs, enamel mugs, stainless steel travel mugs, and double-wall glass mugs. All can be branded with your logo via sublimation printing, laser engraving, or screen printing. MOQ from 25 units." },
+  { q: "What types of personalized mugs does MintBox offer?", a: "MintBox offers ceramic mugs, enamel mugs, stainless steel travel mugs, and double-wall glass mugs. All can be branded with your logo via sublimation printing, laser engraving, or screen printing. MOQ from 10 units." },
   { q: "Can mugs be personalized with individual employee names?", a: "Yes. Individual name personalisation is available for orders of 25+ units. Each mug can have a unique name printed or engraved alongside your company logo. This is popular for onboarding kits and appreciation gifts." },
-  { q: "What is the minimum order for personalized coffee mugs?", a: "The minimum order quantity is 25 units. Volume pricing applies from 100 units. For mixed personalisation (different names), no extra MOQ is required." },
+  { q: "What is the minimum order for personalized coffee mugs?", a: "The minimum order quantity is 10 units. Volume pricing applies from 100 units. For mixed personalisation (different names), no extra MOQ is required." },
   { q: "How long does production take for branded mugs?", a: "Standard orders are ready in 7–10 business days from artwork approval. For ceramic sublimation, allow an extra 2–3 business days. Rush Bangalore delivery is available for in-stock items." },
   { q: "What file format do I need for mug logo printing?", a: "We accept AI, EPS, or high-resolution PNG files (300 DPI+). For sublimation, SVG or vector formats give the sharpest results. Our design team can prepare a free mockup before production." },
 ]
@@ -98,20 +99,20 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
             <h1 className="cp-hero-title">Personalized Coffee Mugs for Corporate Gifting</h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Logo-branded mugs your team will use every day - ceramic, enamel, and steel. MOQ 25 units.
+              Logo-branded mugs your team will use every day - ceramic, enamel, and steel. MOQ 10 units.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Mugs</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Branded corporate coffee mug gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/thenga-coffee-mug-coaster.jpg" alt="Coffee Mug with Coaster" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=800&q=80" alt="Premium tea mug personalised gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/Coffee%20Mug.jpeg" alt="Coffee Mug" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
@@ -123,13 +124,13 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="MintBox offers personalized corporate coffee mugs - ceramic, enamel, stainless steel, and glass - with logo printing or employee name personalisation. MOQ from 25 units. Price from ₹150. Turnaround 7–10 business days."
+            content="MintBox offers personalized corporate coffee mugs - ceramic, enamel, stainless steel, and glass - with logo printing or employee name personalisation. MOQ from 10 units. Price from ₹150. Turnaround 7–10 business days."
           />
           <EATSignal credentials={[
             "4 mug types: ceramic, enamel, stainless steel, and glass",
-            "Individual employee name printing from 25 units",
+            "Individual employee name printing from 10 units",
             "Full-colour sublimation, laser engraving, and screen print options",
-            "Free digital mockup within 24 hours of artwork submission",
+            "Free digital mockup within 48 hours of artwork submission",
             "Pan-India delivery in 7–10 business days",
           ]} />
         </div>
@@ -163,7 +164,6 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
       {/* 4. MUG TYPES TABLE */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Product Types</div>
           <h2 className="cp-section-title">Types of Personalized Corporate Mugs</h2>
           <div className="cp-table-wrap">
             <table className="cp-table">
@@ -197,7 +197,6 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
       {/* 5. PERSONALISATION OPTIONS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Options</div>
           <h2 className="cp-section-title">Personalisation Options</h2>
           <div className="cp-cards-grid cp-cards-grid--2">
             {PERSONALISATION_OPTIONS.map(item => (
@@ -211,7 +210,7 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80" alt="Personalised branded corporate coffee mugs for gifting" loading="lazy" />
+        <Image src="/hampers/hero1.webp" alt="Artisan festive gift hamper" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 6. PRODUCT SHOWCASE */}
@@ -244,16 +243,15 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
       <section className="cp-cta-section" id="quote">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Get a Quote</div>
-            <h2 className="cp-cta-title">Ready to Order<br />Personalized Mugs?</h2>
+            <h2 className="cp-cta-title">Ready to Order{' '}<br />Personalized Mugs?</h2>
             <p className="cp-cta-sub">
-              Share your quantity, mug type, and logo. We will respond with pricing and a free digital mockup within 4 hours.
+              Share your quantity, mug type, and logo. We will respond with pricing and a free digital mockup. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Mug Pricing"
-              ctaLabel="Request Mug Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="welcome_kit"
             />
           </div>
@@ -267,7 +265,6 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Personalized Coffee Mugs - Frequently Asked Questions"
           />
         </div>
@@ -276,7 +273,6 @@ export default function PersonalizedMugsClient({ products, categories }: Props) 
       {/* 10. RELATED LINKS */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Collections</h2>
           <div className="cp-related-grid">
             {RELATED.map(r => (

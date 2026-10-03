@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -78,12 +79,12 @@ const ECO_CATEGORIES = [
 ]
 
 const OCCASIONS_TABLE = [
-  { occasion: 'Earth Day Events', gift: 'Seed paper kit + jute bag', price: '₹300–₹500', moq: '50' },
-  { occasion: 'Onboarding', gift: 'Eco kit: bamboo pen + recycled notebook + tote', price: '₹400–₹700', moq: '25' },
-  { occasion: 'ESG Report Launch', gift: 'Plant kit + seed paper notebook', price: '₹400–₹800', moq: '25' },
+  { occasion: 'Earth Day Events', gift: 'Seed paper kit + jute bag', price: '₹300–₹500', moq: '10' },
+  { occasion: 'Onboarding', gift: 'Eco kit: bamboo pen + recycled notebook + tote', price: '₹400–₹700', moq: '10' },
+  { occasion: 'ESG Report Launch', gift: 'Plant kit + seed paper notebook', price: '₹400–₹800', moq: '10' },
   { occasion: 'Client Appreciation', gift: 'Premium bamboo set + plant', price: '₹600–₹1,500', moq: '10' },
-  { occasion: 'Conference', gift: 'Seed paper pad + bamboo pen', price: '₹150–₹300', moq: '100' },
-  { occasion: 'All-Company Diwali', gift: 'Eco hamper: jute bag + candle + plant', price: '₹600–₹1,200', moq: '25' },
+  { occasion: 'Conference', gift: 'Seed paper pad + bamboo pen', price: '₹150–₹300', moq: '10' },
+  { occasion: 'All-Company Diwali', gift: 'Eco hamper: jute bag + candle + plant', price: '₹600–₹1,200', moq: '10' },
 ]
 
 const BULK_TIERS = [
@@ -149,37 +150,42 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
             </nav>
             <div className="cp-hero-eyebrow">Collections · Sustainability</div>
             <h1 className="cp-hero-title">
-              Eco-Friendly Corporate Gifts:<br />
+              Eco-Friendly Corporate Gifts:{' '}<br />
               <em>Sustainable Gifting for 2026</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Planet-conscious corporate gifts for ESG-aligned companies - seed paper notebooks,
-              bamboo pens, jute totes, recycled kits, and grow-your-own plant sets. All branded, all sustainable.
+              Branded eco gifts for ESG-minded companies: seed paper notebooks, bamboo pens, jute totes, recycled kits and plant sets.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Eco Gifts ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Eco Gift Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ 100% sustainable materials</span>
-              <span className="cp-hero-badge">✓ From ₹150/unit</span>
-              <span className="cp-hero-badge">✓ Logo-branded</span>
-              <span className="cp-hero-badge">✓ ESG-documentation available</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=800&q=80" alt="Eco-friendly sustainable gift wrapping" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p36-b076.jpg" alt="3-in-1 Natural Gift Set - Cork Notebook, Pen & Glass Mason Jar" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=800&q=80" alt="Sustainable packaging for corporate gifts" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/giftset-p36-b075.jpg" alt="4-in-1 Premium Eco Gift Set - Bamboo Notebook, Flask, Mug & Keychain" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 100% sustainable materials</span>
+            <span className="cp-hero-badge">✓ From ₹150/unit</span>
+            <span className="cp-hero-badge">✓ Logo-branded</span>
+            <span className="cp-hero-badge">✓ ESG-documentation available</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -193,7 +199,7 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
             'ESG-documentation available for procurement',
             'Branded items without compromise on sustainability',
             'Perfect for green companies, B-corps, and ESG initiatives',
-            'MOQ 50 units, competitive bulk pricing',
+            'MOQ 10 units, competitive bulk pricing',
           ]} />
         </div>
       </div>
@@ -226,7 +232,6 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
       {/* 4. ECO CATEGORIES */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Gift Categories</div>
           <h2 className="cp-section-title">Six Eco Gift Categories</h2>
           <p className="cp-section-sub">
             From seed paper that grows into plants to bamboo stationery and jute totes - every
@@ -245,7 +250,7 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80" alt="Eco-friendly sustainable corporate gifts including bamboo products and seed paper" loading="lazy" />
+            <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -253,7 +258,6 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Eco-Friendly Corporate Gifts</h2>
           <p className="cp-section-sub">
             Explore our full eco range. All products are sustainably sourced and support logo branding.
@@ -317,7 +321,6 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
       {/* 8. BULK PRICING TIERS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Discounts</div>
           <h2 className="cp-section-title">Bulk Pricing for Eco Gifts</h2>
           <p className="cp-section-sub">
             Sustainable gifting at scale is cost-effective. The more you order, the less you pay per unit.
@@ -347,17 +350,16 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Sustainable Gifting</div>
-            <h2 className="cp-cta-title">Build Your Eco<br />Gifting Programme</h2>
+            <h2 className="cp-cta-title">Build Your Eco{' '}<br />Gifting Programme</h2>
             <p className="cp-cta-sub">
               Tell us your occasion, quantity, and sustainability goals - we will recommend
-              the right eco gift mix with branding options and ESG documentation within 4 hours.
+              the right eco gift mix with branding options and ESG documentation. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Build Your Eco Gifting Programme"
-              ctaLabel="Get Eco Gift Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="other"
             />
           </div>
@@ -371,7 +373,6 @@ export default function EcoFriendlyClient({ products, categories }: { products: 
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Eco-Friendly Corporate Gifts - Frequently Asked Questions"
           />
         </div>

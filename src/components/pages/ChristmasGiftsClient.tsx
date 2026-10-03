@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -143,6 +144,7 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
         "headline": "Christmas Corporate Gifts for Employees & Clients",
         "description": "Corporate Christmas gifts for Indian businesses - curated hampers, branded gifts, and festive sets. Order early, pan-India delivery from MintBox.",
         "url": "https://themintbox.in/guides/christmas-corporate-gifts",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -163,7 +165,7 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
             </nav>
             <div className="cp-hero-eyebrow">Seasonal Guide · Christmas &amp; Year-End Gifting</div>
             <h1 className="cp-hero-title">
-              Christmas Corporate Gifts<br />
+              Christmas Corporate Gifts{' '}<br />
               <em>for Employees &amp; Clients</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -173,27 +175,33 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Christmas Gifts ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Order by Nov 30</span>
-              <span className="cp-hero-badge">✓ ₹500–5,000/head</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-              <span className="cp-hero-badge">✓ GST invoicing</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80" alt="Christmas corporate gift set" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/Sancha%20Tea%20Boutique%2C%20Brewing%20Tales%20Collection.png" alt="Sancha Brewing Tales Tea Gift Box" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/SMOOR%20Luxe%20Treat%20Box%20of%209.png" alt="SMOOR Luxe Assorted Chocolate Box – 9 pcs" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Order by Nov 30</span>
+            <span className="cp-hero-badge">✓ ₹500–5,000/head</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
@@ -242,7 +250,6 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
       {/* 4. CHRISTMAS PACKAGES */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Package Options</div>
           <h2 className="cp-section-title">Christmas Gift Package Options</h2>
           <p className="cp-section-sub">
             Three tiers to match every recipient group - from all-staff to VIP clients and senior
@@ -283,7 +290,6 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
       {/* 5. PLANNING TIMELINE */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Planning Guide</div>
           <h2 className="cp-section-title">Christmas Gifting Timeline</h2>
           <p className="cp-section-sub">
             Follow this timeline to guarantee on-time delivery - even for large orders with full
@@ -324,7 +330,7 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80" alt="Festive Christmas corporate gift boxes and hampers with ribbons and wrapping" loading="lazy" />
+        <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE BAND */}
@@ -343,17 +349,16 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Christmas Gifting</div>
-            <h2 className="cp-cta-title">Plan Your<br />Christmas Gifting</h2>
+            <h2 className="cp-cta-title">Plan Your{' '}<br />Christmas Gifting</h2>
             <p className="cp-cta-sub">
               Tell us your headcount, budget per head, and delivery cities - we will come back
-              with a curated Christmas proposal and mockup within 4 hours.
+              with a curated Christmas proposal and mockup. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Get Christmas Gift Quote"
-              ctaLabel="Get Christmas Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="christmas"
             />
           </div>
@@ -367,7 +372,6 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQ_ITEMS}
-            eyebrow="FAQ"
             title="Christmas Corporate Gifts - Frequently Asked Questions"
           />
         </div>
@@ -376,7 +380,6 @@ export default function ChristmasGiftsClient({ products, categories }: Props) {
       {/* 10. RELATED LINKS */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title">Related Guides</h2>
           <div className="cp-related-grid">
             {[

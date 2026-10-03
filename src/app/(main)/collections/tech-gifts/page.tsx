@@ -3,11 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import TechGiftsCollectionClient from '@/components/pages/TechGiftsCollectionClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Tech Gifts: Gadgets & Accessories for Teams | MintBox',
+  title: 'Corporate Tech Gifts: Gadgets for Teams | MintBox',
   description:
-    'Branded corporate tech gifts - wireless chargers, cable kits, laptop accessories, USB drives, and more. Logo engraving from 25 units. Premium gifting for IT teams.',
+    'Branded corporate tech gifts: wireless chargers, cable kits, laptop accessories and USB drives. Logo engraving from 10 units. Premium gifting for IT teams.',
   alternates: { canonical: 'https://themintbox.in/collections/tech-gifts' },
   openGraph: {
     title: 'Corporate Tech Gifts: Gadgets & Accessories for Teams - MintBox',
@@ -34,7 +35,7 @@ export default async function TechGiftsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[tech-gifts] Payload query failed:', err)
   }

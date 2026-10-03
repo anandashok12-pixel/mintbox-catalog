@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -89,6 +90,7 @@ export default function ClientGiftsClient({ products, categories }: Props) {
         "headline": "Corporate Gifts for Clients: Premium Ideas That Build Relationships",
         "description": "Impress clients with premium corporate gifts. Personalised, branded, and GST-compliant gifting from MintBox - hampers, drinkware, and custom sets.",
         "url": "https://themintbox.in/guides/corporate-gifts-for-clients",
+        "datePublished": "2026-05-26T00:00:00+05:30",
         "dateModified": "2026-05-26T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -108,7 +110,7 @@ export default function ClientGiftsClient({ products, categories }: Props) {
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-btn-primary">Browse Gifts</a>
-              <a href="#quote" className="cp-btn-secondary">Get Quote</a>
+              <a href="#quote" className="cp-btn-secondary">Request a quote</a>
             </div>
           </div>
         </section>
@@ -183,7 +185,7 @@ export default function ClientGiftsClient({ products, categories }: Props) {
         <section className="cp-section">
           <div className="cp-container">
             <figure className="cp-editorial-img">
-              <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80" alt="Premium corporate gift selection for client relationships" loading="lazy" />
+              <Image src="/hampers/hamper8.webp" alt="Gift hamper contents laid out" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
             </figure>
             <h2 className="cp-section-title">Top Corporate Gift Ideas for Clients</h2>
             <div className="cp-table-wrap">
@@ -229,7 +231,7 @@ export default function ClientGiftsClient({ products, categories }: Props) {
             <p className="cp-quote-sub">
               Share your requirements and we will curate the right gift at the right budget - with GST invoice and on-time delivery guaranteed.
             </p>
-            <a href="#quote" className="cp-btn-primary">Get a Custom Quote</a>
+            <a href="#quote" className="cp-btn-primary">Request a quote</a>
           </div>
         </section>
 

@@ -95,14 +95,14 @@ export default function ProductGrid({
 
   return (
     <div className="product-sections">
-      {grouped.map(({ cat, items }) => (
+      {grouped.map(({ cat, items }, groupIndex) => (
         <section key={cat.id} id={`cat-${cat.name}`} className="cat-section">
           <div className="cat-section-header">
             <h2 className="cat-title">{cat.name}</h2>
             <span className="cat-count">{items.length} {items.length === 1 ? 'item' : 'items'}</span>
           </div>
           <div className="product-grid">
-            {items.map((product) => {
+            {items.map((product, i) => {
               const imageUrl =
                 product.image?.sizes?.card?.url || product.image?.url || null
               return (
@@ -121,6 +121,8 @@ export default function ProductGrid({
                         alt={product.name}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+                        // First row of the first section is above the fold.
+                        loading={groupIndex === 0 && i < 4 ? 'eager' : 'lazy'}
                         // TEMPORARY: Vercel Image Optimization quota is exhausted
                         // (402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED), so serve
                         // originals straight from Blob CDN. Remove once the plan is

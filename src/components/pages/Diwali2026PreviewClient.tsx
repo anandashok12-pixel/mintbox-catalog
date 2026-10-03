@@ -37,7 +37,6 @@ export default function Diwali2026PreviewClient({
 
       <section className="cp-section cp-section--cream" aria-labelledby="preview-title">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Diwali 2026 / Corporate Gifting - Draft Catalog</div>
           <h1 id="preview-title" className="cp-section-title">{products.length} New Products, Local Review</h1>
           <p className="cp-section-sub">
             Filter by category to review each product&rsquo;s copy, pricing and images before anything goes live.

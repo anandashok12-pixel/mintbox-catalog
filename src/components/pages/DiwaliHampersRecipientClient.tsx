@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -101,7 +102,7 @@ const FAQS = [
   },
   {
     q: 'What is the minimum order quantity for branded Diwali hampers?',
-    a: 'The standard MOQ for customised corporate Diwali hampers is 25–50 units across most Indian suppliers, including MintBox. Individual (non-hamper) products can start from a 10-unit MOQ.',
+    a: 'Many Indian suppliers set a 25 to 50 unit MOQ for customised Diwali hampers. MintBox has a 10-unit MOQ on hampers and individual products.',
   },
   {
     q: 'When should we place a bulk Diwali hamper order for 2026?',
@@ -131,6 +132,7 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
         "headline": "Diwali Hampers for Employees vs Clients vs VIPs",
         "description": "How to budget Diwali hampers by recipient: employees (₹500–1,500), clients (₹1,500–5,000), and VIPs (bespoke). Three ready-to-brief hamper tiers, lead times and MOQs.",
         "url": "https://themintbox.in/guides/diwali-hampers-for-employees-vs-clients",
+        "datePublished": "2026-09-27T00:00:00+05:30",
         "dateModified": "2026-09-29T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
@@ -151,7 +153,7 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
             </nav>
             <div className="cp-hero-eyebrow">Seasonal Guide · Diwali 2026</div>
             <h1 className="cp-hero-title">
-              Diwali Hampers for Employees<br />
+              Diwali Hampers for Employees{' '}<br />
               <em>vs Clients vs VIPs</em>
             </h1>
             <div className="cp-hero-rule" />
@@ -161,34 +163,40 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
             </p>
             <div className="cp-hero-ctas">
               <a href="#tiers" className="cp-hero-cta-primary">See the 3 Hamper Tiers ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Bulk Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Recipient-matched tiers</span>
-              <span className="cp-hero-badge">✓ From 25 units</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-              <span className="cp-hero-badge">✓ Order by early October</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=800&q=80" alt="Premium Diwali hamper for a client gift" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/candle-warmer-glow.webp" alt="Candle Warmer Glow" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=800&q=80" alt="Wrapped Diwali hamper with festive ribbon" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/laxmi-blessing.webp" alt="Laxmi Blessing" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Recipient-matched tiers</span>
+            <span className="cp-hero-badge">✓ From 10 units</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+            <span className="cp-hero-badge">✓ Order by early October</span>
+          </div>
+        </div>
+      </div>
+
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Diwali hamper budgets vary by recipient: employees ₹500–₹1,500, regular clients ₹1,500–₹2,500, key accounts ₹2,500–₹5,000, and VIP/leadership gifts are typically bespoke. MintBox hamper tiers start from 25 units, with lead times of 3–4 weeks for standard orders and 5–6 weeks for 500+ units or fully custom packaging."
+            content="Diwali hamper budgets vary by recipient: employees ₹500–₹1,500, regular clients ₹1,500–₹2,500, key accounts ₹2,500–₹5,000, and VIP/leadership gifts are typically bespoke. MintBox hamper tiers start from 10 units, with lead times of 3–4 weeks for standard orders and 5–6 weeks for 500+ units or fully custom packaging."
           />
           <EATSignal credentials={[
             'Branded festive hamper orders for companies across India',
@@ -227,7 +235,6 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
       {/* 4. RECIPIENT SEGMENTS */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Start with the Recipient</div>
           <h2 className="cp-section-title">Who You&apos;re Gifting Changes Everything</h2>
           <p className="cp-section-sub">
             The expectation, the appropriate spend and the product mix differ significantly by recipient category.
@@ -249,7 +256,6 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Products</div>
           <h2 className="cp-section-title">Browse Hampers by Recipient</h2>
           <p className="cp-section-sub">
             Filter by price to match the tier appropriate for who you&apos;re gifting.
@@ -292,7 +298,7 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=1200&q=80" alt="Corporate Diwali hampers ready for client and employee delivery" loading="lazy" />
+        <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/pooja-ready.webp" alt="Pooja Ready" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 7. QUOTE PULL */}
@@ -309,7 +315,6 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
       {/* 8. WHAT'S TRENDING */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">2026 Trends</div>
           <h2 className="cp-section-title">What&apos;s Trending in Corporate Diwali Hampers</h2>
           <p className="cp-section-sub">
             Based on the briefs we see - items with a life beyond the festival are gaining ground.
@@ -332,16 +337,15 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Diwali 2026</div>
-            <h2 className="cp-cta-title">Brief Us by<br />Recipient Type</h2>
+            <h2 className="cp-cta-title">Brief Us by{' '}<br />Recipient Type</h2>
             <p className="cp-cta-sub">
-              Tell us your recipient mix, headcount and budget - we&apos;ll send tiered options with mockups within 4 hours.
+              Tell us your recipient mix, headcount and budget - we&apos;ll send tiered options with mockups. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Brief Us by Recipient Type"
-              ctaLabel="Get a Tiered Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="diwali"
             />
           </div>
@@ -355,7 +359,6 @@ export default function DiwaliHampersRecipientClient({ products, categories }: {
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Diwali Hampers by Recipient - Frequently Asked Questions"
           />
         </div>

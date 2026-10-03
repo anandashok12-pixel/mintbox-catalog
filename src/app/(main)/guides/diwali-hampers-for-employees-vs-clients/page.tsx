@@ -5,18 +5,19 @@ import configPromise from '@payload-config'
 import { isPublished } from '@/lib/publishGate'
 import DiwaliHampersRecipientClient from '@/components/pages/DiwaliHampersRecipientClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 const PUBLISH_DATE = '2026-09-29'
 
 export const metadata: Metadata = {
-  title: 'Diwali Hampers for Employees vs Clients vs VIPs (2026) | MintBox',
+  title: 'Diwali Hampers: Employees vs Clients vs VIPs | MintBox',
   description:
-    'How to budget Diwali hampers by recipient: employees (₹500–1,500), clients (₹1,500–5,000), and VIPs (bespoke). Three ready-to-brief hamper tiers, lead times and MOQs.',
+    'How to budget Diwali hampers by recipient: employees (₹500 to 1,500), clients (₹1,500 to 5,000) and VIPs (bespoke). Three hamper tiers, lead times and MOQs.',
   alternates: { canonical: 'https://themintbox.in/guides/diwali-hampers-for-employees-vs-clients' },
   openGraph: {
     title: 'Diwali Hampers for Employees vs Clients vs VIPs (2026)',
     description:
-      'How to budget Diwali hampers by recipient: employees (₹500–1,500), clients (₹1,500–5,000), and VIPs (bespoke). Three ready-to-brief hamper tiers, lead times and MOQs.',
+      'How to budget Diwali hampers by recipient: employees (₹500 to 1,500), clients (₹1,500 to 5,000) and VIPs (bespoke). Three hamper tiers, lead times and MOQs.',
   },
 }
 
@@ -43,7 +44,7 @@ export default async function DiwaliHampersRecipientPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[diwali-hampers-for-employees-vs-clients] Payload query failed:', err)
   }

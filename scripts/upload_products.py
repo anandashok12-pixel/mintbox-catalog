@@ -10,6 +10,9 @@ import urllib.parse
 import urllib.error
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
+from payload_auth import auth_headers  # noqa: E402
+
 BASE_URL = "http://localhost:3000"
 CSV_PATH = "/Users/anandashok/Downloads/Corporate Gifting Boxes Catalogue - Catalogue.csv"
 IMAGES_DIR = "/Users/anandashok/Downloads/Corporate Gift Box Images"
@@ -33,7 +36,7 @@ def api_get(path):
 def api_post_json(path, data):
     url = f"{BASE_URL}{path}"
     body = json.dumps(data).encode("utf-8")
-    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json", **auth_headers(BASE_URL)}, method="POST")
     try:
         with urllib.request.urlopen(req) as res:
             return json.loads(res.read()), None
@@ -61,7 +64,7 @@ def upload_image(file_path):
     req = urllib.request.Request(
         url,
         data=body,
-        headers={"Content-Type": f"multipart/form-data; boundary={boundary}"},
+        headers={"Content-Type": f"multipart/form-data; boundary={boundary}", **auth_headers(BASE_URL)},
         method="POST",
     )
     try:

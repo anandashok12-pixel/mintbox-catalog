@@ -77,8 +77,13 @@ export default buildConfig({
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 5000,
     },
-    // Auto-push schema to DB on startup (creates tables if they don't exist)
-    push: true,
+    // Schema push on dev startup is opt-in. .env.local points at the
+    // production database, so an automatic push from a local dev server can
+    // alter or break live tables (it took the API down once on 2026-09-26).
+    // Production never pushes (the adapter skips it when NODE_ENV is
+    // 'production'); schema changes go through /api/db-push. To push from
+    // dev on purpose, start it with PAYLOAD_DEV_PUSH=true.
+    push: process.env.PAYLOAD_DEV_PUSH === 'true',
     // wa_auth_state is created directly by whatsapp-worker/src/db.ts, outside
     // Payload's schema. Without this, drizzle-kit sees it as an unrecognized
     // table on every push and, whenever a new Payload collection/table is

@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { isPublished } from '@/lib/publishGate'
 
 export function Footer() {
   return (
@@ -23,86 +22,31 @@ export function Footer() {
           </a>
         </div>
 
-        {/* ── Guides: Budget & Occasion ─── */}
+        <div>
+          <span className="footer-col-label">Shop</span>
+          <ul className="footer-nav-links">
+            <li><a href="/catalog">Catalogue</a></li>
+            <li><a href="/collections/corporate-gifts">All Corporate Gifts</a></li>
+            <li><a href="/collections/hampers">Hampers</a></li>
+            <li><a href="/collections/drinkware">Drinkware</a></li>
+            <li><a href="/diwali-corporate-gifts">Diwali Gift Hampers 2026</a></li>
+          </ul>
+        </div>
+
         <div>
           <span className="footer-col-label">Guides</span>
-          <p className="footer-sub-label">By Budget</p>
           <ul className="footer-nav-links">
-            <li><a href="/guides/corporate-gifts-under-100">Gifts Under ₹100</a></li>
-            <li><a href="/guides/corporate-gifts-under-500">Gifts Under ₹500</a></li>
-            <li><a href="/guides/corporate-gifts-under-1000">Gifts Under ₹1,000</a></li>
-            <li><a href="/guides/budget-corporate-gifts">Budget Gifting</a></li>
-            <li><a href="/guides/corporate-gifting-budget">Gifting Budget Guide</a></li>
-          </ul>
-          <p className="footer-sub-label" style={{ marginTop: '20px' }}>By Occasion</p>
-          <ul className="footer-nav-links">
-            <li><a href="/diwali-corporate-gifts">Diwali Gift Hampers 2026</a></li>
-            <li><a href="/guides/diwali-corporate-gifts">Diwali Corporate Gifts</a></li>
+            <li><a href="/guides">All Guides</a></li>
             <li><a href="/guides/diwali-gifts-for-employees">Diwali Gifts for Employees</a></li>
-            {isPublished('2026-09-27') && <li><a href="/guides/diwali-gifts-for-employees-by-budget">Diwali Gifts by Budget</a></li>}
-            {isPublished('2026-09-29') && <li><a href="/guides/diwali-hampers-for-employees-vs-clients">Hampers by Recipient</a></li>}
-            <li><a href="/guides/christmas-corporate-gifts">Christmas Corporate Gifts</a></li>
-            <li><a href="/guides/work-anniversary-gifts">Work Anniversary Gifts</a></li>
-            <li><a href="/guides/corporate-gifts-for-new-employees">New Employee Gifts</a></li>
-          </ul>
-        </div>
-
-        {/* ── Guides: Strategy ─────────── */}
-        <div>
-          <span className="footer-col-label">Strategy</span>
-          <ul className="footer-nav-links">
             <li><a href="/guides/corporate-gifting-handbook">Gifting Handbook</a></li>
-            <li><a href="/guides/how-to-choose-corporate-gifts">How to Choose Gifts</a></li>
-            <li><a href="/guides/corporate-gifting-etiquette">Gifting Etiquette</a></li>
-            <li><a href="/guides/what-to-gift-employees">What to Gift Employees</a></li>
-            <li><a href="/guides/corporate-gifts-for-clients">Gifts for Clients</a></li>
-            {isPublished('2026-10-02') && <li><a href="/guides/corporate-gifts-by-occasion">Gifts by Occasion</a></li>}
-            <li><a href="/guides/unique-corporate-gifts">Unique Corporate Gifts</a></li>
-            <li><a href="/guides/sustainable-corporate-gifts">Sustainable Gifts</a></li>
-            <li><a href="/guides/corporate-gifting-trends-2026">Gifting Trends 2026</a></li>
-            <li><a href="/guides/corporate-gift-ideas-2026">Gift Ideas 2026</a></li>
+            <li><a href="/bangalore-corporate-gifting">Bangalore Corporate Gifting</a></li>
           </ul>
         </div>
 
-        {/* ── Collections ──────────────── */}
         <div>
-          <span className="footer-col-label">Collections</span>
+          <span className="footer-col-label">Company</span>
           <ul className="footer-nav-links">
-            <li><a href="/collections/corporate-gifts">All Corporate Gifts</a></li>
-            <li><a href="/collections/drinkware">Drinkware</a></li>
-            <li><a href="/collections/drinkware/customized-water-bottles">Customized Water Bottles</a></li>
-            <li><a href="/collections/drinkware/personalized-coffee-mugs">Personalised Coffee Mugs</a></li>
-            <li><a href="/collections/stationery">Stationery</a></li>
-            <li><a href="/collections/hampers">Hampers</a></li>
-            <li><a href="/collections/tech-gifts">Tech Gifts</a></li>
-            <li><a href="/collections/eco-friendly-gifts">Eco-Friendly Gifts</a></li>
-            <li><a href="/collections/employee-welcome-kit">Employee Welcome Kit</a></li>
-            <li><a href="/customization/personalized-corporate-gifts">Personalised Gifts</a></li>
-          </ul>
-        </div>
-
-        {/* ── Bangalore + Industry + Site ─ */}
-        <div>
-          <span className="footer-col-label">Bangalore</span>
-          <ul className="footer-nav-links">
-            <li><a href="/bangalore-corporate-gifting">Bangalore Gifting</a></li>
-            <li><a href="/bangalore-corporate-gifting/same-day-delivery">Same-Day Delivery</a></li>
-            <li><a href="/bangalore-corporate-gifting/bulk-gifting">Bulk Gifting</a></li>
-            <li><a href="/bangalore-corporate-gifting/suppliers">Gifting Suppliers</a></li>
-          </ul>
-
-          <p className="footer-sub-label" style={{ marginTop: '20px' }}>Industry</p>
-          <ul className="footer-nav-links">
-            <li><a href="/industry-solutions/startups">Startups</a></li>
-            <li><a href="/industry-solutions/tech-companies">Tech Companies</a></li>
-          </ul>
-
-          <p className="footer-sub-label" style={{ marginTop: '20px' }}>Company</p>
-          <ul className="footer-nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/catalog">Catalogue</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/solutions">Solutions</a></li>
             <li><a href="/faq">FAQ</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
@@ -111,7 +55,7 @@ export function Footer() {
         {/* ── Newsletter ───────────────── */}
         <div>
           <span className="footer-col-label">The Journal</span>
-          <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news — monthly.</p>
+          <p className="footer-newsletter-copy">Gifting guides, occasion edits, and MintBox news - monthly.</p>
           <form
             className="newsletter-form"
             noValidate

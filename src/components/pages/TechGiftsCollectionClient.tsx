@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -67,9 +68,9 @@ const SUBCATEGORIES = [
 const OCCASIONS_TABLE = [
   { occasion: 'Employee Onboarding', gift: 'Cable kit + notebook', budget: '₹400–₹800', moq: '10' },
   { occasion: 'Work Anniversary', gift: 'Engraved wireless charger', budget: '₹600–₹1,500', moq: '1' },
-  { occasion: 'Diwali', gift: 'Power bank + earbuds combo', budget: '₹1,000–₹2,500', moq: '25' },
+  { occasion: 'Diwali', gift: 'Power bank + earbuds combo', budget: '₹1,000–₹2,500', moq: '10' },
   { occasion: 'Client Appreciation', gift: 'Premium laptop stand + accessories', budget: '₹1,500–₹4,000', moq: '1' },
-  { occasion: 'Conference', gift: 'USB drive + branded pouch', budget: '₹200–₹500', moq: '50' },
+  { occasion: 'Conference', gift: 'USB drive + branded pouch', budget: '₹200–₹500', moq: '10' },
   { occasion: 'Team Celebration', gift: 'Wireless charger + cable kit', budget: '₹700–₹1,500', moq: '10' },
 ]
 
@@ -137,41 +138,46 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
             <div>
               <div className="cp-hero-eyebrow">Category · Tech Accessories</div>
               <h1 className="cp-hero-title">
-                Corporate Tech Gifts: Gadgets &amp; Accessories<br />
+                Corporate Tech Gifts: Gadgets &amp; Accessories{' '}<br />
                 <em>for Modern Teams</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Premium branded tech gifts for IT companies, product teams, and remote workers - wireless chargers,
-                cable organisers, USB drives, laptop accessories, and noise-cancelling earbuds. Logo-engraved from 25 units.
+                Branded wireless chargers, cable organisers, laptop accessories and earbuds for tech teams. Logo engraving from 10 units.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse Tech Gifts ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Get a Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ 35+ tech SKUs</span>
-                <span className="cp-hero-badge">✓ Laser engraving available</span>
-                <span className="cp-hero-badge">✓ From ₹150/unit</span>
-                <span className="cp-hero-badge">✓ Premium gifting</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Fast same-day corporate gift delivery" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/PREMIUM%20VEGAN%20LEATHER%20VALET%20TRAY%20(30X20.5%20cm)%20-%20TAN.png" alt="Premium Vegan Leather Valet Tray – Tan" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=800&q=80" alt="Premium tech gadget corporate gift" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/Premium%20Vegan%20Leather%20Desk%20Mat%202.4MM%20Tan.png" alt="Premium Vegan Leather Desk Mat 2.4MM Tan" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Laptop and tech corporate gift set" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/CORK%20DESK%20ORGANIZER-2.png" alt="CORK DESK ORGANIZER" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ 35+ tech SKUs</span>
+            <span className="cp-hero-badge">✓ Laser engraving available</span>
+            <span className="cp-hero-badge">✓ From ₹150/unit</span>
+            <span className="cp-hero-badge">✓ Premium gifting</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
@@ -224,7 +230,6 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
       {/* ── SUB-CATEGORIES ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">What We Offer</div>
           <h2 className="cp-section-title">Tech Gift Categories</h2>
           <p className="cp-section-sub">
             Six categories of branded tech accessories - each with logo customisation options and volume pricing.
@@ -242,7 +247,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
             ))}
           </div>
           <figure className="cp-editorial-img">
-            <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=1200&q=80" alt="Premium tech corporate gifts including wireless chargers, earbuds and USB drives" loading="lazy" />
+            <Image src="/hampers/hero2.webp" alt="Corporate gift box with mug and notebook" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
           </figure>
         </div>
       </section>
@@ -250,7 +255,6 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
       {/* ── PRODUCT SHOWCASE ── */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Product Catalogue</div>
           <h2 className="cp-section-title">Browse Tech Gifts</h2>
           <p className="cp-section-sub">
             Filter by product type or search by name. Add items to your quote - we confirm pricing and availability within 2 hours.
@@ -307,14 +311,13 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
             "A wireless charger with your logo sits on an engineer's desk, in plain sight, 8 hours a day.
             That's 2,000+ brand impressions a year from one ₹600 gift."
           </p>
-          <a href="#quote" className="cp-quote-band-cta">Get Tech Gift Pricing →</a>
+          <a href="#quote" className="cp-quote-band-cta">Request a quote →</a>
         </div>
       </div>
 
       {/* ── BULK TIERS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Volume Pricing</div>
           <h2 className="cp-section-title">Bulk Discounts on Tech Gifts</h2>
           <p className="cp-section-sub">
             Volume discounts apply automatically across the tech catalogue. Mix SKUs within a category to qualify for the same tier.
@@ -337,7 +340,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Tech Gifts</div>
-            <h2 className="cp-cta-title">Get Tech Gift<br />Pricing</h2>
+            <h2 className="cp-cta-title">Get Tech Gift{' '}<br />Pricing</h2>
             <p className="cp-cta-sub">
               Share your quantity, occasion, and preferred budget. We will send you a curated shortlist
               with bulk pricing within 2 hours.
@@ -347,7 +350,7 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
           <InlineQuoteForm
             title="Get Tech Gift Pricing"
             subtitle="Tell us your quantity and occasion - we will send curated options with bulk pricing."
-            ctaLabel="Request Tech Quote"
+            ctaLabel="Request a quote"
             defaultOccasion="welcome_kit"
           />
         </div>
@@ -361,7 +364,6 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
           <FAQSection
             items={FAQS}
             title="Corporate Tech Gifts - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -369,7 +371,6 @@ export default function TechGiftsCollectionClient({ products }: { products: Prod
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

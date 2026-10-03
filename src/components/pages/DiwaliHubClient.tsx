@@ -1,5 +1,7 @@
 'use client'
 
+import GoogleReviews from '@/components/content/GoogleReviews'
+import ClientLogos from '@/components/content/ClientLogos'
 import { useCallback, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +14,7 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import DiwaliSeeAlso from '@/components/content/DiwaliSeeAlso'
 import { DIWALI_HUB_FAQS, LAST_UPDATED } from '@/components/pages/diwaliHubData'
 import DiwaliHamperShowcase, {
   TIERS,
@@ -20,8 +23,17 @@ import DiwaliHamperShowcase, {
   type TierKey,
 } from '@/components/content/DiwaliHamperShowcase'
 
+const typicalRange = (prices: number[], fbMin: number, fbMax: number): [number, number] => {
+  if (!prices.length) return [fbMin, fbMax]
+  const s = [...prices].sort((a, b) => a - b)
+  const at = (q: number) => s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]
+  // Trim the extremes (single low-value add-ons and one-off luxury boxes) so the headline range is representative.
+  const round = (n: number, step: number) => Math.round(n / step) * step
+  return [round(at(0.05), 10), round(at(0.95), 50)]
+}
+
 const DIWALI_DATE_LABEL = 'Sunday, 8 November 2026'
-const ORDER_BY_LABEL = 'Friday, 24 October 2026'
+const ORDER_BY_LABEL = 'Sunday, 25 October 2026'
 
 // Product IDs used for the hero visual, in preference order. Falls back to the
 // first products in catalogue order if any are missing.
@@ -29,14 +41,14 @@ const HERO_PICKS = ['475', '463', '467']
 
 const STEPS = [
   { num: '1', title: 'Shortlist & add to pack', desc: 'Filter by budget or theme, open any hamper to see exactly what is inside, and add the ones you like.' },
-  { num: '2', title: 'Quote within 4 hours', desc: 'Share headcount, budget and delivery cities. You get per-unit pricing, a branding mockup and a GST-ready quote.' },
+  { num: '2', title: 'Reply within 1 hour', desc: 'Share headcount, budget and delivery cities. You get per-unit pricing, a branding mockup and a GST-ready quote.' },
   { num: '3', title: 'Approve & confirm', desc: 'Sign off on the mockup and quantities. Production and packing start as soon as the order is confirmed.' },
   { num: '4', title: 'Delivered before Diwali', desc: 'Assembled in Bengaluru and dispatched to one office or many cities, with tracking shared on WhatsApp.' },
 ]
 
 const TIMELINE = [
-  { when: 'Now – 24 October', status: 'Guaranteed pre-Diwali delivery', detail: 'Full choice of hampers, logo branding on box and insert card, name personalisation on select items.' },
-  { when: '25 – 31 October', status: 'Ready-stock hampers', detail: 'Popular hampers from stock with printed insert card. Logo-printed boxes subject to print slot availability.' },
+  { when: 'Now – 25 October', status: 'Guaranteed pre-Diwali delivery', detail: 'Full choice of hampers, logo branding on box and insert card, name personalisation on select items.' },
+  { when: '26 – 31 October', status: 'Ready-stock hampers', detail: 'Popular hampers from stock with printed insert card. Logo-printed boxes subject to print slot availability.' },
   { when: '1 November onward', status: 'Bengaluru rush orders', detail: 'Bengaluru delivery from available stock only. Confirm on WhatsApp before ordering.' },
 ]
 
@@ -86,8 +98,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
   }, [])
 
   const prices = products.map(p => p.price)
-  const minPrice = prices.length ? Math.min(...prices) : 434
-  const maxPrice = prices.length ? Math.max(...prices) : 2170
+  const [minPrice, maxPrice] = typicalRange(prices, 434, 2170)
   const tierCounts = Object.fromEntries(TIERS.map(t => [t.key, products.filter(p => tierFor(p.price).key === t.key).length]))
 
   const byId = new Map(products.map(p => [String(p.id), p]))
@@ -110,26 +121,16 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
             </nav>
             <div className="cp-hero-eyebrow">Corporate Diwali Gifting 2026</div>
             <h1 className="cp-hero-title">
-              Corporate Diwali Gifts 2026:<br />
-              <em>Hampers &amp; Gift Boxes Your Team Will Actually Keep</em>
+              Corporate Diwali Gifts 2026:{' '}<br />
+              <em>Hampers Your Team Will Keep</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              {products.length} curated corporate Diwali gift hampers for employees, clients and leadership,
-              from {formatPrice(minPrice)} to {formatPrice(maxPrice)} per unit. Assembled in Bengaluru with your
-              logo on the box, delivered across Karnataka and all of India before Diwali.
+              {products.length} corporate Diwali hampers from {formatPrice(minPrice)} to {formatPrice(maxPrice)} per unit, assembled in Bengaluru with your logo and delivered across India.
             </p>
             <div className="cp-hero-ctas">
               <a href="#hampers" className="cp-hero-cta-primary">Browse {products.length} Diwali Hampers ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get a Diwali Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">🪔 Diwali: Sun 8 Nov 2026</span>
-              <span className="cp-hero-badge">✓ Order by 24 Oct for guaranteed delivery</span>
-              <span className="cp-hero-badge">✓ MOQ 10 units</span>
-              <span className="cp-hero-badge">✓ Logo branding</span>
-              <span className="cp-hero-badge">✓ GST invoice</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           {heroImages.length > 0 && (
@@ -158,6 +159,28 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ verticalAlign: '-2px', marginRight: 6 }}>
+                <path d="M12 3c1.6 2 2.4 3.6 2.4 4.8a2.4 2.4 0 0 1-4.8 0C9.6 6.6 10.4 5 12 3z" fill="currentColor" />
+                <path d="M3 13h18c-.6 3.9-4.4 6-9 6s-8.4-2.1-9-6z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+              </svg>
+              Diwali: Sun 8 Nov 2026
+            </span>
+            <span className="cp-hero-badge">✓ Order by 25 Oct for guaranteed delivery</span>
+            <span className="cp-hero-badge">✓ MOQ 10 units</span>
+            <span className="cp-hero-badge">✓ Logo branding</span>
+            <span className="cp-hero-badge">✓ GST invoice</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <ClientLogos />
+
       {/* 2. DEADLINE STRIP */}
       <div className="dh-deadline" role="note">
         <div className="cp-container dh-deadline-inner">
@@ -174,7 +197,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content={`Corporate Diwali gifts in 2026 cost ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} per unit for a ready-to-gift hamper with dry fruits, copper or eco drinkware, lamps or tech accessories in a printed gift box. Diwali falls on ${DIWALI_DATE_LABEL}; confirm orders by 24 October for guaranteed delivery with logo branding. Minimum order is 10 units, GST invoice included, pan-India delivery from Bengaluru.`}
+            content={`Corporate Diwali gifts in 2026 cost ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} per unit for a ready-to-gift hamper with dry fruits, copper or eco drinkware, lamps or tech accessories in a printed gift box. Diwali falls on ${DIWALI_DATE_LABEL}; confirm orders by 25 October for guaranteed delivery with logo branding. Minimum order is 10 units, GST invoice included, pan-India delivery from Bengaluru.`}
           />
           <EATSignal
             credentials={[
@@ -185,6 +208,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
               'GST invoice on every order, pan-India dispatch with tracking',
             ]}
           />
+          <DiwaliSeeAlso current="hub" />
         </div>
       </div>
 
@@ -205,7 +229,7 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
               <div className="cp-stat-label">minimum order per hamper</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">24 Oct</div>
+              <div className="cp-stat-value">25 Oct</div>
               <div className="cp-stat-label">last date for guaranteed delivery</div>
             </div>
           </div>
@@ -215,7 +239,6 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       {/* 5. SHOP BY BUDGET */}
       <section className="cp-section cp-section--cream" aria-labelledby="by-budget-title">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Shop by Budget</div>
           <h2 id="by-budget-title" className="cp-section-title">Corporate Diwali Gift Hampers by Budget</h2>
           <p className="cp-section-sub">
             Three tiers, one order. Most companies pair a Team tier hamper for all staff with a Leadership tier hamper for clients.
@@ -248,7 +271,6 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       {/* 6. HAMPER SHOWCASE */}
       <section id="hampers" className="cp-section cp-section--white dh-anchor" aria-labelledby="hampers-title">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">The 2026 Collection</div>
           <h2 id="hampers-title" className="cp-section-title">All {products.length} Corporate Diwali Gift Hampers</h2>
           <p className="cp-section-sub">
             Filter by budget or theme, open &ldquo;What&rsquo;s inside&rdquo; to see every item, and add hampers to your pack.
@@ -306,7 +328,6 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
         <div className="cp-container">
           <div className="cp-img-text-split">
             <div>
-              <div className="cp-section-eyebrow">Branding &amp; Packaging</div>
               <h2 id="branding-title" className="cp-section-title">Your Logo on the Box, Not Just a Sticker</h2>
               <p className="cp-section-sub" style={{ marginBottom: 20 }}>
                 Diwali is the one occasion where the packaging matters as much as the gift. Every hamper ships in a rigid
@@ -336,7 +357,6 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       {/* 9. TIMELINE */}
       <section className="cp-section cp-section--cream" aria-labelledby="timeline-title">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Ordering Timeline</div>
           <h2 id="timeline-title" className="cp-section-title">Diwali 2026 Order Deadlines</h2>
           <p className="cp-section-sub">
             Diwali is on {DIWALI_DATE_LABEL}. Dispatch takes 7 to 10 working days after confirmation, so the earlier you confirm,
@@ -400,11 +420,10 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       <section id="quote" className="cp-cta-section dh-anchor" aria-labelledby="quote-title">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Diwali 2026 Quote</div>
-            <h2 id="quote-title" className="cp-cta-title">Get Your Diwali<br />Proposal in 4 Hours</h2>
+            <h2 id="quote-title" className="cp-cta-title">Get Your Diwali{' '}<br />Proposal</h2>
             <p className="cp-cta-desc">
               Tell us headcount, budget per head and delivery cities. You get per-unit pricing, a branding mockup and
-              a GST-ready quote, usually within 4 working hours.
+              a GST-ready quote. We reply within 1 hour on business days.
             </p>
             <ul className="cp-cta-promises">
               <li className="cp-cta-promise"><span className="cp-cta-promise-dot" />Mixed tiers in one order</li>
@@ -413,12 +432,14 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
             </ul>
           </div>
           <div className="cp-quote-form-panel">
-            <InlineQuoteForm title="Plan Your Diwali Gifting" ctaLabel="Get Diwali Quote" defaultOccasion="diwali" />
+            <InlineQuoteForm title="Plan Your Diwali Gifting" ctaLabel="Request a quote" defaultOccasion="diwali" />
           </div>
         </div>
       </section>
 
       <MidPageCTA variant="whatsapp" />
+
+      <GoogleReviews />
 
       {/* 12. FAQ */}
       <section className="cp-section cp-section--cream" aria-label="Frequently asked questions">
@@ -430,7 +451,6 @@ export default function DiwaliHubClient({ products }: { products: DiwaliProduct[
       {/* 13. RELATED */}
       <section className="cp-section cp-section--white" aria-labelledby="related-title">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Keep Reading</div>
           <h2 id="related-title" className="cp-section-title">Diwali Gifting Guides &amp; Related Collections</h2>
           <div className="cp-related-grid">
             {RELATED.map(link => (

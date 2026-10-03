@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -10,6 +11,7 @@ import QuickAnswerBox from '@/components/content/QuickAnswerBox'
 import EATSignal from '@/components/content/EATSignal'
 import LastUpdatedDate from '@/components/content/LastUpdatedDate'
 import MidPageCTA from '@/components/content/MidPageCTA'
+import DiwaliSeeAlso from '@/components/content/DiwaliSeeAlso'
 
 interface Category {
   id: string
@@ -59,37 +61,37 @@ const BUDGET_CARDS = [
 const PLANNING_STEPS = [
   {
     num: '1',
-    title: 'August–September',
-    desc: 'Decide on budget per head, quantity, and gift theme. Share brand guidelines.',
+    title: 'Now to 10 October',
+    desc: 'Decide on budget per head, quantity, and gift theme. Share brand guidelines and request samples.',
   },
   {
     num: '2',
-    title: 'September 30 (deadline)',
-    desc: 'Place order for 200+ units. Production slots start filling. Delay beyond this risks delays.',
+    title: '10 October',
+    desc: 'Best date to place orders of 200+ units. Production slots are filling, and later orders have fewer customisation options.',
   },
   {
     num: '3',
-    title: 'October 1–10',
-    desc: 'Final sampling, mockup approval, and order confirmation for 25–200 unit orders.',
+    title: 'By 25 October (guaranteed)',
+    desc: 'Final order confirmation for guaranteed pre-Diwali delivery with full logo branding. Includes mockup approval for smaller orders.',
   },
   {
     num: '4',
-    title: 'October 15–20',
+    title: '10 to 31 October',
     desc: 'Production window for most orders. Packaging and assembly.',
   },
   {
     num: '5',
-    title: 'October 25–31',
-    desc: 'Dispatch. Bangalore delivery by Oct 29; Pan-India by Nov 1.',
+    title: '26 October to 5 November',
+    desc: 'Dispatch and delivery, ahead of Diwali on Sunday 8 November. Bangalore first, then Pan-India.',
   },
 ]
 
 const GIFT_IDEAS_TABLE = [
-  { gift: 'Sweets + Mug Kit', includes: 'Artisan sweets + ceramic mug + card', price: '₹500–₹800', moq: '25' },
-  { gift: 'Diwali Hamper (standard)', includes: 'Bottle + dry fruits + sweets + box', price: '₹800–₹1,500', moq: '25' },
-  { gift: 'Diwali Hamper (premium)', includes: 'Copper bottle + premium sweets + rigid box', price: '₹1,500–₹2,500', moq: '25' },
-  { gift: 'Eco Diwali Set', includes: 'Bamboo pen + seed notebook + plant kit', price: '₹600–₹1,000', moq: '50' },
-  { gift: 'Drinkware Gift Set', includes: 'Tumbler or insulated bottle + box', price: '₹700–₹1,500', moq: '25' },
+  { gift: 'Sweets + Mug Kit', includes: 'Artisan sweets + ceramic mug + card', price: '₹500–₹800', moq: '10' },
+  { gift: 'Diwali Hamper (standard)', includes: 'Bottle + dry fruits + sweets + box', price: '₹800–₹1,500', moq: '10' },
+  { gift: 'Diwali Hamper (premium)', includes: 'Copper bottle + premium sweets + rigid box', price: '₹1,500–₹2,500', moq: '10' },
+  { gift: 'Eco Diwali Set', includes: 'Bamboo pen + seed notebook + plant kit', price: '₹600–₹1,000', moq: '10' },
+  { gift: 'Drinkware Gift Set', includes: 'Tumbler or insulated bottle + box', price: '₹700–₹1,500', moq: '10' },
   { gift: 'Luxury Gifting', includes: 'Curated 5-item hamper + premium packaging', price: '₹2,500–₹5,000', moq: '10' },
 ]
 
@@ -97,7 +99,7 @@ const GIFT_IDEAS_TABLE = [
 const FAQS = [
   {
     q: 'When should I order Diwali 2026 corporate gifts?',
-    a: 'Diwali 2026 falls on November 1. For 100+ units, place orders by September 30. For 25–99 units, by October 10. Last-minute orders (October 15+) can still be fulfilled for plain stock or pre-made hampers, but customisation options are limited. Rush production is available at a 20% surcharge.',
+    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by 25 October are guaranteed to be delivered before Diwali with full logo branding. For 200+ units, order by 10 October to be safe. Orders after 25 October can still be fulfilled from ready stock or pre-made hampers, but customisation is limited. Message us on WhatsApp to confirm what is possible for a late order.',
   },
   {
     q: "What's the most popular Diwali corporate gift?",
@@ -139,7 +141,8 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
         "headline": "Diwali Corporate Gifts 2026: Best Ideas for Every Budget",
         "description": "Best Diwali corporate gifts for 2026 - hampers, drinkware, sweets kits, and eco sets. Budget ₹500–₹3,000 per head. Order early to avoid delays. Pan-India.",
         "url": "https://themintbox.in/guides/diwali-corporate-gifts",
-        "dateModified": "2026-05-26T00:00:00+05:30",
+        "datePublished": "2026-05-26T00:00:00+05:30",
+        "dateModified": "2026-10-03T00:00:00+05:30",
         "author": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" },
         "publisher": { "@type": "Organization", "name": "MintBox", "url": "https://themintbox.in" }
       }) }} />
@@ -159,52 +162,58 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
             </nav>
             <div className="cp-hero-eyebrow">Seasonal Guide · Diwali 2026</div>
             <h1 className="cp-hero-title">
-              Diwali Corporate Gifts 2026:<br />
+              Diwali Corporate Gifts 2026:{' '}<br />
               <em>Best Ideas for Every Budget</em>
             </h1>
             <div className="cp-hero-rule" />
             <p className="cp-hero-sub">
-              Make Diwali 2026 memorable with curated corporate hampers, branded drinkware, sweet kits,
-              and eco sets. Budget ₹500–₹3,000 per head. Order by October 15 - production slots fill fast.
+              Curated Diwali hampers, branded drinkware, sweet kits and eco sets at ₹500 to ₹3,000 per head. Order by 25 October.
             </p>
             <div className="cp-hero-ctas">
               <a href="#products" className="cp-hero-cta-primary">Browse Diwali Gifts ↓</a>
-              <a href="#quote" className="cp-hero-cta-secondary">Get Diwali Quote</a>
-            </div>
-            <div className="cp-hero-badge-group">
-              <span className="cp-hero-badge">✓ Order by Oct 15, 2026</span>
-              <span className="cp-hero-badge">✓ ₹500–₹3,000/head</span>
-              <span className="cp-hero-badge">✓ Pan-India delivery</span>
-              <span className="cp-hero-badge">✓ GST invoicing</span>
+              <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
             </div>
           </div>
           <div className="cp-hero-visual">
             <div className="cp-hero-visual-grid">
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=800&q=80" alt="Diwali corporate gifts with festive diyas" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/desk-architect.webp" alt="Desk Architect" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
               <div className="cp-hero-visual-card">
-                <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=800&q=80" alt="Corporate gift packages ready for delivery" className="cp-hero-img-actual" loading="lazy" />
+                <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/the-grand-diwali-trunk.webp" alt="The Grand Diwali Trunk" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Order by 25 Oct 2026</span>
+            <span className="cp-hero-badge">✓ ₹500–₹3,000/head</span>
+            <span className="cp-hero-badge">✓ Pan-India delivery</span>
+            <span className="cp-hero-badge">✓ GST invoicing</span>
+          </div>
+        </div>
+      </div>
+
       {/* 2. AEO BAND */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Diwali 2026 falls on November 1. Corporate Diwali gifts are typically ordered 3–4 weeks in advance (by October 10–15). Budget ₹500–₹1,500 for all-staff; ₹1,500–₹3,000 for managers and clients. Popular options: gift hampers, branded drinkware, sweet kits, and eco sets. Bulk discounts available from 25 units."
+            content="Diwali 2026 falls on Sunday, 8 November. Orders confirmed by 25 October are guaranteed to be delivered before Diwali. Corporate Diwali gifts are typically ordered 3–4 weeks in advance. Budget ₹500–₹1,500 for all-staff; ₹1,500–₹3,000 for managers and clients. Popular options: gift hampers, branded drinkware, sweet kits, and eco sets. Bulk discounts available from 10 units."
           />
           <EATSignal credentials={[
             '500+ Diwali orders fulfilled annually',
-            'October slots fill by September - early orders recommended',
+            'Production slots fill through October, so early orders are recommended',
             'Custom hampers with branded packaging',
             'Pan-India delivery before Diwali',
             'FSSAI-certified sweet and food hampers',
           ]} />
+          <DiwaliSeeAlso current="corporate" />
         </div>
       </div>
 
@@ -222,10 +231,10 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
             </div>
             <div className="cp-stat-card">
               <div className="cp-stat-value">25<span className="cp-stat-unit"> units</span></div>
-              <div className="cp-stat-label">minimum order quantity</div>
+              <div className="cp-stat-label">min. order, logo-branded</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">Nov 1</div>
+              <div className="cp-stat-value">8 Nov</div>
               <div className="cp-stat-label">Diwali 2026</div>
             </div>
           </div>
@@ -236,7 +245,6 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
       {/* 4. BUDGET OPTIONS */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Gift Options by Budget</div>
           <h2 className="cp-section-title">Diwali Gift Options for Every Budget</h2>
           <p className="cp-section-sub">
             Choose a tier that fits your per-head spend. All options include branded packaging
@@ -263,7 +271,6 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
       {/* 5. PRODUCT SHOWCASE */}
       <section id="products" className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Diwali Products</div>
           <h2 className="cp-section-title">Browse Diwali Corporate Gift Products</h2>
           <p className="cp-section-sub">
             All products suitable for Diwali gifting. Filter by price to match your per-head budget.
@@ -303,10 +310,9 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
       {/* 7. COMPARISON TABLE */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Comparison Guide</div>
           <h2 className="cp-section-title">2026 Diwali Gift Ideas at a Glance</h2>
           <p className="cp-section-sub">
-            Prices are per-head at 25+ units with standard branded packaging included.
+            Prices are per-head at 10+ units with standard branded packaging included.
           </p>
           <div className="cp-table-wrap">
             <table className="cp-table">
@@ -335,7 +341,7 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
 
       {/* EDITORIAL IMAGE */}
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=1200&q=80" alt="Festive Diwali corporate gift hampers with diyas and branded packaging" loading="lazy" />
+        <Image src="https://tsg7nlowf2bnsaf0.public.blob.vercel-storage.com/ferrero-festive.webp" alt="Ferrero Festive" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* 8. QUOTE PULL */}
@@ -354,17 +360,16 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
       <section id="quote" className="cp-cta-section">
         <div className="cp-cta-section-inner">
           <div>
-            <div className="cp-section-eyebrow" style={{ color: 'var(--gold)' }}>Diwali 2026</div>
-            <h2 className="cp-cta-title">Plan Your<br />Diwali Gifting</h2>
+            <h2 className="cp-cta-title">Plan Your{' '}<br />Diwali Gifting</h2>
             <p className="cp-cta-sub">
               Tell us your headcount, budget per head, and delivery cities - we will come back
-              with a curated Diwali proposal and mockup within 4 hours.
+              with a curated Diwali proposal and mockup. We reply within 1 hour on business days.
             </p>
           </div>
           <div className="cp-quote-form-panel">
             <InlineQuoteForm
               title="Plan Your Diwali Gifting"
-              ctaLabel="Get Diwali Quote"
+              ctaLabel="Request a quote"
               defaultOccasion="diwali"
             />
           </div>
@@ -378,7 +383,6 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
         <div className="cp-container--narrow">
           <FAQSection
             items={FAQS}
-            eyebrow="FAQ"
             title="Diwali Corporate Gifts 2026 - Frequently Asked Questions"
           />
         </div>
@@ -410,7 +414,7 @@ export default function DiwaliCorporateClient({ products, categories }: { produc
       </section>
 
       <div className="cp-container--narrow" style={{ padding: '0 24px' }}>
-        <LastUpdatedDate date="2026-05-26" />
+        <LastUpdatedDate date="2026-10-03" />
       </div>
       <Footer />
       <WhatsAppFloat />

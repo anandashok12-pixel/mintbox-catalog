@@ -1,5 +1,5 @@
 /* ============================================================
-   MINTBOX  -  Guide pages (extends LegalPage.css)
+   MINTBOX - Guide pages (extends LegalPage.css)
    ============================================================ */
 
 /* Full-width hero banner image (sits between the dark hero and the body,
@@ -22,7 +22,7 @@
   .guide-hero-img { aspect-ratio: 16 / 11; }
 }
 
-/* Trim the body's top padding on guides — the banner now carries the
+/* Trim the body's top padding on guides: the banner now carries the
    transition from hero to text, so the large gap is no longer needed. */
 .legal-body.guide-body {
   padding-top: 3rem;

@@ -3,16 +3,17 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import StartupsIndustryClient from '@/components/pages/StartupsIndustryClient'
 import '../../content-pages.css'
+import { slimProducts } from '@/lib/slimProducts'
 
 export const metadata: Metadata = {
-  title: 'Corporate Gifts for Startups: Culture-Fit Gifting 2026 | MintBox',
+  title: 'Corporate Gifts for Startups: Culture-Fit Ideas | MintBox',
   description:
-    'Startup-specific corporate gifting - onboarding kits, team swag, investor gifts. Budget-conscious, brand-forward, and fast. MOQ from 10 units. Bangalore & Pan-India.',
+    'Corporate gifting for startups: onboarding kits, team swag and investor gifts. Budget-conscious, brand-forward and fast. MOQ from 10 units.',
   alternates: { canonical: 'https://themintbox.in/industry-solutions/startups' },
   openGraph: {
-    title: 'Corporate Gifts for Startups: Culture-Fit Gifting 2026 | MintBox',
+    title: 'Corporate Gifts for Startups: Culture-Fit Ideas | MintBox',
     description:
-      'Startup-specific corporate gifting - onboarding kits, team swag, investor gifts. Budget-conscious, brand-forward, and fast. MOQ from 10 units. Bangalore & Pan-India.',
+      'Corporate gifting for startups: onboarding kits, team swag and investor gifts. Budget-conscious, brand-forward and fast. MOQ from 10 units.',
   },
 }
 
@@ -35,7 +36,7 @@ export default async function StartupsPage() {
       }),
     ])
     categories = catsResult.docs
-    products = productsResult.docs
+    products = slimProducts(productsResult.docs)
   } catch (err) {
     console.error('[startups] Payload query failed:', err)
   }

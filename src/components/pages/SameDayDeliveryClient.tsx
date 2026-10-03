@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
@@ -62,7 +63,7 @@ const STEPS = [
   {
     num: '02',
     title: 'Confirm & Pay',
-    desc: 'We confirm stock, share invoice, and collect advance payment. Rush fee added to total.',
+    desc: 'We confirm stock, share the invoice with any rush charges quoted upfront, and collect advance payment.',
   },
   {
     num: '03',
@@ -100,8 +101,8 @@ const FAQS = [
     a: 'Custom logo printing and engraving require a minimum of 3–5 business days. For same-day orders, choose from our pre-branded or plain stock. If you need custom branding urgently, we can arrange a 2-day express production run.',
   },
   {
-    q: 'What is the rush delivery fee?',
-    a: 'Same-day delivery starts at ₹500 for up to 10 items within 15 km of our warehouse. Larger orders (50+ units) or distant zones (Electronic City, Whitefield) are quoted separately. Fees are shown upfront before confirmation.',
+    q: 'How much does same-day delivery cost?',
+    a: 'It depends on order size and delivery zone. Rush options are available, message us on WhatsApp for a quote. Charges are confirmed upfront before you pay.',
   },
   {
     q: "What if my order isn't delivered by 6 PM?",
@@ -136,14 +137,19 @@ export default function SameDayDeliveryClient({
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "MintBox",
-        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 25 units, logo customisation.",
+        "description": "Corporate gifting company based in Bangalore, India - same-day delivery, bulk orders from 10 units, logo customisation.",
         "url": "https://themintbox.in",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "2nd Floor, Sobha Alexander Plaza, Ashok Nagar",
           "addressLocality": "Bangalore",
           "addressRegion": "Karnataka",
+          "postalCode": "560025",
           "addressCountry": "IN"
         },
+        "telephone": "+919886537631",
+        "email": "hello@themintbox.in",
+        "image": "https://themintbox.in/mintbox-logo.webp",
         "areaServed": "Bangalore, Karnataka, India",
         "priceRange": "₹₹"
       }) }} />
@@ -164,36 +170,28 @@ export default function SameDayDeliveryClient({
             <div>
               <div className="cp-hero-eyebrow">Bangalore Delivery · Same Day & Express</div>
               <h1 className="cp-hero-title">
-                Same-Day Corporate Gift<br />
+                Same-Day Corporate Gift{' '}<br />
                 <em>Delivery in Bangalore</em>
               </h1>
               <div className="cp-hero-rule" />
               <p className="cp-hero-sub">
-                Order before 11 AM, delivered to your Bangalore office by 6 PM. In-stock branded gifts - bottles,
-                notebooks, hampers, tech accessories - available for express dispatch. No custom printing on same-day
-                orders; pre-printed and plain stock available.
+                Order before 11 AM, delivered to your Bangalore office by 6 PM. In-stock gifts only; no custom printing on same-day orders.
               </p>
               <div className="cp-hero-ctas">
                 <a href="#products" className="cp-hero-cta-primary">Browse In-Stock Gifts ↓</a>
-                <a href="#quote" className="cp-hero-cta-secondary">Request Same-Day Quote</a>
-              </div>
-              <div className="cp-hero-badge-group">
-                <span className="cp-hero-badge">✓ Order by 11 AM, deliver by 6 PM</span>
-                <span className="cp-hero-badge">✓ Koramangala · Whitefield · HSR · Electronic City</span>
-                <span className="cp-hero-badge">✓ Pre-printed & branded stock</span>
-                <span className="cp-hero-badge">✓ WhatsApp order support</span>
+                <a href="#quote" className="cp-hero-cta-secondary">Request a quote</a>
               </div>
             </div>
             <div className="cp-hero-visual">
               <div className="cp-hero-visual-grid">
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Bulk corporate gift boxes and hampers" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="lazy" />
+                  <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual cp-hero-img-actual--tall" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Same-day corporate gift delivery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero4.webp" alt="Gift box with notebook and accessories" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
                 <div className="cp-hero-visual-card">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Fast same-day corporate gift delivery" className="cp-hero-img-actual" loading="lazy" />
+                  <Image src="/hampers/hero5.webp" alt="Premium nuts gift collection" width={600} height={600} sizes="(max-width: 768px) 50vw, 320px" className="cp-hero-img-actual" loading="eager" />
                 </div>
               </div>
             </div>
@@ -201,12 +199,24 @@ export default function SameDayDeliveryClient({
         </div>
       </section>
 
+      {/* Hero chips */}
+      <div className="cp-hero-chips">
+        <div className="cp-container">
+          <div className="cp-hero-badge-group">
+            <span className="cp-hero-badge">✓ Order by 11 AM, deliver by 6 PM</span>
+            <span className="cp-hero-badge">✓ Koramangala · Whitefield · HSR · Electronic City</span>
+            <span className="cp-hero-badge">✓ Pre-printed & branded stock</span>
+            <span className="cp-hero-badge">✓ WhatsApp order support</span>
+          </div>
+        </div>
+      </div>
+
       {/* ── AEO BAND ── */}
       <div className="cp-aeo-band">
         <div className="cp-container--narrow">
           <QuickAnswerBox
             title="Quick Answer"
-            content="Same-day corporate gift delivery in Bangalore is available for in-stock items ordered by 11 AM on weekdays. Delivery covers major areas: Koramangala, Whitefield, HSR Layout, Indiranagar, Electronic City, and Marathahalli. Custom printing is not available for same-day; choose pre-branded or plain items. Rush fee is ₹500–₹1,500 depending on quantity and distance."
+            content="Same-day corporate gift delivery in Bangalore is available for in-stock items ordered by 11 AM on weekdays. Delivery covers major areas: Koramangala, Whitefield, HSR Layout, Indiranagar, Electronic City, and Marathahalli. Custom printing is not available for same-day; choose pre-branded or plain items. Rush options are available, message us on WhatsApp for a quote."
           />
           <EATSignal
             credentials={[
@@ -236,9 +246,9 @@ export default function SameDayDeliveryClient({
               <div className="cp-stat-label">Bangalore coverage</div>
             </div>
             <div className="cp-stat-card">
-              <div className="cp-stat-value">₹500</div>
-              <div className="cp-stat-unit">starts at</div>
-              <div className="cp-stat-label">express delivery fee</div>
+              <div className="cp-stat-value">WhatsApp</div>
+              <div className="cp-stat-unit">quote</div>
+              <div className="cp-stat-label">for rush delivery</div>
             </div>
             <div className="cp-stat-card">
               <div className="cp-stat-value">100+</div>
@@ -252,11 +262,10 @@ export default function SameDayDeliveryClient({
       {/* ── ZONES COVERED ── */}
       <section className="cp-section cp-section--cream">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Coverage Map</div>
           <h2 className="cp-section-title">Zones We Cover for Same-Day</h2>
           <p className="cp-section-sub">
-            We deliver to all major Bangalore business districts. Areas on or within the outer ring road
-            are covered at the standard rush fee; outer zones may incur a small surcharge.
+            We deliver to all major Bangalore business districts. Rush options are available across
+            these zones, message us on WhatsApp for a quote.
           </p>
           <div className="cp-cards-grid cp-cards-grid--3">
             {ZONES.map(zone => (
@@ -291,7 +300,6 @@ export default function SameDayDeliveryClient({
       {/* ── HOW IT WORKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">The Process</div>
           <h2 className="cp-section-title">How Same-Day Delivery Works</h2>
           <p className="cp-section-sub">
             Four steps from order to delivery - all completed within the same business day when you order by 11 AM.
@@ -311,7 +319,7 @@ export default function SameDayDeliveryClient({
       </section>
 
       <figure className="cp-editorial-img">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Same-day corporate gift delivery across Bangalore" loading="lazy" />
+        <Image src="/hampers/hero3.webp" alt="Heritage gift set with dry fruits" width={1200} height={600} sizes="(max-width: 1200px) 100vw, 1200px" />
       </figure>
 
       {/* ── PRODUCT SHOWCASE ── */}
@@ -336,7 +344,6 @@ export default function SameDayDeliveryClient({
       {/* ── AVAILABILITY TABLE ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">What's Available</div>
           <h2 className="cp-section-title">Same-Day Availability at a Glance</h2>
           <p className="cp-section-sub">
             Not every gift type is possible for same-day. Use this table to plan your order correctly.
@@ -375,7 +382,7 @@ export default function SameDayDeliveryClient({
             "Need 50 welcome kits by Thursday morning? WhatsApp us by 11 AM today - we'll confirm stock,
             price, and delivery window within the hour."
           </p>
-          <a href="#quote" className="cp-quote-band-cta">Request Same-Day Quote →</a>
+          <a href="#quote" className="cp-quote-band-cta">Request a quote →</a>
         </div>
       </div>
 
@@ -385,7 +392,7 @@ export default function SameDayDeliveryClient({
         <div className="cp-cta-section-inner">
           <div>
             <div className="cp-cta-eyebrow">Express Delivery</div>
-            <h2 className="cp-cta-title">Request Same-Day<br />Delivery Quote</h2>
+            <h2 className="cp-cta-title">Request Same-Day{' '}<br />Delivery Quote</h2>
             <p className="cp-cta-sub">
               Share your order list, quantity, and delivery address. We will confirm stock and
               dispatch time within the hour.
@@ -395,7 +402,7 @@ export default function SameDayDeliveryClient({
           <InlineQuoteForm
             title="Request Same-Day Delivery Quote"
             subtitle="Order by 11 AM for 6 PM delivery anywhere in Bangalore. Tell us what you need."
-            ctaLabel="Get Same-Day Quote"
+            ctaLabel="Request a quote"
             defaultOccasion="corporate_event"
           />
         </div>
@@ -409,7 +416,6 @@ export default function SameDayDeliveryClient({
           <FAQSection
             items={FAQS}
             title="Same-Day Corporate Gift Delivery - FAQs"
-            eyebrow="FAQ"
           />
         </div>
       </section>
@@ -417,7 +423,6 @@ export default function SameDayDeliveryClient({
       {/* ── RELATED LINKS ── */}
       <section className="cp-section cp-section--white">
         <div className="cp-container">
-          <div className="cp-section-eyebrow">Explore More</div>
           <h2 className="cp-section-title" style={{ marginBottom: '28px' }}>Related Pages</h2>
           <div className="cp-related-grid">
             {[

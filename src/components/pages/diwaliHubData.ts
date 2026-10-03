@@ -13,7 +13,7 @@ export interface DiwaliFaq {
 export const DIWALI_HUB_FAQS: DiwaliFaq[] = [
   {
     q: 'When is Diwali 2026 and when should we order corporate Diwali gifts?',
-    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by 24 October 2026 are guaranteed to be delivered before Diwali with full logo branding. Dispatch takes 7 to 10 working days after confirmation, so later orders are fulfilled from ready stock with limited branding.',
+    a: 'Diwali 2026 falls on Sunday, 8 November. Orders confirmed by 25 October 2026 are guaranteed to be delivered before Diwali with full logo branding. Dispatch takes 7 to 10 working days after confirmation, so later orders are fulfilled from ready stock with limited branding.',
   },
   {
     q: 'What is the minimum order quantity for Diwali gift hampers?',
