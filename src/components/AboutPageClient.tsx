@@ -281,7 +281,7 @@ export function AboutPageClient({ data: raw }: { data: AboutPageData }) {
         <div className="ab-lead-inner">
           <div className="ab-lead-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/founder-ashok-kumar.jpg" alt="Ashok Kumar N, founder of MintBox" width={800} height={793} loading="lazy" />
+            <img src="/ashok-kumar-n.jpg" alt="Ashok Kumar N, founder of MintBox" width={800} height={800} loading="lazy" />
           </div>
           <div className="ab-lead-copy">
             <div className="ab-story-label">Meet the founder</div>

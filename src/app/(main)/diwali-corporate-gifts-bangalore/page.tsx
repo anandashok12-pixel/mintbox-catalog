@@ -43,7 +43,6 @@ const DIWALI_CATEGORY_SLUGS = ['diwali-gift-boxes', 'diwali-2026-products']
 const HERO_PRODUCT_ID = '475'
 const PHONE_DISPLAY = '+91 98865 37631'
 const PHONE_HREF = 'tel:+919886537631'
-const ORDER_BY_DATE = new Date('2026-10-25T23:59:59+05:30')
 
 export const dynamic = 'force-dynamic'
 
@@ -53,11 +52,6 @@ const HEADLINES: Record<string, { lead: string; em: string }> = {
   employees: { lead: 'Diwali gifts for employees,', em: 'delivered across Bengaluru.' },
   clients: { lead: 'Premium Diwali hampers', em: 'for your clients.' },
   bulk: { lead: 'Bulk Diwali gift boxes,', em: 'branded and delivered.' },
-}
-
-// The page renders per request (force-dynamic), so this is read fresh each time.
-function isBeforeCutoff() {
-  return Date.now() <= ORDER_BY_DATE.getTime()
 }
 
 /** No en or em dashes on this page: the shared data uses them in ranges. */
@@ -190,7 +184,6 @@ export default async function DiwaliAdsLanding({
     count: t.count,
   }))
 
-  const beforeCutoff = isBeforeCutoff()
   const fromPrice = stats.hamperMin ? formatPrice(stats.hamperMin) : null
 
   const faqs = [
@@ -215,18 +208,6 @@ export default async function DiwaliAdsLanding({
       <header className="dl-nav-wrap">
         <nav className="dl-nav" aria-label="MintBox">
           <Image src="/mintbox-logo-white.webp" alt="MintBox" width={118} height={32} className="dl-logo" loading="eager" />
-          <p className="dl-nav-deadline">
-            {beforeCutoff ? (
-              <>
-                Diwali orders: <strong>confirm by Sun 25 Oct</strong>
-                <span className="dl-deadline-more"> for delivery before Fri 6 Nov</span>
-              </>
-            ) : (
-              <>
-                Past 25 Oct? <strong>Bengaluru orders still ship from ready stock</strong>
-              </>
-            )}
-          </p>
           <div className="dl-nav-actions">
             <a href={PHONE_HREF} className="dl-nav-phone" aria-label={`Call ${PHONE_DISPLAY}`}>
               <Phone size={18} weight="bold" aria-hidden="true" />
@@ -571,7 +552,7 @@ export default async function DiwaliAdsLanding({
         <section className="dl-section dl-section--tint" aria-labelledby="dl-founder-title">
           <div className="dl-wrap dl-founder dl-reveal">
             <div className="dl-founder-photo">
-              <Image src="/founder-ashok-kumar.jpg" alt="Ashok Kumar N, founder of MintBox" fill sizes="(max-width: 767px) 40vw, 280px" />
+              <Image src="/ashok-kumar-n.jpg" alt="Ashok Kumar N, founder of MintBox" fill sizes="(max-width: 767px) 40vw, 280px" />
             </div>
             <div>
               <h2 id="dl-founder-title" className="dl-h2">Run with Air Force discipline.</h2>

@@ -277,18 +277,6 @@
   flex-shrink: 0;
 }
 
-.dl-nav-deadline {
-  font-size: 0.875rem;
-  font-weight: 300;
-  text-align: center;
-  color: rgba(242, 242, 242, 0.85);
-}
-
-.dl-nav-deadline strong {
-  font-weight: 500;
-  color: #fff;
-}
-
 .dl-nav-actions {
   display: flex;
   align-items: center;
@@ -305,12 +293,6 @@
   font-size: 0.9375rem;
 }
 
-@media (max-width: 1099px) {
-  .dl-deadline-more {
-    display: none;
-  }
-}
-
 @media (max-width: 899px) {
   .dl-nav-phone span {
     position: absolute;
@@ -321,7 +303,7 @@
   }
 }
 
-/* Phone: logo and deadline only; the quote and WhatsApp buttons live in
+/* Phone: logo and call button only; the quote and WhatsApp buttons live in
    the bottom bar. */
 @media (max-width: 639px) {
   .dl-nav-wrap {
@@ -335,11 +317,6 @@
   }
   .dl-logo {
     height: 24px;
-  }
-  .dl-nav-deadline {
-    font-size: 0.75rem;
-    line-height: 1.3;
-    text-align: right;
   }
   .dl-nav-actions .dl-btn {
     display: none;
