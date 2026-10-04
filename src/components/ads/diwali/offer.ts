@@ -9,7 +9,9 @@ export const CATALOGUE_CTA = 'Download catalogue'
 
 /**
  * The Diwali catalogue PDF. While this is null the pop-up says the team will
- * send it on WhatsApp; once set (e.g. '/diwali-ads/mintbox-diwali-2026.pdf',
- * saved under public/), submitting the pop-up downloads it straight away.
+ * send it on WhatsApp; once set, submitting the pop-up downloads it straight away.
+ * Hosted on Google Drive (shared as "anyone with the link"); the uc?export=download
+ * form serves it as an attachment, so the visitor stays on the page.
  */
-export const CATALOGUE_PDF_URL: string | null = null
+export const CATALOGUE_PDF_URL: string | null =
+  'https://drive.google.com/uc?export=download&id=16bB4U9aXXF4XdpbhoEN7HxkufD17k4UH'
