@@ -272,7 +272,7 @@
 }
 
 .dl-logo {
-  height: 36px;
+  height: 43px;
   width: auto;
   flex-shrink: 0;
 }
@@ -316,7 +316,7 @@
     gap: 10px;
   }
   .dl-logo {
-    height: 24px;
+    height: 29px;
   }
   .dl-nav-cat {
     min-height: 36px;
@@ -1818,6 +1818,30 @@ figure.dl-bento-cell figcaption strong {
 
 .dl-mobilebar.is-on {
   transform: translateY(0);
+}
+
+/* 30% smaller than the page's standard buttons, so the bar covers less. */
+.dl-mobilebar {
+  gap: 6px;
+  padding: 7px 12px calc(7px + env(safe-area-inset-bottom));
+}
+
+.dl-mobilebar .dl-btn {
+  min-height: 34px;
+  padding: 0 16px;
+  gap: 6px;
+  font-size: 0.8125rem;
+}
+
+.dl-mobilebar .dl-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.dl-mobilebar-count {
+  min-width: 18px;
+  height: 18px;
+  font-size: 0.6875rem;
 }
 
 @media (min-width: 768px) {

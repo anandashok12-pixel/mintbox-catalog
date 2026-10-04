@@ -319,7 +319,7 @@ export default async function DiwaliAdsLanding({
               <h2 id="dl-brand-title" className="dl-h2 dl-reveal">Make it feel personal, not bulk.</h2>
             </div>
             <div className="dl-bento">
-              <figure className="dl-bento-cell dl-bento-a dl-reveal">
+              <figure className="dl-bento-cell dl-bento-a">
                 <Image src={IMAGES.brandingLogo} alt="Illustrative green gift box with a gold foil emblem and satin ribbon" fill sizes="(max-width: 767px) 100vw, 60vw" />
                 <figcaption>
                   <strong>Your logo on the box or sleeve</strong>
@@ -339,7 +339,7 @@ export default async function DiwaliAdsLanding({
                 </p>
                 <p>Your message on a printed card. Say Happy Diwali, or Season&apos;s Greetings for a mixed team.</p>
               </div>
-              <figure className="dl-bento-cell dl-bento-d dl-reveal">
+              <figure className="dl-bento-cell dl-bento-d">
                 <Image src={IMAGES.brandingNames} alt="Illustrative Diwali gift boxes with cream cards, copper items and dry fruits" fill sizes="(max-width: 767px) 100vw, 40vw" />
                 <figcaption>
                   <strong>Each person&apos;s name on their card</strong>
@@ -378,7 +378,7 @@ export default async function DiwaliAdsLanding({
                   </div>
                 </li>
               </ul>
-              <div className="dl-delivery-photo dl-reveal">
+              <div className="dl-delivery-photo">
                 <Image src={IMAGES.delivery} alt="Illustrative office reception with ribboned green gift boxes on a trolley" fill sizes="(max-width: 1023px) 100vw, 560px" />
               </div>
             </div>
@@ -491,7 +491,7 @@ export default async function DiwaliAdsLanding({
               </div>
 
               <div className="dl-reviews">
-                <figure className="dl-review-feature dl-reveal">
+                <figure className="dl-review-feature">
                   <Image src={IMAGES.testimonial} alt="" fill sizes="(max-width: 1023px) 100vw, 520px" />
                   <div className="dl-review-feature-inner">
                     <blockquote>&ldquo;{excerpt(featured.text, 170)}&rdquo;</blockquote>
@@ -537,7 +537,7 @@ export default async function DiwaliAdsLanding({
 
         {/* The founder. */}
         <section className="dl-section dl-section--tint" aria-labelledby="dl-founder-title">
-          <div className="dl-wrap dl-founder dl-reveal">
+          <div className="dl-wrap dl-founder">
             <div className="dl-founder-photo">
               <Image src="/ashok-kumar-n.jpg" alt="Ashok Kumar N, founder of MintBox" fill sizes="(max-width: 767px) 40vw, 280px" />
             </div>

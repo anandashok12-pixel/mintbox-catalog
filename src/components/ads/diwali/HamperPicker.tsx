@@ -77,14 +77,23 @@ export default function HamperPicker({ tabs, hampers }: { tabs: TierTab[]; hampe
       </div>
 
       <div id="dl-hamper-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="dl-hamper-grid">
-        {inTier.map(h => {
+        {inTier.map((h, i) => {
           const added = isPicked(h)
           return (
             <article key={h.id} className={`dl-hamper${added ? ' is-added' : ''}`}>
               <div className="dl-hamper-img">
                 <button type="button" className="dl-hamper-open" onClick={() => setOpen(h)} aria-label={`View ${h.name}`}>
                   {h.image ? (
-                    <Image src={h.image} alt="" fill sizes="(max-width: 639px) 50vw, (max-width: 1179px) 33vw, 280px" />
+                    <Image
+                      src={h.image}
+                      alt=""
+                      fill
+                      sizes="(max-width: 639px) 50vw, (max-width: 1179px) 33vw, 280px"
+                      // The first two rows start loading with the page rather
+                      // than when scrolled near, at low priority so the hero wins.
+                      loading={i < 8 ? 'eager' : 'lazy'}
+                      fetchPriority={i < 8 ? 'low' : 'auto'}
+                    />
                   ) : null}
                   <span className="dl-hamper-hint" aria-hidden="true">
                     View details

@@ -11,24 +11,17 @@ import { BUDGET_MID, QTY_BANDS, budgetLabel, track, useQuote, whatsappHref } fro
 
 const THANKS_PATH = '/diwali-corporate-gifts-bangalore/thanks'
 
-function tomorrowISO(): string {
-  const d = new Date()
-  d.setDate(d.getDate() + 1)
-  const pad = (n: number) => String(n).padStart(2, '0')
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
-}
-
-type Errors = Partial<Record<'qty' | 'budget' | 'date' | 'name' | 'email' | 'phone' | 'form', string>>
+type Errors = Partial<Record<'qty' | 'budget' | 'name' | 'email' | 'phone' | 'form', string>>
 
 /**
- * Two-step quote request. Step 1 is three choices with no typing, so more
+ * Two-step quote request. Step 1 is two choices with no typing, so more
  * visitors start; step 2 asks for contact details. Posts to /api/leads like
  * every other form on the site. (The catalogue has its own pop-up in the nav.)
  */
 export default function QuoteForm({ adGroup }: { adGroup: string }) {
   const router = useRouter()
   const uid = useId()
-  const { qty, budget, date, hampers, setQty, setBudget, setDate, removeHamper } = useQuote()
+  const { qty, budget, hampers, setQty, setBudget, removeHamper } = useQuote()
   const [step, setStep] = useState<1 | 2>(1)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -43,7 +36,6 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
     const e: Errors = {}
     if (!qty) e.qty = 'Pick a rough number of gifts.'
     if (!budget) e.budget = 'Pick a budget per gift.'
-    if (!date) e.date = 'Choose the date you need them by.'
     setErrors(e)
     if (Object.keys(e).length) return
     track('quote_step_1', { quantity_band: qty, budget_band: budget })
@@ -84,13 +76,12 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
             'Requested: written quote',
             `Number of gifts: ${band.label}`,
             `Budget per gift: ${budgetLabel(budget!)}`,
-            `Needed by: ${date}`,
             hampers.length ? `Hampers of interest: ${hampers.map(h => `${h.name} (#${h.id})`).join('; ')}` : '',
             `Landing page: Diwali ads (${adGroup})`,
           ].filter(Boolean).join('\n'),
           items: hampers.map(h => ({ productId: Number(h.id), productName: h.name, quantity: band.low, unitPrice: h.price })),
           summary: [
-            `A written quote for ${band.label} gifts at ${budgetLabel(budget!)} each, needed by ${new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}.`,
+            `A written quote for ${band.label} gifts at ${budgetLabel(budget!)} each.`,
             hampers.length ? `Hampers you picked: ${hampers.map(h => h.name).join(', ')}.` : '',
           ].filter(Boolean).join('\n'),
           attribution: getAttribution(),
@@ -180,26 +171,6 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
             </div>
             {err('budget')}
           </fieldset>
-
-          <div className="dl-field">
-            <label className="dl-label" htmlFor={`${uid}-date`}>
-              Needed by
-            </label>
-            <input
-              id={`${uid}-date`}
-              className="dl-input"
-              type="date"
-              min={tomorrowISO()}
-              // "Tomorrow" is computed in UTC on the server and IST in the
-              // browser; they differ between midnight and 5:30 IST.
-              suppressHydrationWarning
-              value={date}
-              onChange={e => setDate(e.target.value)}
-              aria-invalid={!!errors.date}
-              aria-describedby={errors.date ? `${uid}-date-err` : undefined}
-            />
-            {err('date')}
-          </div>
 
           <button type="submit" className="dl-btn dl-btn--primary dl-btn--block">
             {PRIMARY_CTA} <ArrowRight size={18} weight="bold" aria-hidden="true" />
