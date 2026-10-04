@@ -186,16 +186,15 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
               className="dl-input"
               type="date"
               min={tomorrowISO()}
+              // "Tomorrow" is computed in UTC on the server and IST in the
+              // browser; they differ between midnight and 5:30 IST.
+              suppressHydrationWarning
               value={date}
               onChange={e => setDate(e.target.value)}
               aria-invalid={!!errors.date}
-              aria-describedby={errors.date ? `${uid}-date-err` : `${uid}-date-help`}
+              aria-describedby={errors.date ? `${uid}-date-err` : undefined}
             />
-            {errors.date ? err('date') : (
-              <p id={`${uid}-date-help`} className="dl-help">
-                Before Diwali? Confirm your order by Sun 25 Oct.
-              </p>
-            )}
+            {err('date')}
           </div>
 
           <button type="submit" className="dl-btn dl-btn--primary dl-btn--block">
