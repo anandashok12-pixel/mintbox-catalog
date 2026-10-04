@@ -29,9 +29,6 @@ export interface TierTab {
   count: number
 }
 
-/** Two rows of four; the rest of the band is one tap away, so the page stays short. */
-const INITIAL = 8
-
 /**
  * Budget tabs over every hamper in that band, from the live catalogue.
  * Hampers are added to the quote with the + on the photo (several can be
@@ -40,7 +37,6 @@ const INITIAL = 8
 export default function HamperPicker({ tabs, hampers }: { tabs: TierTab[]; hampers: SlimHamper[] }) {
   const firstFull = tabs.find(t => t.key === 'team' && t.count > 0) ?? tabs.find(t => t.count > 0)
   const [active, setActive] = useState<TierKey>(firstFull?.key ?? 'team')
-  const [expanded, setExpanded] = useState(false)
   const [open, setOpen] = useState<SlimHamper | null>(null)
   const picked = useQuote(s => s.hampers)
   const toggleHamper = useQuote(s => s.toggleHamper)
@@ -55,14 +51,10 @@ export default function HamperPicker({ tabs, hampers }: { tabs: TierTab[]; hampe
   }, [])
 
   const inTier = hampers.filter(h => h.tier === active)
-  const shown = expanded ? inTier : inTier.slice(0, INITIAL)
   const isPicked = (h: SlimHamper) => picked.some(p => p.id === h.id)
   const toggle = (h: SlimHamper) => toggleHamper({ id: h.id, name: h.name, price: h.price }, h.tier)
 
-  const switchTier = (k: TierKey) => {
-    setActive(k)
-    setExpanded(false)
-  }
+  const switchTier = (k: TierKey) => setActive(k)
 
   return (
     <div>
@@ -85,7 +77,7 @@ export default function HamperPicker({ tabs, hampers }: { tabs: TierTab[]; hampe
       </div>
 
       <div id="dl-hamper-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="dl-hamper-grid">
-        {shown.map(h => {
+        {inTier.map(h => {
           const added = isPicked(h)
           return (
             <article key={h.id} className={`dl-hamper${added ? ' is-added' : ''}`}>
@@ -120,13 +112,6 @@ export default function HamperPicker({ tabs, hampers }: { tabs: TierTab[]; hampe
         })}
       </div>
 
-      {inTier.length > INITIAL && (
-        <div className="dl-more">
-          <button type="button" className="dl-btn dl-btn--ghost" onClick={() => setExpanded(e => !e)} aria-controls="dl-hamper-panel">
-            {expanded ? 'Show fewer' : `Show all ${inTier.length} in this budget`}
-          </button>
-        </div>
-      )}
 
       {picked.length > 0 && !formInView && (
         <a href="#quote" className="dl-tray" aria-live="polite">

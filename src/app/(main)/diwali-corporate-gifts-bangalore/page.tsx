@@ -125,16 +125,6 @@ const IMAGES = {
   testimonial: '/diwali-ads/testimonial.webp',
 }
 
-// Real MintBox photography, as used in the homepage strip (4:5 each).
-const STRIP = [
-  { src: '/hampers/hero1.webp', alt: 'Wooden gift box with sweets and a greeting card' },
-  { src: '/hampers/hero2.webp', alt: 'Desk hamper with mug, notebook and chocolates' },
-  { src: '/hampers/hero3.webp', alt: 'Festive hamper with dry fruits and a printed pouch' },
-  { src: '/hampers/hero4.webp', alt: 'Rigid gift box with a printed lid and ribbon' },
-  { src: '/hampers/hero5.webp', alt: 'Glass bottle with dry fruit pouches in a gift box' },
-  { src: '/hampers/diwali.webp', alt: 'Diwali hamper with copper bottle, tumblers and lamp' },
-]
-
 export const metadata: Metadata = {
   title: 'Corporate Diwali Gifts in Bengaluru | Bulk Hampers from MintBox',
   description: `Corporate Diwali hampers and gift boxes for employees and clients. Minimum ${MOQ} gifts, logo branding, GST invoice, delivery across Bengaluru and India.`,
@@ -188,7 +178,12 @@ export default async function DiwaliAdsLanding({
   const fromPrice = stats.hamperMin ? formatPrice(stats.hamperMin) : null
 
   const faqs = [
-    ...getDiwaliHubFaqs(stats).map(f => ({ q: dash(f.q), a: dash(f.a) })),
+    // The shared hub FAQ says larger quantities are priced lower; these
+    // prices hold well beyond the minimum, so that sentence is dropped here.
+    ...getDiwaliHubFaqs(stats).map(f => ({
+      q: dash(f.q),
+      a: dash(f.a.replace(/\s*Prices shown are per unit at the \d+-unit minimum; larger quantities are priced lower in your quote\./, '')),
+    })),
     {
       q: 'Are Diwali gifts taxable for employees?',
       a: 'Gifts to an employee above a set value in a financial year can count as a taxable perquisite for that employee. The threshold and treatment depend on how your company records the gift, so please check with your finance team.',
@@ -247,15 +242,6 @@ export default async function DiwaliAdsLanding({
           </div>
         </section>
 
-        {/* Photo strip, as on the homepage. */}
-        <div className="dl-strip" role="list" aria-label="MintBox hampers">
-          {STRIP.map((p, i) => (
-            <div key={p.src} className="dl-strip-item" role="listitem">
-              <Image src={p.src} alt={p.alt} fill sizes="(max-width: 767px) 62vw, 17vw" loading={i < 3 ? 'eager' : 'lazy'} />
-            </div>
-          ))}
-        </div>
-
         {/* Trust: real client logos, then four plain facts. */}
         <section className="dl-trust" aria-label="Why teams trust MintBox">
           <div className="dl-wrap">
@@ -298,8 +284,8 @@ export default async function DiwaliAdsLanding({
                 Pick a budget. <em>See what is in the box.</em>
               </h2>
               <p className="dl-lede dl-reveal">
-                Prices are per gift at {MOQ} gifts, before GST. Larger orders cost less, and the total on your quote,
-                branding and delivery included, is the total on your invoice.
+                Prices are per gift, before GST. The total on your quote, branding and delivery included, is the
+                total on your invoice.
               </p>
             </div>
             {hampers.length > 0 ? (
