@@ -81,8 +81,26 @@ export function whatsappHref(s: Pick<QuoteState, 'qty' | 'budget' | 'hampers'>):
 
 type Gtag = (...args: unknown[]) => void
 
-/** Fires a GA4 event when gtag is on the page; silently skips otherwise. */
+/** Google Ads conversion actions in the MintBox Corporate Gifting account (AW-18492677189). */
+const ADS_CONVERSIONS: Record<string, string> = {
+  generate_lead: 'AW-18492677189/nodCCIHk248dEMW4__FE',
+  whatsapp_click: 'AW-18492677189/8Bz4CITk248dEMW4__FE',
+}
+
+/**
+ * Fires a GA4 event, plus the matching Google Ads conversion if there is one,
+ * when gtag is on the page; silently skips otherwise. Phone clicks are tracked
+ * site-wide from the layout's gtag snippet.
+ */
 export function track(event: string, params: Record<string, unknown> = {}) {
   const gtag = (window as unknown as { gtag?: Gtag }).gtag
-  if (typeof gtag === 'function') gtag('event', event, params)
+  if (typeof gtag !== 'function') return
+  gtag('event', event, params)
+  const sendTo = ADS_CONVERSIONS[event]
+  if (sendTo) {
+    gtag('event', 'conversion', {
+      send_to: sendTo,
+      ...(typeof params.value === 'number' ? { value: params.value, currency: params.currency ?? 'INR' } : {}),
+    })
+  }
 }

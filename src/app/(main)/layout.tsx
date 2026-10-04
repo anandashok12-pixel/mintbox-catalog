@@ -36,6 +36,14 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               gtag('js', new Date());
               gtag('config', 'G-9EH5D2P9LL');
               gtag('config', 'AW-18208220528');
+              gtag('config', 'AW-18492677189');
+              // Every tel: link on the site counts as a phone_click (GA4) and an Ads conversion
+              document.addEventListener('click', function (e) {
+                var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+                if (!a) return;
+                gtag('event', 'phone_click', { link_url: a.getAttribute('href'), page_path: location.pathname });
+                gtag('event', 'conversion', { send_to: 'AW-18492677189/qYbsCIrk248dEMW4__FE' });
+              }, true);
             `,
           }}
         />
