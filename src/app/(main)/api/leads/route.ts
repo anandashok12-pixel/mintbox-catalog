@@ -46,6 +46,12 @@ interface LeadRequest {
   phone?: string
   occasion?: string
   notes?: string
+  /**
+   * Customer-facing one-line summary of what was asked for, shown in the
+   * confirmation email in place of `notes` (which may hold internal context
+   * such as the landing page). Optional; older forms omit it.
+   */
+  summary?: string
   items?: LeadItem[]
   attribution?: {
     firstTouch?: TouchInput
@@ -109,7 +115,7 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
     .map(
       (item) => `
       <tr>
-        <td style="padding:8px 12px;border-bottom:1px solid #e8e0d0;">${item.productName}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e8e0d0;">${escapeHtml(item.productName)}</td>
         <td style="padding:8px 12px;border-bottom:1px solid #e8e0d0;text-align:center;">${item.quantity}</td>
         <td style="padding:8px 12px;border-bottom:1px solid #e8e0d0;text-align:right;">₹${item.unitPrice.toLocaleString('en-IN')}</td>
         <td style="padding:8px 12px;border-bottom:1px solid #e8e0d0;text-align:right;">₹${(item.quantity * item.unitPrice).toLocaleString('en-IN')}</td>
@@ -134,17 +140,17 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
           <td style="padding:32px;">
             <h2 style="color:#0D3D2B;font-size:18px;margin:0 0 20px;">Contact Details</h2>
             <table width="100%" cellpadding="0" cellspacing="0">
-              <tr><td style="padding:6px 0;color:#666;width:120px;">Name</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.name}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Company</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.company}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Email</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.email}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.phone || ' - '}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;width:120px;">Name</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(lead.name)}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Company</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(lead.company || 'Not provided')}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Email</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(lead.email)}</td></tr>
+              <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(lead.phone || ' - ')}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Occasion</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.occasion ? formatOccasion(lead.occasion) : ' - '}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Source</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(src.channel || 'unknown')}</td></tr>
               <tr><td style="padding:6px 0;color:#666;">Entry page</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;word-break:break-all;">${escapeHtml(src.entryPage || ' - ')}</td></tr>
               ${src.referrer ? `<tr><td style="padding:6px 0;color:#666;">Referrer</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;word-break:break-all;">${escapeHtml(src.referrer)}</td></tr>` : ''}
               <tr><td style="padding:6px 0;color:#666;">Form page</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;word-break:break-all;">${escapeHtml(src.formPage || ' - ')}</td></tr>
             </table>
-            ${lead.notes ? `<div style="margin-top:16px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;">${lead.notes}</p></div>` : ''}
+            ${lead.notes ? `<div style="margin-top:16px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;">${escapeHtml(lead.notes).replace(/\n/g, '<br>')}</p></div>` : ''}
             <h2 style="color:#0D3D2B;font-size:18px;margin:28px 0 16px;">Requested Items</h2>
             <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e0d0;border-radius:8px;overflow:hidden;">
               <tr style="background:#0D3D2B;">
@@ -159,7 +165,7 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
                 <td style="padding:12px;text-align:right;font-weight:700;color:#0D3D2B;font-size:16px;">₹${estimatedTotal.toLocaleString('en-IN')}</td>
               </tr>
             </table>
-            <p style="margin:24px 0 0;font-size:12px;color:#999;">This is an automated notification from the MintBox catalog. Reply to ${lead.email} to respond.</p>
+            <p style="margin:24px 0 0;font-size:12px;color:#999;">This is an automated notification from the MintBox catalog. Reply to ${escapeHtml(lead.email)} to respond.</p>
           </td>
         </tr>
       </table>
@@ -171,12 +177,20 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
 
 function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: number): string {
   const leadItems = lead.items ?? []
+  const company = lead.company?.trim()
+  const firstName = lead.name.trim().replace(/^./, (c) => c.toUpperCase())
   const itemList = leadItems
     .map(
       (item) =>
-        `<li style="padding:6px 0;border-bottom:1px solid #e8e0d0;display:flex;justify-content:space-between;">${item.productName} × ${item.quantity} - <strong>₹${(item.quantity * item.unitPrice).toLocaleString('en-IN')}</strong></li>`,
+        `<li style="padding:6px 0;border-bottom:1px solid #e8e0d0;display:flex;justify-content:space-between;">${escapeHtml(item.productName)} × ${item.quantity} - <strong>₹${(item.quantity * item.unitPrice).toLocaleString('en-IN')}</strong></li>`,
     )
     .join('')
+  // Show the customer what they asked for. Forms that pass `summary` keep
+  // internal context out of `notes`; older forms put the buyer's own words
+  // in `notes`, which are fine to echo back.
+  const asked = lead.summary?.trim() || lead.notes?.trim()
+  const row = (label: string, value: string) =>
+    `<tr><td style="padding:6px 0;color:#666;width:140px;">${label}</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${escapeHtml(value)}</td></tr>`
 
   return `
 <!DOCTYPE html>
@@ -193,33 +207,37 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
         </tr>
         <tr>
           <td style="padding:40px 32px;">
-            <h2 style="color:#0D3D2B;font-size:22px;margin:0 0 8px;">Thank you, ${lead.name}!</h2>
-            <p style="color:#555;line-height:1.6;margin:0 0 24px;">We've received your gifting request from <strong>${lead.company}</strong>. We reply within 1 hour on business days, then send final pricing and customisation options for your pack.</p>
+            <h2 style="color:#0D3D2B;font-size:22px;margin:0 0 8px;">Thank you, ${escapeHtml(firstName)}!</h2>
+            <p style="color:#555;line-height:1.6;margin:0 0 24px;">We've received your request${company ? ` from <strong>${escapeHtml(company)}</strong>` : ''}. We reply within 1 hour on business days${leadItems.length ? ', then send final pricing and customisation options for your pack' : ''}.</p>
             <div style="background:#f5f2ec;border-radius:8px;padding:16px 20px;margin-bottom:28px;text-align:center;">
               <p style="margin:0;color:#666;font-size:13px;letter-spacing:1px;">YOUR REFERENCE CODE</p>
               <p style="margin:8px 0 0;color:#0D3D2B;font-size:24px;font-weight:700;letter-spacing:3px;">${refCode}</p>
             </div>
-            <h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Details You Shared</h3>
+            <h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Details you shared</h3>
             <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;">
-              <tr><td style="padding:6px 0;color:#666;width:140px;">Name</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.name}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Company</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.company || ' - '}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Email</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.email}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Phone</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.phone || ' - '}</td></tr>
-              <tr><td style="padding:6px 0;color:#666;">Occasion</td><td style="padding:6px 0;color:#1a1a1a;font-weight:500;">${lead.occasion ? formatOccasion(lead.occasion) : ' - '}</td></tr>
+              ${row('Name', lead.name)}
+              ${company ? row('Company', company) : ''}
+              ${row('Email', lead.email)}
+              ${lead.phone ? row('Phone', lead.phone) : ''}
+              ${lead.occasion ? row('Occasion', formatOccasion(lead.occasion)) : ''}
             </table>
-            ${lead.notes ? `<div style="margin:0 0 20px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;">${lead.notes}</p></div>` : ''}
-            <h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Your Pack Summary</h3>
+            ${asked ? `<h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Your request</h3><div style="margin:0 0 20px;padding:12px 16px;background:#f5f2ec;border-left:3px solid #C9A84C;border-radius:4px;"><p style="margin:0;color:#555;font-size:14px;line-height:1.6;">${escapeHtml(asked).replace(/\n/g, '<br>')}</p></div>` : ''}
+            ${
+              leadItems.length
+                ? `<h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Your pack summary</h3>
             <ul style="list-style:none;padding:0;margin:0 0 16px;">
               ${itemList}
             </ul>
-            <p style="text-align:right;margin:0;font-weight:700;color:#0D3D2B;font-size:16px;">Estimated Total: ₹${estimatedTotal.toLocaleString('en-IN')}</p>
-            <p style="margin:24px 0 0;color:#888;font-size:12px;">* Final pricing may vary based on quantity, customisation, and delivery. We'll send you a detailed quote soon.</p>
+            ${estimatedTotal > 0 ? `<p style="text-align:right;margin:0;font-weight:700;color:#0D3D2B;font-size:16px;">Estimated total: ₹${estimatedTotal.toLocaleString('en-IN')}</p>` : ''}
+            <p style="margin:24px 0 0;color:#888;font-size:12px;">* Final pricing may vary based on quantity, customisation, and delivery. We'll send you a detailed quote soon.</p>`
+                : ''
+            }
           </td>
         </tr>
         <tr>
           <td style="background:#0D3D2B;padding:20px 32px;text-align:center;">
             <p style="margin:0;color:#a8c4b8;font-size:13px;">Questions? Email us at <a href="mailto:hello@themintbox.in" style="color:#C9A84C;">hello@themintbox.in</a></p>
-            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© 2025 MintBox - themintbox.in</p>
+            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© ${new Date().getFullYear()} MintBox - themintbox.in</p>
           </td>
         </tr>
       </table>
@@ -262,9 +280,13 @@ export async function POST(req: NextRequest) {
     // relationship (the product name is still kept) so a bad id can never
     // reject the whole lead.
     const items = (Array.isArray(body.items) ? body.items : []).map((item) => ({
-      ...item,
       productId: /^\d+$/.test(String(item.productId ?? '')) ? String(item.productId) : '',
+      productName: String(item.productName ?? '').slice(0, 300),
+      quantity: Math.max(0, Number(item.quantity) || 0),
+      unitPrice: Math.max(0, Number(item.unitPrice) || 0),
     }))
+    // The email templates read body.items; give them the cleaned values.
+    body.items = items
     const estimatedTotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
     const company = body.company?.trim() || 'Not provided'
 

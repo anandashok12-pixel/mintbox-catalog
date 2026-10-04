@@ -47,6 +47,7 @@ export default function PaperworkForm() {
           phone: phone.trim(),
           occasion: 'diwali',
           notes: `Requested: ${packs.map(k => PACKS.find(p => p.key === k)!.label).join(', ')}\nLanding page: Diwali ads, paperwork section`,
+          summary: `You asked for: ${packs.map(k => PACKS.find(p => p.key === k)!.label.toLowerCase()).join(' and ')}. We email the documents today.`,
           items: [],
           attribution: getAttribution(),
         }),

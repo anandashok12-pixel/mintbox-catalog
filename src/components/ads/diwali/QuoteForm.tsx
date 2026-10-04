@@ -89,6 +89,10 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
             `Landing page: Diwali ads (${adGroup})`,
           ].filter(Boolean).join('\n'),
           items: hampers.map(h => ({ productId: Number(h.id), productName: h.name, quantity: band.low, unitPrice: h.price })),
+          summary: [
+            `A written quote for ${band.label} gifts at ${budgetLabel(budget!)} each, needed by ${new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}.`,
+            hampers.length ? `Hampers you picked: ${hampers.map(h => h.name).join(', ')}.` : '',
+          ].filter(Boolean).join('\n'),
           attribution: getAttribution(),
         }),
       })
