@@ -233,10 +233,13 @@ export async function POST(req: NextRequest) {
   try {
     const body: LeadRequest = await req.json()
 
-    const { name, email } = body
+    const { name } = body
     const phone = typeof body.phone === 'string' ? body.phone.trim() : ''
-    if (!name || !email || !phone) {
-      return NextResponse.json({ error: 'Missing required fields: name, email, phone' }, { status: 400 })
+    const givenEmail = typeof body.email === 'string' ? body.email.trim() : ''
+    // Email is optional for phone-first forms (the Diwali catalogue pop-up);
+    // name and phone are always required.
+    if (!name || !phone) {
+      return NextResponse.json({ error: 'Missing required fields: name, phone' }, { status: 400 })
     }
     if (!isValidPhone(phone)) {
       return NextResponse.json({ error: 'Please enter a valid phone number' }, { status: 400 })
@@ -244,11 +247,24 @@ export async function POST(req: NextRequest) {
     body.phone = phone
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (givenEmail && !emailRegex.test(givenEmail)) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 })
     }
+    // leads.email is NOT NULL in the database. Rather than migrate production
+    // for this, phone-only leads get a placeholder on the reserved .invalid TLD
+    // (it can never deliver), and no confirmation email is sent to them.
+    const hasEmail = Boolean(givenEmail)
+    const email = hasEmail ? givenEmail : `phone-${phone.replace(/\D/g, '')}@no-email.invalid`
+    body.email = hasEmail ? givenEmail : 'Not provided (phone only)'
 
-    const items = Array.isArray(body.items) ? body.items : []
+    // Product ids arrive as strings from some forms; the relationship needs
+    // the numeric id. Anything that is not a numeric id is dropped from the
+    // relationship (the product name is still kept) so a bad id can never
+    // reject the whole lead.
+    const items = (Array.isArray(body.items) ? body.items : []).map((item) => ({
+      ...item,
+      productId: /^\d+$/.test(String(item.productId ?? '')) ? String(item.productId) : '',
+    }))
     const estimatedTotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
     const company = body.company?.trim() || 'Not provided'
 
@@ -289,7 +305,7 @@ export async function POST(req: NextRequest) {
         occasion: occasion as any,
         notes,
         items: items.map((item) => ({
-          product: item.productId,
+          product: item.productId ? Number(item.productId) : undefined,
           productName: item.productName,
           quantity: item.quantity,
           unitPrice: item.unitPrice,
@@ -333,12 +349,14 @@ export async function POST(req: NextRequest) {
           formPage,
         }),
       }),
-      resend.emails.send({
-        from: 'MintBox <noreply@themintbox.in>',
-        to: email,
-        subject: `Your MintBox request is confirmed - ${refCode}`,
-        html: customerEmailHtml(body, refCode, estimatedTotal),
-      }),
+      hasEmail
+        ? resend.emails.send({
+            from: 'MintBox <noreply@themintbox.in>',
+            to: email,
+            subject: `Your MintBox request is confirmed - ${refCode}`,
+            html: customerEmailHtml(body, refCode, estimatedTotal),
+          })
+        : Promise.reject(new Error('No email given; confirmation skipped')),
     ])
 
     const teamEmailSent = teamMailResult.status === 'fulfilled'
@@ -347,7 +365,7 @@ export async function POST(req: NextRequest) {
     if (!teamEmailSent) {
       console.error('Team lead email send failed:', teamMailResult.reason)
     }
-    if (!confirmationEmailSent) {
+    if (!confirmationEmailSent && hasEmail) {
       console.error('Customer confirmation email send failed:', customerMailResult.reason)
     }
 

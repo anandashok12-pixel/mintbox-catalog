@@ -21,11 +21,9 @@ function tomorrowISO(): string {
 type Errors = Partial<Record<'qty' | 'budget' | 'date' | 'name' | 'email' | 'phone' | 'form', string>>
 
 /**
- * Two-step catalogue request. The catalogue is the offer (more people will
- * ask for it than for a quote); the quote is the follow-up, priced from the
- * quantity, budget and date captured in step 1. Step 1 is three choices with
- * no typing, so more visitors start; step 2 asks for contact details. Posts
- * to /api/leads like every other form on the site.
+ * Two-step quote request. Step 1 is three choices with no typing, so more
+ * visitors start; step 2 asks for contact details. Posts to /api/leads like
+ * every other form on the site. (The catalogue has its own pop-up in the nav.)
  */
 export default function QuoteForm({ adGroup }: { adGroup: string }) {
   const router = useRouter()
@@ -48,7 +46,7 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
     if (!date) e.date = 'Choose the date you need them by.'
     setErrors(e)
     if (Object.keys(e).length) return
-    track('catalogue_step_1', { quantity_band: qty, budget_band: budget })
+    track('quote_step_1', { quantity_band: qty, budget_band: budget })
     setStep(2)
     requestAnimationFrame(() => nameRef.current?.focus())
   }
@@ -83,14 +81,14 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
           company: company.trim() || undefined,
           occasion: 'diwali',
           notes: [
-            'Requested: Diwali catalogue with prices, then a written quote',
+            'Requested: written quote',
             `Number of gifts: ${band.label}`,
             `Budget per gift: ${budgetLabel(budget!)}`,
             `Needed by: ${date}`,
             hampers.length ? `Hampers of interest: ${hampers.map(h => `${h.name} (#${h.id})`).join('; ')}` : '',
             `Landing page: Diwali ads (${adGroup})`,
           ].filter(Boolean).join('\n'),
-          items: hampers.map(h => ({ productId: h.id, productName: h.name, quantity: band.low, unitPrice: h.price })),
+          items: hampers.map(h => ({ productId: Number(h.id), productName: h.name, quantity: band.low, unitPrice: h.price })),
           attribution: getAttribution(),
         }),
       })
@@ -98,7 +96,7 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
       if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.')
 
       track('generate_lead', {
-        lead_type: 'catalogue',
+        lead_type: 'quote',
         currency: 'INR',
         value: band.mid * BUDGET_MID[budget!],
         quantity_band: band.key,
@@ -121,15 +119,15 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
     ) : null
 
   return (
-    <form className="dl-form" onSubmit={submit} noValidate aria-label="Request the Diwali catalogue">
+    <form className="dl-form" onSubmit={submit} noValidate aria-label="Request a Diwali gifting quote">
       <div className="dl-form-head">
-        <h2 className="dl-form-title">{step === 1 ? 'Get the Diwali catalogue' : 'Where should we send it?'}</h2>
+        <h2 className="dl-form-title">{step === 1 ? 'Get your quote' : 'Where should we send it?'}</h2>
         <span className="dl-form-progress" aria-live="polite">
           {step} of 2
         </span>
       </div>
       {step === 1 && (
-        <p className="dl-form-promise">With prices for your numbers, plus a written quote within 24 hours.</p>
+        <p className="dl-form-promise">A written quote for your numbers within 24 hours, branding and delivery included.</p>
       )}
 
       {hampers.length > 0 && (
@@ -258,7 +256,7 @@ export default function QuoteForm({ adGroup }: { adGroup: string }) {
           {errors.form && <p className="dl-form-error" role="alert">{errors.form}</p>}
 
           <button type="submit" className="dl-btn dl-btn--primary dl-btn--block" disabled={sending}>
-            {sending ? 'Sending…' : 'Send me the catalogue'}
+            {sending ? 'Sending…' : 'Send my request'}
           </button>
           <p className="dl-form-foot">We reply within 1 hour on business days. No payment until you approve the quote.</p>
         </div>

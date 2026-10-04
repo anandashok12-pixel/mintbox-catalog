@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { CheckCircle, DownloadSimple } from '@phosphor-icons/react/dist/ssr'
+import { CheckCircle } from '@phosphor-icons/react/dist/ssr'
 import PaperworkForm from '@/components/ads/diwali/PaperworkForm'
 import { WhatsAppLink } from '@/components/ads/diwali/Islands'
-import { CATALOGUE_PDF_URL } from '@/components/ads/diwali/offer'
 import '../diwali-ads.css'
 
 export const metadata: Metadata = {
-  title: 'Your Diwali catalogue | MintBox',
+  title: 'Request received | MintBox',
   robots: { index: false, follow: false },
 }
 
@@ -34,42 +33,19 @@ export default async function DiwaliAdsThanks({
         <div className="dl-wrap dl-paper">
           <div>
             <CheckCircle size={40} weight="fill" color="#b8972e" aria-hidden="true" />
-            {CATALOGUE_PDF_URL ? (
-              <>
-                <h1 className="dl-h1" style={{ marginTop: 16 }}>
-                  Your catalogue <em>is ready.</em>
-                </h1>
-                <p className="dl-lede">
-                  Download it below and forward it to whoever signs off. Your written quote, priced for your numbers, follows within 24 hours.
-                  {ref ? (
-                    <>
-                      {' '}Your reference is <strong>{ref}</strong>.
-                    </>
-                  ) : null}
-                </p>
-              </>
-            ) : (
-              <>
-                <h1 className="dl-h1" style={{ marginTop: 16 }}>
-                  Got it. <em>Your catalogue is on its way.</em>
-                </h1>
-                <p className="dl-lede">
-                  We send the Diwali catalogue with prices for your numbers on WhatsApp and email within 1 hour on
-                  business days, then your written quote within 24 hours.
-                  {ref ? (
-                    <>
-                      {' '}Your reference is <strong>{ref}</strong>.
-                    </>
-                  ) : null}
-                </p>
-              </>
-            )}
+            <h1 className="dl-h1" style={{ marginTop: 16 }}>
+              Got it. <em>Your quote is on its way.</em>
+            </h1>
+            <p className="dl-lede">
+              We reply within 1 hour on business days, on WhatsApp and email, and send your written quote within 24
+              hours.
+              {ref ? (
+                <>
+                  {' '}Your reference is <strong>{ref}</strong>.
+                </>
+              ) : null}
+            </p>
             <div className="dl-final-ctas" style={{ justifyContent: 'flex-start' }}>
-              {CATALOGUE_PDF_URL && (
-                <a href={CATALOGUE_PDF_URL} className="dl-btn dl-btn--primary" download>
-                  <DownloadSimple size={18} weight="bold" aria-hidden="true" /> Download the catalogue
-                </a>
-              )}
               <WhatsAppLink className="dl-btn dl-btn--wa" label="Chat with us now" />
             </div>
           </div>

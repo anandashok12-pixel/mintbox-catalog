@@ -33,6 +33,7 @@ import HamperPicker, { type SlimHamper, type TierTab } from '@/components/ads/di
 import PaperworkForm from '@/components/ads/diwali/PaperworkForm'
 import { MobileBar, RevealOnScroll, WhatsAppFloat, WhatsAppLink } from '@/components/ads/diwali/Islands'
 import { PRIMARY_CTA } from '@/components/ads/diwali/offer'
+import CatalogueButton from '@/components/ads/diwali/CatalogueModal'
 import './diwali-ads.css'
 
 // Google Ads landing page. Deliberately noindex: the organic page for the
@@ -213,7 +214,7 @@ export default async function DiwaliAdsLanding({
               <Phone size={18} weight="bold" aria-hidden="true" />
               <span>{PHONE_DISPLAY}</span>
             </a>
-            <a href="#quote" className="dl-btn dl-btn--light dl-btn--sm">{PRIMARY_CTA}</a>
+            <CatalogueButton className="dl-btn dl-btn--light dl-btn--sm dl-nav-cat" />
           </div>
         </nav>
       </header>
@@ -604,7 +605,7 @@ export default async function DiwaliAdsLanding({
         <section className="dl-final" aria-labelledby="dl-final-title">
           <div className="dl-wrap dl-final-inner dl-reveal">
             <h2 id="dl-final-title" className="dl-h2">Make this Diwali one <em>your team remembers.</em></h2>
-            <p className="dl-lede">Tell us how many gifts and your budget. We send the catalogue with prices for your numbers, then a written quote.</p>
+            <p className="dl-lede">Tell us how many gifts and your budget. We reply within 1 hour on business days, with a written quote within 24 hours.</p>
             <div className="dl-final-ctas">
               <a href="#quote" className="dl-btn dl-btn--primary dl-btn--lg">{PRIMARY_CTA}</a>
               <WhatsAppLink className="dl-btn dl-btn--wa dl-btn--lg" />
