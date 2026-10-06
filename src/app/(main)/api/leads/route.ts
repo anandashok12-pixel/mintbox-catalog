@@ -109,6 +109,14 @@ interface SourceSummary {
   formPage?: string
 }
 
+// Email clients need absolute URLs and a PNG (Gmail/Outlook drop WebP).
+const EMAIL_LOGO_URL = 'https://themintbox.in/email/mintbox-logo.png'
+const DIWALI_CATALOGUE_URL = 'https://drive.google.com/file/d/16bB4U9aXXF4XdpbhoEN7HxkufD17k4UH/view?usp=drive_link'
+
+function emailLogo(width: number): string {
+  return `<a href="https://themintbox.in" style="text-decoration:none;"><img src="${EMAIL_LOGO_URL}" width="${width}" height="${Math.round((width * 156) / 440)}" alt="MintBox" style="display:block;margin:0 auto;border:0;outline:none;"></a>`
+}
+
 function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: number, src: SourceSummary): string {
   const leadItems = lead.items ?? []
   const itemRows = leadItems
@@ -131,9 +139,9 @@ function teamEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: numbe
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(13,61,43,0.1);">
         <tr>
-          <td style="background:#0D3D2B;padding:28px 32px;">
-            <h1 style="margin:0;color:#C9A84C;font-size:24px;font-weight:700;letter-spacing:2px;">MINTBOX</h1>
-            <p style="margin:4px 0 0;color:#a8c4b8;font-size:13px;">New Quote Request - ${refCode}</p>
+          <td style="background:#ffffff;padding:24px 32px 18px;text-align:center;border-bottom:3px solid #C9A84C;">
+            ${emailLogo(150)}
+            <p style="margin:10px 0 0;color:#0D3D2B;font-size:13px;font-weight:600;">New Quote Request - ${refCode}</p>
           </td>
         </tr>
         <tr>
@@ -200,9 +208,9 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(13,61,43,0.1);">
         <tr>
-          <td style="background:#0D3D2B;padding:32px;text-align:center;">
-            <h1 style="margin:0;color:#C9A84C;font-size:28px;font-weight:700;letter-spacing:3px;">MINTBOX</h1>
-            <p style="margin:8px 0 0;color:#a8c4b8;font-size:14px;">Premium Corporate Gifting</p>
+          <td style="background:#ffffff;padding:32px 32px 22px;text-align:center;border-bottom:3px solid #C9A84C;">
+            ${emailLogo(220)}
+            <p style="margin:12px 0 0;color:#5b7a6c;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Premium Corporate Gifting</p>
           </td>
         </tr>
         <tr>
@@ -213,6 +221,13 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
               <p style="margin:0;color:#666;font-size:13px;letter-spacing:1px;">YOUR REFERENCE CODE</p>
               <p style="margin:8px 0 0;color:#0D3D2B;font-size:24px;font-weight:700;letter-spacing:3px;">${refCode}</p>
             </div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;background:#0D3D2B;border-radius:8px;">
+              <tr><td style="padding:22px 24px;text-align:center;">
+                <p style="margin:0;color:#C9A84C;font-size:12px;font-weight:700;letter-spacing:2px;">DIWALI 2026 CATALOGUE</p>
+                <p style="margin:8px 0 16px;color:#e4ede8;font-size:14px;line-height:1.5;">While we prepare your quote, browse our hampers, gift boxes and executive sets.</p>
+                <a href="${DIWALI_CATALOGUE_URL}" style="display:inline-block;padding:12px 24px;background:#C9A84C;color:#0D3D2B;font-size:14px;font-weight:700;text-decoration:none;border-radius:6px;">Explore &amp; download the catalogue</a>
+              </td></tr>
+            </table>
             <h3 style="color:#0D3D2B;font-size:16px;margin:0 0 12px;">Details you shared</h3>
             <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;">
               ${row('Name', lead.name)}
@@ -237,7 +252,7 @@ function customerEmailHtml(lead: LeadRequest, refCode: string, estimatedTotal: n
         <tr>
           <td style="background:#0D3D2B;padding:20px 32px;text-align:center;">
             <p style="margin:0;color:#a8c4b8;font-size:13px;">Questions? Email us at <a href="mailto:hello@themintbox.in" style="color:#C9A84C;">hello@themintbox.in</a></p>
-            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© ${new Date().getFullYear()} MintBox - themintbox.in</p>
+            <p style="margin:8px 0 0;color:#6a9d8a;font-size:12px;">© ${new Date().getFullYear()} MintBox - <a href="https://themintbox.in" style="color:#C9A84C;text-decoration:none;">themintbox.in</a></p>
           </td>
         </tr>
       </table>
