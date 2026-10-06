@@ -163,6 +163,17 @@ export async function updateMessage(token: string, id: string | number, data: Pa
   await request(`/api/messages/${id}`, { method: 'PATCH', body: JSON.stringify(data) }, token)
 }
 
+/** File many messages under one deal (or none) in a single bulk PATCH. */
+export async function tagMessages(token: string, ids: (string | number)[], dealId: string | number | null): Promise<void> {
+  if (ids.length === 0) return
+  const where = ids.map((id, index) => `where[id][in][${index}]=${encodeURIComponent(String(id))}`).join('&')
+  await request(`/api/messages?${where}&limit=${ids.length}&depth=0`, {
+    method: 'PATCH',
+    // Postgres ids are numeric; the UI keys deals by string.
+    body: JSON.stringify({ deal: dealId === null || Number.isNaN(Number(dealId)) ? dealId : Number(dealId) }),
+  }, token)
+}
+
 export async function getTasks(token: string): Promise<Task[]> {
   const result = await request<PaginatedResponse<Task>>(
     '/api/tasks?limit=500&sort=-createdAt',

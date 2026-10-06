@@ -218,14 +218,31 @@ export async function POST(req: NextRequest) {
         // current for the common case. Two genuinely simultaneous open
         // enquiries with the same contact is the one case this gets wrong,
         // and it's a manual-merge situation either way (see the PRD).
-        const activeDeal = await payload.find({
-          collection: 'deals',
-          where: { and: [{ contact: { equals: contactId } }, { stage: { not_in: ['won', 'lost'] } }] },
-          sort: '-updatedAt',
+        //
+        // A chat someone tagged in the CRM wins over that guess while its deal
+        // is open - including a supplier's chat filed under a customer deal,
+        // whose contact would otherwise never match.
+        const lastTagged = await payload.find({
+          collection: 'messages',
+          where: { and: [{ contact: { equals: contactId } }, { channel: { equals: 'whatsapp' } }, { deal: { exists: true } }] },
+          sort: '-sentAt',
           limit: 1,
-          depth: 0,
+          depth: 1,
         })
-        const dealId = activeDeal.docs[0]?.id
+        const taggedDeal = lastTagged.docs[0]?.deal
+        let dealId = taggedDeal && typeof taggedDeal === 'object' && !['won', 'lost'].includes(taggedDeal.stage || '')
+          ? taggedDeal.id
+          : undefined
+        if (!dealId) {
+          const activeDeal = await payload.find({
+            collection: 'deals',
+            where: { and: [{ contact: { equals: contactId } }, { stage: { not_in: ['won', 'lost'] } }] },
+            sort: '-updatedAt',
+            limit: 1,
+            depth: 0,
+          })
+          dealId = activeDeal.docs[0]?.id
+        }
 
         // No automatic deals: a chat with no open deal is stored against the
         // contact only. Friends, vendors and past customers write to this

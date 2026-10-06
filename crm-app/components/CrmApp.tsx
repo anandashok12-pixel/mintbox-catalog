@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, requestWhatsappQr, createDeal, updateMessage, updateContact, updateDeal, updateTask } from '@/lib/payload'
+import { ApiError, refreshSession, createTask, deleteTask, getCurrentUser, getDeals, getEmailMessages, getGmailSync, getTasks, getWhatsappMessages, getWhatsappSession, login as payloadLogin, requestWhatsappQr, createDeal, tagMessages, updateMessage, updateContact, updateDeal, updateTask } from '@/lib/payload'
 import type { Contact, Deal, GmailSyncState, Message, Stage, Task, User, WhatsappSession } from '@/lib/types'
 import { AnalyticsIcon, BoardIcon, LogOutIcon, PlusIcon, MailIcon, QueueIcon, RefreshIcon, SearchIcon, TaskIcon, WhatsAppIcon } from './Icons'
 import { LoginScreen } from './LoginScreen'
@@ -255,6 +255,40 @@ export function CrmApp() {
     }
   }
 
+  /**
+   * Tag chat messages with a deal (or clear it). The Messages hook only
+   * stamps deal activity on create, so pull the deal's last-message times
+   * forward here when the newly filed messages are more recent.
+   */
+  async function tagMessagesToDeal(rows: Message[], dealId: string | null) {
+    if (!token || rows.length === 0) return
+    const ids = new Set(rows.map((m) => String(m.id)))
+    try {
+      await tagMessages(token, [...ids], dealId)
+      setMessages((current) => current.map((m) => ids.has(String(m.id)) ? { ...m, deal: dealId } : m))
+      const deal = dealId ? deals.find((d) => String(d.id) === dealId) : undefined
+      if (!deal) return
+      const latest = (direction?: Message['direction']) => rows
+        .filter((m) => !direction || m.direction === direction)
+        .reduce<string | null>((max, m) => (!max || m.sentAt > max ? m.sentAt : max), null)
+      const later = (candidate: string | null, existing?: string | null) =>
+        candidate && (!existing || new Date(candidate) > new Date(existing)) ? candidate : undefined
+      const patch: Partial<Deal> = {
+        lastMessageAt: later(latest(), deal.lastMessageAt),
+        lastInboundMessageAt: later(latest('inbound'), deal.lastInboundMessageAt),
+        lastOutboundMessageAt: later(latest('outbound'), deal.lastOutboundMessageAt),
+      }
+      const changed = Object.fromEntries(Object.entries(patch).filter(([, value]) => value))
+      if (Object.keys(changed).length > 0) {
+        const updated = await updateDeal(token, deal.id, changed)
+        setDeals((current) => current.map((d) => d.id === updated.id ? updated : d))
+      }
+    } catch (cause) {
+      void loadWhatsapp(token)
+      setError(cause instanceof Error ? cause.message : 'Could not tag the chat')
+    }
+  }
+
   async function snooze(deal: Deal, days: number) {
     await patchDeal(deal, { nextActionAt: new Date(Date.now() + days * 86_400_000).toISOString() })
   }
@@ -396,7 +430,7 @@ export function CrmApp() {
         <main className="app-main">
           {view === 'queue' && <QueueView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onSnooze={snooze} />}
           {view === 'board' && <BoardView deals={filteredDeals} onOpen={(deal) => setSelectedDealId(deal.id)} onMove={moveDeal} />}
-          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} deals={deals} onOpenDeal={(deal) => setSelectedDealId(deal.id)} onTurnIntoDeal={(contact) => turnIntoDeal(contact, 'whatsapp')} onRequestQr={async () => { if (!token) return; await requestWhatsappQr(token); await loadWhatsapp(token) }} />}
+          {view === 'whatsapp' && <WhatsappView session={whatsappSession} messages={messages} loading={whatsappLoading} error={whatsappError} onRefresh={() => token ? loadWhatsapp(token) : Promise.resolve()} deals={deals} onOpenDeal={(deal) => setSelectedDealId(deal.id)} onTurnIntoDeal={(contact) => turnIntoDeal(contact, 'whatsapp')} onTagMessages={tagMessagesToDeal} onRequestQr={async () => { if (!token) return; await requestWhatsappQr(token); await loadWhatsapp(token) }} />}
           {view === 'email' && <EmailView key={emailFocus?.nonce ?? 0} token={token} messages={emails} sync={gmailSync} loading={emailLoading} error={emailError} focus={emailFocus?.focus ?? null} onRefresh={() => loadEmail(token)} onSent={(message) => { void loadEmail(token); setEmails((current) => [message, ...current]) }} deals={deals} onOpenDeal={(deal) => setSelectedDealId(deal.id)} onTurnIntoDeal={(contact) => turnIntoDeal(contact, 'email')} />}
           {view === 'analytics' && <AnalyticsView deals={deals} messages={messages} whatsappSession={whatsappSession} />}
           {view === 'tasks' && <TaskView tasks={tasks} deals={deals} onAdd={addTask} onToggle={toggleTask} onDelete={removeTask} onDue={rescheduleTask} onPatchDealTasks={(deal, next) => patchDeal(deal, { tasks: next }).catch(() => undefined)} onOpenDeal={(deal) => setSelectedDealId(deal.id)} />}

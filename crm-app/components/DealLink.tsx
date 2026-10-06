@@ -12,6 +12,14 @@ export function openDealFor(deals: Deal[], contact: Contact | null): Deal | null
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())[0] || null
 }
 
+export function dealContactId(deal: Deal) {
+  return typeof deal.contact === 'object' ? deal.contact.id : deal.contact
+}
+
+export function isClosed(deal: Deal) {
+  return deal.stage === 'won' || deal.stage === 'lost'
+}
+
 /**
  * Conversation-header button: "Open deal" when the person already has an
  * open deal, otherwise "Turn into deal" (chats never create deals by

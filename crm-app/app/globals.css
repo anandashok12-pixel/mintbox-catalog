@@ -599,3 +599,24 @@ button.mailbox-chip:disabled { cursor: wait; opacity: .7; }
   .view-refresh { display: none; }
 }
 .drawer-actions .action-button { white-space: nowrap; }
+
+/* ---- WhatsApp chats tagged by deal ---- */
+.conversation-list > header { gap: 10px; }
+.conversation-filter { min-width: 0; max-width: 190px; height: 30px; padding: 0 8px; border: 1px solid var(--border); border-radius: 6px; background: white; color: var(--text); font-size: 11px; font-weight: 600; }
+.conversation-empty { margin: 0; padding: 18px 14px; color: var(--muted); font-size: 11px; }
+.deal-tags { min-width: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+.deal-tag { max-width: 100%; padding: 2px 7px; border-radius: 999px; background: var(--blue-soft); color: #2455b4; font-size: 10.5px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deal-tag-won { background: var(--green-soft); color: #236f42; }
+.deal-tag-lost { background: #f1f2f4; color: var(--faint); text-decoration: line-through; }
+.deal-picker { height: 32px; padding: 0 4px 0 10px; border: 1px dashed var(--border-strong); border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; background: white; }
+.deal-picker.is-tagged { border-style: solid; border-color: #aebce0; background: var(--blue-soft); }
+.deal-picker > span { color: var(--muted); font-size: 11px; font-weight: 650; }
+.deal-picker select { max-width: 220px; height: 28px; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 11px; font-weight: 650; cursor: pointer; }
+@media (max-width: 650px) {
+  .chat-panel > header { flex-wrap: wrap; height: auto; padding-block: 8px; }
+  .chat-panel { grid-template-rows: auto 1fr; }
+  .chat-panel > header > .chat-actions { width: 100%; }
+  .deal-picker { flex: 1; min-width: 0; height: 40px; }
+  .deal-picker select { flex: 1; max-width: none; min-width: 0; height: 38px; }
+  .conversation-filter { height: 34px; }
+}
