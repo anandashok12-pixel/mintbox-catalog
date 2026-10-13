@@ -1,9 +1,13 @@
 import type { CollectionConfig } from 'payload'
 import { anyone, authenticated } from '../access/authenticated'
+import { revalidateCatalog } from '../lib/catalogCache'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
   hooks: {
+    // /catalog caches its product query (src/app/(main)/catalog/page.tsx).
+    afterChange: [({ doc }) => { revalidateCatalog(); return doc }],
+    afterDelete: [({ doc }) => { revalidateCatalog(); return doc }],
     beforeValidate: [
       ({ data }) => {
         if (!data?.slug && data?.name) {

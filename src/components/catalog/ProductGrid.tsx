@@ -1,7 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import { useCartStore } from '@/lib/cartStore'
+import ProductCardImage from './ProductCardImage'
 
 interface Feature {
   feature: string
@@ -116,19 +116,11 @@ export default function ProductGrid({
                 >
                   <div className="product-card-image">
                     {imageUrl ? (
-                      <Image
+                      <ProductCardImage
                         src={imageUrl}
                         alt={product.name}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
                         // First row of the first section is above the fold.
-                        loading={groupIndex === 0 && i < 4 ? 'eager' : 'lazy'}
-                        // TEMPORARY: Vercel Image Optimization quota is exhausted
-                        // (402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED), so serve
-                        // originals straight from Blob CDN. Remove once the plan is
-                        // upgraded so AVIF/WebP variants come back.
-                        unoptimized
-                        style={{ objectFit: 'cover' }}
+                        eager={groupIndex === 0 && i < 4}
                       />
                     ) : product.emoji ? (
                       <span className="product-card-emoji" aria-hidden="true">{product.emoji}</span>

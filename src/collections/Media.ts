@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { anyone, authenticated } from '../access/authenticated'
+import { deleteCardThumb, generateCardThumb } from '../lib/cardThumb'
+import { revalidateCatalog } from '../lib/catalogCache'
 
 // Media URLs are generated from payload's serverURL (NEXT_PUBLIC_URL), which
 // historically pointed at mintbox-catalog.vercel.app. Rendering those absolute
@@ -32,6 +34,35 @@ export const Media: CollectionConfig = {
             if (size && typeof size === 'object') size.url = stripMediaOrigin(size.url)
           }
         }
+        return doc
+      },
+    ],
+    // Catalogue cards load a 600px WebP thumbnail from card/<filename>.webp
+    // in Blob (see src/lib/cardImage.ts). Generate it whenever a file lands.
+    // Never fail the upload over it: the card falls back to the original.
+    afterChange: [
+      async ({ doc, previousDoc, operation, req }) => {
+        const isImage = typeof doc.mimeType === 'string' && doc.mimeType.startsWith('image/') && doc.mimeType !== 'image/svg+xml'
+        if (doc.filename && isImage && (operation === 'create' || doc.filename !== previousDoc?.filename)) {
+          try {
+            await generateCardThumb(doc.filename)
+          } catch (err) {
+            req.payload.logger.error({ err, msg: `[media] card thumbnail failed for ${doc.filename}` })
+          }
+        }
+        revalidateCatalog()
+        return doc
+      },
+    ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        if (!doc.filename) return doc
+        try {
+          await deleteCardThumb(doc.filename)
+        } catch (err) {
+          req.payload.logger.error({ err, msg: `[media] card thumbnail delete failed for ${doc.filename}` })
+        }
+        revalidateCatalog()
         return doc
       },
     ],

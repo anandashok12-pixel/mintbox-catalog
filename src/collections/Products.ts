@@ -1,8 +1,14 @@
 import type { CollectionConfig } from 'payload'
 import { anyone, authenticated } from '../access/authenticated'
+import { revalidateCatalog } from '../lib/catalogCache'
 
 export const Products: CollectionConfig = {
   slug: 'products',
+  hooks: {
+    // /catalog caches its product query (src/app/(main)/catalog/page.tsx).
+    afterChange: [({ doc }) => { revalidateCatalog(); return doc }],
+    afterDelete: [({ doc }) => { revalidateCatalog(); return doc }],
+  },
   access: {
     read: anyone,
     create: authenticated,
