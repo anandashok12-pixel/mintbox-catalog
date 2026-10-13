@@ -9,15 +9,22 @@ interface ProductCardImageProps {
   src: string
   alt: string
   eager?: boolean
+  /** Responsive sizes hint; defaults to the catalogue grid's. */
+  sizes?: string
 }
 
 /**
- * Catalogue card image. Loads the pre-generated 600px WebP thumbnail
+ * Product card image (catalogue grid, Diwali hamper showcase). Loads the pre-generated 600px WebP thumbnail
  * (card/<filename>.webp in Blob, ~30 KB) instead of the ~300 KB original,
  * and falls back to the original if a thumbnail is missing (e.g. its
  * generation failed at upload time).
  */
-export default function ProductCardImage({ src, alt, eager = false }: ProductCardImageProps) {
+export default function ProductCardImage({
+  src,
+  alt,
+  eager = false,
+  sizes = '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px',
+}: ProductCardImageProps) {
   const thumb = cardImageUrl(src)
   const [failed, setFailed] = useState(false)
 
@@ -33,7 +40,7 @@ export default function ProductCardImage({ src, alt, eager = false }: ProductCar
       src={thumb && !failed ? thumb : src}
       alt={alt}
       fill
-      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+      sizes={sizes}
       loading={eager ? 'eager' : 'lazy'}
       // Thumbnails are already card-sized WebP, so skip the Vercel optimizer
       // (its quota ran out in Aug 2026 and 630 cards would exhaust it again).

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react'
-import Image from 'next/image'
+import ProductCardImage from '@/components/catalog/ProductCardImage'
 import { useCartStore } from '@/lib/cartStore'
 import ProductModal from '@/components/modals/ProductModal'
 import LeadModal from '@/components/modals/LeadModal'
@@ -232,20 +232,17 @@ export default function DiwaliHamperShowcase({
               </div>
               <div className="dh-grid">
                 {g.items.map(p => {
-                  const img = p.image?.sizes?.card?.url || p.image?.url || null
+                  const img = p.image?.url || null
                   const qty = inPack(p.id)
                   const feats = p.features ?? []
                   return (
                     <article key={p.id} id={`product-${p.id}`} className="dh-card">
                       <button type="button" className="dh-card-media" onClick={() => setSelected(p)} aria-label={`View details: ${p.name}`}>
                         {img ? (
-                          <Image
+                          <ProductCardImage
                             src={img}
                             alt={p.image?.alt || `${p.name} - corporate Diwali gift hamper by MintBox`}
-                            width={600}
-                            height={600}
                             sizes="(max-width: 480px) 50vw, (max-width: 1024px) 33vw, 280px"
-                            unoptimized
                           />
                         ) : (
                           <span className="cp-product-emoji" aria-hidden="true">{p.emoji || '🪔'}</span>
